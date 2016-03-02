@@ -1,0 +1,21 @@
+{
+  "name": "SchoolSite",
+  "homepage": "https://github.com/Sumragen/schoolSite",
+  "description": "site",
+  "main": "index",
+  "moduleType": [],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-strap": "^2.3.7",
+    "angular-motion": "^0.4.3",
+    "angular-sanitize": "^1.5.0",
+    "angular-animate": "^1.5.0"
+  }
+}

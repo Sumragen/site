@@ -1,0 +1,37 @@
+.info-window-container {
+    max-width: 250px;
+    min-width: 150px;
+}
+
+.title {
+    font-size: 16px;
+    margin: 0 auto;
+    width: 40px;
+}
+
+.info-window-container label {
+    width: 100px;
+    display: block;
+    float: left;
+}
+
+.info-window-container input {
+    width: 140px;
+}
+
+.custom-holder {
+    margin-top: 10px;
+}
+
+.custom-title {
+    color: black;
+    padding: 2px;
+    font-size: 14px;
+    cursor: pointer;
+    background-color: #25aeff;
+    border-radius: 5px;
+}
+
+.custom-title:hover {
+    background-color: #31beff;
+}

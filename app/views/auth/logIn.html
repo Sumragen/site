@@ -1,21 +1,26 @@
 <div id="custom-modal">
     <div id="sign-in">
-        <form role="form" ng-submit="close()">
-            <p><h2>Sign In</h2></p>
+        <div ng-show="error" class="alert alert-danger">{{error}}</div>
+        <form role="form" ng-submit="auth.signIn(username,password)">
+            <p>
+            <h2>Sign In</h2></p>
             <div class="form-group">
-                <input type="text" name="username" ng-model="username" id="username" class="form-control" placeholder="Enter login"/>
+                <input type="text" name="username" ng-model="username" id="username" class="form-control"
+                       placeholder="Enter login"/>
             </div>
             <div class="form-group">
-                <input type="password" name="password" ng-model="password" id="password" class="form-control" placeholder="Password" required/>
+                <input type="password" name="password" ng-model="password" id="password" class="form-control"
+                       placeholder="Password" required/>
             </div>
             <div class="form-actions">
-            <button type="reset" class="btn btn-default" ng-click="close()"
-                    style="margin-left: 200px;padding-left: 50px;padding-right: 50px">Cancel</button>
-            <button type="submit" class="btn btn-default"
-                    style="margin-left: 10px;padding-left: 50px;padding-right: 50px">Submit</button>
+                <button type="reset" class="btn btn-default" ng-click="auth.close()"
+                        style="margin-left: 200px;padding-left: 50px;padding-right: 50px">Cancel
+                </button>
+                <button type="submit" class="btn btn-default"
+                        style="margin-left: 10px;padding-left: 50px;padding-right: 50px">Submit
+                </button>
             </div>
         </form>
     </div>
     <div id="fade"></div>
-
 </div>

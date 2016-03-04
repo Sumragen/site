@@ -1,7 +1,8 @@
 <div id="custom-modal">
+    <div id="fade"></div>
     <div id="sign-in">
         <div ng-show="error" class="alert alert-danger">{{error}}</div>
-        <form role="form" ng-submit="auth.signIn(username,password)">
+        <form role="form" name="form" ng-submit="auth.signIn(username,password)">
             <p>
             <h2>Sign In</h2></p>
             <div class="form-group">
@@ -16,11 +17,10 @@
                 <button type="reset" class="btn btn-default" ng-click="auth.close()"
                         style="margin-left: 200px;padding-left: 50px;padding-right: 50px">Cancel
                 </button>
-                <button type="submit" class="btn btn-default"
+                <button type="submit" class="btn btn-default" ng-disabled="form.$invalid"
                         style="margin-left: 10px;padding-left: 50px;padding-right: 50px">Submit
                 </button>
             </div>
         </form>
     </div>
-    <div id="fade"></div>
 </div>

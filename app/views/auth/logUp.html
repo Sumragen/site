@@ -9,10 +9,10 @@
                 <input class="form-control"  type="text" placeholder="Login" ng-model="login"/>
             </div>
             <div class="form-group">
-                <input class="form-control" type="password" placeholder="Password" ng-model="password"/>
+                <input class="form-control" type="password" placeholder="Password" ng-model="password" name="password"/>
             </div>
             <div class="form-group">
-                <input class="form-control" type="password" placeholder="Repeat password"/>
+                <input class="form-control" type="password" placeholder="Repeat password" ng-model="confirmPassword" name="confirmPassword"/>
             </div>
             <button type="reset" class="btn btn-default" ng-click="auth.close()"
                     style="margin-left: 200px;padding-left: 50px;padding-right: 50px">Cancel</button>

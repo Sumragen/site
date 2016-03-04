@@ -16,7 +16,13 @@ define(
                     login: 'root',
                     password: 'root'
                 }];
+            var isAuth = false;
 
+            $httpBackend.whenGET('/api/authenticate').respond(isAuth);
+            $httpBackend.whenPOST('/api/authenticate').respond(function (method, url, data) {
+                isAuth = data;
+                return [200, isAuth, {}];
+            });
             $httpBackend.whenGET('/users').respond(users);
             $httpBackend.whenPOST('/users').respond(function(method, url, data) {
                 var user = angular.fromJson(data);

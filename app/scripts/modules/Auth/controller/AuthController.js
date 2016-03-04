@@ -2,7 +2,7 @@
  * Created by sumragen on 2/27/16.
  */
 define(['../module'], function (module) {
-    module.controller('AuthController', ['$scope', 'close', '$http', 'AuthService', function ($scope, close, $http, AuthService) {
+    module.controller('AuthController', ['$scope', 'close', '$http', 'AuthService', function ($scope, close, $http) {
         var self = this;
 
         self.close = close;
@@ -23,19 +23,19 @@ define(['../module'], function (module) {
         self.signIn = function (currentLogin, currentPassword) {
             console.log('signIn');
             $http.get('/users').success(function (data) {
-                $scope.users = data;
                 var response = {};
                 for (i = 0; i < $scope.users.length; i++) {
-                    response = {success: currentLogin === $scope.users[i].login && currentPassword === $scope.users[i].password};
+                    response = {success: currentLogin === data[i].login && currentPassword === data[i].password};
                     if (!response.success) {
                         $scope.error = "Username or password is incorrect";
                     } else {
+                        $scope.error = null;
+                        $scope.isAuth = true;
                         self.close();
                         break;
                     }
                 }
             });
-
         };
         self.update();
     }]);

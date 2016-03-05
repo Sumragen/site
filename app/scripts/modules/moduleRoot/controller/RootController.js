@@ -5,7 +5,7 @@ define(['../module'], function (module) {
     module.controller('RootController', ['$scope', 'ModalService', '$http', 'AuthService', function ($scope, ModalService, $http, AuthService) {
         var self = this;
         self.isAuthenticated = function () {
-            return (AuthService.role === true);
+            return (localStorage.getItem("currentUserLS"));
         };
         self.pathToView = 'home';
         self.onTabSelect = function (tab) {
@@ -39,8 +39,8 @@ define(['../module'], function (module) {
             });
         };
         self.logOut = function () {
-            //$http.get('/api/authenticate').success(function (data) {
-            //});
+            //localStorage.setItem("currentUserLS",JSON.stringify(null));
+            localStorage.removeItem("currentUserLS");
             AuthService.role = false;
         };
         self.update();

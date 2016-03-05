@@ -2,9 +2,11 @@
  * Created by sumragen on 2/27/16.
  */
 define(['../module'], function (module) {
-    module.controller('RootController', ['$scope', 'ModalService', '$http', function ($scope, ModalService, $http) {
+    module.controller('RootController', ['$scope', 'ModalService', '$http', 'AuthService', function ($scope, ModalService, $http, AuthService) {
         var self = this;
-        $scope.isAuth = false;
+        self.isAuthenticated = function () {
+            return (AuthService.role === true);
+        };
         self.pathToView = 'home';
         self.onTabSelect = function (tab) {
             self.pathToView = tab;
@@ -37,9 +39,9 @@ define(['../module'], function (module) {
             });
         };
         self.logOut = function () {
-            $http.get('/api/authenticate').success(function (data) {
-
-            });
+            //$http.get('/api/authenticate').success(function (data) {
+            //});
+            AuthService.role = false;
         };
         self.update();
     }])

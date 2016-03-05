@@ -2,7 +2,7 @@
  * Created by sumragen on 2/27/16.
  */
 define(['../module'], function (module) {
-    module.controller('AuthController', ['$scope', 'close', '$http', 'AuthService', function ($scope, close, $http) {
+    module.controller('AuthController', ['$scope', 'close', '$http', 'AuthService', function ($scope, close, $http, AuthService) {
         var self = this;
 
         self.close = close;
@@ -30,7 +30,7 @@ define(['../module'], function (module) {
                         $scope.error = "Username or password is incorrect";
                     } else {
                         $scope.error = null;
-                        $scope.isAuth = true;
+                        AuthService.role = true;
                         self.close();
                         break;
                     }

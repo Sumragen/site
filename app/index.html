@@ -22,19 +22,21 @@
                 <a class="navbar-brand" ng-click="panel.onTabSelect('home')" href="">School 24</a>
             </div>
 
-            <ul class="nav navbar-nav navbar-right" style="padding-right: 7%" ng-if=isAuth>
+            <ul class="nav navbar-nav navbar-right" style="margin-right: 14%;" ng-if=panel.isAuthenticated()>
                 <ul class="pager">
                     <li style="vertical-align: middle;position: absolute;top: 32px;">
-                        <a class="withripple" ng-click="$scope.logOut()">Log Out</a>
+                        <a class="withripple" ng-click="panel.logOut()" style="width: 100px" href="">Log Out</a>
                     </li>
                 </ul>
             </ul>
-            <ul class="nav navbar-nav navbar-right" style="padding-right: 7%;" ng-if=!isAuth>
+            <ul class="nav navbar-nav navbar-right" style="margin-right: 14%;" ng-if=!panel.isAuthenticated()>
                 <ul class="pager">
                     <li style="vertical-align: middle;position: absolute;top: 12px">
-                        <a class="withripple" ng-click="showCustom('/School_v0.2/app/views/auth/logIn')" data-placement="center" href="">Sign In</a>
+                        <a class="withripple" ng-click="showCustom('/School_v0.2/app/views/auth/logIn')"
+                           data-placement="center" href="" style="width: 100px">Sign In</a>
                         <p></p>
-                        <a class="withripple" ng-click="showCustom('/School_v0.2/app/views/auth/logUp')" href="">Sign Up</a>
+                        <a class="withripple" ng-click="showCustom('/School_v0.2/app/views/auth/logUp')"
+                           href="" style="width: 100px">Sign Up</a>
                     </li>
                 </ul>
             </ul>
@@ -42,18 +44,17 @@
     </nav>
 </header>
 
-<div class="btn-group btn-group-justified btn-group-raised" style="position: relative; bottom: 20px;">
+<div class="btn-group btn-group-justified btn-group-raised" style=" bottom: 20px;right: 1px">
     <a ng-click="panel.onTabSelect('home')" href="" class="btn"
                 ng-class="{active: panel.isTabSelect('home')}">Home</a>
     <a ng-click="panel.onTabSelect('map')" href="" class="btn"
                 ng-class="{active: panel.isTabSelect('map')}">Location</a>
     <a ng-click="panel.onTabSelect('about')" href="" class="btn"
-                ng-class="{active: panel.isTabSelect('about')}">About
-        us</a>
+                ng-class="{active: panel.isTabSelect('about')}">About us</a>
 </div>
 <div style="margin-top: 20px;margin-left: 15%;margin-right: 15%">
 
-    <div class="row" style="margin-left: 1%;margin-right: 1%">
+    <div class="row" style="">
         <div class="span12">
             <div class="well" ng-include="'./views/' + panel.pathToView + '.html'"></div>
         </div>

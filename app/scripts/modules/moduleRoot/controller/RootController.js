@@ -4,7 +4,7 @@
 define(['../module'], function (module) {
     module.controller('RootController', ['$scope', 'ModalService', '$http', 'AuthService', function ($scope, ModalService, $http, AuthService) {
         var self = this;
-            self.getName = function () {
+        self.getName = function () {
                 var user = JSON.parse(localStorage.getItem("currentUserLS"));
                 return user.login;
             };

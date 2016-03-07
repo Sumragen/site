@@ -17,19 +17,17 @@ define(['../module'], function (module) {
                 'avatar': ""
             });
         };
-        service.signIn = function (currentLogin, currentPassword, callback) {
-            console.log('signIn');
-            $http.post('/signIn', {login: currentLogin, password: currentPassword}).then(function () {
-                console.log('post signIn');
+
+        service.signIn = function (currentLogin, currentPassword) {
+            return $http.post('/signIn', {login: currentLogin, password: currentPassword}).then(
+                function () {
                 service.error = null;
-                callback();
-            }, function () {
+            },
+                function () {
                 if (localStorage.getItem('currentUserLS')) {
                     service.error = null;
-                    callback();
                 } else {
                     service.error = "Username or password is incorrect";
-                    callback();
                 }
             });
         };

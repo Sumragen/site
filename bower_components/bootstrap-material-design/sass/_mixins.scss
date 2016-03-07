@@ -73,14 +73,14 @@
 //  box-shadow: 0 1px 3px 1px rgba(0,0,0,0.4), 0 0 0 15px rgba($variation-color, (10/100));
 //}
 //
-//// bg-img-variations(" label input[type=checkbox]:checked + .toggle:active:after", $brand-primary
-//@mixin bg-img-variations($component, $selector-suffix, $color-default) {
-//  @include generic-variations($component, $selector-suffix, $color-default, "bg-img-variations-content", null);
+//// bg-images-variations(" label input[type=checkbox]:checked + .toggle:active:after", $brand-primary
+//@mixin bg-images-variations($component, $selector-suffix, $color-default) {
+//  @include generic-variations($component, $selector-suffix, $color-default, "bg-images-variations-content", null);
 //}
 //
-//@mixin bg-img-variations-content($args){
+//@mixin bg-images-variations-content($args){
 //  $variation-color: map-get($args, variation-color);
-//  //@debug "bg-img-variations-content called for #{map-get($args, extra)} #{map-get($args, default)} #{map-get($args, variation-color-name)} #{map-get($args, variation-color)}"; //#{inspect($args)}";
+//  //@debug "bg-images-variations-content called for #{map-get($args, extra)} #{map-get($args, default)} #{map-get($args, variation-color-name)} #{map-get($args, variation-color)}"; //#{inspect($args)}";
 //  background-image: linear-gradient($variation-color, $variation-color), linear-gradient($mdb-input-underline-color, $mdb-input-underline-color);
 //}
 

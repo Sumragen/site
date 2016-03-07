@@ -138,7 +138,7 @@ else
             // Main function. The order in which other subs are called here is
             // essential. Link and image substitutions need to happen before
             // _EscapeSpecialCharsWithinTagAttributes(), so that any *'s or _'s in the <a>
-            // and <img> tags get encoded.
+            // and <images> tags get encoded.
             //
 
             // This will only happen if makeHtml on the same converter instance is called from a plugin hook.
@@ -612,7 +612,7 @@ else
 
         function _DoImages(text) {
             //
-            // Turn Markdown image shortcuts into <img> tags.
+            // Turn Markdown image shortcuts into <images> tags.
             //
 
             //
@@ -704,7 +704,7 @@ else
 
             alt_text = escapeCharacters(attributeEncode(alt_text), "*_[]()");
             url = escapeCharacters(url, "*_");
-            var result = "<img src=\"" + url + "\" alt=\"" + alt_text + "\"";
+            var result = "<images src=\"" + url + "\" alt=\"" + alt_text + "\"";
 
             // attacklab: Markdown.pl adds empty title attributes to images.
             // Replicate this bug.

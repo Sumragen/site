@@ -14,27 +14,16 @@ define(['../module'], function (module) {
             });
         };
         self.addUser = function (newUser, newLogin, newPsw) {
-            console.log('add user');
-            $http.post('/users', {'name': newUser, 'login': newLogin, 'password': newPsw, 'avatar': ""}).success(function () {
-                self.update();
-            });
+            AuthService.addUser(newUser,newLogin,newPsw);
         };
 
         self.signIn = function (currentLogin, currentPassword) {
-            console.log('signIn');
-            $http.get('/users').success(function (users) {
-                var response = {};
-                for (i = 0; i < users.length; i++) {
-                    response = {success: currentLogin === users[i].login && currentPassword === users[i].password};
-                    if (!response.success) {
-                        $scope.error = "Username or password is incorrect";
-                    } else {
-                        localStorage.setItem("currentUserLS",JSON.stringify(users[i]));
-                        $scope.error = null;
-                        AuthService.role = true;
-                        self.close();
-                        break;
-                    }
+            AuthService.signIn(currentLogin,currentPassword, function () {
+                if(!AuthService.error) {
+                    $scope.error = null;
+                    self.close();
+                }else{
+                    $scope.error = AuthService.error;
                 }
             });
         };

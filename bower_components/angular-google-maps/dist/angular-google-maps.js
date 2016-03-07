@@ -267,7 +267,7 @@ Nicholas McCready - https://twitter.com/nmccready
               var img;
               img = "";
               if (this.closeBoxURL_ !== "") {
-                img = "<img";
+                img = "<images";
                 img += " src='" + this.closeBoxURL_ + "'";
                 img += " align=right";
                 img += " style='";
@@ -8440,7 +8440,7 @@ InfoBox.prototype.getCloseBoxImg_ = function () {
 
   if (this.closeBoxURL_ !== "") {
 
-    img  = "<img";
+    img  = "<images";
     img += " src='" + this.closeBoxURL_ + "'";
     img += " align=right"; // Do this because Opera chokes on style='float: right;'
     img += " style='";
@@ -10128,7 +10128,7 @@ ClusterIcon.prototype.show = function () {
     var spriteV = parseInt(bp[1].trim(), 10);
     var pos = this.getPosFromLatLng_(this.center_);
     this.div_.style.cssText = this.createCss(pos);
-    img = "<img src='" + this.url_ + "' style='position: absolute; top: " + spriteV + "px; left: " + spriteH + "px; ";
+    img = "<images src='" + this.url_ + "' style='position: absolute; top: " + spriteV + "px; left: " + spriteH + "px; ";
     if (!this.cluster_.getMarkerClusterer().enableRetinaIcons_) {
       img += "clip: rect(" + (-1 * spriteV) + "px, " + ((-1 * spriteH) + this.width_) + "px, " +
           ((-1 * spriteV) + this.height_) + "px, " + (-1 * spriteH) + "px);";
@@ -15639,7 +15639,7 @@ angular.module('uiGmapgoogle-maps.extensions')
               var spriteV = parseInt(bp[1].trim(), 10);
               var pos = this.getPosFromLatLng_(this.center_);
               this.div_.style.cssText = this.createCss(pos);
-              img = "<img src='" + this.url_ + "' style='position: absolute; top: " + spriteV + "px; left: " + spriteH + "px; ";
+              img = "<images src='" + this.url_ + "' style='position: absolute; top: " + spriteV + "px; left: " + spriteH + "px; ";
               if (!this.cluster_.getMarkerClusterer().enableRetinaIcons_) {
                 img += "clip: rect(" + (-1 * spriteV) + "px, " + ((-1 * spriteH) + this.width_) + "px, " +
                 ((-1 * spriteV) + this.height_) + "px, " + (-1 * spriteH) + "px);";

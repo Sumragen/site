@@ -2646,7 +2646,7 @@ geoXML3.parser = function (options) {
 
                 // certain occasions where we need the pixel size of the image (like the default settings...)
                 // (NOTE: Scale is applied to entire image, not just the section of the icon palette.  So,
-                //  if we need scaling, we'll need the img dimensions no matter what.)
+                //  if we need scaling, we'll need the images dimensions no matter what.)
                 if (true /* (icon.dim.w < 0 || icon.dim.h < 0) && (icon.xunits != 'pixels' || icon.yunits == 'fraction') || icon.scale != 1.0 */) {
                     // (hopefully, this will load by the time we need it...)
                     icon.img = new Image();
@@ -3660,7 +3660,7 @@ geoXML3.parser = function (options) {
             //iW.setContent("<div id='geoxml3_infowindow'>" + iW.getContent() + "</div>");
             google.maps.event.addListenerOnce(iW, "domready", function () {
                 /*var node = document.getElementById('geoxml3_infowindow');
-                 var imgArray = node.getElementsByTagName('img');
+                 var imgArray = node.getElementsByTagName('images');
                  for (var i = 0; i < imgArray.length; i++) {
                  var imgUrlIE = imgArray[i].getAttribute("src");
                  var imgUrl = cleanURL(doc.baseDir, imgUrlIE);
@@ -4468,7 +4468,7 @@ ProjectedOverlay.prototype.draw = function(firstTime)
   url += this.addZ_ + this.map_.getZoom() ;
  }
 
- this.div_.innerHTML = '<img src="' + url + '"  width=' + this.div_.style.width + ' height=' + this.div_.style.height + ' >' ;
+ this.div_.innerHTML = '<images src="' + url + '"  width=' + this.div_.style.width + ' height=' + this.div_.style.height + ' >' ;
 }
 
 ProjectedOverlay.prototype.setOpacity=function(opacity)

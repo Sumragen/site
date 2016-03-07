@@ -18,7 +18,7 @@
         <div class="container-fluid" style="vertical-align: middle">
             <div class="navbar-header" style="padding-left: 4%">
                 <a class="navbar-brand" ng-click="panel.onTabSelect('home')" href="">
-                    <img src="img/School24.png" style="height: 100px;width: 300px;position: relative;bottom: 30px;">
+                    <img src="images/School24.png" style="height: 100px;width: 300px;position: relative;bottom: 30px;">
                 </a>
             </div>
 
@@ -29,15 +29,14 @@
                     <li style="vertical-align: middle;position: absolute;top: 32px;">
                         <!--<a class="withripple" ng-click="panel.logOut()" style="width: 100px" href="">Log Out</a>-->
                         <div class="dropdown">
-                            <img src="img/ava.png" class="dropdown-toggle" data-toggle="dropdown" style="height: 80px;width: 80px;position: relative;bottom: 22px;">
+                            <img src="images/ava.png" class="dropdown-toggle" data-toggle="dropdown" style="height: 80px;width: 80px;position: relative;bottom: 22px;">
 
                             <!--<button class="btn btn-default dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">Tutorials-->
                                 <!--<span class="caret"></span></button>-->
                             <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
                                 <!--<li class="btn btn-primary" type="button">Simple btn</li>-->
-                                <li class="btn btn-primary" type="button" href="" style="margin-left: 31px;width: 150px;margin-top: 20px;margin-bottom: 20px">HTML</li>
                                 <li class="btn btn-primary" type="button" href="" style="margin-left: 18px;width: 150px;" ng-click="panel.onTabSelect('settings')">Settings</li>
-                                <li class="btn btn-primary" type="button" href="" style="margin-left: 23px;width: 150px;" ng-click="panel.logOut()">Log Out</li>
+                                <li class="btn btn-primary" type="button" href="" style="margin-left: 23px;width: 150px;" ng-click="panel.logOut();panel.onTabSelect('home')">Log Out</li>
                             </ul>
                         </div>
                     </li>

@@ -149,10 +149,10 @@ module.exports = function (grunt) {
             //  order: 22
             //},
 
-            //// bg-img generic-variations
+            //// bg-images generic-variations
             //{ // Multi-line replacement - https://regex101.com/r/aP2hH2/1
             //  pattern: /.generic-variations\(unquote\(("[^"]+")\), (\$[\s\S]+?(?!\r|\n)), {$\n[\s\S]+?(?!\r|\n)background-image[\s\S]+?(?!\r|\n)[\s\S]+?(?!\r|\n)}\);$\n/mg,
-            //  replacement: "@include bg-img-variations(unquote($1), $2);\n",
+            //  replacement: "@include bg-images-variations(unquote($1), $2);\n",
             //  order: 23
             //},
 

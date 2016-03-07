@@ -5,7 +5,7 @@ define(
     ['./App'],
     function (module) {
         'use strict';
-        module.run(['$httpBackend',function($httpBackend) {
+        module.run(['$httpBackend','$q',function($httpBackend, $q) {
             var users = [{}];
             if(localStorage.getItem("usersLS")){
                 users = JSON.parse(localStorage.getItem("usersLS"));
@@ -29,7 +29,7 @@ define(
                 if (localStorage.getItem('currentUserLS')){
                 return [200, currentUser, {}];
                 }else{
-                    return [401];
+                    return $q.reject();
                 }
             });
             $httpBackend.whenGET('/getUser').respond(currentUser);

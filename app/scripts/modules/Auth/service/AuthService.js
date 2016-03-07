@@ -19,11 +19,9 @@ define(['../module'], function (module) {
         };
 
         service.signIn = function (currentLogin, currentPassword) {
-            return $http.post('/signIn', {login: currentLogin, password: currentPassword}).then(
-                function () {
+            return $http.post('/signIn', {login: currentLogin, password: currentPassword}).then(function () {
                 service.error = null;
-            },
-                function () {
+            },function () {
                 if (localStorage.getItem('currentUserLS')) {
                     service.error = null;
                 } else {

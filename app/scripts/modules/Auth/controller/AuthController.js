@@ -20,17 +20,7 @@ define(['../module'], function (module) {
                     } else {
                         $scope.error = AuthService.error;
                     }
-                }, _);
-        };
-        self.signIn = function (currentLogin, currentPassword) {
-            return AuthService.signIn(currentLogin, currentPassword).then(function () {
-                if (!AuthService.error) {
-                    $scope.error = null;
-                    self.close();
-                } else {
-                    $scope.error = AuthService.error;
-                }
-            });
+                });
         };
     }]);
 });

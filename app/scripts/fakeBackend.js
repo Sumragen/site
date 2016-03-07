@@ -10,7 +10,7 @@ define(
             if(localStorage.getItem("usersLS")){
                 users = JSON.parse(localStorage.getItem("usersLS"));
             }else{
-                var user = [{name: 'root',login: 'root',password: 'root'}];
+                var user = [{name: 'root',login: 'root',password: 'root',avatar: null}];
                 localStorage.setItem("usersLS",JSON.stringify(user))
             }
             //var ;isAuth = false;

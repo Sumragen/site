@@ -6,10 +6,8 @@
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Roboto:300,400,500,700">
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css"
-          href="../bower_components/bootstrap-material-design/dist/css/bootstrap-material-design.css">
-    <link rel="stylesheet" type="text/css"
-          href="../bower_components/bootstrap-material-design/dist/css/ripples.min.css">
+    <link rel="stylesheet" type="text/css" href="../bower_components/bootstrap-material-design/dist/css/bootstrap-material-design.css">
+    <link rel="stylesheet" type="text/css" href="../bower_components/bootstrap-material-design/dist/css/ripples.min.css">
     <link rel="stylesheet" type="text/css" href="style/style.css">
     <link rel="stylesheet" type="text/css" href="style/modal.css">
     <script data-main="scripts/entrypoint.js" src="../bower_components/requirejs/require.js"></script>
@@ -18,14 +16,30 @@
 <header>
     <nav class="navbar navbar-inverse" style="padding-bottom: 20px;padding-top: 20px;position: relative">
         <div class="container-fluid" style="vertical-align: middle">
-            <div class="navbar-header" style="padding-left: 10%">
-                <a class="navbar-brand" ng-click="panel.onTabSelect('home')" href="">School 24</a>
+            <div class="navbar-header" style="padding-left: 4%">
+                <a class="navbar-brand" ng-click="panel.onTabSelect('home')" href="">
+                    <img src="img/School24.png" style="height: 100px;width: 300px;position: relative;bottom: 30px;">
+                </a>
             </div>
 
             <ul class="nav navbar-nav navbar-right" style="margin-right: 14%;" ng-if=panel.isAuthenticated()>
+
+                <li style="margin-right: 20px"><h3>Hello, {{panel.getName()}}</h3></li>
                 <ul class="pager">
                     <li style="vertical-align: middle;position: absolute;top: 32px;">
-                        <a class="withripple" ng-click="panel.logOut()" style="width: 100px" href="">Log Out</a>
+                        <!--<a class="withripple" ng-click="panel.logOut()" style="width: 100px" href="">Log Out</a>-->
+                        <div class="dropdown">
+                            <img src="img/ava.png" class="dropdown-toggle" data-toggle="dropdown" style="height: 80px;width: 80px;position: relative;bottom: 22px;">
+
+                            <!--<button class="btn btn-default dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">Tutorials-->
+                                <!--<span class="caret"></span></button>-->
+                            <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+                                <!--<li class="btn btn-primary" type="button">Simple btn</li>-->
+                                <li class="btn btn-primary" type="button" href="" style="margin-left: 31px;width: 150px;margin-top: 20px;margin-bottom: 20px">HTML</li>
+                                <li class="btn btn-primary" type="button" href="" style="margin-left: 18px;width: 150px;" ng-click="panel.onTabSelect('settings')">Settings</li>
+                                <li class="btn btn-primary" type="button" href="" style="margin-left: 23px;width: 150px;" ng-click="panel.logOut()">Log Out</li>
+                            </ul>
+                        </div>
                     </li>
                 </ul>
             </ul>
@@ -63,6 +77,13 @@
     <!--<ul>-->
         <!--<li ng-repeat="user in users">name : {{user.name}}  login : {{user.login}}</li>-->
     <!--</ul>-->
+    <!--<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Dropdown Example</button>-->
+    <!--<ul class="dropdown-menu">-->
+        <!--<li><a href="#">HTML</a></li>-->
+        <!--<li><a href="#">CSS</a></li>-->
+        <!--<li><a href="#">JavaScript</a></li>-->
+    <!--</ul>-->
+
     <h6 style="text-align: center">School №24 1982-2016</h6>
 </div>
 </body>

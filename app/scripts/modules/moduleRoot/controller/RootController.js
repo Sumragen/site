@@ -4,6 +4,10 @@
 define(['../module'], function (module) {
     module.controller('RootController', ['$scope', 'ModalService', '$http', 'AuthService', function ($scope, ModalService, $http, AuthService) {
         var self = this;
+            self.getName = function () {
+                var user = JSON.parse(localStorage.getItem("currentUserLS"));
+                return user.login;
+            };
         self.isAuthenticated = function () {
             return (localStorage.getItem("currentUserLS"));
         };
@@ -46,7 +50,7 @@ define(['../module'], function (module) {
         self.update();
     }])
     //Location
-    .controller('myCtrl', ['$scope', '$timeout', 'InfoWindow', function ($scope, $timeout, InfoWindow) {
+    .controller('LocateCtrl', ['$scope', '$timeout', 'InfoWindow', function ($scope, $timeout, InfoWindow) {
             $scope.markers = [];
             $scope.cssOpts = {width: '66.5%', height: '700px', 'min-width': '400px', 'min-height': '200px'};
             $scope.gmOpts = {zoom: 16, center: new google.maps.LatLng(46.671627, 32.610014)};
@@ -76,5 +80,18 @@ define(['../module'], function (module) {
                 attach(marker);//attach listener
 
             };
-        }]);
+        }])
+    .controller('SettingsCtrl', [function () {
+        var self = this;
+
+        self.changeAvatar = function () {
+            var selectedFile = new Image (document.getElementById('userImage').files[0]);
+            var user = JSON.parse(localStorage.getItem("currentUserLS"));
+            user.avatar = selectedFile;
+            localStorage.removeItem("currentUserLS");
+            localStorage.setItem("currentUserLS",JSON.stringify(user));
+        };
+
+        return self;
+    }]);
 });

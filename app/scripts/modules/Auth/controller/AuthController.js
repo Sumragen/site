@@ -15,7 +15,7 @@ define(['../module'], function (module) {
         };
         self.addUser = function (newUser, newLogin, newPsw) {
             console.log('add user');
-            $http.post('/users', {'name': newUser, 'login': newLogin, 'password': newPsw}).success(function () {
+            $http.post('/users', {'name': newUser, 'login': newLogin, 'password': newPsw, 'avatar': ""}).success(function () {
                 self.update();
             });
         };

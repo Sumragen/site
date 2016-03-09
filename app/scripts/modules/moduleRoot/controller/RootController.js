@@ -25,10 +25,6 @@ define(['../module'], function (module) {
             });
         };
 
-        self.addUser = function (newUser, newLogin, newPsw) {
-            $http.post('/users', {'name': newUser, 'login': newLogin, 'password': newPsw}).success(function () {
-            });
-        };
         self.logOut = function () {
             localStorage.removeItem("currentUserLS");
         };

@@ -55,11 +55,6 @@ define(['angular'], function (module) {
                     }
                 },
                 controller: 'RootController'
-            })
-            .state('master', {
-                url: "/master",
-                templateUrl: "./views/master.html",
-                controller: ''
             });
     });
     return app;

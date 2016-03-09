@@ -4,11 +4,10 @@
 define(['../module'], function (module) {
     module.controller('ProfileController', [ function () {
         var self = this;
-        self.count = 4;
-        //var currentUser = JSON.parse(localStorage.getItem('currentUserLS'));
-        self.getName = function () {
-            var user = JSON.parse(localStorage.getItem("currentUserLS"));
-            return user.login;
-        };
+        var currentUser = JSON.parse(localStorage.getItem('currentUserLS'));
+        self.firstName = currentUser.firstName;
+        self.lastName = currentUser.lastName;
+        self.login = currentUser.login;
+        self.email = currentUser.email;
     }]);
 });

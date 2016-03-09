@@ -2,8 +2,9 @@
  * Created by sumragen on 2/27/16.
  */
 define(['../module'], function (module) {
-    module.controller('RootController', ['$scope', 'ModalService', '$http', 'AuthService', function ($scope, ModalService, $http, AuthService) {
+    module.controller('RootController', ['$scope', 'ModalService', '$http', 'AuthService','$state', function ($scope, ModalService, $http, AuthService,$state) {
         var self = this;
+        $scope.state = $state;
         self.getName = function () {
                 var user = JSON.parse(localStorage.getItem("currentUserLS"));
                 return user.login;
@@ -12,12 +13,12 @@ define(['../module'], function (module) {
             return (localStorage.getItem("currentUserLS"));
         };
         self.pathToView = 'home';
-        self.onTabSelect = function (tab) {
-            self.pathToView = tab;
-        };
-        self.isTabSelect = function (tab) {
-            return self.pathToView === tab;
-        };
+        //self.onTabSelect = function (tab) {
+        //    self.pathToView = tab;
+        //};
+        //self.isTabSelect = function (tab) {
+        //    return self.pathToView === tab;
+        //};
         $scope.customResult = null;
         $scope.showCustom = function (path) {
             ModalService.showModal({
@@ -30,24 +31,19 @@ define(['../module'], function (module) {
             });
         };
 
-        self.update = function () {
-            $http.get('/users').success(function (data) {
-                $scope.users = data;
-            });
-        };
+        //self.update = function () {
+        //    $http.get('/users').success(function (data) {
+        //        $scope.users = data;
+        //    });
+        //};
 
         self.addUser = function (newUser, newLogin, newPsw) {
-            console.log('add user (with parametrs; RootCtrl)');
             $http.post('/users', {'name': newUser, 'login': newLogin, 'password': newPsw}).success(function () {
-                self.update();
             });
         };
         self.logOut = function () {
-            //localStorage.setItem("currentUserLS",JSON.stringify(null));
             localStorage.removeItem("currentUserLS");
-            AuthService.role = false;
         };
-        self.update();
     }])
     //Location
     .controller('LocateCtrl', ['$scope', '$timeout', 'InfoWindow', function ($scope, $timeout, InfoWindow) {

@@ -17,7 +17,7 @@
     <nav class="navbar navbar-inverse" style="padding-bottom: 20px;padding-top: 20px;position: relative">
         <div class="container-fluid" style="vertical-align: middle">
             <div class="navbar-header" style="padding-left: 4%">
-                <a class="navbar-brand" ng-click="panel.onTabSelect('home')" href="">
+                <a class="navbar-brand"  ui-sref="home" href="">
                     <img src="images/School24.png" style="height: 100px;width: 300px;position: relative;bottom: 30px;">
                 </a>
             </div>
@@ -36,7 +36,7 @@
                             <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
                                 <!--<li class="btn btn-primary" type="button">Simple btn</li>-->
                                 <li class="btn btn-primary" type="button" href="" style="margin-left: 18px;width: 150px;" ng-click="panel.onTabSelect('settings')">Settings</li>
-                                <li class="btn btn-primary" type="button" href="" style="margin-left: 23px;width: 150px;" ng-click="panel.logOut();panel.onTabSelect('home')">Log Out</li>
+                                <li class="btn btn-primary" type="button" href="" style="margin-left: 23px;width: 150px;" ui-sref="home" ng-click="panel.logOut()">Log Out</li>
                             </ul>
                         </div>
                     </li>
@@ -58,18 +58,15 @@
 </header>
 
 <div class="btn-group btn-group-justified btn-group-raised" style=" bottom: 20px;right: 1px">
-    <a ng-click="panel.onTabSelect('tabs/profile')" href="" class="btn"
-                ng-class="{active: panel.isTabSelect('tabs/profile')}">Profile</a>
-    <a ng-click="panel.onTabSelect('tabs/schedule')" href="" class="btn"
-                ng-class="{active: panel.isTabSelect('tabs/schedule')}">Schedule</a>
-    <a ng-click="panel.onTabSelect('tabs/events')" href="" class="btn"
-                ng-class="{active: panel.isTabSelect('tabs/events')}">Events</a>
+    <a ui-sref-active="active" ui-sref="tab_1" href="" class="btn">Profile</a>
+    <a ui-sref-active="active" ui-sref="tab_2" href="" class="btn">Schedule</a>
+    <a ui-sref-active="active" ui_sref="tab_3" href="" class="btn">Events</a>
 </div>
 <div style="margin-top: 20px;margin-left: 15%;margin-right: 15%">
-
     <div class="row" style="">
         <div class="span12">
-            <div class="well" ng-include="'./views/' + panel.pathToView + '.html'"></div>
+            <div class="well" ui-view></div>
+            <!--<div class="well" ng-include="'./views/' + panel.pathToView + '.html'"></div>-->
         </div>
     </div>
     <!--<button ng-click="panel.addUser('test','test','test')">Add a user via POST</button>-->

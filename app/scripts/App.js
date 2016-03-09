@@ -23,13 +23,18 @@ define([
         ];
         var app = angular.module('MyApp', deps)
             .config(function($stateProvider, $urlRouterProvider){
-                $urlRouterProvider.otherwise("/");
-                $stateProvider
-                    .state('routeHome', {
-                        url: "/",
-                        templateUrl: "./views/home.html",
-                        controller:'RootController as panel'
-                    });
+                //$urlRouterProvider.otherwise("/");
+                //$stateProvider
+                //    .state('n_auth', {
+                //        url: "/",
+                //        templateUrl: "./views/home.html",
+                //        controller:'RootController as panel'
+                //    })
+                //    .state('auth', {
+                //        url: "/login",
+                //        templateUrl: "./views/home.html",
+                //        controller:'RootController as panel'
+                //    });
             });
         return app;
     });

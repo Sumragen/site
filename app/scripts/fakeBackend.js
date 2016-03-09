@@ -10,7 +10,13 @@ define(
             if(localStorage.getItem("usersLS")){
                 users = JSON.parse(localStorage.getItem("usersLS"));
             }else{
-                var user = [{name: 'root',login: 'root',password: 'root',avatar: null}];
+                var user = [{
+                    firstName : 'root',
+                    lastName : 'root',
+                    login : 'root',
+                    email : 'root@gmail.com',
+                    password : 'root'
+                }];
                 localStorage.setItem("usersLS",JSON.stringify(user))
             }
 

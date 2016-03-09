@@ -8,13 +8,14 @@ define(['../module'], function (module) {
             error: null
         };
 
-        service.addUser = function (newUser, newLogin, newPsw) {
+        service.addUser = function (newFirstName, newLastName, newLogin, newEmail, newPsw){
             console.log('add user');
             $http.post('/users', {
-                'name': newUser,
-                'login': newLogin,
-                'password': newPsw,
-                'avatar': ""
+                firstName : newFirstName,
+                lastName : newLastName,
+                login : newLogin,
+                email : newEmail,
+                password : newPsw
             });
         };
 

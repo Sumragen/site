@@ -1,12 +1,18 @@
 <div id="custom-modal">
     <div id="sign-up">
-        <form role="form" ng-submit="auth.addUser(email,login,password);auth.close()">
+        <form role="form" ng-submit="auth.addUser(firstName,lastName,login,email,password);auth.close()">
             <h2>Sign Up</h2>
             <div class="form-group">
-                <input class="form-control"  type="email" placeholder="Enter email" ng-model="email"/>
+                <input class="form-control"  type="text" placeholder="First name" ng-model="firstName"/>
+            </div>
+            <div class="form-group">
+                <input class="form-control"  type="text" placeholder="Last name" ng-model="lastName"/>
             </div>
             <div class="form-group">
                 <input class="form-control"  type="text" placeholder="Login" ng-model="login"/>
+            </div>
+            <div class="form-group">
+                <input class="form-control"  type="email" placeholder="Email" ng-model="email"/>
             </div>
             <div class="form-group">
                 <input class="form-control" type="password" placeholder="Password" ng-model="password" name="password"/>

@@ -13,13 +13,11 @@ define(['../module'], function (module) {
 
         self.signIn = function (currentLogin, currentPassword) {
             return AuthService.signIn(currentLogin, currentPassword)
-                .then(function () {
-                    if (!AuthService.error) {
-                        $scope.error = null;
-                        self.close();
-                    } else {
-                        $scope.error = AuthService.error;
-                    }
+                .then(function (currentUser) {
+                    $scope.error = null;
+                    self.close();
+                }, function (err) {
+                    $scope.error = err.data.message;
                 });
         };
     }]);

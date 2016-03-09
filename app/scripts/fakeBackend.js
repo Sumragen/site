@@ -27,9 +27,9 @@ define(
                     }
                 }
                 if (localStorage.getItem('currentUserLS')){
-                return [200, currentUser, {}];
+                    return [200, currentUser, {}];
                 }else{
-                    return $q.reject();
+                    return [400,{errorCode:1,message:'Username or password is incorrect'}];
                 }
             });
             $httpBackend.whenGET('/getUser').respond(currentUser);

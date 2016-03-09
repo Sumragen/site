@@ -13,6 +13,7 @@
     <script data-main="scripts/entrypoint.js" src="../bower_components/requirejs/require.js"></script>
 </head>
 <body ng-controller="RootController as panel">
+<!--<base href="/home">-->
 <header>
     <nav class="navbar navbar-inverse" style="padding-bottom: 20px;padding-top: 20px;position: relative">
         <div class="container-fluid" style="vertical-align: middle">
@@ -21,20 +22,13 @@
                     <img src="images/School24.png" style="height: 100px;width: 300px;position: relative;bottom: 30px;">
                 </a>
             </div>
-
             <ul class="nav navbar-nav navbar-right" style="margin-right: 14%;" ng-if=panel.isAuthenticated()>
-
                 <li style="margin-right: 20px"><h3>Hello, {{panel.getName()}}</h3></li>
                 <ul class="pager">
                     <li style="vertical-align: middle;position: absolute;top: 32px;">
-                        <!--<a class="withripple" ng-click="panel.logOut()" style="width: 100px" href="">Log Out</a>-->
                         <div class="dropdown">
                             <img src="images/ava.png" class="dropdown-toggle" data-toggle="dropdown" style="height: 80px;width: 80px;position: relative;bottom: 22px;">
-
-                            <!--<button class="btn btn-default dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">Tutorials-->
-                                <!--<span class="caret"></span></button>-->
                             <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
-                                <!--<li class="btn btn-primary" type="button">Simple btn</li>-->
                                 <li class="btn btn-primary" type="button" href="" style="margin-left: 18px;width: 150px;" ng-click="panel.onTabSelect('settings')">Settings</li>
                                 <li class="btn btn-primary" type="button" href="" style="margin-left: 23px;width: 150px;" ui-sref="home" ng-click="panel.logOut()">Log Out</li>
                             </ul>
@@ -56,31 +50,14 @@
         </div>
     </nav>
 </header>
-
-<div class="btn-group btn-group-justified btn-group-raised" style=" bottom: 20px;right: 1px">
-    <a ui-sref-active="active" ui-sref="tab_1" href="" class="btn">Profile</a>
-    <a ui-sref-active="active" ui-sref="tab_2" href="" class="btn">Schedule</a>
-    <a ui-sref-active="active" ui_sref="tab_3" href="" class="btn">Events</a>
-</div>
+<div ui-view="header"></div>
 <div style="margin-top: 20px;margin-left: 15%;margin-right: 15%">
     <div class="row" style="">
         <div class="span12">
-            <div class="well" ui-view></div>
-            <!--<div class="well" ng-include="'./views/' + panel.pathToView + '.html'"></div>-->
+            <div class="well" ui-view="body"></div>
         </div>
     </div>
-    <!--<button ng-click="panel.addUser('test','test','test')">Add a user via POST</button>-->
-    <!--<ul>-->
-        <!--<li ng-repeat="user in users">name : {{user.name}}  login : {{user.login}}</li>-->
-    <!--</ul>-->
-    <!--<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Dropdown Example</button>-->
-    <!--<ul class="dropdown-menu">-->
-        <!--<li><a href="#">HTML</a></li>-->
-        <!--<li><a href="#">CSS</a></li>-->
-        <!--<li><a href="#">JavaScript</a></li>-->
-    <!--</ul>-->
-
-    <h6 style="text-align: center">School №24 1982-2016</h6>
 </div>
+<h6 style="text-align: center">School №24 1982-2016</h6>
 </body>
 </html>

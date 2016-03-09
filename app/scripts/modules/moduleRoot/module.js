@@ -8,22 +8,57 @@ define(['angular'], function (module) {
         $stateProvider
             .state('home', {
                 url: "/home",
-                templateUrl: "./views/home.html",
+                views:{
+                    header: {
+                        templateUrl: './views/header.html'
+                    },
+                    body: {
+                        templateUrl: './views/home.html'
+                    }
+                },
                 controller: ''
             })
             .state('tab_1', {
                 url: "/profile",
-                templateUrl: "./views/tabs/profile.html",
-                controller: ''
+                views:{
+                    header: {
+                        templateUrl: './views/header.html'
+                    },
+                    body: {
+                        templateUrl: './views/tabs/profile.html',
+                        controller: 'ProfileController',
+                        controllerAs: 'ctrl'
+                    }
+                },
+                templateUrl: "./views/tabs/profile.html"
             })
             .state('tab_2', {
                 url: "/schedule",
-                templateUrl: "./views/tabs/schedule.html",
-                controller: ''
+                views:{
+                    header: {
+                        templateUrl: './views/header.html'
+                    },
+                    body: {
+                        templateUrl: './views/tabs/schedule.html'
+                    }
+                },
+                controller: 'RootController'
             })
             .state('tab_3', {
                 url: "/events",
-                templateUrl: "./views/tabs/events.html",
+                views:{
+                    header: {
+                        templateUrl: './views/header.html'
+                    },
+                    body: {
+                        templateUrl: './views/tabs/events.html'
+                    }
+                },
+                controller: 'RootController'
+            })
+            .state('master', {
+                url: "/master",
+                templateUrl: "./views/master.html",
                 controller: ''
             });
     });

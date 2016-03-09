@@ -12,22 +12,24 @@ define([
         'angular-mocks',
         'modules/Auth/index',
         'modules/moduleRoot/index',
-        'modules/Common/index'
+        'modules/Common/index',
+        'modules/Tabs/Profile/index'
     ],
     function(angular){
         var deps = [
             'ui.router',
             'ngMockE2E',
             'AuthModule',
-            'RootModule'
+            'RootModule',
+            'ProfileModule'
         ];
         var app = angular.module('MyApp', deps)
             .config(function($stateProvider, $urlRouterProvider){
                 //$urlRouterProvider.otherwise("/");
                 //$stateProvider
-                //    .state('n_auth', {
-                //        url: "/",
-                //        templateUrl: "./views/home.html",
+                //    .state('home.notA', {
+                //        url: "/n_auth",
+                //        templateUrl: "./views/homeN.html",
                 //        controller:'RootController as panel'
                 //    })
                 //    .state('auth', {

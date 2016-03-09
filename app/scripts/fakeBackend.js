@@ -33,7 +33,6 @@ define(
                 }
             });
             $httpBackend.whenGET('/getUser').respond(currentUser);
-            $httpBackend.whenGET('/users').respond(users);
             $httpBackend.whenPOST('/users').respond(function(method, url, data) {
                 var user = angular.fromJson(data);
                 users.push(user);

@@ -13,12 +13,6 @@ define(['../module'], function (module) {
             return (localStorage.getItem("currentUserLS"));
         };
         self.pathToView = 'home';
-        //self.onTabSelect = function (tab) {
-        //    self.pathToView = tab;
-        //};
-        //self.isTabSelect = function (tab) {
-        //    return self.pathToView === tab;
-        //};
         $scope.customResult = null;
         $scope.showCustom = function (path) {
             ModalService.showModal({
@@ -30,12 +24,6 @@ define(['../module'], function (module) {
                 });
             });
         };
-
-        //self.update = function () {
-        //    $http.get('/users').success(function (data) {
-        //        $scope.users = data;
-        //    });
-        //};
 
         self.addUser = function (newUser, newLogin, newPsw) {
             $http.post('/users', {'name': newUser, 'login': newLogin, 'password': newPsw}).success(function () {

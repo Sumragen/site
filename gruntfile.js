@@ -73,7 +73,11 @@ module.exports = function(grunt){
                 options: {
                     port: 9000,
                     hostname: 'localhost',
-                    base: 'app/#/home'
+                    open:{
+                        target: 'http://localhost:9000/app/#/home',
+                        appName: 'chrome'
+                    }
+
                 }
             }
         },

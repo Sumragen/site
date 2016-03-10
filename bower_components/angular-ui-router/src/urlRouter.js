@@ -24,7 +24,7 @@ function $UrlRouterProvider(   $locationProvider,   $urlMatcherFactory) {
     return (prefix != null) ? prefix[1].replace(/\\(.)/g, "$1") : '';
   }
 
-  // Interpolates matched values into a String.replace()-style pattern
+  // Interpolates matched values into a String.replace()-styles pattern
   function interpolate(pattern, match) {
     return pattern.replace(/\$(\$|\d{1,2})/, function (m, what) {
       return match[what === '$' ? 0 : Number(what)];

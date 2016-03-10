@@ -1545,7 +1545,7 @@ function getNgAttribute(element, ngAttr) {
        $scope.b = 2;
      })
      // Unlike BadController, GoodController1 and GoodController2 will not fail to be instantiated,
-     // due to using explicit annotations using the array style and $inject property, respectively.
+     styles
      .controller('GoodController1', ['$scope', function($scope) {
        $scope.a = 1;
        $scope.b = 2;
@@ -29315,7 +29315,7 @@ var ngSwitchDefaultDirective = ngDirective({
  *            'body': 'paneBody',
  *            'footer': '?paneFooter'
  *          },
- *          template: '<div style="border: 1px solid black;">' +
+ *          template: styles +
  *                      '<div class="title" ng-transclude="title">Fallback Title</div>' +
  *                      '<div ng-transclude="body"></div>' +
  *                      '<div class="footer" ng-transclude="footer">Fallback Footer</div>' +

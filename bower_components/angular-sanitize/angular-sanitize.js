@@ -110,14 +110,14 @@ var $sanitizeMinErr = angular.$$minErr('$sanitize');
 
      it('should inline raw snippet if bound to a trusted value', function() {
        expect(element(by.css('#bind-html-with-trust div')).getInnerHtml()).
-         toBe("<p style=\"color:blue\">an html\n" +
+         toBe(styles +
               "<em onmouseover=\"this.textContent='PWN3D!'\">click here</em>\n" +
               "snippet</p>");
      });
 
      it('should escape snippet without any filter', function() {
        expect(element(by.css('#bind-default div')).getInnerHtml()).
-         toBe("&lt;p style=\"color:blue\"&gt;an html\n" +
+         toBe(styles +
               "&lt;em onmouseover=\"this.textContent='PWN3D!'\"&gt;click here&lt;/em&gt;\n" +
               "snippet&lt;/p&gt;");
      });
@@ -253,7 +253,7 @@ var svgElements = toMap("circle,defs,desc,ellipse,font-face,font-face-name,font-
 var blockedElements = toMap("script,style");
 
 var validElements = angular.extend({},
-                                   voidElements,
+               styles               voidElements,
                                    blockElements,
                                    inlineElements,
                                    optionalEndTagElements);
@@ -272,7 +272,7 @@ var htmlAttrs = toMap('abbr,align,alt,axis,bgcolor,border,cellpadding,cellspacin
 var svgAttrs = toMap('accent-height,accumulate,additive,alphabetic,arabic-form,ascent,' +
     'baseProfile,bbox,begin,by,calcMode,cap-height,class,color,color-rendering,content,' +
     'cx,cy,d,dx,dy,descent,display,dur,end,fill,fill-rule,font-family,font-size,font-stretch,' +
-    'font-style,font-variant,font-weight,from,fx,fy,g1,g2,glyph-name,gradientUnits,hanging,' +
+    'font-style,font-variant,font-weight,from,fx,fy,g1,g2,glyph-name,gradistylesits,hanging,' +
     'height,horiz-adv-x,horiz-origin-x,ideographic,k,keyPoints,keySplines,keyTimes,lang,' +
     'marker-end,marker-mid,marker-start,markerHeight,markerUnits,markerWidth,mathematical,' +
     'max,min,offset,opacity,orient,origin,overline-position,overline-thickness,panose-1,' +

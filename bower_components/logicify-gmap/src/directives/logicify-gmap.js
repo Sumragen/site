@@ -5,8 +5,8 @@
     'use strict';
     /**
      * Note that if you want custom X button for info window you need to add css
-     * .gm-style-iw+div{ display:none }
-     * where .gm-style-iw is a class of container element, and next div is close button
+     * .gm-styles-iw+div{ display:none }
+     * where .gm-styles-iw is a class of container element, and next div is close button
      */
     angular.module('LogicifyGMap')
         .directive('logicifyGmap',

@@ -23,17 +23,34 @@ module.exports = function(grunt){
                 dest: 'test'
             }
         },
-        watch:{
-            bower: {
-                files: ['bower.json'],
-                tasks: ['bowerInstall']
+        jshint:{
+            options: {
+                reporter: require('jshint-stylish')
+            },
+
+            main: [
+                'app/scripts/*/**.js'
+            ]
+        },
+        watch: {
+            js: {
+                files: ['app/scripts/**/*.js'],
+                tasks: ['jshint','copy'],
+                options: {
+                    spawn: false,
+                    livereload: true
+                }
             }
         }
     };
+
     grunt.initConfig(config);
+    grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks('grunt-contrib-jshint');
+
     grunt.registerTask('serve', function () {
         grunt.task.run([
-            //'connect:livereload',
+            //'livereload',
             'watch'
         ]);
     });

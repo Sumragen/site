@@ -11,7 +11,7 @@
     assert.equal(bound(), 'name: moe', 'can bind a function to a context');
 
     bound = _(func).bind(context);
-    assert.equal(bound(), 'name: moe', 'can do OO-style binding');
+    assert.equal(bound(), 'name: moe', 'can do OO-styles binding');
 
     bound = _.bind(func, null, 'curly');
     var result = bound();

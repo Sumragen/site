@@ -12,7 +12,7 @@
     <link rel="stylesheet" type="text/css" href="styles/modal.css">
     <script data-main="scripts/entrypoint.js" src="../bower_components/requirejs/require.js"></script>
 </head>
-<body ng-controller="RootController as panel">
+<body ng-controller="CommonController as panel">
 <header>
     <nav class="navbar navbar-inverse" style="padding-bottom: 20px;padding-top: 20px;position: relative">
         <div class="container-fluid" style="vertical-align: middle">
@@ -38,10 +38,10 @@
             <ul class="nav navbar-nav navbar-right" style="margin-right: 14%;" ng-if=!panel.isAuthenticated()>
                 <ul class="pager">
                     <li style="vertical-align: middle;position: absolute;top: 12px">
-                        <a class="withripple" ng-click="showCustom('/School_v0.2/app/views/auth/logIn')"
+                        <a class="withripple" ng-click="showSignInModal()"
                            data-placement="center" href="" style="width: 100px">Sign In</a>
                         <p></p>
-                        <a class="withripple" ng-click="showCustom('/School_v0.2/app/views/auth/logUp')"
+                        <a class="withripple" ng-click="showSignUpModal()"
                            href="" style="width: 100px">Sign Up</a>
                     </li>
                 </ul>

@@ -4,6 +4,7 @@
 /*global module,require*/
 module.exports = function(grunt){
     require('load-grunt-tasks')(grunt);
+    require('load-grunt-configs')(grunt);
     var config = {
         appConfig: {
             app: require('./bower.json').appPath || 'app',
@@ -92,12 +93,16 @@ module.exports = function(grunt){
     grunt.loadNpmTasks('grunt-contrib-less');
     grunt.loadNpmTasks('grunt-contrib-connect');
 
+    grunt.registerTask('build', function () {
+        grunt.task.run([
+            //'less:development',
+            'requirejs'
+        ]);
+    });
+
     grunt.registerTask('serve', function () {
         grunt.task.run([
-            //'livereload',
-            //'less:development',
             'connect',
-            'requirejs',
             'watch'
         ]);
     });

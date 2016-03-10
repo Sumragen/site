@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "devDependencies": {
     "grunt": "^0.4.5",
+    "grunt-autoprefixer": "^3.0.4",
     "grunt-cli": ">= 0.1.6",
     "grunt-contrib-concat": "^1.0.0",
     "grunt-contrib-connect": "^1.0.0",
@@ -14,6 +15,7 @@
     "grunt-contrib-uglify": ">=0.2.0",
     "grunt-contrib-watch": "^0.6.1",
     "load-grunt-config": "^0.19.1",
+    "load-grunt-configs": "^0.4.3",
     "load-grunt-tasks": "^3.4.1"
   },
   "dependencies": {

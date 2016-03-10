@@ -11,16 +11,19 @@ define([
         'angular-animate',
         'angular-mocks',
         'modules/Auth/index',
-        'modules/moduleRoot/index',
+        //'modules/moduleRoot/index',
         'modules/Common/index',
-        'modules/Tabs/Profile/index'
+        'modules/Location/index',
+        'modules/Settings/index',
+        'modules/Profile/index'
     ],
     function(angular){
         var deps = [
             'ui.router',
             'ngMockE2E',
             'AuthModule',
-            'RootModule',
+            'LocationModule',
+            'SettingsModule',
             'ProfileModule'
         ];
         var app = angular.module('MyApp', deps)

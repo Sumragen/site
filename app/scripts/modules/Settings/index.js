@@ -3,7 +3,7 @@
  */
 define(
     [
-        './controller/RootController'
+        './controller/SettingsCtrl'
     ],
     function () {
         'use strict';

@@ -25053,7 +25053,7 @@ Firebug.InfoTip = extend(Firebug.Module,
         onLoadImage: function(event)
         {
             var img = event.currentTarget || event.srcElement;
-            ///var bgImg = images.nextSibling;
+            ///var bgImg = img.nextSibling;
             ///if (!bgImg)
             ///    return; // Sometimes gets called after element is dead
 
@@ -25146,22 +25146,22 @@ Firebug.InfoTip = extend(Firebug.Module,
         /// onLoadImage original
         onLoadImage: function(event)
         {
-            var images = event.currentTarget;
-            var bgImg = images.nextSibling;
+            var img = event.currentTarget;
+            var bgImg = img.nextSibling;
             if (!bgImg)
                 return; // Sometimes gets called after element is dead
 
             var caption = bgImg.nextSibling;
-            var innerBox = images.parentNode;
+            var innerBox = img.parentNode;
 
-            var w = images.naturalWidth, h = images.naturalHeight;
-            var repeat = images.getAttribute("repeat");
+            var w = img.naturalWidth, h = img.naturalHeight;
+            var repeat = img.getAttribute("repeat");
 
             if (repeat == "repeat-x" || (w == 1 && h > 1))
             {
-                collapse(images, true);
+                collapse(img, true);
                 collapse(bgImg, false);
-                bgImg.style.background = "url(" + images.src + ") repeat-x";
+                bgImg.style.background = "url(" + img.src + ") repeat-x";
                 bgImg.style.width = maxWidth + "px";
                 if (h > maxHeight)
                     bgImg.style.height = maxHeight + "px";
@@ -25170,9 +25170,9 @@ Firebug.InfoTip = extend(Firebug.Module,
             }
             else if (repeat == "repeat-y" || (h == 1 && w > 1))
             {
-                collapse(images, true);
+                collapse(img, true);
                 collapse(bgImg, false);
-                bgImg.style.background = "url(" + images.src + ") repeat-y";
+                bgImg.style.background = "url(" + img.src + ") repeat-y";
                 bgImg.style.height = maxHeight + "px";
                 if (w > maxWidth)
                     bgImg.style.width = maxWidth + "px";
@@ -25181,9 +25181,9 @@ Firebug.InfoTip = extend(Firebug.Module,
             }
             else if (repeat == "repeat" || (w == 1 && h == 1))
             {
-                collapse(images, true);
+                collapse(img, true);
                 collapse(bgImg, false);
-                bgImg.style.background = "url(" + images.src + ") repeat";
+                bgImg.style.background = "url(" + img.src + ") repeat";
                 bgImg.style.width = maxWidth + "px";
                 bgImg.style.height = maxHeight + "px";
             }
@@ -25193,13 +25193,13 @@ Firebug.InfoTip = extend(Firebug.Module,
                 {
                     if (w > h)
                     {
-                        images.style.width = maxWidth + "px";
-                        images.style.height = Math.round((h / w) * maxWidth) + "px";
+                        img.style.width = maxWidth + "px";
+                        img.style.height = Math.round((h / w) * maxWidth) + "px";
                     }
                     else
                     {
-                        images.style.width = Math.round((w / h) * maxHeight) + "px";
-                        images.style.height = maxHeight + "px";
+                        img.style.width = Math.round((w / h) * maxHeight) + "px";
+                        img.style.height = maxHeight + "px";
                     }
                 }
             }

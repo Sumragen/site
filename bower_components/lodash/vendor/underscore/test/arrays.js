@@ -5,7 +5,7 @@
 
   QUnit.test('first', function(assert) {
     assert.equal(_.first([1, 2, 3]), 1, 'can pull out the first element of an array');
-    assert.equal(_([1, 2, 3]).first(), 1, 'can perform OO-styles "first()"');
+    assert.equal(_([1, 2, 3]).first(), 1, 'can perform OO-style "first()"');
     assert.deepEqual(_.first([1, 2, 3], 0), [], 'returns an empty array when n <= 0 (0 case)');
     assert.deepEqual(_.first([1, 2, 3], -1), [], 'returns an empty array when n <= 0 (negative case)');
     assert.deepEqual(_.first([1, 2, 3], 2), [1, 2], 'can fetch the first n elements');
@@ -56,7 +56,7 @@
 
   QUnit.test('last', function(assert) {
     assert.equal(_.last([1, 2, 3]), 3, 'can pull out the last element of an array');
-    assert.equal(_([1, 2, 3]).last(), 3, 'can perform OO-styles "last()"');
+    assert.equal(_([1, 2, 3]).last(), 3, 'can perform OO-style "last()"');
     assert.deepEqual(_.last([1, 2, 3], 0), [], 'returns an empty array when n <= 0 (0 case)');
     assert.deepEqual(_.last([1, 2, 3], -1), [], 'returns an empty array when n <= 0 (negative case)');
     assert.deepEqual(_.last([1, 2, 3], 2), [2, 3], 'can fetch the last n elements');
@@ -187,7 +187,7 @@
   QUnit.test('intersection', function(assert) {
     var stooges = ['moe', 'curly', 'larry'], leaders = ['moe', 'groucho'];
     assert.deepEqual(_.intersection(stooges, leaders), ['moe'], 'can find the set intersection of two arrays');
-    assert.deepEqual(_(stooges).intersection(leaders), ['moe'], 'can perform an OO-styles intersection');
+    assert.deepEqual(_(stooges).intersection(leaders), ['moe'], 'can perform an OO-style intersection');
     var result = (function(){ return _.intersection(arguments, leaders); }('moe', 'curly', 'larry'));
     assert.deepEqual(result, ['moe'], 'works on an arguments object');
     var theSixStooges = ['moe', 'moe', 'curly', 'curly', 'larry', 'larry'];
@@ -205,7 +205,7 @@
     assert.deepEqual(result, [1, 2, 3, 30, 40], 'can find the union of a list of arrays');
 
     result = _([1, 2, 3]).union([2, 30, 1], [1, 40]);
-    assert.deepEqual(result, [1, 2, 3, 30, 40], 'can perform an OO-styles union');
+    assert.deepEqual(result, [1, 2, 3, 30, 40], 'can perform an OO-style union');
 
     result = _.union([1, 2, 3], [2, 30, 1], [1, 40, [1]]);
     assert.deepEqual(result, [1, 2, 3, 30, 40, [1]], 'can find the union of a list of nested arrays');
@@ -224,7 +224,7 @@
     assert.deepEqual(result, [1, 3], 'can find the difference of two arrays');
 
     result = _([1, 2, 3]).difference([2, 30, 40]);
-    assert.deepEqual(result, [1, 3], 'can perform an OO-styles difference');
+    assert.deepEqual(result, [1, 3], 'can perform an OO-style difference');
 
     result = _.difference([1, 2, 3, 4], [2, 30, 40], [1, 11, 111]);
     assert.deepEqual(result, [3, 4], 'can find the difference of three arrays');

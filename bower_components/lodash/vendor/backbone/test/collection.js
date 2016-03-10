@@ -309,7 +309,7 @@
     assert.equal(collection.first().get('name'), 'Alf');
   });
 
-  QUnit.test('add model to collection with sort()-styles comparator', function(assert) {
+  QUnit.test('add model to collection with sort()-style comparator', function(assert) {
     assert.expect(3);
     var collection = new Backbone.Collection;
     collection.comparator = function(m1, m2) {
@@ -724,7 +724,7 @@
     assert.ok(col.indexBy('id')[first.id] === first);
   });
 
-  QUnit.test('Underscore methods with object-styles and property-styles iteratee', function(assert) {
+  QUnit.test('Underscore methods with object-style and property-style iteratee', function(assert) {
     assert.expect(26);
     var model = new Backbone.Model({a: 4, b: 1, e: 3});
     var coll = new Backbone.Collection([

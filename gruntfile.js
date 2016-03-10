@@ -4,7 +4,6 @@
 /*global module,require*/
 module.exports = function(grunt){
     require('load-grunt-tasks')(grunt);
-    require('load-grunt-configs')(grunt);
     var config = {
         appConfig: {
             app: require('./bower.json').appPath || 'app',
@@ -15,77 +14,10 @@ module.exports = function(grunt){
             appVersion: grunt.file.readJSON("package.json").version,
             environment: grunt.option('env') || 'dev',
             noCache:grunt.option('nocache') || Date.now()
-        },
-        copy:{
-            files:{
-                expand: true,
-                cwd: 'app/scripts',
-                src: '**/*.js',
-                dest: 'test'
-            }
-        },
-        jshint:{
-            options: {
-                reporter: require('jshint-stylish')
-            },
-
-            main: [
-                'app/scripts/*/**.js'
-            ]
-        },
-        requirejs: {
-            compile: {
-                options: {
-                    baseUrl: "app/scripts",
-                    mainConfigFile: "app/scripts/entrypoint.js",
-                    name: "entrypoint",
-                    out: "dist/main.min.js"
-                }
-            }
-        },
-        less: {
-            development: {
-                options: {
-                    paths: ["app/styles"]
-                },
-                files: {
-                    "dist/styles/main.min.css": "app/styles/main.less"
-                }
-            },
-            production: {
-                options: {
-                    paths: ["app/styles"]
-                },
-                files: {
-                    "dist/styles/main.min.css": "app/styles/main.less"
-                }
-            }
-        },
-        connect: {
-            server: {
-                options: {
-                    port: 9000,
-                    hostname: 'localhost',
-                    open:{
-                        target: 'http://localhost:9000/app/#/home',
-                        appName: 'chrome'
-                    }
-
-                }
-            }
-        },
-        watch: {
-            js: {
-                files: ['app/scripts/**/*.js'],
-                tasks: ['jshint','copy'],
-                options: {
-                    spawn: false,
-                    livereload: true
-                }
-            }
         }
     };
 
+    config = require('load-grunt-configs')(grunt, config);
     grunt.initConfig(config);
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-jshint');

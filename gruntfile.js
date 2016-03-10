@@ -48,23 +48,15 @@ module.exports = function(grunt){
                     paths: ["app/styles"]
                 },
                 files: {
-                    "app/styles/main.min.css": "app/styles/main.less"
+                    "dist/styles/main.min.css": "app/styles/main.less"
                 }
             },
             production: {
                 options: {
-                    paths: ["app/styles"],
-                    //plugins: [
-                    //    new (require('less-plugin-autoprefix'))({browsers: ["last 2 versions"]}),
-                    //    new (require('less-plugin-clean-css'))(cleanCssOptions)
-                    //],
-                    //modifyVars: {
-                    //    imgPath: '"http://mycdn.com/path/to/images"',
-                    //    bgColor: 'red'
-                    //}
+                    paths: ["app/styles"]
                 },
                 files: {
-                    "app/styles/main.min.css": "app/styles/main.less"
+                    "dist/styles/main.min.css": "app/styles/main.less"
                 }
             }
         },

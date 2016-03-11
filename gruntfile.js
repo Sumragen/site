@@ -19,23 +19,20 @@ module.exports = function(grunt){
 
     config = require('load-grunt-configs')(grunt, config);
     grunt.initConfig(config);
-    //grunt.loadNpmTasks('grunt-contrib-watch');
-    //grunt.loadNpmTasks('grunt-contrib-jshint');
-    //grunt.loadNpmTasks('grunt-contrib-requirejs');
-    //grunt.loadNpmTasks('grunt-contrib-less');
-    //grunt.loadNpmTasks('grunt-contrib-connect');
 
     grunt.registerTask('build', function () {
         grunt.task.run([
             'copy:tmp',
             //'requirejs',
+            //'processhtml',
             'less:development'
         ]);
     });
 
     grunt.registerTask('serve', function () {
         grunt.task.run([
-            'connect',
+            'connect:livereload',
+            //'processhtml',
             'watch'
         ]);
     });

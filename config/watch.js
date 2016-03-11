@@ -3,11 +3,11 @@
  */
 module.exports = {
     js: {
-        files: ['../app/scripts/**/*.js'],
-        tasks: ['jshint','copy'],
+        files: ['./scripts/**/*.js'],
+        tasks: ['jshint'],
         options: {
             spawn: false,
-            livereload: true
+            livereload: 15727
         }
     }
 };

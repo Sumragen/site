@@ -10,10 +10,10 @@ define(['angular','angular-animate'],function(module){
                 url: "/home",
                 views:{
                     header: {
-                        templateUrl: './views/header.html'
+                        templateUrl: 'views/header.html'
                     },
                     body: {
-                        templateUrl: './views/home.html'
+                        templateUrl: 'views/home.html'
                     }
                 },
                 controller: ''

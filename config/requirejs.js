@@ -7,7 +7,7 @@ module.exports = {
             baseUrl: "app/scripts",
             mainConfigFile: "app/scripts/entrypoint.js",
             name: "entrypoint",
-            out: "dist/main.min.js"
+            out: "dist/scripts/main.js"
         }
     }
 };

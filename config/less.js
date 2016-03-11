@@ -7,7 +7,7 @@ module.exports = {
             paths: ["app/styles"]
         },
         files: {
-            "dist/styles/main.css": "app/styles/main.less"
+            ".tmp/styles/main.css": "app/styles/main.less"
         }
     },
     production: {

@@ -2,23 +2,28 @@
  * Created by sumragen on 3/10/16.
  */
 module.exports = {
-    dist:{
+    tmp:{
         files:[
             {
                 expand: true,
                 cwd: 'app/fonts',
                 src: '**/*.*',
-                dest: 'dist/fonts'
+                dest: '.tmp/fonts'
             },{
                 expand: true,
                 cwd: 'app/',
                 src: '**/*.html',
-                dest: 'dist/'
+                dest: '.tmp/'
             },{
                 expand: true,
                 cwd: 'app/images',
                 src: '**/*.{ico,png,jpeg}',
-                dest: 'dist/images'
+                dest: '.tmp/images'
+            },{
+                expand: true,
+                cwd: 'bower_components/requirejs/',
+                src: 'require.js',
+                dest: '.tmp/vendor/requirejs'
             }
         ]
     }

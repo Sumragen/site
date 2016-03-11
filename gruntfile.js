@@ -19,15 +19,15 @@ module.exports = function(grunt){
 
     config = require('load-grunt-configs')(grunt, config);
     grunt.initConfig(config);
-    grunt.loadNpmTasks('grunt-contrib-watch');
-    grunt.loadNpmTasks('grunt-contrib-jshint');
-    grunt.loadNpmTasks('grunt-contrib-requirejs');
-    grunt.loadNpmTasks('grunt-contrib-less');
-    grunt.loadNpmTasks('grunt-contrib-connect');
+    //grunt.loadNpmTasks('grunt-contrib-watch');
+    //grunt.loadNpmTasks('grunt-contrib-jshint');
+    //grunt.loadNpmTasks('grunt-contrib-requirejs');
+    //grunt.loadNpmTasks('grunt-contrib-less');
+    //grunt.loadNpmTasks('grunt-contrib-connect');
 
     grunt.registerTask('build', function () {
         grunt.task.run([
-            //'less:development',
+            'less:development',
             'requirejs'
         ]);
     });

@@ -17,6 +17,7 @@ define([], function () {
         localStorage.setItem("usersLS", JSON.stringify(user))
     }
     var currentUser = null;
+    var events = [{}];
 
     dataSource.setCurrentUser = function (data) {
         var i = 0;
@@ -34,9 +35,8 @@ define([], function () {
         users.push(user);
         localStorage.setItem("usersLS", JSON.stringify(users));
     };
-
     dataSource.getCurrentUser = function () {
-        return localStorage.getItem('currentUserLS');
+        return currentUser;
     };
     return dataSource;
 });

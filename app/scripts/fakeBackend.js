@@ -25,7 +25,7 @@ define(
             $httpBackend.whenPOST('/signIn').respond(function (method,url,data) {
                 fakeDataSource.setCurrentUser(data);
                 if (fakeDataSource.getCurrentUser()){
-                    return [200, fakeDataSource.getCurrentUser(), {}];
+                    return [200, {currentUser: fakeDataSource.getCurrentUser(), sessionToken: 'simple sessionToken'}, {}];
                 }else{
                     return [400,{errorCode:1,message:'Username or password is incorrect'}];
                 }

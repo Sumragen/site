@@ -21,8 +21,9 @@ define(['../module'], function (module) {
 
         service.signIn = function (currentLogin, currentPassword) {
             return $http.post('/signIn', {login: currentLogin, password: currentPassword})
-                .then(function (currentUser) {
-                    return currentUser;
+                .then(function (data) {
+                    console.log(data.data.sessionToken);
+                    return data.data.currentUser;
                 },function (err) {
                     return $q.reject(err);
             });

@@ -8,6 +8,7 @@ define(['angular', 'angular-animate'], function (module) {
         $stateProvider
             .state('dashboard', {
                 url: "",
+                abstract: true,
                 templateUrl: './views/master.html',
                 controller: 'CommonController as controller'
             })

@@ -13,7 +13,6 @@ define([
         'ui.bootstrap',
         'ui.bootstrap.tpls',
         'modules/Auth/index',
-        //'modules/moduleRoot/index',
         'modules/Common/index',
         'modules/Location/index',
         'modules/Settings/index',
@@ -49,10 +48,7 @@ define([
                         return true;
                     });
                     $rootScope.stateMatch = function (inState) {
-                        if ($rootScope.currentState && $rootScope.currentState.name && $rootScope.currentState.name.indexOf(inState) >= 0) {
-                            return true;
-                        }
-                        return false;
+                        return ($rootScope.currentState && $rootScope.currentState.name && $rootScope.currentState.name.indexOf(inState) >= 0)
                     };
                 }
             ])
@@ -65,8 +61,10 @@ define([
                         controller:'CommonController as controller'
                     })
                     .state('404', {
-                        url: "/404",
                         templateUrl: "./views/404.html"
+                    })
+                    .state('accessDenied', {
+                        templateUrl: "./views/accessDenied.html"
                     });
             });
         return app;

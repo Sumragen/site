@@ -1,5 +1,5 @@
-<div id="custom-modal">
-    <div id="sign-up">
+<div class="custom-modal">
+    <div class="sign-up">
         <form role="form" ng-submit="auth.addUser(firstName,lastName,login,email,password);auth.close()">
             <h2>Sign Up</h2>
             <div class="form-group">
@@ -17,12 +17,9 @@
             <div class="form-group">
                 <input class="form-control" type="password" placeholder="Password" ng-model="password" name="password"/>
             </div>
-            <button type="reset" class="btn btn-default" ng-click="auth.close()"
-                    style="margin-left: 35%;padding-left: 5%;padding-right: 5%;width: 25%">Cancel</button>
-
-            <button type="submit" class="btn btn-info" ng-disabled="email.$invalid"
-                    style="margin-left: 2%;padding-left: 5%;padding-right: 5%;width: 25%" >Submit</button>
+            <button type="reset" class="btn btn-default custom-btn-cancel" ng-click="auth.close()">Cancel</button>
+            <button type="submit" class="btn btn-info custom-btn-submit" ng-disabled="email.$invalid">Submit</button>
         </form>
     </div>
-    <div id="fade"></div>
+    <div class="fade"></div>
 </div>

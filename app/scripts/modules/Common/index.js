@@ -3,6 +3,7 @@
  */
 define(
     [
+        './controller/CommonController',
         './service/ModalService'
     ],
     function () {

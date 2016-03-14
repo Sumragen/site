@@ -9,6 +9,8 @@ require.config({
         'twitter-bootstrap': '../../bower_components/bootstrap/dist/js/bootstrap',
         'angular-ui-router': '../../bower_components/angular-ui-router/release/angular-ui-router',
         'logicify-gmap': '../../bower_components/logicify-gmap/dist/logicify-gmap',
+        'ui.bootstrap': '../../bower_components/angular-bootstrap/ui-bootstrap',
+        'ui.bootstrap.tpls': '../../bower_components/angular-bootstrap/ui-bootstrap-tpls',
         'angular-strap': '../../bower_components/angular-strap/dist/angular-strap.min',
         'angular-strap-tpl': '../../bower_components/angular-strap/dist/angular-strap.tpl.min',
         'angular-animate':'../../bower_components/angular-animate/angular-animate',
@@ -36,6 +38,12 @@ require.config({
             params: {
                 key: 'AIzaSyBgbkIo3Sm5Xt9mV3DILlczDSYUwsSKfrU'
             }
+        },
+        'ui.bootstrap': {
+            deps: ['angular']
+        },
+        'ui.bootstrap.tpls': {
+            deps: ['ui.bootstrap']
         },
         'angular-ui-router': {
             deps: ['angular']

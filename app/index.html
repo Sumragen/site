@@ -6,57 +6,21 @@
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Roboto:300,400,500,700">
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="../bower_components/bootstrap-material-design/dist/css/bootstrap-material-design.css">
-    <link rel="stylesheet" type="text/css" href="../bower_components/bootstrap-material-design/dist/css/ripples.min.css">
-    <link rel="stylesheet" type="text/css" href="styles/style.css">
-    <link rel="stylesheet" type="text/css" href="styles/modal.css">
+    <!--<link rel="stylesheet" type="text/css" href="../bower_components/bootstrap-material-design/dist/css/bootstrap-material-design.css">-->
+    <!--<link rel="stylesheet" type="text/css" href="../bower_components/bootstrap-material-design/dist/css/ripples.min.css">-->
+    <!--<link rel="stylesheet" type="text/css" href="styles/style.css">-->
+    <link rel="stylesheet" type="text/css" href="./../.tmp/styles/main.css">
     <script data-main="scripts/entrypoint.js" src="../bower_components/requirejs/require.js"></script>
 </head>
-<body ng-controller="RootController as panel">
-<header>
-    <nav class="navbar navbar-inverse" style="padding-bottom: 20px;padding-top: 20px;position: relative">
-        <div class="container-fluid" style="vertical-align: middle">
-            <div class="navbar-header" style="padding-left: 4%">
-                <a class="navbar-brand"  ui-sref="home" href="">
-                    <img src="images/School24.png" style="height: 100px;width: 300px;position: relative;bottom: 30px;">
-                </a>
-            </div>
-            <ul class="nav navbar-nav navbar-right" style="margin-right: 14%;" ng-if=panel.isAuthenticated()>
-                <li style="margin-right: 20px"><h3>Hello, {{panel.getName()}}</h3></li>
-                <ul class="pager">
-                    <li style="vertical-align: middle;position: absolute;top: 32px;">
-                        <div class="dropdown">
-                            <img src="images/ava.png" class="dropdown-toggle" data-toggle="dropdown" style="height: 80px;width: 80px;position: relative;bottom: 22px;">
-                            <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
-                                <li class="btn btn-primary" type="button" href="" style="margin-left: 18px;width: 150px;" ng-click="panel.onTabSelect('settings')">Settings</li>
-                                <li class="btn btn-primary" type="button" href="" style="margin-left: 23px;width: 150px;" ui-sref="home" ng-click="panel.logOut()">Log Out</li>
-                            </ul>
-                        </div>
-                    </li>
-                </ul>
-            </ul>
-            <ul class="nav navbar-nav navbar-right" style="margin-right: 14%;" ng-if=!panel.isAuthenticated()>
-                <ul class="pager">
-                    <li style="vertical-align: middle;position: absolute;top: 12px">
-                        <a class="withripple" ng-click="showCustom('/School_v0.2/app/views/auth/logIn')"
-                           data-placement="center" href="" style="width: 100px">Sign In</a>
-                        <p></p>
-                        <a class="withripple" ng-click="showCustom('/School_v0.2/app/views/auth/logUp')"
-                           href="" style="width: 100px">Sign Up</a>
-                    </li>
-                </ul>
-            </ul>
-        </div>
-    </nav>
-</header>
-<div ui-view="header"></div>
-<div style="margin-top: 20px;margin-left: 15%;margin-right: 15%">
-    <div class="row" style="">
-        <div class="span12">
-            <div class="well" ui-view="body"></div>
-        </div>
-    </div>
-</div>
-<h6 style="text-align: center">School №24 1982-2016</h6>
+<body>
+<div ui-view></div>
+<!--<div class="body-site">-->
+    <!--<div class="row" style="">-->
+        <!--<div class="span12">-->
+            <!--<div class="well" ui-view="body"></div>-->
+        <!--</div>-->
+    <!--</div>-->
+<!--</div>-->
+<h6 class="text-center">School №24 1982-2016</h6>
 </body>
 </html>

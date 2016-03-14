@@ -14,6 +14,8 @@ define([
         'ui.bootstrap.tpls',
         'modules/Auth/index',
         'modules/Common/index',
+        'modules/Event/index',
+        'modules/Schedule/index',
         'modules/Location/index',
         'modules/Settings/index',
         'modules/Profile/index'
@@ -25,6 +27,8 @@ define([
             'AuthModule',
             'Common',
             'LocationModule',
+            'EventModule',
+            'ScheduleModule',
             'SettingsModule',
             'ProfileModule'
         ];

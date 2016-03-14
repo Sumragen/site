@@ -1,26 +1,27 @@
 /**
  * Created by trainee on 3/2/16.
  */
-define(['angular','angular-animate'],function(module){
-    var app = module.module('Common',['mgcrea.ngStrap','ngAnimate']);
+define(['angular', 'angular-animate'], function (module) {
+    var app = module.module('Common', ['mgcrea.ngStrap', 'ngAnimate']);
     app.config(function ($stateProvider, $urlRouterProvider) {
         $urlRouterProvider.otherwise("/home");
         $stateProvider
-            .state('home', {
+            .state('dashboard',{
+                url: "/",
+                templateUrl: './views/master.html'
+            })
+            .state('dashboard.home', {
                 url: "/home",
-                views:{
-                    header: {
-                        templateUrl: 'views/header.html'
-                    },
+                views: {
                     body: {
-                        templateUrl: 'views/home.html'
+                        templateUrl: './views/home.html',
+                        controller: ''
                     }
-                },
-                controller: ''
+                }
             })
             .state('tab_1', {
                 url: "/profile",
-                views:{
+                views: {
                     header: {
                         templateUrl: './views/header.html'
                     },
@@ -34,7 +35,7 @@ define(['angular','angular-animate'],function(module){
             })
             .state('tab_2', {
                 url: "/schedule",
-                views:{
+                views: {
                     header: {
                         templateUrl: './views/header.html'
                     },
@@ -46,7 +47,7 @@ define(['angular','angular-animate'],function(module){
             })
             .state('tab_3', {
                 url: "/events",
-                views:{
+                views: {
                     header: {
                         templateUrl: './views/header.html'
                     },

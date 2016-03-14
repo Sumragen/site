@@ -12,51 +12,15 @@
     <link rel="stylesheet" type="text/css" href="./../.tmp/styles/main.css">
     <script data-main="scripts/entrypoint.js" src="../bower_components/requirejs/require.js"></script>
 </head>
-<body ng-controller="CommonController as panel">
-<header>
-    <nav class="navbar navbar-inverse custom-navbar">
-        <div class="container-fluid custom-container-fluid">
-            <div class="navbar-header custom-navbar-header">
-                <a class="navbar-brand"  ui-sref="home" href="">
-                    <img class="logo-school" src="images/School24.png">
-                </a>
-            </div>
-            <ul class="nav navbar-nav navbar-right custom-navbar-right" ng-if=panel.isAuthenticated()>
-                <li class="custom-hello-message"><h3>Hello, {{panel.getName()}}</h3></li>
-                <ul class="pager">
-                    <li class="custom-dropdown">
-                        <div class="dropdown">
-                            <img src="images/ava.png" class="dropdown-toggle avatar-header" data-toggle="dropdown">
-                            <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
-                                <li class="btn btn-primary dropdown-button-settings" type="button" href="" ng-click="panel.onTabSelect('settings')">Settings</li>
-                                <li class="btn btn-primary dropdown-button-logOut" type="button" href="" ui-sref="home" ng-click="panel.logOut()">Log Out</li>
-                            </ul>
-                        </div>
-                    </li>
-                </ul>
-            </ul>
-            <ul class="nav navbar-nav navbar-right custom-navbar-right" ng-if=!panel.isAuthenticated()>
-                <ul class="pager">
-                    <li class="btns-sign-In-Up">
-                        <a class="withripple btn-navbar-right" ng-click="showSignInModal()"
-                           data-placement="center" href="">Sign In</a>
-                        <p></p>
-                        <a class="withripple btn-navbar-right" ng-click="showSignUpModal()"
-                           href="">Sign Up</a>
-                    </li>
-                </ul>
-            </ul>
-        </div>
-    </nav>
-</header>
-<div ui-view="header"></div>
-<div class="body-site">
-    <div class="row" style="">
-        <div class="span12">
-            <div class="well" ui-view="body"></div>
-        </div>
-    </div>
-</div>
+<body>
+<div ui-view></div>
+<!--<div class="body-site">-->
+    <!--<div class="row" style="">-->
+        <!--<div class="span12">-->
+            <!--<div class="well" ui-view="body"></div>-->
+        <!--</div>-->
+    <!--</div>-->
+<!--</div>-->
 <h6 class="text-center">School №24 1982-2016</h6>
 </body>
 </html>

@@ -14,9 +14,9 @@ define(['../module'], function (module) {
                     center: 'title',
                     right: 'today prev,next'
                 },
-                dayClick: $scope.alertEventOnClick,
-                eventDrop: $scope.alertOnDrop,
-                eventResize: $scope.alertOnResize
+                dayClick: function () {
+                    console.log('click');
+                }
             }
         };
     }]);

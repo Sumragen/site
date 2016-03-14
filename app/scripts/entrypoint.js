@@ -22,14 +22,14 @@ require.config({
         'google': 'https://maps.googleapis.com/maps/api/js?v=3.22'
     },
     shim: {
-        'gcal':{
-            deps: ['fullcalendar','angular']
+        'angular-ui-calendar': {
+            deps: ['gcal']
+        },
+        'gcal': {
+            deps: ['fullcalendar']
         },
         'fullcalendar': {
             deps: ['jquery', 'moment', 'angular']
-        },
-        'angular-ui-calendar': {
-            deps: ['angular', 'jquery', 'moment', 'fullcalendar', 'gcal']
         },
         'angular': {
             deps: ['jquery'],

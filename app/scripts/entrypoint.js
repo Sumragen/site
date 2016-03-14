@@ -13,11 +13,21 @@ require.config({
         'ui.bootstrap.tpls': '../../bower_components/angular-bootstrap/ui-bootstrap-tpls',
         'angular-strap': '../../bower_components/angular-strap/dist/angular-strap.min',
         'angular-strap-tpl': '../../bower_components/angular-strap/dist/angular-strap.tpl.min',
-        'angular-animate':'../../bower_components/angular-animate/angular-animate',
-        'angular-mocks':'../../bower_components/angular-mocks/angular-mocks',
+        'angular-animate': '../../bower_components/angular-animate/angular-animate',
+        'angular-mocks': '../../bower_components/angular-mocks/angular-mocks',
+        'moment': '../../bower_components/moment/min/moment.min',
+        'angular-ui-calendar': '../../bower_components/angular-ui-calendar/src/calendar',
+        'fullcalendar': '../../bower_components/fullcalendar/dist/fullcalendar.min',
+        'gcal': '../../bower_components/fullcalendar/dist/gcal',
         'google': 'https://maps.googleapis.com/maps/api/js?v=3.22'
     },
     shim: {
+        'fullcalendar': {
+            deps: ['jquery', 'moment', 'angular']
+        },
+        'angular-ui-calendar': {
+            deps: ['angular', 'jquery', 'moment', 'fullcalendar', 'gcal']
+        },
         'angular': {
             deps: ['jquery'],
             exports: 'angular'
@@ -32,7 +42,7 @@ require.config({
             deps: ['angular']
         },
         'angular-strap-tpl': {
-            deps: ['angular-strap','angular-strap']
+            deps: ['angular-strap', 'angular-strap']
         },
         googlemaps: {
             params: {
@@ -64,6 +74,6 @@ require.config({
 });
 
 
-require(['angular','./fakeBackend' ,'./App'], function (angular) {
+require(['angular', './fakeBackend', './App'], function (angular) {
     angular.bootstrap(document, ['MyApp']);
 });

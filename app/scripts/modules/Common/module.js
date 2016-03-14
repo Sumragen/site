@@ -2,61 +2,30 @@
  * Created by trainee on 3/2/16.
  */
 define(['angular', 'angular-animate'], function (module) {
-    var app = module.module('Common', ['mgcrea.ngStrap', 'ngAnimate']);
-    app.config(function ($stateProvider, $urlRouterProvider) {
+    return module.module('Common', ['mgcrea.ngStrap', 'ngAnimate' ])
+    .config(function ($stateProvider, $urlRouterProvider) {
         $urlRouterProvider.otherwise("/home");
         $stateProvider
-            .state('dashboard',{
-                url: "/",
-                templateUrl: './views/master.html'
+            .state('dashboard', {
+                url: "",
+                templateUrl: './views/master.html',
+                controller: 'CommonController as controller'
             })
             .state('dashboard.home', {
                 url: "/home",
-                views: {
-                    body: {
-                        templateUrl: './views/home.html',
-                        controller: ''
-                    }
-                }
+                templateUrl: './views/home.html',
+                controller: ''
+
             })
-            .state('tab_1', {
-                url: "/profile",
-                views: {
-                    header: {
-                        templateUrl: './views/header.html'
-                    },
-                    body: {
-                        templateUrl: './views/tabs/profile.html',
-                        controller: 'ProfileController',
-                        controllerAs: 'ctrl'
-                    }
-                },
-                templateUrl: "./views/tabs/profile.html"
-            })
-            .state('tab_2', {
+            .state('dashboard.schedule', {
                 url: "/schedule",
-                views: {
-                    header: {
-                        templateUrl: './views/header.html'
-                    },
-                    body: {
-                        templateUrl: './views/tabs/schedule.html'
-                    }
-                },
-                controller: 'RootController'
+                templateUrl: './views/tabs/schedule.html',
+                controller: ''
             })
-            .state('tab_3', {
+            .state('dashboard.events', {
                 url: "/events",
-                views: {
-                    header: {
-                        templateUrl: './views/header.html'
-                    },
-                    body: {
-                        templateUrl: './views/tabs/events.html'
-                    }
-                },
-                controller: 'RootController'
+                templateUrl: './views/tabs/events.html',
+                controller: ''
             });
     });
-    return app;
 });

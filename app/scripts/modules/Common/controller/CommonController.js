@@ -15,7 +15,7 @@ define(['../module'], function (module) {
         self.pathToView = 'home';
         $scope.customResult = null;
 
-        $scope.showSignInModal = function (path) {
+        self.showSignInModal = function (path) {
             ModalService.showModal({
                 templateUrl: "./views/auth/logIn.html",
                 controller: "AuthController as auth"
@@ -25,7 +25,7 @@ define(['../module'], function (module) {
                 });
             });
         };
-        $scope.showSignUpModal = function (path) {
+        self.showSignUpModal = function (path) {
             ModalService.showModal({
                 templateUrl: "./views/auth/logUp.html",
                 controller: "AuthController as auth"

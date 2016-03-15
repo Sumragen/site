@@ -1,42 +1,72 @@
 <header>
-    <nav class="navbar navbar-inverse custom-navbar">
-        <div class="container-fluid custom-container-fluid">
-            <div class="navbar-header custom-navbar-header">
-                <a class="navbar-brand" ui-sref="dashboard.home" href="">
-                    <img class="logo-school" src="images/School24.png">
-                </a>
-            </div>
-            <ul class="nav navbar-nav navbar-right custom-navbar-right" ng-if=controller.isAuthenticated()>
-                <li class="custom-hello-message"><h3>Hello, {{controller.getName()}}</h3></li>
-                <ul class="pager">
-                    <li class="custom-dropdown">
-                        <div class="dropdown">
-                            <img src="images/ava.png" class="dropdown-toggle avatar-header" data-toggle="dropdown">
-                            <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
-                                <!--<li class="btn btn-primary dropdown-button-settings" type="button" href=""-->
-                                    <!--ng-click="controller.onTabSelect('settings')">Settings-->
+    <!--<nav class="navbar navbar-inverse custom-navbar">-->
+        <!--<div class="container-fluid custom-container-fluid">-->
+            <!--<div class="navbar-header custom-navbar-header">-->
+                <!--<a class="navbar-brand" ui-sref="dashboard.home" href="">-->
+                    <!--<img class="logo-school" src="images/School24.png">-->
+                <!--</a>-->
+            <!--</div>-->
+            <!--<ul class="nav navbar-nav navbar-right custom-navbar-right" ng-if=controller.isAuthenticated()>-->
+                <!--<li class="custom-hello-message"><h3>Hello, {{controller.getName()}}</h3></li>-->
+                <!--<ul class="pager">-->
+                    <!--<li class="custom-dropdown">-->
+                        <!--<div class="dropdown">-->
+                            <!--<img src="images/ava.png" class="dropdown-toggle avatar-header" data-toggle="dropdown">-->
+                            <!--<ul class="dropdown-menu" role="menu" aria-labelledby="menu1">-->
+                                <!--<li class="btn btn-primary dropdown-button-logOut" type="button" href="" ui-sref="home"-->
+                                    <!--ng-click="controller.logOut()">Log Out-->
                                 <!--</li>-->
-                                <li class="btn btn-primary dropdown-button-logOut" type="button" href="" ui-sref="home"
-                                    ng-click="controller.logOut()">Log Out
-                                </li>
-                            </ul>
-                        </div>
+                            <!--</ul>-->
+                        <!--</div>-->
+                    <!--</li>-->
+                <!--</ul>-->
+            <!--</ul>-->
+            <!--<ul class="nav navbar-nav navbar-right custom-navbar-right" ng-if=!controller.isAuthenticated()>-->
+                <!--<ul class="pager">-->
+                    <!--<li class="btns-sign-In-Up">-->
+                        <!--<a class="withripple btn-navbar-right" ng-click="controller.showSignInModal()"-->
+                           <!--data-placement="center" href="">Sign In</a>-->
+                        <!--<p></p>-->
+                        <!--<a class="withripple btn-navbar-right" ng-click="controller.showSignUpModal()"-->
+                           <!--href="">Sign Up</a>-->
+                    <!--</li>-->
+                <!--</ul>-->
+            <!--</ul>-->
+        <!--</div>-->
+    <!--</nav>-->
+    <div class="navbar navbar-inverse custom-navbar">
+        <div class="container-fluid">
+            <div class="navbar-header custom-navbar-header">
+                <a class="navbar-brand" ui-sref="dashboard.home"  href="">School №24</a>
+            </div>
+            <div class="navbar-collapse collapse navbar-inverse-collapse">
+
+                <!--<ul class="nav navbar-nav navbar-right" ng-if=!controller.isAuthenticated()>-->
+                <!--<li class="btns-sign-In-Up">-->
+                <!--<a ng-click="controller.showSignInModal()" href="">Sign In</a>-->
+                <!--</li>-->
+                <!--<li class="btns-sign-In-Up">-->
+                <!--<a ng-click="controller.showSignUpModal()" href="">Sign Up</a>-->
+                <!--</li>-->
+                <!--</ul>-->
+                <ul class="nav navbar-nav navbar-right custom-navbar-right" ng-if=!controller.isAuthenticated()>
+                    <li><a ng-click="controller.showSignInModal()" href="">Sign In</a></li>
+                    <li><a ng-click="controller.showSignUpModal()" href="">Sign Up</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right custom-navbar-right" ng-if=controller.isAuthenticated()>
+                    <li class="dropdown">
+                        <a href="" data-target="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown</a>
+                        <ul class="dropdown-menu">
+                            <li class="disabled"><a href="">Settings</a></li>
+                            <li class="divider"></li>
+                            <li><a type="button" href="" ui-sref="home" ng-click="controller.logOut()">Log Out</a>
+                            </li>
+                        </ul>
                     </li>
                 </ul>
-            </ul>
-            <ul class="nav navbar-nav navbar-right custom-navbar-right" ng-if=!controller.isAuthenticated()>
-                <ul class="pager">
-                    <li class="btns-sign-In-Up">
-                        <a class="withripple btn-navbar-right" ng-click="controller.showSignInModal()"
-                           data-placement="center" href="">Sign In</a>
-                        <p></p>
-                        <a class="withripple btn-navbar-right" ng-click="controller.showSignUpModal()"
-                           href="">Sign Up</a>
-                    </li>
-                </ul>
-            </ul>
+            </div>
         </div>
-    </nav>
+    </div>
 </header>
 <div ng-include="'./views/header.html'"></div>
 <div class="body-site">

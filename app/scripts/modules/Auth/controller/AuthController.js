@@ -2,10 +2,14 @@
  * Created by sumragen on 2/27/16.
  */
 define(['../module'], function (module) {
-    module.controller('AuthController', ['$scope', 'close', '$http', 'AuthService', '$q', function ($scope, close, $http, AuthService, $q) {
+    module.controller('AuthController', ['$scope', 'close', '$http', 'AuthService', '$q', '$state', function ($scope, close, $http, AuthService, $q, $state) {
         var self = this;
 
         self.close = close;
+
+        self.stateProfile = function () {
+            $state.go('dashboard.profile');
+        };
 
         self.signUp = function (newUser) {
             AuthService.signUp(newUser);
@@ -15,6 +19,7 @@ define(['../module'], function (module) {
             return AuthService.signIn(currentLogin, currentPassword)
                 .then(function (currentUser) {
                     $scope.error = null;
+                    self.stateProfile()
                     self.close();
                 }, function (err) {
                     $scope.error = err.data.message;

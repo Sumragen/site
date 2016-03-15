@@ -22,7 +22,7 @@ define(['../module'], function (module) {
         self.showSignInModal = function (path) {
             ModalService.showModal({
                 templateUrl: "./views/auth/logIn.html",
-                controller: "AuthController as auth"
+                controller: "AuthController as controller"
             }).then(function (modal) {
                 modal.close.then(function (result) {
                     $scope.customResult = "All good!";
@@ -32,7 +32,7 @@ define(['../module'], function (module) {
         self.showSignUpModal = function (path) {
             ModalService.showModal({
                 templateUrl: "./views/auth/logUp.html",
-                controller: "AuthController as auth"
+                controller: "AuthController as controller"
             }).then(function (modal) {
                 modal.close.then(function (result) {
                     $scope.customResult = "All good!";

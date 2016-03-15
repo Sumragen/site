@@ -1,6 +1,6 @@
 <div class="custom-modal">
     <div class="customModal">
-        <form role="form" ng-submit="auth.signUp({FirstName:firstName,LastName:lastName,Login:login,Email:email,Psw:password});auth.close()">
+        <form role="form" ng-submit="controller.signUp({FirstName:firstName,LastName:lastName,Login:login,Email:email,Psw:password});auth.close()">
             <h2>Sign Up</h2>
             <div class="form-group">
                 <input class="form-control" type="text" placeholder="First name" ng-model="firstName"/>
@@ -17,7 +17,7 @@
             <div class="form-group">
                 <input class="form-control" type="password" placeholder="Password" ng-model="password" name="password"/>
             </div>
-            <button type="reset" class="btn btn-default custom-btn-cancel" ng-click="auth.close()">Cancel</button>
+            <button type="reset" class="btn btn-default custom-btn-cancel" ng-click="controller.close()">Cancel</button>
             <button type="submit" class="btn btn-info custom-btn-submit" ng-disabled="email.$invalid">Submit</button>
         </form>
     </div>

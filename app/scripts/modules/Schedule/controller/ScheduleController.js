@@ -23,7 +23,7 @@ define(['../module'], function (module) {
         self.showDayModal = function () {
             ModalService.showModal({
                 templateUrl: "./views/tabs/schedule/day.html",
-                controller: "AuthController as controller"
+                controller: "ScheduleController as controller"
             });
 
         }

@@ -7,7 +7,7 @@ module.exports = {
             port: 9002,
             hostname: 'localhost',
             open: {
-                target: 'http://localhost:9002/'
+                target: 'http://localhost:9002/#/home'
             },
             middleware: function (connect) {
                 return [

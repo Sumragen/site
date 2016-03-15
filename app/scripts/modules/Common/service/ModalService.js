@@ -38,7 +38,7 @@ define(['../module'], function (module) {
                 var appendChild = function(parent, child) {
                     var children = parent.children();
                     if (children.length > 0) {
-                        return $animate.enter(child, parent, children[children.length - 1]);
+                        return $animate.enter(child, parent, $(children[children.length - 1]));
                     }
                     return $animate.enter(child, parent);
                 };

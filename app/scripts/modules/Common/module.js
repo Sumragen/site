@@ -8,6 +8,7 @@ define(['angular', 'angular-animate'], function (module) {
         $stateProvider
             .state('dashboard', {
                 url: "",
+                abstract: true,
                 templateUrl: './views/master.html',
                 controller: 'CommonController as controller'
             })
@@ -16,16 +17,6 @@ define(['angular', 'angular-animate'], function (module) {
                 templateUrl: './views/home.html',
                 controller: ''
 
-            })
-            .state('dashboard.schedule', {
-                url: "/schedule",
-                templateUrl: './views/tabs/schedule.html',
-                controller: ''
-            })
-            .state('dashboard.events', {
-                url: "/events",
-                templateUrl: './views/tabs/events.html',
-                controller: ''
             });
     });
 });

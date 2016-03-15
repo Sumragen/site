@@ -9,23 +9,34 @@ define(['../module'], function (module) {
         };
 
         service.addUser = function (newFirstName, newLastName, newLogin, newEmail, newPsw){
-            console.log('add user');
-            $http.post('/users', {
-                firstName : newFirstName,
-                lastName : newLastName,
-                login : newLogin,
-                email : newEmail,
-                password : newPsw
+            $http({
+                method: 'POST',
+                url: '/users',
+                isApiCall: true,
+                data: {
+                    firstName : newFirstName,
+                    lastName : newLastName,
+                    login : newLogin,
+                    email : newEmail,
+                    password : newPsw
+                }
             });
         };
 
         service.signIn = function (currentLogin, currentPassword) {
-            return $http.post('/signIn', {login: currentLogin, password: currentPassword})
-                .then(function (data) {
-                    console.log(data.data.sessionToken);
-                    return data.data.currentUser;
-                },function (err) {
-                    return $q.reject(err);
+            return $http({
+                method: 'POST',
+                url: '/signIn',
+                isApiCall: true,
+                data: {
+                    login: currentLogin,
+                    password: currentPassword
+                }
+            }).then(function (data) {
+                console.log(data.data.sessionToken);
+                return data.data.currentUser;
+            },function (err) {
+                return $q.reject(err);
             });
         };
         return service;

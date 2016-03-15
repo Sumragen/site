@@ -4,7 +4,8 @@
 define(
     [
         './controller/CommonController',
-        './service/ModalService'
+        './service/ModalService',
+        './endpoint'
     ],
     function () {
         'use strict';

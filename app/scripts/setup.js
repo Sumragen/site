@@ -22,10 +22,10 @@ define(
                     var $q = $injector.get('$q');
                     return {
                         'request': function (config) {
-                            console.log('request');
+                            console.log('request in interceptor');
                             // handle on request action
                             if (config.apiName === 'DockerWebUI') {
-                                if (appConfig.useFakeAPIService === false) {
+                                if (appConfig.useFakeAPIService === false && config.isApiCall === true) {
                                     config.url = appConfig.apiUrl + config.url;
                                 }
                             }

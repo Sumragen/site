@@ -15,7 +15,7 @@ define(['angular', 'angular-animate'], function (module) {
                 .state('dashboard.home', {
                     url: "/home",
                     templateUrl: './views/home.html',
-                    controller: ''
+                    controller: 'CommonController as controller'
 
                 });
         });

@@ -18,6 +18,7 @@ define([
         'modules/Schedule/index',
         'modules/Location/index',
         'modules/Settings/index',
+        'modules/Contacts/index',
         'modules/Profile/index'
     ],
     function(angular){
@@ -27,6 +28,7 @@ define([
             'AuthModule',
             'Common',
             'LocationModule',
+            'ContactsModule',
             'EventModule',
             'ScheduleModule',
             'SettingsModule',

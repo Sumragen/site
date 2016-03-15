@@ -3,13 +3,12 @@
  */
 define(['angular'],function(module){
     return module.module('ProfileModule',[])
-        .config(function ($stateProvider, $urlRouterProvider) {
+        .config(function ($stateProvider) {
             $stateProvider
                 .state('dashboard.profile', {
                     url: "/profile",
                     templateUrl: './views/tabs/profile.html',
-                    controller: 'ProfileController',
-                    controllerAs: 'ctrl'
+                    controller: 'ProfileController as controller'
                 });
         });
 

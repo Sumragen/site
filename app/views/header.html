@@ -1,5 +1,10 @@
-<div class="btn-group btn-group-justified btn-group-raised custom-btn-group">
+<div class="btn-group btn-group-justified btn-group-raised custom-btn-group" ng-if="controller.isAuthenticated()">
     <a ui-sref-active="active" ui-sref="dashboard.profile" href="" class="btn">Profile</a>
     <a ui-sref-active="active" ui-sref="dashboard.schedule" href="" class="btn">Schedule</a>
     <a ui-sref-active="active" ui_sref="dashboard.events" href="" class="btn">Events</a>
+</div>
+<div class="btn-group btn-group-justified btn-group-raised custom-btn-group" ng-if="!controller.isAuthenticated()">
+    <a ui-sref-active="active" ui-sref="dashboard.home" href="" class="btn">About us</a>
+    <a ui-sref-active="active" ui-sref="dashboard.location" href="" class="btn">Location</a>
+    <a ui-sref-active="active" ui_sref="dashboard.contacts" href="" class="btn">Contacts</a>
 </div>

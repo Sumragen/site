@@ -5,6 +5,7 @@ define(
     [
         './controller/CommonController',
         './service/ModalService',
+        './const',
         './endpoint'
     ],
     function () {

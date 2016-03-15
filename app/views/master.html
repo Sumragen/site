@@ -37,7 +37,7 @@
     <div class="navbar navbar-inverse custom-navbar">
         <div class="container-fluid">
             <div class="navbar-header custom-navbar-header">
-                <a class="navbar-brand" ui-sref="dashboard.home"  href="">School №24</a>
+                <a class="navbar-brand Roboto-custom-brand" ui-sref="dashboard.home"  href="">School 24</a>
             </div>
             <div class="navbar-collapse collapse navbar-inverse-collapse">
 
@@ -49,13 +49,13 @@
                 <!--<a ng-click="controller.showSignUpModal()" href="">Sign Up</a>-->
                 <!--</li>-->
                 <!--</ul>-->
-                <ul class="nav navbar-nav navbar-right custom-navbar-right" ng-if=!controller.isAuthenticated()>
-                    <li><a ng-click="controller.showSignInModal()" href="">Sign In</a></li>
-                    <li><a ng-click="controller.showSignUpModal()" href="">Sign Up</a></li>
+                <ul class="nav navbar-nav navbar-right custom-navbar-right " ng-if=!controller.isAuthenticated()>
+                    <li><a ng-click="controller.showSignInModal()" href="" class="Roboto-custom-text">Sign In</a></li>
+                    <li><a ng-click="controller.showSignUpModal()" href="" class="Roboto-custom-text">Sign Up</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right custom-navbar-right" ng-if=controller.isAuthenticated()>
-                    <li class="dropdown">
-                        <a href="" data-target="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown</a>
+                    <li class="dropdown  Roboto-custom-font">
+                        <a href="" data-target="#" class="dropdown-toggle Roboto-custom-text" data-toggle="dropdown">Dropdown</a>
                         <ul class="dropdown-menu">
                             <li class="disabled"><a href="">Settings</a></li>
                             <li class="divider"></li>

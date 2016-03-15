@@ -5,23 +5,7 @@ define(
     ['./App','./fakeDataSource'],
     function (module, fakeDataSource) {
         'use strict';
-        module.run(['$httpBackend','$q',function($httpBackend, $q) {
-            //var users = [{}];
-            //if(localStorage.getItem("usersLS")){
-            //    users = JSON.parse(localStorage.getItem("usersLS"));
-            //}else{
-            //    var user = [{
-            //        firstName : 'root',
-            //        lastName : 'root',
-            //        login : 'root',
-            //        email : 'root@gmail.com',
-            //        password : 'root'
-            //    }];
-            //    localStorage.setItem("usersLS",JSON.stringify(user))
-            //}
-            //
-            //var currentUser = null;
-
+        module.run(['$httpBackend','$q',function($httpBackend) {
             $httpBackend.whenPOST('/signIn').respond(function (method,url,data) {
                 fakeDataSource.setCurrentUser(data);
                 if (fakeDataSource.getCurrentUser()){

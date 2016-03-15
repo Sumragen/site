@@ -6,6 +6,7 @@ require.config({
         'async': '../../bower_components/requirejs-plugins/src/async',
         'angular': '../../bower_components/angular/angular',
         'jquery': '../../bower_components/jquery/dist/jquery',
+        'lodash': '../../bower_components/lodash/lodash',
         'twitter-bootstrap': '../../bower_components/bootstrap/dist/js/bootstrap',
         'angular-ui-router': '../../bower_components/angular-ui-router/release/angular-ui-router',
         'logicify-gmap': '../../bower_components/logicify-gmap/dist/logicify-gmap',
@@ -77,6 +78,6 @@ require.config({
 });
 
 
-require(['angular', './fakeBackend', './App'], function (angular) {
+require(['angular', './fakeBackend', './App','./setup'], function (angular) {
     angular.bootstrap(document, ['MyApp']);
 });

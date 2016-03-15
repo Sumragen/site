@@ -2,7 +2,7 @@
  * Created by artem on 11/9/15.
  */
 define(
-    ['./modules/App', './globalConfig'],
+    ['./App', './globalConfig'],
     function (App, appConfig) {
         'use strict';
 
@@ -22,6 +22,7 @@ define(
                     var $q = $injector.get('$q');
                     return {
                         'request': function (config) {
+                            console.log('request');
                             // handle on request action
                             if (config.apiName === 'DockerWebUI') {
                                 if (appConfig.useFakeAPIService === false) {
@@ -46,6 +47,7 @@ define(
                          * @returns {*}
                          */
                         'response': function (response) {
+                            console.log('response');
                             return response;
                         }
 

@@ -12,7 +12,7 @@ module.exports = function(grunt){
         },
         buildMeta: {
             appVersion: grunt.file.readJSON("package.json").version,
-            environment: grunt.option('env') || 'dev'
+            environment: grunt.option('env') || 'default'
         }
     };
 

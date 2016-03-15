@@ -2,36 +2,24 @@
  * Created by artem on 11/9/15.
  */
 var environments = {
-    "dev": {
+    dev: {
         showVersionInfo: true,
         siteUrl: 'http://0.0.0.0:9000',
-        apiUrl: 'http://localhost:9001',
-        useHeaderAuth: false,
-        useCookiesAuth: false,
-        useFakeAPIService: false,
-        minimizeJs: false,
-        minimizeCss: false,
-        generateSourceMaps: true
-
-    },
-    dist:{
-        showVersionInfo: false,
-        siteUrl: 'http://0.0.0.0:9000',
-        apiUrl: 'http://10.10.1.58:9001',
-        useHeaderAuth: false,
-        useCookiesAuth: true,
-        useFakeAPIService: false,
-        minimizeJs: true,
-        minimizeCss: true,
-        generateSourceMaps: true
-    },
-    fake:{
-        showVersionInfo: true,
-        siteUrl: 'http://0.0.0.0:9000',
-        apiUrl: 'http://localhost:9001',
+        apiUrl: 'http://localhost:9002',
         useHeaderAuth: false,
         useCookiesAuth: false,
         useFakeAPIService: true,
+        minimizeJs: false,
+        minimizeCss: false,
+        generateSourceMaps: true
+    },
+    default:{
+        showVersionInfo: true,
+        siteUrl: 'http://0.0.0.0:9000',
+        apiUrl: 'http://localhost:9002',
+        useHeaderAuth: false,
+        useCookiesAuth: false,
+        useFakeAPIService: false,
         minimizeJs: false,
         minimizeCss: false,
         generateSourceMaps: true
@@ -42,7 +30,7 @@ module.exports = function (grunt, config) {
     var currentEnvName = config.buildMeta.environment;
     var defaults = {
         siteUrl: '',
-        apiUrl: 'http://10.10.1.58:9001',
+        apiUrl: 'http://localhost:9002',
         useFakeAPIService: false,
         minimizeJs: true,
         minimizeCss: true,

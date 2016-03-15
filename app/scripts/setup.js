@@ -22,7 +22,6 @@ define(
                     var $q = $injector.get('$q');
                     return {
                         'request': function (config) {
-                            console.log('request in interceptor');
                             // handle on request action
                             if (config.apiName === 'DockerWebUI') {
                                 if (appConfig.useFakeAPIService === false && config.isApiCall === true) {
@@ -47,7 +46,6 @@ define(
                          * @returns {*}
                          */
                         'response': function (response) {
-                            console.log('response');
                             return response;
                         }
 

@@ -7,8 +7,8 @@ define(['../module'], function (module) {
 
         self.close = close;
 
-        self.addUser = function (newFirstName, newLastName, newLogin, newEmail, newPsw) {
-            AuthService.addUser(newFirstName, newLastName, newLogin, newEmail, newPsw);
+        self.signUp = function (newUser) {
+            AuthService.signUp(newUser);
         };
 
         self.signIn = function (currentLogin, currentPassword) {

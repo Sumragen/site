@@ -8,17 +8,17 @@ define(['../module'], function (module) {
             error: null
         };
 
-        service.addUser = function (newFirstName, newLastName, newLogin, newEmail, newPsw){
+        service.signUp = function (newUser){
             $http({
                 method: 'POST',
                 url: '/users',
                 isApiCall: true,
                 data: {
-                    firstName : newFirstName,
-                    lastName : newLastName,
-                    login : newLogin,
-                    email : newEmail,
-                    password : newPsw
+                    firstName : newUser.FirstName,
+                    lastName : newUser.LastName,
+                    login : newUser.Login,
+                    email : newUser.Email,
+                    password : newUser.Psw
                 }
             });
         };
@@ -33,7 +33,7 @@ define(['../module'], function (module) {
                     password: currentPassword
                 }
             }).then(function (data) {
-                console.log(data.data.sessionToken);
+                //console.log(data.data.sessionToken);
                 return data.data.currentUser;
             },function (err) {
                 return $q.reject(err);

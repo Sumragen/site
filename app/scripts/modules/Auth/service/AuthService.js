@@ -10,37 +10,17 @@ define(['../module'], function (module) {
 
         service.signUp = function (newUser) {
             return $http(Endpoint.users.list({
-                        firstName : newUser.FirstName,
-                        lastName : newUser.LastName,
-                        login : newUser.Login,
-                        email : newUser.Email,
-                        password : newUser.Psw
-                    }));
-            //$http({
-            //    method: 'POST',
-            //    url: '/users',
-            //    isApiCall: true,
-            //    data: {
-            //        firstName : newUser.FirstName,
-            //        lastName : newUser.LastName,
-            //        login : newUser.Login,
-            //        email : newUser.Email,
-            //        password : newUser.Psw
-            //    }
-            //});
+                firstName : newUser.FirstName,
+                lastName : newUser.LastName,
+                login : newUser.Login,
+                email : newUser.Email,
+                password : newUser.Psw
+            }));
         };
 
         service.signIn = function (currentLogin, currentPassword) {
-            return $http({
-                method: 'POST',
-                url: '/signIn',
-                isApiCall: true,
-                data: {
-                    login: currentLogin,
-                    password: currentPassword
-                }
-            }).then(function (data) {
-                //console.log(data.data.sessionToken);
+            return $http(Endpoint.signIn.user(currentLogin,currentPassword))
+                .then(function (data) {
                 return data.data.currentUser;
             }, function (err) {
                 return $q.reject(err);

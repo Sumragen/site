@@ -13,6 +13,7 @@ define(['../module'], function (module) {
 
         self.signUp = function (newUser) {
             AuthService.signUp(newUser);
+            self.close();
         };
 
         self.signIn = function (currentLogin, currentPassword) {

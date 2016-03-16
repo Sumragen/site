@@ -23,11 +23,16 @@ define(['./module'], function (module) {
                         }
                     }
                 },
-                currentUser: {
-                    user: function () {
+                signIn: {
+                    user: function (currentLogin, currentPassword) {
                         return {
-                            method: METHODS.GET,
-                            url: '/userProfile'
+                            method: METHODS.POST,
+                            url: '/signIn',
+                            isApiCall: true,
+                            data: {
+                                login: currentLogin,
+                                password: currentPassword
+                            }
                         }
                     }
                 }

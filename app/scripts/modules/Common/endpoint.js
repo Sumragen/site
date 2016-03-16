@@ -14,10 +14,12 @@ define(['./module'], function (module) {
 
             var routes = {
                 users: {
-                    list: function () {
+                    list: function (data) {
                         return {
-                            method: METHODS.GET,
-                            url: '/users'
+                            method: METHODS.POST,
+                            url: '/users',
+                            isApiCall: true,
+                            data: data
                         }
                     }
                 },

@@ -18,8 +18,8 @@ define(['../module'], function (module) {
             }));
         };
 
-        service.signIn = function (currentLogin, currentPassword) {
-            return $http(Endpoint.signIn.user(currentLogin,currentPassword))
+        service.signIn = function (userIn) {
+            return $http(Endpoint.signIn.user(userIn))
                 .then(function (data) {
                 return data.data.currentUser;
             }, function (err) {

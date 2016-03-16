@@ -16,11 +16,11 @@ define(['../module'], function (module) {
             self.close();
         };
 
-        self.signIn = function (currentLogin, currentPassword) {
-            return AuthService.signIn(currentLogin, currentPassword)
+        self.signIn = function (userIn) {
+            return AuthService.signIn(userIn)
                 .then(function (currentUser) {
                     $scope.error = null;
-                    self.stateProfile()
+                    self.stateProfile();
                     self.close();
                 }, function (err) {
                     $scope.error = err.data.message;

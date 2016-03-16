@@ -24,14 +24,14 @@ define(['./module'], function (module) {
                     }
                 },
                 signIn: {
-                    user: function (currentLogin, currentPassword) {
+                    user: function (userIn) {
                         return {
                             method: METHODS.POST,
                             url: '/signIn',
                             isApiCall: true,
                             data: {
-                                login: currentLogin,
-                                password: currentPassword
+                                login: userIn.currentLogin,
+                                password: userIn.currentPassword
                             }
                         }
                     }

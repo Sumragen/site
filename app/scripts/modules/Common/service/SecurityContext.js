@@ -2,13 +2,15 @@
  * Created by trainee on 3/17/16.
  */
 define(['../module'], function (module) {
-    module.service('SecurityContext', [ function () {
+    module.service('Common.SecurityContext', ['$rootScope', function ($rootScope) {
         var service = {};
-        service.getCurrentUser = function () {
-            return localStorage.getItem('currentUserLS');
+        service.getPrincipal = function () {
+            return JSON.parse(localStorage.getItem('currentUserLS'));
         };
-        service.setCurrentUser = function (user) {
+        service.setPrincipal = function (user) {
+            $rootScope.$broadcast('securityContext:updated', user);
             localStorage.setItem('currentUserLS', JSON.stringify(user));
+            return user;
         };
         return service;
     }]);

@@ -2,7 +2,7 @@
  * Created by sumragen on 2/27/16.
  */
 define(['../module'], function (module) {
-    module.controller('SettingsCtrl', [function () {
+    module.controller('Dashboard.Settings.SettingsCtrl', [function () {
         var self = this;
 
         self.changeAvatar = function () {

@@ -14,13 +14,7 @@ define([
         'ui.bootstrap.tpls',
         'modules/Auth/index',
         'modules/Common/index',
-        'modules/nonAuth/index',
-        'modules/Event/index',
-        'modules/Schedule/index',
-        'modules/Location/index',
-        'modules/Settings/index',
-        'modules/Contacts/index',
-        'modules/Profile/index'
+        'modules/Dashboard/index'
     ],
     function(angular){
         var deps = [
@@ -28,29 +22,63 @@ define([
             'ngMockE2E',
             'AuthModule',
             'Common',
-            'LocationModule',
-            'NonAuthModule',
-            'ContactsModule',
-            'EventModule',
-            'ScheduleModule',
-            'SettingsModule',
-            'ProfileModule'
+            'Dashboard'
         ];
         var app = angular.module('MyApp', deps)
             .run([
                 '$rootScope',
                 '$state',
                 '$stateParams',
+                'Common.SecurityContext',
+                'Common.ModalService',
                 //'$uibModalStack',
                 //'growl',
-                function ($rootScope, $state, $stateParams, $uibModalStack, growl, apiRoutes, httpService) {
+                function ($rootScope, $state,  $stateParams, SecurityContext, ModalService , $uibModalStack, growl, apiRoutes, httpService) {
+
+                    $rootScope.contextUser = SecurityContext.getPrincipal();
+                    $rootScope.$on('securityContext:updated',function(e,user){
+                        $rootScope.contextUser = user;
+                    });
+                    $rootScope.getSchoolName = function () {
+                        var user = JSON.parse(localStorage.getItem("currentUserLS"));
+                        return 'School ' + '24';//+ user.school;
+                    };
+
+                    $rootScope.showSignInModal = function (path) {
+                        ModalService.showModal({
+                            templateUrl: "./views/auth/logIn.html",
+                            controller: "AuthController as controller"
+                        }).then(function (modal) {
+                            modal.close.then(function (result) {
+                                $state.go('dashboard.profile')
+                            });
+                        });
+                    };
+                    $rootScope.showSignUpModal = function (path) {
+                        ModalService.showModal({
+                            templateUrl: "./views/auth/logUp.html",
+                            controller: "AuthController as controller"
+                        }).then(function (modal) {
+                            modal.close.then(function (result) {
+                                $state.go('dashboard.profile')
+                            });
+                        });
+                    };
+
+
+                    $rootScope.logOut = function () {
+                        SecurityContext.setPrincipal(null);
+                        $state.go('common.home');
+                    };
+
+
                     $rootScope.$on('$stateChangeStart', function (event, nextState, nextStateParams, curState, curStateParams) {
                         //$uibModalStack.dismissAll();
                         $rootScope.currentState = nextState;
                         //Redirect handling
                         if (nextState.data && nextState.data.redirect) {
                             if(typeof nextState.data.redirect === 'function'){
-                                var redirect = nextState.data.redirect(localStorage.getItem('currentUserLS'));
+                                var redirect = nextState.data.redirect(SecurityContext.getPrincipal());
                                 if(redirect){
                                     event.preventDefault();
                                     $state.go(redirect);
@@ -74,7 +102,6 @@ define([
                 $stateProvider
                     .state('root', {
                         url: '',
-                        controller:'CommonController as controller',
                         data:{
                             redirect: 'dashboard.profile'
                         }

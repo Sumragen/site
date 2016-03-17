@@ -3,8 +3,8 @@
  */
 define(
     [
-        './controller/CommonController',
-        './controller/authorizedController',
+        './controller/masterController',
+        './service/SecurityContext',
         './service/ModalService',
         './const',
         './endpoint'

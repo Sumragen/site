@@ -2,7 +2,7 @@
  * Created by sumragen on 2/27/16.
  */
 define(['../module'], function (module) {
-    module.controller('ScheduleController', ['$scope', 'ModalService', function ($scope, ModalService) {
+    module.controller('Dashboard.Schedule.ScheduleController', ['$scope', 'Common.ModalService', function ($scope, ModalService) {
         var self = this;
         $scope.eventSources = [];
         $scope.uiConfig = {
@@ -22,8 +22,8 @@ define(['../module'], function (module) {
         };
         self.showDayModal = function () {
             ModalService.showModal({
-                templateUrl: "./views/tabs/schedule/day.html",
-                controller: "ScheduleController as controller"
+                templateUrl: "./views/tabs/schedule/day.html"
+                //controller: "ScheduleController as controller"
             });
 
         }

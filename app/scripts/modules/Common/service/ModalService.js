@@ -2,7 +2,7 @@
  * Created by trainee on 3/2/16.
  */
 define(['../module'], function (module) {
-    module.factory('ModalService', ['$animate', '$document', '$compile', '$controller', '$http', '$rootScope', '$q', '$templateRequest', '$timeout',
+    module.factory('Common.ModalService', ['$animate', '$document', '$compile', '$controller', '$http', '$rootScope', '$q', '$templateRequest', '$timeout',
         function($animate, $document, $compile, $controller, $http, $rootScope, $q, $templateRequest, $timeout) {
 
             //  Get the body of the document, we'll add the modal to this.
@@ -77,7 +77,7 @@ define(['../module'], function (module) {
                                     $timeout(function() {
                                         //  Resolve the 'close' promise.
                                         closeDeferred.resolve(result);
-
+                                        modalScope.$destroy();
                                         //  Let angular remove the element and wait for animations to finish.
                                         $animate.leave(modalElement)
                                             .then(function () {

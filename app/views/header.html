@@ -1,23 +1,23 @@
 <!--temp ng-controller; root controller-->
-<header ng-controller="CommonController as controller">
+<header>
     <div class="navbar navbar-inverse custom-navbar">
         <div class="container-fluid">
             <div class="navbar-header custom-navbar-header">
-                <a class="navbar-brand Roboto-custom-brand" ui-sref="dashboard.home"  href="">{{controller.getSchoolName()}}</a>
+                <a class="navbar-brand Roboto-custom-brand" ui-sref="common.home"  href="">{{getSchoolName()}}</a>
             </div>
             <div class="navbar-collapse collapse navbar-inverse-collapse">
-                <ul class="nav navbar-nav navbar-right custom-navbar-right" ng-if=!controller.isAuthenticated()>
-                    <li><a ng-click="controller.showSignInModal()" href="" class="Roboto-custom-text">Sign In</a></li>
-                    <li><a ng-click="controller.showSignUpModal()" href="" class="Roboto-custom-text">Sign Up</a></li>
+                <ul class="nav navbar-nav navbar-right custom-navbar-right" ng-if=!contextUser>
+                    <li><a ng-click="showSignInModal()" href="" class="Roboto-custom-text">Sign In</a></li>
+                    <li><a ng-click="showSignUpModal()" href="" class="Roboto-custom-text">Sign Up</a></li>
                 </ul>
-                <ul class="nav navbar-nav navbar-right custom-navbar-right" ng-if=controller.isAuthenticated()>
-                    <li><a class="Roboto-custom-text">Hi, {{controller.getUserName()}}!</a></li>
+                <ul class="nav navbar-nav navbar-right custom-navbar-right" ng-if=contextUser>
+                    <li><a class="Roboto-custom-text">Hi, {{contextUser.login}}!</a></li>
                     <li class="dropdown">
                         <a href="" data-target="#" class="dropdown-toggle Roboto-custom-text" data-toggle="dropdown">Menu</a>
                         <ul class="dropdown-menu">
                             <li class="disabled"><a href="">Settings</a></li>
                             <li class="divider"></li>
-                            <li><a type="button" href="" ui-sref="dashboard.home" ng-click="controller.logOut()">Log Out</a></li>
+                            <li><a type="button" href="" ng-click="logOut()">Log Out</a></li>
                         </ul>
                     </li>
                 </ul>

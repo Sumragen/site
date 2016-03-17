@@ -1,0 +1,10 @@
+<div class="btn-group btn-group-justified btn-group-raised custom-btn-group">
+    <a ng-repeat="tab in tabs" ui-sref-active="active" ng-click="controller.selectTab(tab)" href="" class="btn">{{tab.name}}</a>
+</div>
+<div class="body-site">
+    <div class="row" style="">
+        <div class="span12">
+            <div class="well content" ng-include="controller.currentTab.url"></div>
+        </div>
+    </div>
+</div>

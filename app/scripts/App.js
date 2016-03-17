@@ -14,6 +14,7 @@ define([
         'ui.bootstrap.tpls',
         'modules/Auth/index',
         'modules/Common/index',
+        'modules/nonAuth/index',
         'modules/Event/index',
         'modules/Schedule/index',
         'modules/Location/index',
@@ -28,6 +29,7 @@ define([
             'AuthModule',
             'Common',
             'LocationModule',
+            'NonAuthModule',
             'ContactsModule',
             'EventModule',
             'ScheduleModule',
@@ -47,9 +49,18 @@ define([
                         $rootScope.currentState = nextState;
                         //Redirect handling
                         if (nextState.data && nextState.data.redirect) {
-                            event.preventDefault();
-                            $state.go(nextState.data.redirect);
-                            return false;
+                            if(typeof nextState.data.redirect === 'function'){
+                                var redirect = nextState.data.redirect(localStorage.getItem('currentUserLS'));
+                                if(redirect){
+                                    event.preventDefault();
+                                    $state.go(redirect);
+                                    return false;
+                                }
+                            }else {
+                                event.preventDefault();
+                                $state.go(nextState.data.redirect);
+                                return false;
+                            }
                         }
                         return true;
                     });
@@ -63,8 +74,10 @@ define([
                 $stateProvider
                     .state('root', {
                         url: '',
-                        templateUrl: "./views/master.html",
-                        controller:'CommonController as controller'
+                        controller:'CommonController as controller',
+                        data:{
+                            redirect: 'dashboard.profile'
+                        }
                     })
                     .state('404', {
                         templateUrl: "./views/404.html"

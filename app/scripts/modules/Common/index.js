@@ -4,6 +4,7 @@
 define(
     [
         './controller/CommonController',
+        './controller/authorizedController',
         './service/ModalService',
         './const',
         './endpoint'

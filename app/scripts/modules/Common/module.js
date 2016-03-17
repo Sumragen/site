@@ -7,10 +7,16 @@ define(['angular', 'angular-animate'], function (module) {
             $urlRouterProvider.otherwise("/home");
             $stateProvider
                 .state('dashboard', {
-                    url: "",
+                    url: "/dashboard",
                     abstract: true,
-                    templateUrl: './views/master.html',
-                    controller: 'CommonController as controller'
+                    templateUrl: './views/dashboard.html',
+                    controller: 'AuthorizedController as controller',
+                    data: {
+                        redirect: function (user) {
+                            console.log('auth1');
+                            if(!user) return 'nonAuth.home';
+                        }
+                    }
                 })
                 .state('dashboard.home', {
                     url: "/home",

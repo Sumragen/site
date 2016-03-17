@@ -1,10 +1,27 @@
-<div class="btn-group btn-group-justified btn-group-raised custom-btn-group" ng-if="controller.isAuthenticated()">
-    <a ui-sref-active="active" ui-sref="dashboard.profile" href="" class="btn">Profile</a>
-    <a ui-sref-active="active" ui-sref="dashboard.schedule" href="" class="btn">Schedule</a>
-    <a ui-sref-active="active" ui_sref="dashboard.events" href="" class="btn">Events</a>
-</div>
-<div class="btn-group btn-group-justified btn-group-raised custom-btn-group" ng-if="!controller.isAuthenticated()">
-    <a ui-sref-active="active" ui-sref="dashboard.home" href="" class="btn">About us</a>
-    <a ui-sref-active="active" ui-sref="dashboard.location" href="" class="btn">Location</a>
-    <a ui-sref-active="active" ui_sref="dashboard.contacts" href="" class="btn">Contacts</a>
-</div>
+<!--temp ng-controller; root controller-->
+<header ng-controller="CommonController as controller">
+    <div class="navbar navbar-inverse custom-navbar">
+        <div class="container-fluid">
+            <div class="navbar-header custom-navbar-header">
+                <a class="navbar-brand Roboto-custom-brand" ui-sref="dashboard.home"  href="">{{controller.getSchoolName()}}</a>
+            </div>
+            <div class="navbar-collapse collapse navbar-inverse-collapse">
+                <ul class="nav navbar-nav navbar-right custom-navbar-right" ng-if=!controller.isAuthenticated()>
+                    <li><a ng-click="controller.showSignInModal()" href="" class="Roboto-custom-text">Sign In</a></li>
+                    <li><a ng-click="controller.showSignUpModal()" href="" class="Roboto-custom-text">Sign Up</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right custom-navbar-right" ng-if=controller.isAuthenticated()>
+                    <li><a class="Roboto-custom-text">Hi, {{controller.getUserName()}}!</a></li>
+                    <li class="dropdown">
+                        <a href="" data-target="#" class="dropdown-toggle Roboto-custom-text" data-toggle="dropdown">Menu</a>
+                        <ul class="dropdown-menu">
+                            <li class="disabled"><a href="">Settings</a></li>
+                            <li class="divider"></li>
+                            <li><a type="button" href="" ui-sref="dashboard.home" ng-click="controller.logOut()">Log Out</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</header>

@@ -42,6 +42,7 @@ define(['../module'], function (module) {
 
 
         self.logOut = function () {
+            $state.go('nonAuth.home');
             localStorage.removeItem("currentUserLS");
         };
     }]);

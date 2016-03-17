@@ -18,7 +18,10 @@ define(['../module'], function (module) {
                 url: './views/tabs/contacts.html'
             }
         ];
-        self.currentTab;
+        self.currentTab = {
+            name: 'Home',
+            url: './views/tabs/home.html'
+        };
         self.selectTab = function (tab) {
             self.currentTab = tab;
         }

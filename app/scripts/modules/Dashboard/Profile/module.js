@@ -7,7 +7,7 @@ define(['angular'],function(module){
             $stateProvider
                 .state('dashboard.profile', {
                     url: "/profile",
-                    templateUrl: './views/tabs/profile.html',
+                    templateUrl: './views/dashboard/profile/profile.html',
                     controller: 'Dashboard.Profile.ProfileController as controller'
                 });
         });

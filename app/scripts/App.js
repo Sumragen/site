@@ -107,10 +107,10 @@ define([
                         }
                     })
                     .state('404', {
-                        templateUrl: "./views/404.html"
+                        templateUrl: "./404.html"
                     })
                     .state('accessDenied', {
-                        templateUrl: "./views/accessDenied.html"
+                        templateUrl: "./accessDenied.html"
                     });
             });
         return app;

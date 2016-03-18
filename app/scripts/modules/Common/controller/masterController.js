@@ -18,21 +18,21 @@ define(['../module'], function (module) {
             $scope.tabs = [
                 {
                     name: 'Home',
-                    url: './views/tabs/home.html'
+                    url: './views/dashboard/home.html'
                 },
                 {
                     name: 'Location',
-                    url: './views/tabs/location.html'
+                    url: './views/dashboard/nonauth/location.html'
                 },
                 {
                     name: 'Contacts',
-                    url: './views/tabs/contacts.html'
+                    url: './views/dashboard/nonauth/contacts.html'
                 }
             ];
             //if (self.currentTab === 'undefined') {
                 self.currentTab = {
                     name: 'Home',
-                    url: './views/tabs/home.html'
+                    url: './views/dashboard/home.html'
                 };
             //}
             self.selectTab = function (tab) {

@@ -7,7 +7,7 @@ define(['angular'],function(module){
             $stateProvider
                 .state('dashboard.events', {
                     url: "/events",
-                    templateUrl: './views/tabs/events.html',
+                    templateUrl: './views/dashboard/events/events.html',
                     controller: 'Dashboard.Event.EventController as controller'
                 });
         });

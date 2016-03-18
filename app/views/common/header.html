@@ -4,8 +4,13 @@
         <div class="container-fluid">
             <div class="navbar-header custom-navbar-header">
                 <a class="navbar-brand Roboto-custom-brand" ui-sref="common.home"  href="">{{getSchoolName()}}</a>
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-inverse-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
             </div>
-            <div class="navbar-collapse collapse navbar-inverse-collapse">
+            <div class="navbar-collapse collapse navbar-inverse-collapse ">
                 <ul class="nav navbar-nav navbar-right custom-navbar-right" ng-if=!contextUser>
                     <li><a ng-click="showSignInModal()" href="" class="Roboto-custom-text">Sign In</a></li>
                     <li><a ng-click="showSignUpModal()" href="" class="Roboto-custom-text">Sign Up</a></li>

@@ -11,7 +11,7 @@ define(['../module'], function (module) {
         '$state',
         '$timeout',
         'InfoWindow',
-        function ($scope, $rootScope, ModalService, $http, AuthService, $state,$timeout, InfoWindow) {
+        function ($scope, $rootScope, ModalService, $http, AuthService, $state, $timeout, InfoWindow) {
             var self = this;
 
             //NonAuthController methods
@@ -29,10 +29,12 @@ define(['../module'], function (module) {
                     url: './views/tabs/contacts.html'
                 }
             ];
-            self.currentTab = {
-                name: 'Home',
-                url: './views/tabs/home.html'
-            };
+            //if (self.currentTab === 'undefined') {
+                self.currentTab = {
+                    name: 'Home',
+                    url: './views/tabs/home.html'
+                };
+            //}
             self.selectTab = function (tab) {
                 self.currentTab = tab;
             };

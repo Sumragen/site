@@ -29,11 +29,10 @@ define(['../module'], function (module) {
                     url: './views/dashboard/nonauth/contacts.html'
                 }
             ];
-            //if (self.currentTab === 'undefined') {
-                self.currentTab = {
-                    name: 'Home',
-                    url: './views/dashboard/home.html'
-                };
+            self.currentTab = {
+                name: 'Home',
+                url: './views/dashboard/home.html'
+            };
             //}
             self.selectTab = function (tab) {
                 self.currentTab = tab;
@@ -47,7 +46,7 @@ define(['../module'], function (module) {
                 infowindow.close(true);
             };
             $scope.ready = function (map) {
-                var infowindow = new InfoWindow({templateUrl: './views/marker.html'}); //it's not infowindow now. (object like "javascript promise", but not a promise)
+                var infowindow = new InfoWindow({templateUrl: './views/dashboard/nonauth/marker.html'}); //it's not infowindow now. (object like "javascript promise", but not a promise)
                 function attach(marker) {
                     google.maps.event.addListener(marker, 'click', function (markerObj) { //on marker click
                         infowindow.$ready(function (wnd) { // pass infowindow object

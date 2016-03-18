@@ -5,8 +5,9 @@ define(['../module'], function (module) {
     module.controller('AuthController', ['$scope', 'close', '$http', 'AuthService', '$q', '$state', function ($scope, close, $http, AuthService, $q, $state) {
         var self = this;
 
-
-
+        self.cancel = function () {
+            close();
+        };
 
         self.signUp = function (newUser) {
             AuthService.signUp(newUser);

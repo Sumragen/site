@@ -33,9 +33,14 @@ define(['../module'], function (module) {
                 name: 'Home',
                 url: './views/dashboard/home.html'
             };
-            //}
+
+
             self.selectTab = function (tab) {
                 self.currentTab = tab;
+            };
+
+            self.isSelected = function (tab) {
+                return self.currentTab.name === tab.name;
             };
 
             //LocateCtrl

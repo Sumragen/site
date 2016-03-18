@@ -1,5 +1,5 @@
 <div class="btn-group btn-group-justified btn-group-raised custom-btn-group">
-    <a ng-class="{active:controller.currentTab.name === 'Home'}" ng-repeat="tab in tabs" ng-click="controller.selectTab(tab)" href=""  class="btn">{{tab.name}}</a>
+    <a ng-class="{active:controller.isSelected(tab)}" ng-repeat="tab in tabs" ng-click="controller.selectTab(tab)" href=""  class="btn">{{tab.name}}</a>
     <!--active:{{tab.name === controller.currentTab.name}}-->
 </div>
 <div class="body-site">

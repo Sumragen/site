@@ -22,6 +22,7 @@ define(['../module'], function (module) {
             $scope.eventSources = [];
             $scope.uiConfig = {
                 calendar: {
+                    firstDay:1,
                     height: 450,
                     editable: true,
                     header: {

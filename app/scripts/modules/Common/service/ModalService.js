@@ -1,6 +1,10 @@
 /**
  * Created by trainee on 3/2/16.
  */
+/**
+ * Should be replaced with https://angular-ui.github.io/bootstrap/
+ * We should use already implemented solutions, instead of vehicle inventing
+ */
 define(['../module'], function (module) {
     module.factory('Common.ModalService', ['$animate', '$document', '$compile', '$controller', '$http', '$rootScope', '$q', '$templateRequest', '$timeout',
         function($animate, $document, $compile, $controller, $http, $rootScope, $q, $templateRequest, $timeout) {

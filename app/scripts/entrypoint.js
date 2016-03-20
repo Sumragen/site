@@ -20,6 +20,7 @@ require.config({
         'angular-ui-calendar': '../../bower_components/angular-ui-calendar/src/calendar',
         'fullcalendar': '../../bower_components/fullcalendar/dist/fullcalendar.min',
         'gcal': '../../bower_components/fullcalendar/dist/gcal',
+        'angular-moment' : '../../bower_components/angular-moment/angular-moment',
         'google': 'https://maps.googleapis.com/maps/api/js?v=3.22'
     },
     shim: {
@@ -37,6 +38,12 @@ require.config({
             exports: 'angular'
         },
         'angular-strap': {
+            deps: ['angular']
+        },
+        'angular-moment': {
+            deps: ['moment']
+        },
+        'moment': {
             deps: ['angular']
         },
         'angular-animate': {

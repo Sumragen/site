@@ -10,6 +10,8 @@ define([
         'angular-strap-tpl',
         'angular-animate',
         'angular-mocks',
+    'angular-moment',
+    'moment',
         'ui.bootstrap',
         'ui.bootstrap.tpls',
         'modules/Auth/index',
@@ -20,6 +22,7 @@ define([
         var deps = [
             'ui.router',
             'ngMockE2E',
+            'angularMoment',
             'AuthModule',
             'Common',
             'Dashboard'

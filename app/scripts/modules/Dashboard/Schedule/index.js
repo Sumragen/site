@@ -3,7 +3,8 @@
  */
 define(
     [
-        './controller/ScheduleController'
+        './controller/ScheduleController',
+        './controller/dayController'
     ],
     function () {
         'use strict';

@@ -10,12 +10,12 @@ define(
                 fakeDataSource.logOut();
                 return [200, 'Done'];
             });
-            $httpBackend.whenPOST('/signIn').respond(function (method,url,data) {
-                fakeDataSource.setCurrentUser(data);
-                if (fakeDataSource.getCurrentUser() === null){
-                    return [400,{errorCode:1,message:'Username or password is incorrect'}];
+            $httpBackend.whenPOST('/signIn').respond(function (method,url,checkUser) {
+                var user = fakeDataSource.checkCurrentUser(checkUser);
+                if (user){
+                    return [200, {currentUser: user, sessionToken: 'simple sessionToken'}, {}];
                 }else{
-                    return [200, {currentUser: fakeDataSource.getCurrentUser(), sessionToken: 'simple sessionToken'}, {}];
+                    return [400,{errorCode:1,message:'Username or password is incorrect'}];
                 }
             });
             $httpBackend.whenGET('/getUser').respond(fakeDataSource.getCurrentUser());

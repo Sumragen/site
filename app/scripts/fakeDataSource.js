@@ -1,44 +1,56 @@
 /**
  * Created by trainee on 3/7/16.
  */
-define([], function () {
+define(['lodash'], function (_) {
     var dataSource = {};
-    var users = [{}];
-    if (localStorage.getItem("usersLS")) {
-        users = JSON.parse(localStorage.getItem("usersLS"));
-    } else {
-        var user = [{
-            firstName: 'root',
-            lastName: 'root',
-            login: 'root',
-            email: 'root@gmail.com',
-            password: 'root'
-        }];
-        localStorage.setItem("usersLS", JSON.stringify(user))
-    }
-    var currentUser = JSON.parse(localStorage.getItem('currenUserLS'));
-    var events = [{}];
-    dataSource.logOut = function () {
-        currentUser = null;
+
+    var AbstractUser = {
+        firstName: 'root',
+        lastName: 'root',
+        login: 'root',
+        email: 'root@gmail.com',
+        password: 'root'
     };
-    dataSource.setCurrentUser = function (data) {
+    var data = {};
+    {
+        var tempDataSource = JSON.parse(localStorage.getItem("datasourse"));
+        if (tempDataSource) {
+            load();
+        } else {
+            localStorage.setItem("datasource", JSON.stringify({
+                user: {
+                    objects:
+                        [AbstractUser]}}));
+        }
+    }
+    //example
+    //var user = _.merge(AbstractUser, {user: 'user', password: 'pass'});
+    //data.user.objects = [user];
+    //data.user.lastIndex = 0;
+
+    function commit() {
+        localStorage.setItem('datasource', JSON.stringify(data));
+    }
+
+    function load() {
+        data = JSON.parse(localStorage.getItem('datasource'));
+    }
+
+    dataSource.checkCurrentUser = function (dataUser) {
+        load();
         var i = 0;
-        var tempUser = angular.fromJson(data);
-        for (i; i < users.length; i++) {
-            if (tempUser.login === users[i].login && tempUser.password === users[i].password) {
-                currentUser = users[i];
-                localStorage.setItem('currentUserLS', JSON.stringify(currentUser));
-                break;
+        var tempUser = angular.fromJson(dataUser);
+        for (i; i < data.user.objects.length; i++) {
+            if (tempUser.login === data.user.objects[i].login && tempUser.password === data.user.objects[i].password) {
+                return data.user.objects[i];
             }
         }
     };
-    dataSource.setUsers = function (data) {
-        var user = angular.fromJson(data);
-        users.push(user);
-        localStorage.setItem("usersLS", JSON.stringify(users));
-    };
-    dataSource.getCurrentUser = function () {
-        return currentUser;
+    dataSource.setUsers = function (tempUser) {
+        load();
+        var user = angular.fromJson(tempUser);
+        data.user.objects.push(user);
+        commit();
     };
     return dataSource;
 });

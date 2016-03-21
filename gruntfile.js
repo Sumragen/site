@@ -22,6 +22,7 @@ module.exports = function(grunt){
     grunt.registerTask('build', function () {
         grunt.task.run([
             'copy:tmp',
+            'less',
             //'requirejs',
             'processhtml',
             'less:development'

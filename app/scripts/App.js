@@ -6,6 +6,8 @@ define([
         'angular-ui-router',
         'logicify-gmap',
         'twitter-bootstrap',
+        'material',
+        'ripples',
         'angular-strap',
         'angular-strap-tpl',
         'angular-animate',
@@ -58,7 +60,7 @@ define([
                             templateUrl: "./views/auth/logIn.html",
                             controller: "AuthController as controller",
                             size: 'lg',
-                            windowClass : 'custom-modal-auth'
+                            windowClass: 'custom-modal-auth'
                         });
 
                         modalInstance.result

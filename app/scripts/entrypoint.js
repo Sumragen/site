@@ -21,10 +21,15 @@ require.config({
         'angular-ui-router': '../../bower_components/angular-ui-router/release/angular-ui-router',
         'moment': '../../bower_components/moment/min/moment.min',
         'fullcalendar': '../../bower_components/fullcalendar/dist/fullcalendar.min',
+        'ripples' : '../../bower_components/bootstrap-material-design/dist/js/ripples',
         'gcal': '../../bower_components/fullcalendar/dist/gcal',
+        'material': '../../bower_components/bootstrap-material-design/dist/js/material',
         'google': 'https://maps.googleapis.com/maps/api/js?v=3.22'
     },
     shim: {
+        'material': {
+            deps: ['angular','twitter-bootstrap']
+        },
         'angular-ui-calendar': {
             deps: ['gcal']
         },
@@ -40,6 +45,9 @@ require.config({
         },
         'angular-strap': {
             deps: ['angular']
+        },
+        'ripples': {
+            deps: ['twitter-bootstrap','jquery']
         },
         'angular-touch': {
             deps: ['angular']
@@ -89,6 +97,7 @@ require.config({
 });
 
 
-require(['angular', './fakeBackend', './App','./setup'], function (angular) {
+require(['angular', 'jquery', 'material','./fakeBackend', './App','./setup'], function (angular,jquery, material) {
+    $.material.init();
     angular.bootstrap(document, ['MyApp']);
 });

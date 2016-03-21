@@ -26,7 +26,7 @@ define(['../module'], function (module) {
                     height: 450,
                     editable: true,
                     header: {
-                        left: 'month basicWeek basicDay agendaWeek agendaDay',
+                        left: 'month basicWeek basicDay',
                         center: 'title',
                         right: 'today prev,next'
                     },

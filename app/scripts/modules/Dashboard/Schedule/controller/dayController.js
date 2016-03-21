@@ -67,23 +67,10 @@ define(['../module'], function (module) {
                     lessons: [lessons[0], lessons[1], lessons[4], null, null]
                 }
             ];
-            if ($rootScope.selectedDate === 'Monday') {
-                self.currentDay = days[0];
-            } else {
-                if ($rootScope.selectedDate === 'Tuesday') {
-                    self.currentDay = days[1];
-                } else {
-                    if ($rootScope.selectedDate === 'Wednesday') {
-                        self.currentDay = days[2];
-                    } else {
-                        if ($rootScope.selectedDate === 'Thursday') {
-                            self.currentDay = days[3];
-                        } else {
-                            if ($rootScope.selectedDate === 'Friday') {
-                                self.currentDay = days[4];
-                            }
-                        }
-                    }
+            for (i = 0; i < days.length; i ++){
+                if ($rootScope.selectedDate === days[i].name){
+                    self.currentDay = days[i];
+                    return;
                 }
             }
         }

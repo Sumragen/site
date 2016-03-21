@@ -14,6 +14,14 @@ define(
                     return [400,{errorCode:1,message:'Username or password is incorrect'}];
                 }
             });
+            $httpBackend.whenPOST('/events').respond(function (method, url) {
+                var events = fakeDataSource.getEvents();
+                if (events){
+                    return [200, {events: events}, {}];
+                }else{
+                    return [400,{errorCode:2,message:'Events not found'}];
+                }
+            });
             $httpBackend.whenPOST('/users').respond(function(method, url, data) {
                 fakeDataSource.setUsers(data);
                 return [200, angular.fromJson(data), {}];

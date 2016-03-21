@@ -44,6 +44,15 @@ define(['./module'], function (module) {
                             isApiCall: true
                         }
                     }
+                },
+                events: {
+                    list: function () {
+                        return {
+                            method: METHODS.POST,
+                            url: '/events',
+                            isApiCall: true
+                        }
+                    }
                 }
             };
             return routes;

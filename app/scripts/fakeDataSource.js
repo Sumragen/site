@@ -16,7 +16,7 @@ define(['lodash'], function (_) {
         if (localStorage.getItem("datasource")) {
             load();
         } else {
-            localStorage.setItem("datasource", JSON.stringify({user: {objects: [AbstractUser] } }));
+            localStorage.setItem("datasource", JSON.stringify({user: {objects: [AbstractUser] },event: {list: [{name : 'Simple event',date: '01.30'}]} }));
         }
     }
     //example
@@ -48,5 +48,11 @@ define(['lodash'], function (_) {
         data.user.objects.push(user);
         commit();
     };
+
+    dataSource.getEvents = function () {
+        load();
+        return data.event.list;
+    };
+
     return dataSource;
 });

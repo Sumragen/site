@@ -7,16 +7,35 @@ define(['../module'], function (module) {
         '$rootScope',
         'moment',
         '$filter',
-        'Common.ModalService',
-        function ($scope, $rootScope, moment, $filter, ModalService) {
+        '$uibModal',
+        //'Common.ModalService',
+        function ($scope, $rootScope, moment, $filter, $uibModal) {
             var self = this;
             self.showDayModal = function (date) {
                 var selectedDate = moment(date).format('dddd');
                 $rootScope.selectedDate = $filter('date')(selectedDate, 'dddd');
-                ModalService.showModal({
+                //ModalService.showModal({
+                //    templateUrl: "./views/dashboard/schedule/day.html",
+                //    controller: "Dashboard.Schedule.DayController as controller"
+                //});
+                var modalInstance = $uibModal.open({
+                    animation: true,
                     templateUrl: "./views/dashboard/schedule/day.html",
-                    controller: "Dashboard.Schedule.DayController as controller"
+                    controller: "Dashboard.Schedule.DayController as controller",
+                    size: 'lg'
+                    //resolve: {
+                    //    currentUser: function () {
+                    //        return $scope.currentUser;
+                    //    }
+                    //}
                 });
+
+                modalInstance.result
+                    .then(function () {
+                        $state.go('dashboard.profile');
+                    }, function () {
+                        console.log('Modal dismissed');
+                    });
             };
 
             $scope.eventSources = [];

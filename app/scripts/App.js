@@ -10,18 +10,22 @@ define([
         'angular-strap-tpl',
         'angular-animate',
         'angular-mocks',
-    'angular-moment',
-    'moment',
+        'angular-moment',
+        'angular-touch',
+        'moment',
         'ui.bootstrap',
         'ui.bootstrap.tpls',
         'modules/Auth/index',
         'modules/Common/index',
         'modules/Dashboard/index'
     ],
-    function(angular){
+    function (angular) {
         var deps = [
             'ui.router',
             'ngMockE2E',
+            'ngTouch',
+            'ngAnimate',
+            'ui.bootstrap',
             'angularMoment',
             'AuthModule',
             'Common',
@@ -33,13 +37,14 @@ define([
                 '$state',
                 '$stateParams',
                 'Common.SecurityContext',
-                'Common.ModalService',
-                //'$uibModalStack',
-                //'growl',
-                function ($rootScope, $state,  $stateParams, SecurityContext, ModalService , $uibModalStack, growl, apiRoutes, httpService) {
+                '$uibModal',
+                '$uibModalStack',
+                '$http',
+                'Endpoint',
+                function ($rootScope, $state, $stateParams, SecurityContext, $uibModal, $uibModalStack, $http, Endpoint) {
 
                     $rootScope.contextUser = SecurityContext.getPrincipal();
-                    $rootScope.$on('securityContext:updated',function(e,user){
+                    $rootScope.$on('securityContext:updated', function (e, user) {
                         $rootScope.contextUser = user;
                     });
                     $rootScope.getSchoolName = function () {
@@ -47,47 +52,70 @@ define([
                         return 'School ' + '24';//+ user.school;
                     };
 
-                    $rootScope.showSignInModal = function (path) {
-                        ModalService.showModal({
+                    $rootScope.showSignInModal = function () {
+                        var modalInstance = $uibModal.open({
+                            animation: true,
                             templateUrl: "./views/auth/logIn.html",
-                            controller: "AuthController as controller"
-                        }).then(function (modal) {
-                            modal.close.then(function (result) {
-                                $state.go('dashboard.profile')
-                            });
+                            controller: "AuthController as controller",
+                            size: 'lg'
+                            //resolve: {
+                            //    items: function () {
+                            //        return $scope.items;
+                            //    }
+                            //}
                         });
+
+                        modalInstance.result
+                            .then(function () {
+                                $state.go('dashboard.profile');
+                            }, function () {
+                                console.log('Modal dismissed');
+                            });
                     };
-                    $rootScope.showSignUpModal = function (path) {
-                        ModalService.showModal({
+                    $rootScope.showSignUpModal = function () {
+                        var modalInstance = $uibModal.open({
+                            animation: true,
                             templateUrl: "./views/auth/logUp.html",
-                            controller: "AuthController as controller"
-                        }).then(function (modal) {
-                            modal.close.then(function (result) {
-                                $state.go('dashboard.profile')
-                            });
+                            controller: "AuthController as controller",
+                            size: 'lg'
+                            //resolve: {
+                            //    items: function () {
+                            //        return $scope.items;
+                            //    }
+                            //}
                         });
+
+                        modalInstance.result
+                            .then(function () {
+                                $state.go('dashboard.profile');
+                            }, function () {
+                                console.log('Modal dismissed');
+                            });
                     };
 
 
                     $rootScope.logOut = function () {
-                        SecurityContext.setPrincipal(null);
-                        $state.go('common.home');
+                        $http(Endpoint.logOut.user())
+                            .then(function () {
+                                SecurityContext.setPrincipal(null);
+                                $state.go('common.home');
+                            });
                     };
 
 
                     $rootScope.$on('$stateChangeStart', function (event, nextState, nextStateParams, curState, curStateParams) {
-                        //$uibModalStack.dismissAll();
+                        $uibModalStack.dismissAll();
                         $rootScope.currentState = nextState;
                         //Redirect handling
                         if (nextState.data && nextState.data.redirect) {
-                            if(typeof nextState.data.redirect === 'function'){
+                            if (typeof nextState.data.redirect === 'function') {
                                 var redirect = nextState.data.redirect(SecurityContext.getPrincipal());
-                                if(redirect){
+                                if (redirect) {
                                     event.preventDefault();
                                     $state.go(redirect);
                                     return false;
                                 }
-                            }else {
+                            } else {
                                 event.preventDefault();
                                 $state.go(nextState.data.redirect);
                                 return false;
@@ -100,12 +128,12 @@ define([
                     };
                 }
             ])
-            .config(function($stateProvider, $urlRouterProvider){
+            .config(function ($stateProvider, $urlRouterProvider) {
                 $urlRouterProvider.otherwise("/404");
                 $stateProvider
                     .state('root', {
                         url: '',
-                        data:{
+                        data: {
                             redirect: 'dashboard.profile'
                         }
                     })

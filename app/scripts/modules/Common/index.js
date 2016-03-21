@@ -5,7 +5,6 @@ define(
     [
         './controller/masterController',
         './service/SecurityContext',
-        './service/ModalService',
         './const',
         './endpoint'
     ],

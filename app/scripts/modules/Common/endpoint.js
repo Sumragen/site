@@ -35,6 +35,15 @@ define(['./module'], function (module) {
                             }
                         }
                     }
+                },
+                logOut:{
+                    user: function (user) {
+                        return {
+                            method: METHODS.POST,
+                            url: '/logOut',
+                            isApiCall: true
+                        }
+                    }
                 }
             };
             return routes;

@@ -16,9 +16,11 @@ define([], function () {
         }];
         localStorage.setItem("usersLS", JSON.stringify(user))
     }
-    var currentUser = null;
+    var currentUser = JSON.parse(localStorage.getItem('currenUserLS'));
     var events = [{}];
-
+    dataSource.logOut = function () {
+        currentUser = null;
+    };
     dataSource.setCurrentUser = function (data) {
         var i = 0;
         var tempUser = angular.fromJson(data);

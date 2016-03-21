@@ -5,12 +5,12 @@ define(['../module'], function (module) {
     module.controller('Dashboard.Schedule.DayController', [
         '$scope',
         '$rootScope',
-        'close',
-        function ($scope, $rootScope, close) {
+        '$uibModalInstance',
+        function ($scope, $rootScope, $uibModalInstance) {
             var self = this;
 
             self.close = function () {
-                close();
+                $uibModalInstance.close();
             };
             self.currentDay = {dayOff: 'day off'};
             var lessons = [
@@ -73,7 +73,6 @@ define(['../module'], function (module) {
                     return;
                 }
             }
-            //test
         }
     ]);
 });

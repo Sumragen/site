@@ -5,13 +5,13 @@ define(['../module'], function (module) {
     module.controller('Common.MasterController', [
         '$scope',
         '$rootScope',
-        'Common.ModalService',
+        //'Common.ModalService',
         '$http',
         'AuthService',
         '$state',
         '$timeout',
         'InfoWindow',
-        function ($scope, $rootScope, ModalService, $http, AuthService, $state, $timeout, InfoWindow) {
+        function ($scope, $rootScope,  $http, AuthService, $state, $timeout, InfoWindow) {
             var self = this;
 
             //NonAuthController methods

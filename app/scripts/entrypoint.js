@@ -8,7 +8,6 @@ require.config({
         'jquery': '../../bower_components/jquery/dist/jquery',
         'lodash': '../../bower_components/lodash/lodash',
         'twitter-bootstrap': '../../bower_components/bootstrap/dist/js/bootstrap',
-        'angular-ui-router': '../../bower_components/angular-ui-router/release/angular-ui-router',
         'logicify-gmap': '../../bower_components/logicify-gmap/dist/logicify-gmap',
         'ui.bootstrap': '../../bower_components/angular-bootstrap/ui-bootstrap',
         'ui.bootstrap.tpls': '../../bower_components/angular-bootstrap/ui-bootstrap-tpls',
@@ -16,11 +15,13 @@ require.config({
         'angular-strap-tpl': '../../bower_components/angular-strap/dist/angular-strap.tpl.min',
         'angular-animate': '../../bower_components/angular-animate/angular-animate',
         'angular-mocks': '../../bower_components/angular-mocks/angular-mocks',
-        'moment': '../../bower_components/moment/min/moment.min',
+        'angular-moment' : '../../bower_components/angular-moment/angular-moment',
+        'angular-touch' : '../../bower_components/angular-touch/angular-touch',
         'angular-ui-calendar': '../../bower_components/angular-ui-calendar/src/calendar',
+        'angular-ui-router': '../../bower_components/angular-ui-router/release/angular-ui-router',
+        'moment': '../../bower_components/moment/min/moment.min',
         'fullcalendar': '../../bower_components/fullcalendar/dist/fullcalendar.min',
         'gcal': '../../bower_components/fullcalendar/dist/gcal',
-        'angular-moment' : '../../bower_components/angular-moment/angular-moment',
         'google': 'https://maps.googleapis.com/maps/api/js?v=3.22'
     },
     shim: {
@@ -38,6 +39,9 @@ require.config({
             exports: 'angular'
         },
         'angular-strap': {
+            deps: ['angular']
+        },
+        'angular-touch': {
             deps: ['angular']
         },
         'angular-moment': {

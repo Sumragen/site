@@ -57,12 +57,8 @@ define([
                             animation: true,
                             templateUrl: "./views/auth/logIn.html",
                             controller: "AuthController as controller",
-                            size: 'lg'
-                            //resolve: {
-                            //    items: function () {
-                            //        return $scope.items;
-                            //    }
-                            //}
+                            size: 'lg',
+                            windowClass : 'custom-modal-auth'
                         });
 
                         modalInstance.result
@@ -77,12 +73,8 @@ define([
                             animation: true,
                             templateUrl: "./views/auth/logUp.html",
                             controller: "AuthController as controller",
-                            size: 'lg'
-                            //resolve: {
-                            //    items: function () {
-                            //        return $scope.items;
-                            //    }
-                            //}
+                            size: 'lg',
+                            windowClass: 'custom-modal-auth'
                         });
 
                         modalInstance.result
@@ -93,7 +85,6 @@ define([
                             });
                     };
 
-
                     $rootScope.logOut = function () {
                         $http(Endpoint.logOut.user())
                             .then(function () {
@@ -101,7 +92,6 @@ define([
                                 $state.go('common.home');
                             });
                     };
-
 
                     $rootScope.$on('$stateChangeStart', function (event, nextState, nextStateParams, curState, curStateParams) {
                         $uibModalStack.dismissAll();

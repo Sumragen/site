@@ -20,6 +20,7 @@ define(['../module'], function (module) {
                     templateUrl: "./views/dashboard/schedule/day.html",
                     controller: "Dashboard.Schedule.DayController as controller",
                     size: 'lg',
+                    windowClass: 'custom-modal-day',
                     resolve: {
                         selectedDayOfWeek: function () {
                             return selectedDay;

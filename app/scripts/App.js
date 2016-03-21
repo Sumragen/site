@@ -88,11 +88,8 @@ define([
                     };
 
                     $rootScope.logOut = function () {
-                        $http(Endpoint.logOut.user())
-                            .then(function () {
                                 SecurityContext.setPrincipal(null);
                                 $state.go('common.home');
-                            });
                     };
 
                     $rootScope.$on('$stateChangeStart', function (event, nextState, nextStateParams, curState, curStateParams) {

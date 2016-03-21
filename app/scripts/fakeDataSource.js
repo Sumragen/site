@@ -13,14 +13,10 @@ define(['lodash'], function (_) {
     };
     var data = {};
     {
-        var tempDataSource = JSON.parse(localStorage.getItem("datasourse"));
-        if (tempDataSource) {
+        if (localStorage.getItem("datasource")) {
             load();
         } else {
-            localStorage.setItem("datasource", JSON.stringify({
-                user: {
-                    objects:
-                        [AbstractUser]}}));
+            localStorage.setItem("datasource", JSON.stringify({user: {objects: [AbstractUser] } }));
         }
     }
     //example

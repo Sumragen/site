@@ -6,7 +6,8 @@ define(['../module'], function (module) {
         '$scope',
         '$rootScope',
         '$uibModalInstance',
-        function ($scope, $rootScope, $uibModalInstance) {
+        'selectedDayOfWeek',
+        function ($scope, $rootScope, $uibModalInstance,selectedDayOfWeek) {
             var self = this;
 
             self.close = function () {
@@ -68,7 +69,7 @@ define(['../module'], function (module) {
                 }
             ];
             for (i = 0; i < days.length; i ++){
-                if ($rootScope.selectedDate === days[i].name){
+                if (selectedDayOfWeek === days[i].name){
                     self.currentDay = days[i];
                     return;
                 }

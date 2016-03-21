@@ -13,26 +13,23 @@ define(['../module'], function (module) {
             var self = this;
             self.showDayModal = function (date) {
                 var selectedDate = moment(date).format('dddd');
-                $rootScope.selectedDate = $filter('date')(selectedDate, 'dddd');
-                //ModalService.showModal({
-                //    templateUrl: "./views/dashboard/schedule/day.html",
-                //    controller: "Dashboard.Schedule.DayController as controller"
-                //});
+                var selectedDay = $filter('date')(selectedDate, 'dddd');
+
                 var modalInstance = $uibModal.open({
                     animation: true,
                     templateUrl: "./views/dashboard/schedule/day.html",
                     controller: "Dashboard.Schedule.DayController as controller",
-                    size: 'lg'
-                    //resolve: {
-                    //    currentUser: function () {
-                    //        return $scope.currentUser;
-                    //    }
-                    //}
+                    size: 'lg',
+                    resolve: {
+                        selectedDayOfWeek: function () {
+                            return selectedDay;
+                        }
+                    }
                 });
 
                 modalInstance.result
                     .then(function () {
-                        $state.go('dashboard.profile');
+                        //$state.go('dashboard.profile');
                     }, function () {
                         console.log('Modal dismissed');
                     });

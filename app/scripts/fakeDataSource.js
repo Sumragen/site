@@ -108,26 +108,29 @@ define(['lodash'], function (_) {
         }
     ];
     var data = {};
-    {
-        if (localStorage.getItem("datasource")) {
-            load();
-        } else {
-            localStorage.setItem("datasource", JSON.stringify({
-                user: {
-                    objects: [
-                        AbstractUser
-                    ]
-                },
-                event: {
-                    list: defaultEvents
-                },
-                schedule: {
-                    lessons: defaultLessons,
-                    days: defaultDays
-                }
-            }));
-        }
+
+    if (localStorage.getItem("datasource")) {
+        load();
+    } else {
+        localStorage.setItem("datasource", JSON.stringify({
+            user: {
+                objects: [
+                    AbstractUser
+                ],
+                lastIndex:1
+            },
+            event: {
+                objects:[],
+                lastIndex:0,
+                list: defaultEvents
+            },
+            schedule: {
+                lessons: defaultLessons,
+                days: defaultDays
+            }
+        }));
     }
+
     //example
     //var user = _.merge(AbstractUser, {user: 'user', password: 'pass'});
     //data.user.objects = [user];
@@ -166,6 +169,7 @@ define(['lodash'], function (_) {
     dataSource.addUser = function (tempUser) {
         load();
         var user = angular.fromJson(tempUser);
+        user.id = ++data.user.lastIndex;
         data.user.objects.push(user);
         commit();
     };

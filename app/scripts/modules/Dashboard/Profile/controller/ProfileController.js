@@ -10,10 +10,7 @@ define(['../module'], function (module) {
         function (SecurityContext, $scope, profileService, $rootScope) {
             var self = this;
             var currentUser = SecurityContext.getPrincipal();
-            self.firstName = currentUser.firstName;
-            self.lastName = currentUser.lastName;
-            self.login = currentUser.login;
-            self.email = currentUser.email;
+            $scope.currentUser = currentUser;
 
 
             $rootScope.$on('securityContext:updated', function (e, user) {
@@ -30,12 +27,12 @@ define(['../module'], function (module) {
             };
 
             self.editProfile = function (form) {
-                return profileService.editUser({
-                    user:{
-                        firstName : form.firstName.$modelValue,
-                        lastName : form.lastName.$modelValue,
-                        login : form.login.$modelValue,
-                        email: form.email.$modelValue},
+                $scope.$broadcast('schemaFormValidate');
+                if(form.$valid){
+
+                }
+                profileService.editUser({
+                    user:$scope.profile,
                     currentData: {
                         login: currentUser.login,
                         email: currentUser.email
@@ -65,7 +62,7 @@ define(['../module'], function (module) {
                 }
             ];
 
-            $scope.model = {};
+            $scope.profile = $scope.currentUser || {};
         }
     ]);
 });

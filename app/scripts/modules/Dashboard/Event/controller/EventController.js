@@ -5,16 +5,37 @@ define(['../module'], function (module) {
     module.controller('Dashboard.Event.EventController', [
         'Dashboard.Event.EventService',
         '$scope',
-        function (eventService, $scope) {
+        'InfoWindow',
+        function (eventService, $scope, InfoWindow) {
             var self = this;
-
-            $scope.testLine = 'testLine';
-
             eventService.loadEvents().then(function (data) {
                 $scope.eventList = data.data.events;
             }, function (err) {
                 $scope.error = err.data.message
             });
+
+            self.views = [
+                {
+                    name: 'Table',
+                    url: './views/dashboard/events/table.html'
+                },
+                {
+                    name: 'Map',
+                    url: './views/dashboard/events/map.html'
+                }
+            ];
+            self.currentView = self.views[0];
+            self.selectedPage = function (check) {
+                if (check){
+                    self.currentView = self.views[1];
+                }else{
+                    self.currentView = self.views[0];
+                }
+            };
+
+
+
+
             //Map version
             $scope.markers = [];
             $scope.cssOpts = {width: '69%', height: '700px', 'min-width': '400px', 'min-height': '200px'};

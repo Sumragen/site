@@ -11,12 +11,34 @@ define(['lodash'], function (_) {
         email: 'root@gmail.com',
         password: 'root'
     };
+    var SimpleEvents = [
+        {
+            name: 'Event 1',
+            date: '01.03.2016'
+        },
+        {
+            name: 'Event 2',
+            date: '09.23.2016'
+        },
+        {
+            name: 'Event 3',
+            date: '08.07.2016'
+        },
+        {
+            name: 'Event 4',
+            date: '18.05.2016'
+        },
+        {
+            name: 'Event 5',
+            date: '05.01.2016'
+        }
+    ];
     var data = {};
     {
         if (localStorage.getItem("datasource")) {
             load();
         } else {
-            localStorage.setItem("datasource", JSON.stringify({user: {objects: [AbstractUser] },event: {list: [{name : 'Simple event',date: '01.30'}]} }));
+            localStorage.setItem("datasource", JSON.stringify({user: {objects: [AbstractUser] },event: {list: SimpleEvents }}));
         }
     }
     //example

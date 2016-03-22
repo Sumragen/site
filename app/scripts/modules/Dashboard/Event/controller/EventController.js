@@ -62,17 +62,6 @@ define(['../module'], function (module) {
                     $scope.markers.push(marker);
                     attach(marker);
                 }
-                //var pos = new google.maps.LatLng(46.671627, 32.610014);
-                //var marker = new google.maps.Marker({
-                //    id: 'id_1',
-                //    name: 'School',
-                //    position: pos,
-                //    map: map,
-                //    title: 'School 24'
-                //});
-                //$scope.markers.push(marker);
-
-                //attach(marker);//attach listener
 
             };
         }

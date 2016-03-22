@@ -22,6 +22,14 @@ define(
                     return [400,{errorCode:2,message:'Events not found'}];
                 }
             });
+            $httpBackend.whenGET('/schedule').respond(function (method, url) {
+                var schedule = fakeDataSource.getSchedule();
+                if (schedule){
+                    return [200, {schedule: schedule}, {}];
+                }else{
+                    return [400,{errorCode:3,message:'Schedule not found'}];
+                }
+            });
             $httpBackend.whenPOST('/register').respond(function(method, url, data) {
                 fakeDataSource.addUser(data);
                 return [200, angular.fromJson(data), {}];

@@ -53,6 +53,15 @@ define(['./module'], function (module) {
                             isApiCall: true
                         }
                     }
+                },
+                schedule: {
+                    list: function () {
+                        return {
+                            method: METHODS.GET,
+                            url: '/schedule',
+                            isApiCall: true
+                        }
+                    }
                 }
             };
             return routes;

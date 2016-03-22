@@ -7,73 +7,27 @@ define(['../module'], function (module) {
         '$rootScope',
         '$uibModalInstance',
         'selectedDayOfWeek',
-        function ($scope, $rootScope, $uibModalInstance,selectedDayOfWeek) {
+        'Dashboard.Schedule.ScheduleService',
+        function ($scope, $rootScope, $uibModalInstance,selectedDayOfWeek,scheduleService) {
             var self = this;
 
             self.close = function () {
                 $uibModalInstance.close();
             };
+
+            scheduleService.loadSchedule().then(function (data) {
+                var scheduleData = data.data.schedule;
+                for (i = 0; i < scheduleData.days.length; i ++){
+                    if (selectedDayOfWeek === scheduleData.days[i].name){
+                        self.currentDay = scheduleData.days[i];
+                        return;
+                    }
+                }
+            }, function (err) {
+                $scope.error = err.data.message
+            });
+            var scheduleData = scheduleService.loadSchedule();
             self.currentDay = {dayOff: 'day off'};
-            var lessons = [
-                {
-                    name: 'Literature',
-                    classroom: 304,
-                    teacher: 'Romanovich'
-                },
-                {
-                    name: 'Mathematic',
-                    classroom: 516,
-                    teacher: 'Peregnyak'
-                },
-                {
-                    name: 'OOP',
-                    classroom: 507,
-                    teacher: 'Blinov'
-                },
-                {
-                    name: 'DB',
-                    classroom: 522,
-                    teacher: 'Klenov'
-                },
-                {
-                    name: 'English',
-                    classroom: 516,
-                    teacher: 'Moontyan'
-                },
-                {
-                    name: 'Philosophy',
-                    classroom: 411,
-                    teacher: 'Grishanov'
-                }
-            ];
-            var days = [
-                {
-                    name: 'Monday',
-                    lessons: [lessons[0], lessons[2], lessons[1], null, null]
-                },
-                {
-                    name: 'Tuesday',
-                    lessons: [null, lessons[1], lessons[2], lessons[3], null]
-                },
-                {
-                    name: 'Wednesday',
-                    lessons: [lessons[4], lessons[0], lessons[3], null, null]
-                },
-                {
-                    name: 'Thursday',
-                    lessons: [null, lessons[5], lessons[4], lessons[2], null]
-                },
-                {
-                    name: 'Friday',
-                    lessons: [lessons[0], lessons[1], lessons[4], null, null]
-                }
-            ];
-            for (i = 0; i < days.length; i ++){
-                if (selectedDayOfWeek === days[i].name){
-                    self.currentDay = days[i];
-                    return;
-                }
-            }
         }
     ]);
 });

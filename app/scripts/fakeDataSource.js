@@ -11,46 +11,100 @@ define(['lodash'], function (_) {
         email: 'root@gmail.com',
         password: 'root'
     };
-    var SimpleEvents = [
+    var defaultEvents = [
         {
             id: 1,
             name: 'Event 1',
             date: '01.03.2016',
             title: 'first event (test version)',
-            positionX : 46.671627,
-            positionY : 32.611214
+            positionX: 46.671627,
+            positionY: 32.611214
         },
         {
             id: 2,
             name: 'Event 2',
             date: '09.23.2016',
             title: 'second event (test version)',
-            positionX : 46.671637,
-            positionY : 32.612014
+            positionX: 46.671637,
+            positionY: 32.612014
         },
         {
             id: 3,
             name: 'Event 3',
             date: '08.07.2016',
             title: 'third event (test version)',
-            positionX : 46.671647,
-            positionY : 32.613014
+            positionX: 46.671647,
+            positionY: 32.613014
         },
         {
             id: 4,
             name: 'Event 4',
             date: '18.05.2016',
             title: 'fourth event (test version)',
-            positionX : 46.671657,
-            positionY : 32.614014
+            positionX: 46.671657,
+            positionY: 32.614014
         },
         {
             id: 5,
             name: 'Event 5',
             date: '05.01.2016',
             title: 'fifth event (test version)',
-            positionX : 46.671667,
-            positionY : 32.615014
+            positionX: 46.671667,
+            positionY: 32.615014
+        }
+    ];
+    var defaultLessons = [
+        {
+            name: 'Literature',
+            classroom: 304,
+            teacher: 'Romanovich'
+        },
+        {
+            name: 'Mathematic',
+            classroom: 516,
+            teacher: 'Peregnyak'
+        },
+        {
+            name: 'OOP',
+            classroom: 507,
+            teacher: 'Blinov'
+        },
+        {
+            name: 'DB',
+            classroom: 522,
+            teacher: 'Klenov'
+        },
+        {
+            name: 'English',
+            classroom: 516,
+            teacher: 'Moontyan'
+        },
+        {
+            name: 'Philosophy',
+            classroom: 411,
+            teacher: 'Grishanov'
+        }
+    ];
+    var defaultDays = [
+        {
+            name: 'Monday',
+            lessons: [defaultLessons[0], defaultLessons[2], defaultLessons[1], null, null]
+        },
+        {
+            name: 'Tuesday',
+            lessons: [null, defaultLessons[1], defaultLessons[2], defaultLessons[3], null]
+        },
+        {
+            name: 'Wednesday',
+            lessons: [defaultLessons[4], defaultLessons[0], defaultLessons[3], null, null]
+        },
+        {
+            name: 'Thursday',
+            lessons: [null, defaultLessons[5], defaultLessons[4], defaultLessons[2], null]
+        },
+        {
+            name: 'Friday',
+            lessons: [defaultLessons[0], defaultLessons[1], defaultLessons[4], null, null]
         }
     ];
     var data = {};
@@ -58,7 +112,20 @@ define(['lodash'], function (_) {
         if (localStorage.getItem("datasource")) {
             load();
         } else {
-            localStorage.setItem("datasource", JSON.stringify({user: {objects: [AbstractUser] },event: {list: SimpleEvents }}));
+            localStorage.setItem("datasource", JSON.stringify({
+                user: {
+                    objects: [
+                        AbstractUser
+                    ]
+                },
+                event: {
+                    list: defaultEvents
+                },
+                schedule: {
+                    lessons: defaultLessons,
+                    days: defaultDays
+                }
+            }));
         }
     }
     //example
@@ -94,6 +161,11 @@ define(['lodash'], function (_) {
     dataSource.getEvents = function () {
         load();
         return data.event.list;
+    };
+
+    dataSource.getSchedule = function () {
+        load();
+        return data.schedule;
     };
 
     return dataSource;

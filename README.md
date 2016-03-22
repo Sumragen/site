@@ -24,6 +24,16 @@
     }
 ```
 
+### Get schedule
+
+```js
+    {
+        url:'/schedule',
+        method:'POST',
+        data:''
+    }
+```
+
 ### add user to array of users in datasource
 
 ```js

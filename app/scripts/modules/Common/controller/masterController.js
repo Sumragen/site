@@ -64,13 +64,13 @@ define(['../module'], function (module) {
                 var pos = new google.maps.LatLng(46.671627, 32.610014);
                 var marker = new google.maps.Marker({
                     id: 'id_1',
-                    name: 'School',
+                    name: 'Школа 24',
                     position: pos,
                     map: map,
-                    title: 'School 24'
+                    title: 'Херсон, 73039, вул. Карбишева, 32.'
                 });
                 $scope.markers.push(marker);
-                attach(marker);//attach listener
+                attach(marker);
 
             };
         }]);

@@ -13,11 +13,11 @@ define(['./module'], function (module) {
             };
 
             var routes = {
-                users: {
+                signUp: {
                     list: function (data) {
                         return {
                             method: METHODS.POST,
-                            url: '/users',
+                            url: '/register',
                             isApiCall: true,
                             data: data
                         }
@@ -48,7 +48,7 @@ define(['./module'], function (module) {
                 events: {
                     list: function () {
                         return {
-                            method: METHODS.POST,
+                            method: METHODS.GET,
                             url: '/events',
                             isApiCall: true
                         }

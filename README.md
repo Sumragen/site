@@ -4,31 +4,31 @@
 
 ## User
 
-### check user in the array
+### checks whether the user is registered
 
 ```js
     {
         url:'/signIn',
         method:'POST',
-        data:'user'
+        data:'checkUser'
     }
 ```
 
-### get current user
+### Get list of events
 
 ```js
     {
-        url:'/getUser',
-        method:'GET',
-        data:'currentUser'
+        url:'/events',
+        method:'POST',
+        data:''
     }
 ```
 
-### add user to array of users
+### add user to array of users in datasource
 
 ```js
     {
-        url:'/users',
+        url:'/register',
         method:'POST',
         data:'user'
     }

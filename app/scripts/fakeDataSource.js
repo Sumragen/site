@@ -42,7 +42,7 @@ define(['lodash'], function (_) {
             }
         }
     };
-    dataSource.setUsers = function (tempUser) {
+    dataSource.addUser = function (tempUser) {
         load();
         var user = angular.fromJson(tempUser);
         data.user.objects.push(user);

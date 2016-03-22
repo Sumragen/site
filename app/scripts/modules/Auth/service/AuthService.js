@@ -14,7 +14,7 @@ define(['../module'], function (module) {
             };
 
             service.signUp = function (newUser) {
-                return $http(Endpoint.users.list({
+                return $http(Endpoint.signUp.list({
                     firstName: newUser.FirstName,
                     lastName: newUser.LastName,
                     login: newUser.Login,

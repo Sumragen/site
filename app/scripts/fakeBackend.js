@@ -14,6 +14,14 @@ define(
                     return [400,{errorCode:1,message:'Username or password is incorrect'}];
                 }
             });
+            $httpBackend.whenPOST('/updateUser').respond(function (method,url,tempUser) {
+                var user = fakeDataSource.updateUser(tempUser);
+                if (user){
+                    return [200, user, {}];
+                }else{
+                    return [400,{errorCode:4,message:'wrong update'}];
+                }
+            });
             $httpBackend.whenGET('/events').respond(function (method, url) {
                 var events = fakeDataSource.getEvents();
                 if (events){

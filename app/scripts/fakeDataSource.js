@@ -151,6 +151,18 @@ define(['lodash'], function (_) {
             }
         }
     };
+    dataSource.updateUser = function (dataUser) {
+        load();
+        var i = 0;
+        var tempUser = angular.fromJson(dataUser);
+        for (i; i < data.user.objects.length; i++) {
+            if (tempUser.currentData.login === data.user.objects[i].login && tempUser.currentData.email === data.user.objects[i].email) {
+                data.user.objects[i] = tempUser.user;
+                commit();
+                return data.user.objects[i];
+            }
+        }
+    };
     dataSource.addUser = function (tempUser) {
         load();
         var user = angular.fromJson(tempUser);

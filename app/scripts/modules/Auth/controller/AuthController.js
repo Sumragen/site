@@ -10,7 +10,7 @@ define(['../module'], function (module) {
         '$uibModalInstance',
         '$q',
         '$state',
-        function ($scope,  $http, AuthService, $uibModalInstance, $q, $state) {
+        function ($scope, $http, AuthService, $uibModalInstance, $q, $state) {
             var self = this;
 
             $scope.cancel = function () {
@@ -23,13 +23,12 @@ define(['../module'], function (module) {
             };
 
             self.signIn = function (userIn) {
-                return AuthService.signIn(userIn)
-                    .then(function (currentUser) {
-                        $scope.error = null;
-                        $uibModalInstance.close();
-                    }, function (err) {
-                        $scope.error = err.data.message;
-                    });
+                return AuthService.signIn(userIn).then(function (currentUser) {
+                    $scope.error = null;
+                    $uibModalInstance.close();
+                }, function (err) {
+                    $scope.error = err.data.message;
+                });
             };
         }]);
 });

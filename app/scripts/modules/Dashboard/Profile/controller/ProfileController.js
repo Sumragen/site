@@ -5,7 +5,9 @@ define(['../module'], function (module) {
     module.controller('Dashboard.Profile.ProfileController', [
         'Common.SecurityContext',
         '$scope',
-        function (SecurityContext, $scope) {
+        'Dashboard.Profile.ProfileService',
+        '$rootScope',
+        function (SecurityContext, $scope, profileService, $rootScope) {
             var self = this;
             var currentUser = SecurityContext.getPrincipal();
             self.firstName = currentUser.firstName;
@@ -13,9 +15,36 @@ define(['../module'], function (module) {
             self.login = currentUser.login;
             self.email = currentUser.email;
 
+
+            $rootScope.$on('securityContext:updated', function (e, user) {
+                currentUser = user;
+                self.firstName = currentUser.firstName;
+                self.lastName = currentUser.lastName;
+                self.login = currentUser.login;
+                self.email = currentUser.email;
+            });
+
             self.showSchemaForm = false;
             self.toggleSchemaForm = function () {
                 self.showSchemaForm = !self.showSchemaForm;
+            };
+
+            self.editProfile = function (form) {
+                return profileService.editUser({
+                    user:{
+                        firstName : form.firstName.$modelValue,
+                        lastName : form.lastName.$modelValue,
+                        login : form.login.$modelValue,
+                        email: form.email.$modelValue},
+                    currentData: {
+                        login: currentUser.login,
+                        email: currentUser.email
+                }
+                }).then(function () {
+                    self.toggleSchemaForm();
+                }, function () {
+                    //some code
+                });
             };
 
             $scope.schema = {

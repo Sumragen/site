@@ -45,6 +45,16 @@ define(['./module'], function (module) {
                         }
                     }
                 },
+                updateUser: {
+                    user: function (userIn) {
+                        return {
+                            method: METHODS.POST,
+                            url: '/updateUser',
+                            isApiCall: true,
+                            data: userIn
+                        }
+                    }
+                },
                 events: {
                     list: function () {
                         return {

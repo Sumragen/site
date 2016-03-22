@@ -88,23 +88,23 @@ define(['lodash'], function (_) {
     var defaultDays = [
         {
             name: 'Monday',
-            lessons: [defaultLessons[0], defaultLessons[2], defaultLessons[1], null, null]
+            lessons: [defaultLessons[0], defaultLessons[2], defaultLessons[1], null, null, null, null, null]
         },
         {
             name: 'Tuesday',
-            lessons: [null, defaultLessons[1], defaultLessons[2], defaultLessons[3], null]
+            lessons: [null, defaultLessons[1], defaultLessons[2], defaultLessons[3], null, null, null, null]
         },
         {
             name: 'Wednesday',
-            lessons: [defaultLessons[4], defaultLessons[0], defaultLessons[3], null, null]
+            lessons: [defaultLessons[4], defaultLessons[0], defaultLessons[3], null, null, null, null, null]
         },
         {
             name: 'Thursday',
-            lessons: [null, defaultLessons[5], defaultLessons[4], defaultLessons[2], null]
+            lessons: [null, defaultLessons[5], defaultLessons[4], defaultLessons[2], null, null, null, null]
         },
         {
             name: 'Friday',
-            lessons: [defaultLessons[0], defaultLessons[1], defaultLessons[4], null, null]
+            lessons: [defaultLessons[0], defaultLessons[1], defaultLessons[4], null, null, null, null, null]
         }
     ];
     var data = {};

@@ -10,6 +10,12 @@
         </tr>
         </thead>
         <tbody>
+        <tr ng-if="controller.currentDay.lessons[0]" class="danger">
+            <td>0</td>
+            <td>{{controller.currentDay.lessons[0].name}}</td>
+            <td>{{controller.currentDay.lessons[0].classroom}}</td>
+            <td>{{controller.currentDay.lessons[0].teacher}}</td>
+        </tr>
         <tr ng-repeat="lesson in controller.currentDay.lessons track by $index" class="info">
             <td>{{$index + 1}}</td>
             <td>{{lesson.name}}</td>

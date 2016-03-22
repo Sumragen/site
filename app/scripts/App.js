@@ -14,6 +14,8 @@ define([
         'angular-mocks',
         'angular-moment',
         'angular-touch',
+        //'angular-schema-form',
+        'bootstrap-decorator',
         'moment',
         'ui.bootstrap',
         'ui.bootstrap.tpls',
@@ -27,6 +29,7 @@ define([
             'ngMockE2E',
             'ngTouch',
             'ngAnimate',
+            'ngSanitize',
             'ui.bootstrap',
             'angularMoment',
             'AuthModule',
@@ -88,8 +91,8 @@ define([
                     };
 
                     $rootScope.logOut = function () {
-                                SecurityContext.setPrincipal(null);
-                                $state.go('common.home');
+                        SecurityContext.setPrincipal(null);
+                        $state.go('common.home');
                     };
 
                     $rootScope.$on('$stateChangeStart', function (event, nextState, nextStateParams, curState, curStateParams) {

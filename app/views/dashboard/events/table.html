@@ -4,6 +4,7 @@
     <tr>
         <td>№</td>
         <td>Name</td>
+        <td>Title</td>
         <td>Date</td>
     </tr>
     </thead>
@@ -11,6 +12,7 @@
     <tr ng-repeat="event in eventList track by $index" class="success">
         <td>{{$index + 1}}</td>
         <td>{{event.name}}</td>
+        <td>{{event.title}}</td>
         <td>{{event.date}}</td>
     </tr>
     </tbody>

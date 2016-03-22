@@ -13,24 +13,44 @@ define(['lodash'], function (_) {
     };
     var SimpleEvents = [
         {
+            id: 1,
             name: 'Event 1',
-            date: '01.03.2016'
+            date: '01.03.2016',
+            title: 'first event (test version)',
+            positionX : 46.671627,
+            positionY : 32.611214
         },
         {
+            id: 2,
             name: 'Event 2',
-            date: '09.23.2016'
+            date: '09.23.2016',
+            title: 'second event (test version)',
+            positionX : 46.671637,
+            positionY : 32.612014
         },
         {
+            id: 3,
             name: 'Event 3',
-            date: '08.07.2016'
+            date: '08.07.2016',
+            title: 'third event (test version)',
+            positionX : 46.671647,
+            positionY : 32.613014
         },
         {
+            id: 4,
             name: 'Event 4',
-            date: '18.05.2016'
+            date: '18.05.2016',
+            title: 'fourth event (test version)',
+            positionX : 46.671657,
+            positionY : 32.614014
         },
         {
+            id: 5,
             name: 'Event 5',
-            date: '05.01.2016'
+            date: '05.01.2016',
+            title: 'fifth event (test version)',
+            positionX : 46.671667,
+            positionY : 32.615014
         }
     ];
     var data = {};

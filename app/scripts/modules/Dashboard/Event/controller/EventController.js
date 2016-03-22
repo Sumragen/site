@@ -13,7 +13,6 @@ define(['../module'], function (module) {
             }, function (err) {
                 $scope.error = err.data.message
             });
-
             self.views = [
                 {
                     name: 'Table',
@@ -26,14 +25,12 @@ define(['../module'], function (module) {
             ];
             self.currentView = self.views[0];
             self.selectedPage = function (check) {
-                if (check){
+                if (check) {
                     self.currentView = self.views[1];
-                }else{
+                } else {
                     self.currentView = self.views[0];
                 }
             };
-
-
 
 
             //Map version
@@ -54,16 +51,28 @@ define(['../module'], function (module) {
                 }
 
 
-                var pos = new google.maps.LatLng(46.671627, 32.610014);
-                var marker = new google.maps.Marker({
-                    id: 'id_1',
-                    name: 'School',
-                    position: pos,
-                    map: map,
-                    title: 'School 24'
-                });
-                $scope.markers.push(marker);
-                attach(marker);//attach listener
+                for (i = 0; i < $scope.eventList.length; i++) {
+                    var marker = new google.maps.Marker({
+                        id: $scope.eventList[i].id,
+                        name: $scope.eventList[i].name,
+                        position: new google.maps.LatLng($scope.eventList[i].positionX, $scope.eventList[i].positionY),
+                        map: map,
+                        title: $scope.eventList[i].title
+                    });
+                    $scope.markers.push(marker);
+                    attach(marker);
+                }
+                //var pos = new google.maps.LatLng(46.671627, 32.610014);
+                //var marker = new google.maps.Marker({
+                //    id: 'id_1',
+                //    name: 'School',
+                //    position: pos,
+                //    map: map,
+                //    title: 'School 24'
+                //});
+                //$scope.markers.push(marker);
+
+                //attach(marker);//attach listener
 
             };
         }

@@ -13,6 +13,11 @@ define(['../module'], function (module) {
             self.login = currentUser.login;
             self.email = currentUser.email;
 
+            self.showSchemaForm = false;
+            self.toggleSchemaForm = function () {
+                self.showSchemaForm = !self.showSchemaForm;
+            };
+
             $scope.schema = {
                 type: "object",
                 properties: {

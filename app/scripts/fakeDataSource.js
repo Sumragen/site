@@ -5,6 +5,7 @@ define(['lodash'], function (_) {
     var dataSource = {};
 
     var AbstractUser = {
+        id : 1,
         firstName: 'root',
         lastName: 'root',
         login: 'root',
@@ -159,7 +160,7 @@ define(['lodash'], function (_) {
         var i = 0;
         var tempUser = angular.fromJson(dataUser);
         for (i; i < data.user.objects.length; i++) {
-            if (tempUser.currentData.login === data.user.objects[i].login && tempUser.currentData.email === data.user.objects[i].email) {
+            if (tempUser.id === data.user.objects[i].id) {
                 data.user.objects[i] = tempUser.user;
                 commit();
                 return data.user.objects[i];

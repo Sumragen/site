@@ -10,8 +10,8 @@ define(['../module'], function (module) {
         function ($http, $q, Endpoint, securityContext) {
             var service = {};
 
-            service.editUser = function (userIn) {
-                return $http(Endpoint.updateUser.user(userIn))
+            service.updateUser = function (user) {
+                return $http(Endpoint.updateUser.user(user))
                     .then(function (data) {
                         return securityContext.setPrincipal(data.data);
                     }, function (err) {

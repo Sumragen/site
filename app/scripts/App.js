@@ -3,6 +3,7 @@
  */
 define([
         'angular',
+        'lodash',
         'angular-ui-router',
         'logicify-gmap',
         'twitter-bootstrap',
@@ -23,7 +24,7 @@ define([
         'modules/Common/index',
         'modules/Dashboard/index'
     ],
-    function (angular) {
+    function (angular,_) {
         var deps = [
             'ui.router',
             'ngMockE2E',

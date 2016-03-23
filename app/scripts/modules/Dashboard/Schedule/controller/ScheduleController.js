@@ -11,10 +11,10 @@ define(['../module'], function (module) {
         //'Common.ModalService',
         function ($scope, $rootScope, moment, $filter, $uibModal) {
             var self = this;
+            scheduleService.loadSchedule().then(function (data) {
+                $scope.currentSchedule = data.data.schedule;
+            });
             self.showDayModal = function (date) {
-                var selectedDate = moment(date).format('dddd');
-                var selectedDay = $filter('date')(selectedDate, 'dddd');
-
                 var modalInstance = $uibModal.open({
                     animation: true,
                     templateUrl: "./views/dashboard/schedule/day.html",
@@ -22,9 +22,10 @@ define(['../module'], function (module) {
                     size: 'lg',
                     windowClass: 'custom-modal-day',
                     resolve: {
-                        selectedDayOfWeek: function () {
-                            return selectedDay;
-                        }
+                        currentSchedule: function () {
+                            return $scope.currentSchedule.data.schedule;
+                        },
+                        date: date
                     }
                 });
 
@@ -39,6 +40,7 @@ define(['../module'], function (module) {
             var d = date.getDate();
             var m = date.getMonth();
             var y = date.getFullYear();
+
             $scope.events = [
                 {title: 'Biology',start: new Date(y, m, d + 1, 8, 30),end: new Date(y, m, d + 1, 9, 50),allDay: false},
                 {title: 'History',start: new Date(y, m, d + 1, 10, 10),end: new Date(y, m, d + 1, 11, 30),allDay: false},
@@ -52,7 +54,7 @@ define(['../module'], function (module) {
                     height: 450,
                     editable: true,
                     header: {
-                        left: 'month basicWeek basicDay agendaWeek agendaDay',
+                        left: 'month basicWeek basicDay',
                         center: 'title',
                         right: 'today prev,next'
                     },

@@ -6,27 +6,27 @@ define(['../module'], function (module) {
         '$scope',
         '$rootScope',
         '$uibModalInstance',
-        'selectedDayOfWeek',
+        'currentSchedule',
         'Dashboard.Schedule.ScheduleService',
-        function ($scope, $rootScope, $uibModalInstance,selectedDayOfWeek,scheduleService) {
+        function ($scope, $rootScope, $uibModalInstance, currentSchedule, scheduleService) {
             var self = this;
 
             self.close = function () {
                 $uibModalInstance.close();
             };
 
-            scheduleService.loadSchedule().then(function (data) {
-                var scheduleData = data.data.schedule;
-                for (i = 0; i < scheduleData.days.length; i ++){
-                    if (selectedDayOfWeek === scheduleData.days[i].name){
-                        self.currentDay = scheduleData.days[i];
-                        return;
-                    }
+            var selectedDate = moment(date).format('dddd');
+            var selectedDay = $filter('date')(selectedDate, 'dddd');
+
+            var scheduleData = currentSchedule.data.schedule;
+            for (i = 0; i < scheduleData.days.length; i++) {
+                if (selectedDay === scheduleData.days[i].name) {
+                    self.currentDay = scheduleData.days[i];
+                    return;
                 }
-            }, function (err) {
-                $scope.error = err.data.message
-            });
-            var scheduleData = scheduleService.loadSchedule();
+            }
+
+            //var scheduleData = scheduleService.loadSchedule();
             self.currentDay = {dayOff: 'day off'};
         }
     ]);

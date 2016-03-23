@@ -36,6 +36,7 @@ define([
             'Common',
             'Dashboard'
         ];
+        var validationInjector = null;
         var app = angular.module('MyApp', deps)
             .run([
                 '$rootScope',
@@ -44,10 +45,25 @@ define([
                 'Common.SecurityContext',
                 '$uibModal',
                 '$uibModalStack',
-                '$http',
-                'Endpoint',
-                function ($rootScope, $state, $stateParams, SecurityContext, $uibModal, $uibModalStack, $http, Endpoint) {
+                'Common.ValidationMessagesBuilder',
+                function ($rootScope, $state, $stateParams, SecurityContext, $uibModal, $uibModalStack, validationMessagesBuilder) {
 
+                    /**
+                     * This method is to-way binding function. It gets a form, set a validation message and give it back
+                     */
+                    validationInjector = function (form) {
+                        //if no validation message and this field is not conditional
+
+                        _.each(form, function (field) {
+                            if (angular.isArray(field.items)) {
+                                return validationInjector(field.items);
+                            }
+                            if (!field.validationMessage && !field.condition) {
+                                field.validationMessage = validationMessagesBuilder.build(field.title || 'Field');
+                            }
+                        });
+                        return form;
+                    };
                     $rootScope.contextUser = SecurityContext.getPrincipal();
                     $rootScope.$on('securityContext:updated', function (e, user) {
                         $rootScope.contextUser = user;
@@ -120,21 +136,33 @@ define([
                     };
                 }
             ])
-            .config(function ($stateProvider, $urlRouterProvider) {
-                $urlRouterProvider.otherwise("/404");
-                $stateProvider
-                    .state('root', {
-                        url: '',
-                        data: {
-                            redirect: 'dashboard.profile'
+            .config([
+                '$stateProvider',
+                '$urlRouterProvider',
+                'schemaFormProvider',
+                function ($stateProvider, $urlRouterProvider, schemaFormProvider) {
+                    schemaFormProvider.postProcess(function (form) {
+                        if (typeof validationInjector == 'function') {
+                            var form = validationInjector(form);
+                            return form;
+                        } else {
+                            return form;
                         }
-                    })
-                    .state('404', {
-                        templateUrl: "./404.html"
-                    })
-                    .state('accessDenied', {
-                        templateUrl: "./accessDenied.html"
                     });
-            });
+                    $urlRouterProvider.otherwise("/404");
+                    $stateProvider
+                        .state('root', {
+                            url: '',
+                            data: {
+                                redirect: 'dashboard.profile'
+                            }
+                        })
+                        .state('404', {
+                            templateUrl: "./404.html"
+                        })
+                        .state('accessDenied', {
+                            templateUrl: "./accessDenied.html"
+                        });
+                }]);
         return app;
     });

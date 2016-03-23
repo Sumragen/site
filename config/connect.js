@@ -6,10 +6,11 @@ module.exports = {
         options: {
             port: 9002,
             hostname: 'localhost',
-            open: {
+            open: false
+
                 //temp
                 //target: 'http://localhost:9002'
-            },
+            ,
             middleware: function (connect) {
                 return [
                     //connect.static('.tmp'),

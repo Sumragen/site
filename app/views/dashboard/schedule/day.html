@@ -10,14 +10,8 @@
         </tr>
         </thead>
         <tbody>
-        <tr ng-if="controller.currentDay.lessons[0]" class="danger">
-            <td>0</td>
-            <td>{{controller.currentDay.lessons[0].name}}</td>
-            <td>{{controller.currentDay.lessons[0].classroom}}</td>
-            <td>{{controller.currentDay.lessons[0].teacher}}</td>
-        </tr>
-        <tr ng-repeat="lesson in controller.currentDay.lessons track by $index" class="info">
-            <td>{{$index + 1}}</td>
+        <tr ng-repeat="lesson in controller.currentDay.lessons track by $index" ng-if="$index !== 0 || (lesson != null || lesson.name != null)" class="info">
+            <td>{{$index}}</td>
             <td>{{lesson.name}}</td>
             <td>{{lesson.classroom}}</td>
             <td>{{lesson.teacher}}</td>

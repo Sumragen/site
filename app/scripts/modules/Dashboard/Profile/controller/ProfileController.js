@@ -37,40 +37,61 @@ define(['../module'], function (module) {
             };
 
             $scope.schema = {
-                type: "object",
-                properties: {
+                "type": "object",
+                "properties": {
                     firstName: {
                         type: "string",
-                        minLength: 2,
+                        minLength: 4,
                         title: "First Name",
                         description: "Your first name",
-                        validationMessage: {
-                            'firstNameValid' : "Please, enter current first name"
-                        }
+                        validationMessage: "Please, enter correct first name"
                     },
                     lastName: {
                         type: "string",
-                        minLength: 2,
+                        minLength: 4,
                         title: "Last Name",
-                        description: "Your last name"},
+                        description: "Your last name",
+                        validationMessage: "Please, enter correct last name"
+                    },
                     login: {
                         type: "string",
                         minLength: 4,
                         title: "Login",
-                        description: "Your login"},
-                    email: {
-                        type: "string",
-                        minLength: 4,
-                        title: "Email",
-                        description: "Your email"},
-                }
+                        description: "Your login",
+                        validationMessage: "Please, enter correct login"
+                    },
+                    "email": {
+                        "title": "Email",
+                        "type": "string",
+                        "pattern": "^\\S+@\\S+$",
+                        "description": "Your email",
+                        validationMessage: "Please, enter correct email address"
+                    }
+                },
+                "required": [
+                    "firstName",
+                    "lastName",
+                    "login",
+                    "email"
+                ]
             };
 
             $scope.form = [
-                "*",
                 {
-                    type: "submit",
-                    title: "Save"
+                    "key": "firstName",
+                    "placeholder": "George"
+                },
+                {
+                    "key": "lastName",
+                    "placeholder": "Klimanov"
+                },
+                {
+                    "key": "login",
+                    "placeholder": "Georgeous"
+                },
+                {
+                    "key": "email",
+                    "placeholder": "Georgeous@gmail.com"
                 }
             ];
 

@@ -10,8 +10,8 @@
     <form name="editForm"
           sf-schema="schema"
           sf-form="form"
-          sf-model="profile"
-          ng-submit="controller.editProfile(editForm)">
+          sf-model="profile">
     </form>
-    <a class="btn btn-default" ng-click="controller.toggleSchemaForm()">Cancel</a>
+    <a class="btn btn-default" ng-click="controller.toggleShowSchemaForm()">Cancel</a>
+    <a class="btn btn-info" ng-click="controller.editProfile(editForm)">Submit</a>
 </div>

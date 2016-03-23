@@ -35,15 +35,24 @@ define(['../module'], function (module) {
                         console.log('Modal dismissed');
                     });
             };
+            var date = new Date();
+            var d = date.getDate();
+            var m = date.getMonth();
+            var y = date.getFullYear();
+            $scope.events = [
+                {title: 'Biology',start: new Date(y, m, d + 1, 8, 30),end: new Date(y, m, d + 1, 9, 50),allDay: false},
+                {title: 'History',start: new Date(y, m, d + 1, 10, 10),end: new Date(y, m, d + 1, 11, 30),allDay: false},
+                {title: 'Mathematics',start: new Date(y, m, d + 1, 11, 50),end: new Date(y, m, d + 1, 13, 10),allDay: false},
+            ];
+            $scope.eventSources = [$scope.events];
 
-            $scope.eventSources = [];
             $scope.uiConfig = {
                 calendar: {
                     firstDay:1,
                     height: 450,
                     editable: true,
                     header: {
-                        left: 'month basicWeek basicDay',
+                        left: 'month basicWeek basicDay agendaWeek agendaDay',
                         center: 'title',
                         right: 'today prev,next'
                     },

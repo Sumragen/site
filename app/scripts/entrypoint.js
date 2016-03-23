@@ -6,8 +6,8 @@ require.config({
         'async': '../../bower_components/requirejs-plugins/src/async',
         'angular': '../../bower_components/angular/angular',
         'jquery': '../../bower_components/jquery/dist/jquery',
+        'lodash': '../../bower_components/lodash/lodash',
         'twitter-bootstrap': '../../bower_components/bootstrap/dist/js/bootstrap',
-        'angular-ui-router': '../../bower_components/angular-ui-router/release/angular-ui-router',
         'logicify-gmap': '../../bower_components/logicify-gmap/dist/logicify-gmap',
         'ui.bootstrap': '../../bower_components/angular-bootstrap/ui-bootstrap',
         'ui.bootstrap.tpls': '../../bower_components/angular-bootstrap/ui-bootstrap-tpls',
@@ -15,13 +15,35 @@ require.config({
         'angular-strap-tpl': '../../bower_components/angular-strap/dist/angular-strap.tpl.min',
         'angular-animate': '../../bower_components/angular-animate/angular-animate',
         'angular-mocks': '../../bower_components/angular-mocks/angular-mocks',
-        'moment': '../../bower_components/moment/min/moment.min',
+        'angular-moment': '../../bower_components/angular-moment/angular-moment',
+        'angular-touch': '../../bower_components/angular-touch/angular-touch',
         'angular-ui-calendar': '../../bower_components/angular-ui-calendar/src/calendar',
+        'angular-ui-router': '../../bower_components/angular-ui-router/release/angular-ui-router',
+        'schemaForm': '../../bower_components/angular-schema-form/dist/schema-form',
+        'angular-sanitize': '../../bower_components/angular-sanitize/angular-sanitize',
+        'bootstrap-decorator': '../../bower_components/angular-schema-form/dist/bootstrap-decorator',
+        'moment': '../../bower_components/moment/min/moment.min',
         'fullcalendar': '../../bower_components/fullcalendar/dist/fullcalendar.min',
+        'ripples': '../../bower_components/bootstrap-material-design/dist/js/ripples',
         'gcal': '../../bower_components/fullcalendar/dist/gcal',
+        'material': '../../bower_components/bootstrap-material-design/dist/js/material',
+        'tv4': '../../bower_components/tv4/tv4',
+        'objectpath': '../../bower_components/objectpath/lib/ObjectPath',
         'google': 'https://maps.googleapis.com/maps/api/js?v=3.22'
     },
     shim: {
+        'bootstrap-decorator': {
+            deps: ['schemaForm']
+        },
+        'schemaForm': {
+            deps: ['angular-sanitize', 'tv4', 'objectpath']
+        },
+        'angular-sanitize': {
+            deps: ['angular']
+        },
+        'material': {
+            deps: ['angular', 'twitter-bootstrap']
+        },
         'angular-ui-calendar': {
             deps: ['gcal']
         },
@@ -36,6 +58,18 @@ require.config({
             exports: 'angular'
         },
         'angular-strap': {
+            deps: ['angular']
+        },
+        'ripples': {
+            deps: ['twitter-bootstrap', 'jquery']
+        },
+        'angular-touch': {
+            deps: ['angular']
+        },
+        'angular-moment': {
+            deps: ['moment']
+        },
+        'moment': {
             deps: ['angular']
         },
         'angular-animate': {
@@ -77,6 +111,7 @@ require.config({
 });
 
 
-require(['angular', './fakeBackend', './App'], function (angular) {
+require(['angular', 'jquery', 'material', './fakeBackend', './App', './setup'], function (angular, jquery, material) {
+    $.material.init();
     angular.bootstrap(document, ['MyApp']);
 });

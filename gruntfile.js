@@ -12,8 +12,7 @@ module.exports = function(grunt){
         },
         buildMeta: {
             appVersion: grunt.file.readJSON("package.json").version,
-            environment: grunt.option('env') || 'dev',
-            noCache:grunt.option('nocache') || Date.now()
+            environment: grunt.option('env') || 'default'
         }
     };
 
@@ -23,14 +22,16 @@ module.exports = function(grunt){
     grunt.registerTask('build', function () {
         grunt.task.run([
             'copy:tmp',
+            'less',
             //'requirejs',
-            //'processhtml',
+            'processhtml',
             'less:development'
         ]);
     });
 
     grunt.registerTask('serve', function () {
         grunt.task.run([
+            'build',
             'connect:livereload',
             //'processhtml',
             'watch'

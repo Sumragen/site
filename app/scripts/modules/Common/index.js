@@ -3,8 +3,10 @@
  */
 define(
     [
-        './controller/CommonController',
-        './service/ModalService'
+        './controller/masterController',
+        './service/SecurityContext',
+        './const',
+        './endpoint'
     ],
     function () {
         'use strict';

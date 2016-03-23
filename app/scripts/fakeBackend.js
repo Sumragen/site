@@ -5,34 +5,41 @@ define(
     ['./App','./fakeDataSource'],
     function (module, fakeDataSource) {
         'use strict';
-        module.run(['$httpBackend','$q',function($httpBackend, $q) {
-            //var users = [{}];
-            //if(localStorage.getItem("usersLS")){
-            //    users = JSON.parse(localStorage.getItem("usersLS"));
-            //}else{
-            //    var user = [{
-            //        firstName : 'root',
-            //        lastName : 'root',
-            //        login : 'root',
-            //        email : 'root@gmail.com',
-            //        password : 'root'
-            //    }];
-            //    localStorage.setItem("usersLS",JSON.stringify(user))
-            //}
-            //
-            //var currentUser = null;
-
-            $httpBackend.whenPOST('/signIn').respond(function (method,url,data) {
-                fakeDataSource.setCurrentUser(data);
-                if (fakeDataSource.getCurrentUser()){
-                    return [200, {currentUser: fakeDataSource.getCurrentUser(), sessionToken: 'simple sessionToken'}, {}];
+        module.run(['$httpBackend','$q',function($httpBackend) {
+            $httpBackend.whenPOST('/signIn').respond(function (method,url,checkUser) {
+                var user = fakeDataSource.checkCurrentUser(checkUser);
+                if (user){
+                    return [200, {currentUser: user, sessionToken: 'simple sessionToken'}, {}];
                 }else{
                     return [400,{errorCode:1,message:'Username or password is incorrect'}];
                 }
             });
-            $httpBackend.whenGET('/getUser').respond(fakeDataSource.getCurrentUser());
-            $httpBackend.whenPOST('/users').respond(function(method, url, data) {
-                fakeDataSource.setUsers(data);
+            $httpBackend.whenPOST('/updateUser').respond(function (method,url,tempUser) {
+                var user = fakeDataSource.updateUser(tempUser);
+                if (user){
+                    return [200, user, {}];
+                }else{
+                    return [400,{errorCode:4,message:'wrong update'}];
+                }
+            });
+            $httpBackend.whenGET('/events').respond(function (method, url) {
+                var events = fakeDataSource.getEvents();
+                if (events){
+                    return [200, {events: events}, {}];
+                }else{
+                    return [400,{errorCode:2,message:'Events not found'}];
+                }
+            });
+            $httpBackend.whenGET('/schedule').respond(function (method, url) {
+                var schedule = fakeDataSource.getSchedule();
+                if (schedule){
+                    return [200, {schedule: schedule}, {}];
+                }else{
+                    return [400,{errorCode:3,message:'Schedule not found'}];
+                }
+            });
+            $httpBackend.whenPOST('/register').respond(function(method, url, data) {
+                fakeDataSource.addUser(data);
                 return [200, angular.fromJson(data), {}];
             });
             $httpBackend.whenGET(/.*/).passThrough();

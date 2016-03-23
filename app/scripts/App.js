@@ -6,48 +6,112 @@ define([
         'angular-ui-router',
         'logicify-gmap',
         'twitter-bootstrap',
+        'material',
+        'ripples',
         'angular-strap',
         'angular-strap-tpl',
         'angular-animate',
         'angular-mocks',
+        'angular-moment',
+        'angular-touch',
+        //'angular-schema-form',
+        'bootstrap-decorator',
+        'moment',
         'ui.bootstrap',
         'ui.bootstrap.tpls',
         'modules/Auth/index',
         'modules/Common/index',
-        'modules/Event/index',
-        'modules/Schedule/index',
-        'modules/Location/index',
-        'modules/Settings/index',
-        'modules/Profile/index'
+        'modules/Dashboard/index'
     ],
-    function(angular){
+    function (angular) {
         var deps = [
             'ui.router',
             'ngMockE2E',
+            'ngTouch',
+            'ngAnimate',
+            'ngSanitize',
+            'ui.bootstrap',
+            'angularMoment',
             'AuthModule',
             'Common',
-            'LocationModule',
-            'EventModule',
-            'ScheduleModule',
-            'SettingsModule',
-            'ProfileModule'
+            'Dashboard'
         ];
         var app = angular.module('MyApp', deps)
             .run([
                 '$rootScope',
                 '$state',
                 '$stateParams',
-                //'$uibModalStack',
-                //'growl',
-                function ($rootScope, $state, $stateParams, $uibModalStack, growl, apiRoutes, httpService) {
+                'Common.SecurityContext',
+                '$uibModal',
+                '$uibModalStack',
+                '$http',
+                'Endpoint',
+                function ($rootScope, $state, $stateParams, SecurityContext, $uibModal, $uibModalStack, $http, Endpoint) {
+
+                    $rootScope.contextUser = SecurityContext.getPrincipal();
+                    $rootScope.$on('securityContext:updated', function (e, user) {
+                        $rootScope.contextUser = user;
+                    });
+                    $rootScope.getSchoolName = function () {
+                        var user = JSON.parse(localStorage.getItem("currentUserLS"));
+                        return 'School ' + '24';//+ user.school;
+                    };
+
+                    $rootScope.showSignInModal = function () {
+                        var modalInstance = $uibModal.open({
+                            animation: true,
+                            templateUrl: "./views/auth/logIn.html",
+                            controller: "AuthController as controller",
+                            size: 'lg',
+                            windowClass: 'custom-modal-auth'
+                        });
+
+                        modalInstance.result
+                            .then(function () {
+                                $state.go('dashboard.profile');
+                            }, function () {
+                                console.log('Modal dismissed');
+                            });
+                    };
+                    $rootScope.showSignUpModal = function () {
+                        var modalInstance = $uibModal.open({
+                            animation: true,
+                            templateUrl: "./views/auth/logUp.html",
+                            controller: "AuthController as controller",
+                            size: 'lg',
+                            windowClass: 'custom-modal-auth'
+                        });
+
+                        modalInstance.result
+                            .then(function () {
+                                $state.go('dashboard.profile');
+                            }, function () {
+                                console.log('Modal dismissed');
+                            });
+                    };
+
+                    $rootScope.logOut = function () {
+                        SecurityContext.setPrincipal(null);
+                        $state.go('common.home');
+                    };
+
                     $rootScope.$on('$stateChangeStart', function (event, nextState, nextStateParams, curState, curStateParams) {
-                        //$uibModalStack.dismissAll();
+                        $uibModalStack.dismissAll();
                         $rootScope.currentState = nextState;
                         //Redirect handling
                         if (nextState.data && nextState.data.redirect) {
-                            event.preventDefault();
-                            $state.go(nextState.data.redirect);
-                            return false;
+                            if (typeof nextState.data.redirect === 'function') {
+                                var redirect = nextState.data.redirect(SecurityContext.getPrincipal());
+                                if (redirect) {
+                                    event.preventDefault();
+                                    $state.go(redirect);
+                                    return false;
+                                }
+                            } else {
+                                event.preventDefault();
+                                $state.go(nextState.data.redirect);
+                                return false;
+                            }
                         }
                         return true;
                     });
@@ -56,19 +120,20 @@ define([
                     };
                 }
             ])
-            .config(function($stateProvider, $urlRouterProvider){
+            .config(function ($stateProvider, $urlRouterProvider) {
                 $urlRouterProvider.otherwise("/404");
                 $stateProvider
                     .state('root', {
                         url: '',
-                        templateUrl: "./views/master.html",
-                        controller:'CommonController as controller'
+                        data: {
+                            redirect: 'dashboard.profile'
+                        }
                     })
                     .state('404', {
-                        templateUrl: "./views/404.html"
+                        templateUrl: "./404.html"
                     })
                     .state('accessDenied', {
-                        templateUrl: "./views/accessDenied.html"
+                        templateUrl: "./accessDenied.html"
                     });
             });
         return app;

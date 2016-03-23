@@ -2,32 +2,35 @@
  * Created by trainee on 3/4/16.
  */
 define(['../module'], function (module) {
-    module.factory('AuthService', ['$http','$q', function ($http,$q) {
-        var service = {
-            role: null,
-            error: null
-        };
+    module.service('AuthService', [
+        '$http',
+        '$q',
+        'Endpoint',
+        'Common.SecurityContext',
+        function ($http, $q, Endpoint, securityContext) {
+            var service = {
+                role: null,
+                error: null
+            };
 
-        service.addUser = function (newFirstName, newLastName, newLogin, newEmail, newPsw){
-            console.log('add user');
-            $http.post('/users', {
-                firstName : newFirstName,
-                lastName : newLastName,
-                login : newLogin,
-                email : newEmail,
-                password : newPsw
-            });
-        };
+            service.signUp = function (newUser) {
+                return $http(Endpoint.signUp.list({
+                    firstName: newUser.FirstName,
+                    lastName: newUser.LastName,
+                    login: newUser.Login,
+                    email: newUser.Email,
+                    password: newUser.Psw
+                }));
+            };
 
-        service.signIn = function (currentLogin, currentPassword) {
-            return $http.post('/signIn', {login: currentLogin, password: currentPassword})
-                .then(function (data) {
-                    console.log(data.data.sessionToken);
-                    return data.data.currentUser;
-                },function (err) {
-                    return $q.reject(err);
-            });
-        };
-        return service;
-    }]);
+            service.signIn = function (userIn) {
+                return $http(Endpoint.signIn.user(userIn))
+                    .then(function (data) {
+                        return securityContext.setPrincipal(data.data.currentUser);
+                    }, function (err) {
+                        return $q.reject(err);
+                    });
+            };
+            return service;
+        }]);
 });

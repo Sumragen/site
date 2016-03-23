@@ -43,29 +43,25 @@ define(['../module'], function (module) {
                         type: "string",
                         minLength: 4,
                         title: "First Name",
-                        description: "Your first name",
-                        validationMessage: "Please, enter correct first name"
+                        description: "Your first name"
                     },
                     lastName: {
                         type: "string",
                         minLength: 4,
                         title: "Last Name",
-                        description: "Your last name",
-                        validationMessage: "Please, enter correct last name"
+                        description: "Your last name"
                     },
                     login: {
                         type: "string",
                         minLength: 4,
                         title: "Login",
-                        description: "Your login",
-                        validationMessage: "Please, enter correct login"
+                        description: "Your login"
                     },
                     "email": {
                         "title": "Email",
                         "type": "string",
                         "pattern": "^\\S+@\\S+$",
-                        "description": "Your email",
-                        validationMessage: "Please, enter correct email address"
+                        "description": "Your email"
                     }
                 },
                 "required": [
@@ -79,19 +75,20 @@ define(['../module'], function (module) {
             $scope.form = [
                 {
                     "key": "firstName",
-                    "placeholder": "George"
+                    "placeholder": "First name"
+
                 },
                 {
                     "key": "lastName",
-                    "placeholder": "Klimanov"
+                    "placeholder": "Last name"
                 },
                 {
                     "key": "login",
-                    "placeholder": "Georgeous"
+                    "placeholder": "username"
                 },
                 {
                     "key": "email",
-                    "placeholder": "Georgeous@gmail.com"
+                    "placeholder": "email"
                 }
             ];
 

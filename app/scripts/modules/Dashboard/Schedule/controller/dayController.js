@@ -17,12 +17,23 @@ define(['../module'], function (module) {
                 $uibModalInstance.close();
             };
 
-            var selectedDate = moment(date).format('dddd');
-            var selectedDay = $filter('date')(selectedDate, 'dddd');
+            //var selectedDate = moment(date).format('dddd');
+            var selectedDay = $filter('date')(moment(date).format('dddd'), 'dddd');
 
-            for (i = 0; i < currentSchedule.days.length; i++) {
-                if (selectedDay === currentSchedule.days[i].name) {
-                    self.currentDay = currentSchedule.days[i];
+            function parseLessons(day) {
+                var schedule = [null,null,null,null,null,null,null,null,null];
+                for(i = 0; i<day.lessons.length; i++){
+                    for (j = 0; j < day.lessons[i].order.length; j++){
+                        schedule[day.lessons[i].order[j]] = day.lessons[i];
+                    }
+                }
+                  return schedule;
+            }
+
+            var tempSchedule = currentSchedule.objects.schedule;
+            for (i = 0; i < tempSchedule.length; i++) {
+                if (selectedDay === tempSchedule[i].name) {
+                    self.currentDay = parseLessons(tempSchedule[i]);
                     return;
                 }
             }

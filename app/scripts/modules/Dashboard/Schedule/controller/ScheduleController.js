@@ -14,6 +14,7 @@ define(['../module'], function (module) {
             var self = this;
             scheduleService.loadSchedule().then(function (data) {
                 $scope.currentSchedule = data.data.schedule;
+                createEventList($scope.currentSchedule);
             });
             self.showDayModal = function (date) {
                 var modalInstance = $uibModal.open({
@@ -47,6 +48,22 @@ define(['../module'], function (module) {
                 {title: 'History',start: new Date(y, m, d + 1, 10, 10),end: new Date(y, m, d + 1, 11, 30),allDay: false},
                 {title: 'Mathematics',start: new Date(y, m, d + 1, 11, 50),end: new Date(y, m, d + 1, 13, 10),allDay: false},
             ];
+
+            $scope.addEvent = function(lesson) {
+                $scope.events.push({
+                    title: 'Open Sesame',
+                    start: new Date(y, m, 28, 8, 30),
+                    end: new Date(y, m, 29, 9, 50),
+                    allDay: false
+                });
+            };
+
+            function createEventList(schedule){
+                if(schedule){
+
+                }
+            }
+
             $scope.eventSources = [$scope.events];
 
             $scope.uiConfig = {

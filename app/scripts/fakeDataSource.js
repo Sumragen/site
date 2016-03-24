@@ -5,12 +5,19 @@ define(['lodash'], function (_) {
     var dataSource = {};
 
     var AbstractUser = {
-        id : 1,
+        id: 1,
         firstName: 'root',
         lastName: 'root',
         login: 'root',
         email: 'root@gmail.com',
         password: 'root'
+    };
+    var AbstractSubject = {
+        id: 1,
+        name: 'Literature',
+        classRooms: [406, 317],
+        allowedStages: [5, 6, 7, 8, 9, 10, 11],
+        teachers: [1, 5, 189]
     };
     var defaultEvents = [
         {
@@ -54,60 +61,169 @@ define(['lodash'], function (_) {
             positionY: 32.615014
         }
     ];
-    var defaultLessons = [
+    var defaultSubjects = [
         {
+            id: 1,
             name: 'Literature',
-            classroom: 304,
-            teacher: 'Romanovich'
+            classroom: [304],
+            allowedStages: [5, 6, 7, 8, 9, 10, 11],
+            teacher: [2, 5]
         },
         {
+            id: 2,
             name: 'Mathematic',
-            classroom: 516,
-            teacher: 'Peregnyak'
+            classroom: [516, 518, 522],
+            allowedStages: [3, 4, 5, 6, 7, 8, 9, 10, 11],
+            teacher: [1, 7]
         },
         {
-            name: 'OOP',
-            classroom: 507,
-            teacher: 'Blinov'
+            id: 3,
+            name: 'Biology',
+            classroom: [507, 511],
+            allowedStages: [5, 6, 7, 8, 9, 10, 11],
+            teacher: [4, 6]
         },
         {
+            id: 4,
             name: 'DB',
-            classroom: 522,
-            teacher: 'Klenov'
+            classroom: [522, 421, 404, 518],
+            allowedStages: [5, 6, 7, 8, 9, 10, 11],
+            teacher: [1, 6]
         },
         {
+            id: 5,
             name: 'English',
-            classroom: 516,
-            teacher: 'Moontyan'
+            classroom: [516],
+            allowedStages: [5, 6, 7, 8, 9, 10, 11],
+            teacher: [8, 3]
         },
         {
+            id: 6,
             name: 'Philosophy',
-            classroom: 411,
-            teacher: 'Grishanov'
+            classroom: [411, 516],
+            allowedStages: [5, 6, 7, 8, 9, 10, 11],
+            teacher: [5, 4]
         }
     ];
-    var defaultDays = [
-        {
-            name: 'Monday',
-            lessons: [defaultLessons[1], defaultLessons[2], defaultLessons[1], null, null, null, null, null]
+    //var defaultDays = [
+    //    {
+    //        name: 'Monday',
+    //        lessons: [defaultLessons[1], defaultLessons[2], defaultLessons[1], null, null, null, null, null]
+    //    },
+    //    {
+    //        name: 'Tuesday',
+    //        lessons: [null, defaultLessons[1], defaultLessons[2], defaultLessons[3], null, null, null, null]
+    //    },
+    //    {
+    //        name: 'Wednesday',
+    //        lessons: [defaultLessons[4], defaultLessons[0], defaultLessons[3], null, null, null, null, null]
+    //    },
+    //    {
+    //        name: 'Thursday',
+    //        lessons: [null, defaultLessons[5], defaultLessons[4], defaultLessons[2], null, null, null, null]
+    //    },
+    //    {
+    //        name: 'Friday',
+    //        lessons: [defaultLessons[0], defaultLessons[1], defaultLessons[4], null, null, null, null, null]
+        //}
+    //];
+    var defautlStage = {
+        stage: 5,
+        suffix: 'A',
+        'form-master': {
+            id: 19,
+            name: 'Lisa Kuddrow'
         },
-        {
-            name: 'Tuesday',
-            lessons: [null, defaultLessons[1], defaultLessons[2], defaultLessons[3], null, null, null, null]
-        },
-        {
-            name: 'Wednesday',
-            lessons: [defaultLessons[4], defaultLessons[0], defaultLessons[3], null, null, null, null, null]
-        },
-        {
-            name: 'Thursday',
-            lessons: [null, defaultLessons[5], defaultLessons[4], defaultLessons[2], null, null, null, null]
-        },
-        {
-            name: 'Friday',
-            lessons: [defaultLessons[0], defaultLessons[1], defaultLessons[4], null, null, null, null, null]
-        }
-    ];
+        schedule: [
+            {
+                name:  'Monday',
+                lessons: [
+                    {
+                        lesson: 'History',
+                        teacher: 'Victor Kotov',
+                        classroom: 32,
+                        order: [1, 2]
+                    },
+                    {
+                        lesson: 'Math',
+                        teacher: 'Demi Moor',
+                        classroom: 12,
+                        order: [3]
+                    }
+                ]
+            },{
+                name: 'Tuesday',
+                lessons: [
+                    {
+                        lesson: 'OOP',
+                        teacher: 'Alan Moor',
+                        classroom: 32,
+                        order: [0, 3]
+                    },
+                    {
+                        lesson: 'Math',
+                        teacher: 'Demi Moor',
+                        classroom: 12,
+                        order: [2]
+                    },
+                    {
+                        lesson: 'Math',
+                        teacher: 'Demi Moor',
+                        classroom: 12,
+                        order: [1]
+                    }
+                ]
+            },{
+                name: 'Wednesday',
+                lessons: [
+                    {
+                        lesson: 'Litrature',
+                        teacher: 'Alan Moor',
+                        classroom: 32,
+                        order: [2, 4]
+                    },
+                    {
+                        lesson: 'Math',
+                        teacher: 'Demi Moor',
+                        classroom: 12,
+                        order: [3]
+                    }
+                ]
+            },{
+                name: 'Thursday',
+                lessons: [
+                    {
+                        lesson: 'Litrature',
+                        teacher: 'Alan Moor',
+                        classroom: 32,
+                        order: [1, 3]
+                    },
+                    {
+                        lesson: 'Math',
+                        teacher: 'Demi Moor',
+                        classroom: 12,
+                        order: [2]
+                    }
+                ]
+            },{
+                name: 'Friday',
+                lessons: [
+                    {
+                        lesson: 'Biology',
+                        teacher: 'Alan Moor',
+                        classroom: 32,
+                        order: [1, 3]
+                    },
+                    {
+                        lesson: 'Math',
+                        teacher: 'Demi Moor',
+                        classroom: 12,
+                        order: [2]
+                    }
+                ]
+            }
+        ]
+    };
     var data = {};
 
     if (localStorage.getItem("datasource")) {
@@ -118,16 +234,16 @@ define(['lodash'], function (_) {
                 objects: [
                     AbstractUser
                 ],
-                lastIndex:1
+                lastIndex: 1
             },
             event: {
-                objects:[],
-                lastIndex:0,
+                objects: defaultEvents,
+                lastIndex: 0,
                 list: defaultEvents
             },
-            schedule: {
-                lessons: defaultLessons,
-                days: defaultDays
+            stages: {
+                objects: defautlStage,
+                lastIndex: 0
             }
         }));
     }
@@ -182,7 +298,7 @@ define(['lodash'], function (_) {
 
     dataSource.getSchedule = function () {
         load();
-        return data.schedule;
+        return data.stages;
     };
 
     return dataSource;

@@ -1,0 +1,33 @@
+<!--temp ng-controller; root controller-->
+<header>
+    <div class="navbar custom-navbar">
+        <div class="container-fluid">
+            <div class="navbar-header custom-navbar-header">
+                <a class="navbar-brand Roboto-custom-brand" ui-sref="common.home" href="">{{getSchoolName()}}</a>
+                <button type="button" class="navbar-toggle" data-toggle="collapse"
+                        data-target=".navbar-inverse-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <div class="navbar-collapse collapse navbar-inverse-collapse ">
+                <ul class="nav navbar-nav navbar-right custom-navbar-right" ng-if=!contextUser>
+                    <li><a ng-click="showSignInModal()" href="" class="Roboto-custom-text">Sign In</a></li>
+                    <li><a ng-click="showSignUpModal()" href="" class="Roboto-custom-text">Sign Up</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right custom-navbar-right" ng-if=contextUser>
+                    <li><a class="Roboto-custom-text">Hi, {{contextUser.login}}!</a></li>
+                    <li class="dropdown">
+                        <a href="" data-target="#" class="dropdown-toggle Roboto-custom-text" data-toggle="dropdown">Menu</a>
+                        <ul class="dropdown-menu">
+                            <li class="disabled"><a href="">Settings</a></li>
+                            <li class="divider"></li>
+                            <li><a type="button" href="" ng-click="logOut()">Log Out</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</header>

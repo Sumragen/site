@@ -1,0 +1,24 @@
+<div class="custom-modal-content">
+    <form role="form"
+          ng-submit="controller.signUp({FirstName:firstName,LastName:lastName,Login:login,Email:email,Psw:password});auth.close()">
+        <h2>Sign Up</h2>
+
+        <div class="form-group">
+            <input class="form-control" type="text" placeholder="First name" ng-model="firstName"/>
+        </div>
+        <div class="form-group">
+            <input class="form-control" type="text" placeholder="Last name" ng-model="lastName"/>
+        </div>
+        <div class="form-group">
+            <input class="form-control" type="text" placeholder="Login" ng-model="login"/>
+        </div>
+        <div class="form-group">
+            <input class="form-control" type="email" placeholder="Email" ng-model="email"/>
+        </div>
+        <div class="form-group">
+            <input class="form-control" type="password" placeholder="Password" ng-model="password" name="password"/>
+        </div>
+        <button type="reset" class="btn btn-default custom-btn-cancel" ng-click="cancel()">Cancel</button>
+        <button type="submit" class="btn btn-info custom-btn-submit" ng-disabled="email.$invalid">Submit</button>
+    </form>
+</div>

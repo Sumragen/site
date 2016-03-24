@@ -1,0 +1,15 @@
+<div class="form-group">
+    <div class="col-right">
+        <div class="togglebutton">
+            Table
+            <label>
+                <input type="checkbox" ng-model="toggleViews" checked ng-checked="controller.selectedPage(toggleViews)"><span
+                    class="toggle"></span>
+            </label>
+            Map
+        </div>
+    </div>
+</div>
+<div ng-include="controller.currentView.url"></div>
+
+

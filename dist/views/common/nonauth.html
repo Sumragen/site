@@ -1,0 +1,12 @@
+<div class="btn-group btn-group-justified btn-group-raised custom-btn-group">
+    <a ng-class="{active:controller.isSelected(tab)}" ng-repeat="tab in tabs" ng-click="controller.selectTab(tab)"
+       href="" class="btn">{{tab.name}}</a>
+    <!--active:{{tab.name === controller.currentTab.name}}-->
+</div>
+<div class="body-site">
+    <div class="row" style="">
+        <div class="span12">
+            <div class="well content" ng-include="controller.currentTab.url"></div>
+        </div>
+    </div>
+</div>

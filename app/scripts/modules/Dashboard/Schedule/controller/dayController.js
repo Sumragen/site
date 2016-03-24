@@ -7,8 +7,10 @@ define(['../module'], function (module) {
         '$rootScope',
         '$uibModalInstance',
         'currentSchedule',
-        'Dashboard.Schedule.ScheduleService',
-        function ($scope, $rootScope, $uibModalInstance, currentSchedule, scheduleService) {
+        'moment',
+        'date',
+        '$filter',
+        function ($scope, $rootScope, $uibModalInstance, currentSchedule, moment, date, $filter) {
             var self = this;
 
             self.close = function () {
@@ -18,15 +20,12 @@ define(['../module'], function (module) {
             var selectedDate = moment(date).format('dddd');
             var selectedDay = $filter('date')(selectedDate, 'dddd');
 
-            var scheduleData = currentSchedule.data.schedule;
-            for (i = 0; i < scheduleData.days.length; i++) {
-                if (selectedDay === scheduleData.days[i].name) {
-                    self.currentDay = scheduleData.days[i];
+            for (i = 0; i < currentSchedule.days.length; i++) {
+                if (selectedDay === currentSchedule.days[i].name) {
+                    self.currentDay = currentSchedule.days[i];
                     return;
                 }
             }
-
-            //var scheduleData = scheduleService.loadSchedule();
             self.currentDay = {dayOff: 'day off'};
         }
     ]);

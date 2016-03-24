@@ -9,5 +9,19 @@ module.exports = {
             spawn: false,
             livereload: 15727
         }
+    },
+    views: {
+        files: ['<%= appConfig.app %>/**/*.html'],
+        tasks: ['copy:html','processhtml'],
+        options: {
+            livereload: true
+        }
+    },
+    less: {
+        files: ['<%= appConfig.app %>/styles/*.less'],
+        tasks: ['less:development'],
+        options: {
+            livereload: true
+        }
     }
 };

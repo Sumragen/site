@@ -8,8 +8,9 @@ define(['../module'], function (module) {
         'moment',
         '$filter',
         '$uibModal',
+        'Dashboard.Schedule.ScheduleService',
         //'Common.ModalService',
-        function ($scope, $rootScope, moment, $filter, $uibModal) {
+        function ($scope, $rootScope, moment, $filter, $uibModal, scheduleService) {
             var self = this;
             scheduleService.loadSchedule().then(function (data) {
                 $scope.currentSchedule = data.data.schedule;
@@ -23,7 +24,7 @@ define(['../module'], function (module) {
                     windowClass: 'custom-modal-day',
                     resolve: {
                         currentSchedule: function () {
-                            return $scope.currentSchedule.data.schedule;
+                            return $scope.currentSchedule;
                         },
                         date: date
                     }

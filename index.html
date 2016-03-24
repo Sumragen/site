@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>School 24</title>
-    <link rel="stylesheet" href="styles/main.min.css">
+    <link rel="stylesheet" href="styles/main.css">
 </head>
 <body>
 <div ng-include="'views/common/header.html'"></div>
@@ -13,10 +13,10 @@
 <script>
     require.config({
         waitSeconds: 0,
-        baseUrl: './'
+        baseUrl: './scripts'
     });
     require(['require'], function (require) {
-        require(['scripts/main.min.js']);
+        require(['scripts/entrypoint.js']);
     });
 </script>
 </body>

@@ -14,7 +14,7 @@ define(['../module'], function (module) {
             var self = this;
             scheduleService.loadSchedule().then(function (data) {
                 $scope.currentSchedule = data.data.schedule;
-                createEventList($scope.currentSchedule);
+                createEventList($scope.currentSchedule.objects.schedule);
             });
             self.showDayModal = function (date) {
                 var modalInstance = $uibModal.open({
@@ -43,32 +43,98 @@ define(['../module'], function (module) {
             var m = date.getMonth();
             var y = date.getFullYear();
 
-            $scope.events = [
-                {title: 'Biology',start: new Date(y, m, d + 1, 8, 30),end: new Date(y, m, d + 1, 9, 50),allDay: false},
-                {title: 'History',start: new Date(y, m, d + 1, 10, 10),end: new Date(y, m, d + 1, 11, 30),allDay: false},
-                {title: 'Mathematics',start: new Date(y, m, d + 1, 11, 50),end: new Date(y, m, d + 1, 13, 10),allDay: false},
-            ];
+            $scope.eventSource = {
+                url: "http://www.google.com/calendar/feeds/usa__en%40holiday.calendar.google.com/public/basic",
+                className: 'gcal-event',
+                currentTimezone: 'America/Chicago'
+            };
 
-            $scope.addEvent = function(lesson) {
+            $scope.events = [];
+
+            $scope.eventsF = function (start, end, timezone, callback) {
+                var s = new Date(start).getTime() / 1000;
+                var e = new Date(end).getTime() / 1000;
+                var m = new Date(start).getMonth();
+                var events = [];
+                callback(events);
+            };
+
+            $scope.createEvent = function (lesson,step) {
+                var startH = 8;
+                var startM = 30;
+                var endH = 9;
+                var endM = 50;
+                //var day = 'Monday';
+                if (lesson.num === 2) {
+                    startH = 10;
+                    startM = 10;
+                    endH = 11;
+                    endM = 30;
+                } else {
+                    if (lesson.num === 3) {
+                        startH = 11;
+                        startM = 50;
+                        endH = 13;
+                        endM = 10;
+                    }else{
+                            startH = 8;
+                            startM = 30;
+                            endH = 9;
+                            endM = 50;
+                    }
+                }
+
+                var currentDayOfWeek = $filter('date')(moment(new Date()).format('dddd'), 'dddd');
+                var numDay = 0;
+                if( currentDayOfWeek === 'Monday'){
+                    numDay = 1;
+                }else{
+                    if( currentDayOfWeek === 'Tuesday'){
+                        numDay = 2;
+                    }else{
+                        if( currentDayOfWeek === 'Wednesday'){
+                            numDay = 3;
+                        }else{
+                            if( currentDayOfWeek === 'Thursday'){
+                                numDay = 4;
+                            }else{
+                                if( currentDayOfWeek === 'Friday'){
+                                    numDay = 5;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                var h = numDay - step;
+
                 $scope.events.push({
-                    title: 'Open Sesame',
-                    start: new Date(y, m, 28, 8, 30),
-                    end: new Date(y, m, 29, 9, 50),
+                    title: lesson.lesson,
+                    start: new Date(y, m, d - h, startH, startM),
+                    end: new Date(y, m, d - h, endH, endM),
                     allDay: false
                 });
             };
 
-            function createEventList(schedule){
-                if(schedule){
-
-                }
+            function createEventList(schedule) {
+                var step = 0;
+                schedule.forEach(function (day) {
+                    step++;
+                    self.tempSchedule = scheduleService.parseLessons(day);
+                    self.tempSchedule.forEach(function (lesson) {
+                        if (lesson) {
+                            $scope.createEvent(lesson,step);
+                        }
+                    });
+                });
+                return $scope.events;
             }
 
-            $scope.eventSources = [$scope.events];
+            $scope.eventSources = [$scope.events, $scope.eventSource, $scope.eventsF];
 
             $scope.uiConfig = {
                 calendar: {
-                    firstDay:1,
+                    firstDay: 1,
                     height: 450,
                     editable: true,
                     header: {
@@ -76,7 +142,7 @@ define(['../module'], function (module) {
                         center: 'title',
                         right: 'today prev,next'
                     },
-                    dayClick : self.showDayModal
+                    dayClick: self.showDayModal
                 }
             };
         }]);

@@ -142,7 +142,7 @@ define(['lodash'], function (_) {
                         lesson: 'History',
                         teacher: 'Victor Kotov',
                         classroom: 32,
-                        order: [1, 2]
+                        order: [1, 4]
                     },
                     {
                         lesson: 'Math',

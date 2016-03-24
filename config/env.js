@@ -16,7 +16,7 @@ var environments = {
     dist: {
         showVersionInfo: true,
         siteUrl: 'http://0.0.0.0:9000',
-        apiUrl: 'http://localhost:9002',
+        apiUrl: 'http://schoolapi.herokuapp.com',
         useHeaderAuth: false,
         useCookiesAuth: false,
         useFakeAPIService: false,

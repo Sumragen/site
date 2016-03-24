@@ -13,6 +13,28 @@ var environments = {
         minimizeCss: false,
         generateSourceMaps: true
     },
+    devci: {
+        showVersionInfo: true,
+        siteUrl: 'http://0.0.0.0:9000',
+        apiUrl: 'http://localhost:5001',
+        useHeaderAuth: false,
+        useCookiesAuth: false,
+        useFakeAPIService: false,
+        minimizeJs: false,
+        minimizeCss: false,
+        generateSourceMaps: true
+    },
+    ci: {
+        showVersionInfo: true,
+        siteUrl: 'http://0.0.0.0:9000',
+        apiUrl: 'http://schoolapi.herokuapp.com',
+        useHeaderAuth: false,
+        useCookiesAuth: false,
+        useFakeAPIService: false,
+        minimizeJs: false,
+        minimizeCss: false,
+        generateSourceMaps: true
+    },
     dist: {
         showVersionInfo: true,
         siteUrl: 'http://0.0.0.0:9000',

@@ -23,9 +23,8 @@ require.config({
         'angular-sanitize': '../../bower_components/angular-sanitize/angular-sanitize',
         'bootstrap-decorator': '../../bower_components/angular-schema-form/dist/bootstrap-decorator',
         'moment': '../../bower_components/moment/min/moment.min',
-        'fullcalendar': '../../bower_components/fullcalendar/dist/fullcalendar.min',
+        'fullcalendar': '../../bower_components/fullcalendar/dist/fullcalendar',
         'ripples': '../../bower_components/bootstrap-material-design/dist/js/ripples',
-        'gcal': '../../bower_components/fullcalendar/dist/gcal',
         'material': '../../bower_components/bootstrap-material-design/dist/js/material',
         'tv4': '../../bower_components/tv4/tv4',
         'objectpath': '../../bower_components/objectpath/lib/ObjectPath',
@@ -45,13 +44,10 @@ require.config({
             deps: ['angular', 'twitter-bootstrap']
         },
         'angular-ui-calendar': {
-            deps: ['gcal']
-        },
-        'gcal': {
-            deps: ['fullcalendar']
+            deps: ['angular', 'fullcalendar']
         },
         'fullcalendar': {
-            deps: ['jquery', 'moment', 'angular']
+            deps: ['jquery', 'moment']
         },
         'angular': {
             deps: ['jquery'],

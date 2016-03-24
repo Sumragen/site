@@ -13,6 +13,17 @@ var environments = {
         minimizeCss: false,
         generateSourceMaps: true
     },
+    dist: {
+        showVersionInfo: true,
+        siteUrl: 'http://0.0.0.0:9000',
+        apiUrl: 'http://localhost:9002',
+        useHeaderAuth: false,
+        useCookiesAuth: false,
+        useFakeAPIService: false,
+        minimizeJs: true,
+        minimizeCss: true,
+        generateSourceMaps: true
+    },
     default:{
         showVersionInfo: true,
         siteUrl: 'http://0.0.0.0:9000',

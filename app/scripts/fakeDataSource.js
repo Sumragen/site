@@ -22,48 +22,30 @@ define(['lodash'], function (_) {
     var defaultEvents = [
         {
             id: 1,
-            name: 'Event 1',
+            name: 'Rest',
             date: '01.03.2016',
             title: 'first event (test version)',
             streetView: true,
-            latitude: 46.671627,
-            longitude: 32.611214
+            latitude: 46.6699334,
+            longitude: 32.6169105
         },
         {
             id: 2,
-            name: 'Event 2',
+            name: "Children's hospital",
             date: '09.23.2016',
-            title: 'second event (test version)',
+            title: 'Medical inspection',
             streetView: false,
-            latitude: 46.671637,
-            longitude: 32.612014
+            latitude: 46.6676171,
+            longitude: 32.6100075
         },
         {
             id: 3,
-            name: 'Event 3',
+            name: 'spring ball',
             date: '08.07.2016',
-            title: 'third event (test version)',
+            title: 'spring ball',
             streetView: true,
-            latitude: 46.671647,
-            longitude: 32.613014
-        },
-        {
-            id: 4,
-            name: 'Event 4',
-            date: '18.05.2016',
-            title: 'fourth event (test version)',
-            streetView: true,
-            latitude: 46.671657,
-            longitude: 32.614014
-        },
-        {
-            id: 5,
-            name: 'Event 5',
-            date: '05.01.2016',
-            title: 'fifth event (test version)',
-            streetView: false,
-            latitude: 46.671667,
-            longitude: 32.615014
+            latitude: 46.6716115,
+            longitude: 32.6100684
         }
     ];
     var defaultSubjects = [

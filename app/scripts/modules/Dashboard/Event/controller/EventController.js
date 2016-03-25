@@ -1,7 +1,7 @@
 /**
  * Created by sumragen on 2/27/16.
  */
-define(['../module','lodash'], function (module,_) {
+define(['../module', 'lodash'], function (module, _) {
     module.controller('Dashboard.Event.EventController', [
         '$q',
         '$scope',
@@ -84,13 +84,13 @@ define(['../module','lodash'], function (module,_) {
 
                 eventService.loadEvents().then(function (data) {
                     $scope.eventList = data.data.events;
-                    _.each( $scope.eventList, function (event) {
+                    _.each($scope.eventList, function (event) {
                         var marker = new google.maps.Marker({
                             id: event.id,
                             name: event.name,
                             position: new google.maps.LatLng(event.latitude, event.longitude),
                             map: map,
-                            toggleStreetView:$scope.toggleStreetView,
+                            toggleStreetView: $scope.toggleStreetView,
                             title: event.title
                         });
                         $scope.markers.push(marker);

@@ -9,8 +9,9 @@ define(['../module'], function (module) {
         '$filter',
         '$uibModal',
         'Dashboard.Schedule.ScheduleService',
+        'ScheduleConstants',
         //'Common.ModalService',
-        function ($scope, $rootScope, moment, $filter, $uibModal, scheduleService) {
+        function ($scope, $rootScope, moment, $filter, $uibModal, scheduleService, scheduleConst) {
             var self = this;
             self.showDayModal = function (date) {
                 var modalInstance = $uibModal.open({
@@ -59,66 +60,9 @@ define(['../module'], function (module) {
             };
 
             $scope.createEvent = function (lesson, step, start, end) {
-                var startH = 7;
-                var startM = 30;
-                var endH = 8;
-                var endM = 15;
-                //var day = 'Monday';
-                if (lesson.num === 1) {
-                    startH = 8;
-                    startM = 30;
-                    endH = 9;
-                    endM = 15;
-                } else {
-                    if (lesson.num === 2) {
-                        startH = 9;
-                        startM = 30;
-                        endH = 10;
-                        endM = 15;
-                    } else {
-                        if (lesson.num === 3) {
-                            startH = 10;
-                            startM = 30;
-                            endH = 11;
-                            endM = 15;
-                        } else {
-                            if (lesson.num === 4) {
-                                startH = 11;
-                                startM = 30;
-                                endH = 12;
-                                endM = 15;
-                            } else {
-                                if (lesson.num === 5) {
-                                    startH = 12;
-                                    startM = 30;
-                                    endH = 13;
-                                    endM = 15;
-                                } else {
-                                    if (lesson.num === 6) {
-                                        startH = 13;
-                                        startM = 30;
-                                        endH = 14;
-                                        endM = 15;
-                                    } else {
-                                        if (lesson.num === 7) {
-                                            startH = 14;
-                                            startM = 30;
-                                            endH = 15;
-                                            endM = 15;
-                                        } else {
-                                            if (lesson.num === 8) {
-                                                startH = 15;
-                                                startM = 30;
-                                                endH = 16;
-                                                endM = 15;
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
+
+                lessonTime = scheduleConst.TimeSchedule[lesson.num];
+
                 var d = new Date(start).getDate();
                 var m = new Date(start).getMonth();
                 var y = new Date(start).getFullYear();
@@ -130,16 +74,16 @@ define(['../module'], function (module) {
                         tempYear = new Date(start+i*7*24*3600*1000).getFullYear();
                         $scope.events.push({
                             title: lesson.lesson,
-                            start: new Date(tempYear, tempMonth, tempDay + step, startH, startM),
-                            end: new Date(tempYear, tempMonth, tempDay + step, endH, endM),
+                            start: new Date(tempYear, tempMonth, tempDay + step, lessonTime.startH, lessonTime.startM),
+                            end: new Date(tempYear, tempMonth, tempDay + step, lessonTime.endH, lessonTime.endM),
                             allDay: false
                         });
                     }
                 }
                 $scope.events.push({
                     title: lesson.lesson,
-                    start: new Date(y, m, d + step, startH, startM),
-                    end: new Date(y, m, d + step, endH, endM),
+                    start: new Date(y, m, d + step, lessonTime.startH, lessonTime.startM),
+                    end: new Date(y, m, d + step, lessonTime.endH, lessonTime.endM),
                     allDay: false
                 });
             };

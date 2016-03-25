@@ -2,6 +2,6 @@
     <h4><b>{{ $infoWND.anchor.name}}</b></h4>
     <p>{{$infoWND.anchor.title}}</p>
     <div ng-if="$infoWND.anchor.hasStreetView">
-        <input type="button" value="Toggle Street View" ng-click="$infoWND.anchor.toggleStreetView($infoWND.anchor)">
+        <div class="btn btn-default" ng-click="$infoWND.anchor.toggleStreetView($infoWND.anchor)">Toggle Street View</div>
     </div>
 </div>

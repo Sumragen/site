@@ -24,7 +24,7 @@ define([
         'modules/Common/index',
         'modules/Dashboard/index'
     ],
-    function (angular,_) {
+    function (angular, _) {
         var deps = [
             'ui.router',
             'ngMockE2E',

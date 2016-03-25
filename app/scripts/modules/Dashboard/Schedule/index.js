@@ -5,7 +5,8 @@ define(
     [
         './controller/ScheduleController',
         './controller/dayController',
-        './service/scheduleService'
+        './service/scheduleService',
+        './const'
     ],
     function () {
         'use strict';

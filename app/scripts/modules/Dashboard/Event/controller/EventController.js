@@ -1,67 +1,106 @@
 /**
  * Created by sumragen on 2/27/16.
  */
-define(['../module'], function (module) {
+define(['../module','lodash'], function (module,_) {
     module.controller('Dashboard.Event.EventController', [
-        'Dashboard.Event.EventService',
+        '$q',
         '$scope',
+        '$timeout',
         'InfoWindow',
-        function (eventService, $scope, InfoWindow) {
+        'Dashboard.Event.EventService',
+        function ($q, $scope, $timeout, InfoWindow, eventService) {
             var self = this;
-            eventService.loadEvents().then(function (data) {
-                $scope.eventList = data.data.events;
-            }, function (err) {
-                $scope.error = err.data.message
-            });
-            self.views = [
-                {
-                    name: 'Table',
-                    url: './views/dashboard/events/table.html'
-                },
-                {
-                    name: 'Map',
-                    url: './views/dashboard/events/map.html'
-                }
-            ];
-            self.currentView = self.views[0];
+            $scope.busy = true;
+
+            function initMap(map) {
+                $timeout(function () {
+                    google.maps.event.trigger(map, 'resize');
+                    map.setCenter(new google.maps.LatLng(46.6718272, 32.6118258));
+                });
+            }
+
             self.selectedPage = function (check) {
                 if (check) {
-                    self.currentView = self.views[1];
+                    $scope.showMap = true;
+                    initMap($scope.map)
                 } else {
-                    self.currentView = self.views[0];
+                    $scope.showMap = false;
                 }
             };
-
 
             //Map version
             $scope.markers = [];
-            $scope.cssOpts = {width: '69%', height: '700px', 'min-width': '400px', 'min-height': '200px'};
-            $scope.gmOpts = {zoom: 16, center: new google.maps.LatLng(46.671627, 32.610014)};
+            $scope.cssOpts = {width: '100%', height: '700px'};
+            $scope.gmOpts = {zoom: 16};
             $scope.closeInfoWindow = function (infowindow) {
                 infowindow.close(true);
             };
+
+            $scope.checkIsStreetViewPossible = function (map, marker) {
+                var defer = $q.defer();
+
+                var STREETVIEW_MAX_DISTANCE = 100,
+                    streetViewService = new google.maps.StreetViewService();
+                //event.stop();
+                streetViewService.getPanoramaByLocation(marker.position, STREETVIEW_MAX_DISTANCE, function (result, status) {
+                    if (status === google.maps.StreetViewStatus.OK) {
+                        defer.resolve(true);
+                    } else {
+                        defer.resolve(false);
+                    }
+                });
+                return defer.promise;
+            };
             $scope.ready = function (map) {
+
+                $scope.map = map;
+
+
                 var infowindow = new InfoWindow({templateUrl: './views/dashboard/nonauth/marker.html'}); //it's not infowindow now. (object like "javascript promise", but not a promise)
                 function attach(marker) {
                     google.maps.event.addListener(marker, 'click', function (markerObj) { //on marker click
+                        $scope.checkIsStreetViewPossible($scope.map, marker).then(function (result) {
+                            marker.hasStreetView = result;
+                        });
                         infowindow.$ready(function (wnd) { // pass infowindow object
                             wnd.open(map, marker); //open infowindow
                         });
                     });
                 }
 
+                self.panorama = map.getStreetView();
 
-                for (i = 0; i < $scope.eventList.length; i++) {
-                    var marker = new google.maps.Marker({
-                        id: $scope.eventList[i].id,
-                        name: $scope.eventList[i].name,
-                        position: new google.maps.LatLng($scope.eventList[i].positionX, $scope.eventList[i].positionY),
-                        map: map,
-                        title: $scope.eventList[i].title
+                map.setStreetView(self.panorama);
+
+                $scope.toggleStreetView = function (marker) {
+                    var toggle = self.panorama.getVisible();
+                    if (toggle == false) {
+                        self.panorama.setPosition(marker.position);
+                        self.panorama.setVisible(true);
+                    } else {
+                        self.panorama.setVisible(false);
+                    }
+                };
+
+                eventService.loadEvents().then(function (data) {
+                    $scope.eventList = data.data.events;
+                    _.each( $scope.eventList, function (event) {
+                        var marker = new google.maps.Marker({
+                            id: event.id,
+                            name: event.name,
+                            position: new google.maps.LatLng(event.latitude, event.longitude),
+                            map: map,
+                            toggleStreetView:$scope.toggleStreetView,
+                            title: event.title
+                        });
+                        $scope.markers.push(marker);
+                        marker.setDraggable(true);
+                        attach(marker);
                     });
-                    $scope.markers.push(marker);
-                    attach(marker);
-                }
+                }, function (err) {
+                    $scope.error = err.data.message
+                });
+
 
             };
         }

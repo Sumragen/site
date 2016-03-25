@@ -82,9 +82,8 @@ require.config({
             deps: ['angular-strap', 'angular-strap']
         },
         googlemaps: {
-            params: {
-                key: 'AIzaSyBgbkIo3Sm5Xt9mV3DILlczDSYUwsSKfrU'
-            }
+            deps:[],
+            exports:'google'
         },
         'ui.bootstrap': {
             deps: ['angular']

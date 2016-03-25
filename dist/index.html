@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>School 24</title>
-    <link rel="stylesheet" href="styles/main.min.css">
+    <link rel="stylesheet" href="styles/main.css">
 </head>
 <body>
 <div ng-include="'views/common/header.html'"></div>
@@ -11,13 +11,13 @@
 <h6 class="text-center">School №24 1982-2016</h6>
 <script src="vendor/requirejs/require.js"></script>
 <script>
-    require.config({
-        waitSeconds: 0,
-        baseUrl: './'
-    });
-    require(['require'], function (require) {
-        require(['scripts/main.min.js']);
-    });
+require.config({
+waitSeconds: 0,
+baseUrl: './scripts'
+});
+require(['require'], function (require) {
+require(['scripts/entrypoint.js']);
+});
 </script>
 </body>
 </html>

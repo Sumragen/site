@@ -1,7 +1,7 @@
-<div class="btn-group btn-group-justified btn-group-raised custom-btn-group">
-    <a ng-class="{active:controller.isSelected(tab)}" ng-repeat="tab in tabs" ng-click="controller.selectTab(tab)" href=""  class="btn">{{tab.name}}</a>
-    <!--active:{{tab.name === controller.currentTab.name}}-->
-</div>
+<ul class="nav nav-tabs non-auth-menu">
+    <li ng-class="{active:controller.isSelected(tab)}" ng-repeat="tab in tabs"><a href="" data-toggle="tab" ng-click="controller.selectTab(tab)">{{tab.name}}</a></li>
+
+</ul>
 <div class="body-site">
     <div class="row" style="">
         <div class="span12">

@@ -1,7 +1,7 @@
 /**
  * Created by trainee on 3/25/16.
  */
-define(['./module'], function (module) {
+define(['./modules/Dashboard/Schedule/module'], function (module) {
     module.constant('ScheduleConstants', {
         'TimeSchedule': {
             0: {

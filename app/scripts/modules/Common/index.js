@@ -7,7 +7,6 @@ define(
         './service/SecurityContext',
         './service/schedulingUtil',
         './service/validationMessageBuilder',
-        './const',
         './endpoint'
     ],
     function () {

@@ -48,7 +48,28 @@ define(
                 function () {
                     var service = {};
                     service.getLesson = function (lesson, timeShift, timeBreaks) {
+                        if (timeShift === null || timeShift === 0) {
+                            return angular.copy(BASE_LESSONS_SCHEDULE[lesson]);
+                        } else {
+                            var tempLesson = angular.copy(BASE_LESSONS_SCHEDULE[lesson]);
 
+                            //from
+                            if (tempLesson.from.m - (lesson === 0 ? Math.abs(timeShift) : lesson * Math.abs(timeShift)) < 0) {
+                                tempLesson.from.h = tempLesson.from.h - 1;
+                                tempLesson.from.m = tempLesson.from.m + 60 - Math.abs(timeShift);
+                            } else {
+                                tempLesson.from.m = tempLesson.from.m - Math.abs(timeShift);
+                            }
+
+                            //to
+                            if (tempLesson.to.m - lesson * Math.abs(timeShift) < 0) {
+                                tempLesson.to.h = tempLesson.to.h - 1;
+                                tempLesson.to.m = tempLesson.to.m + 60 - Math.abs(timeShift);
+                            } else {
+                                tempLesson.to.m = tempLesson.to.m - Math.abs(timeShift);
+                            }
+                            return tempLesson;
+                        }
                     };
                     service.getLessonsScheduling = function (lesson, timeshift, timeBreaks) {
                         if (lesson != null) {

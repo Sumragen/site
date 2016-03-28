@@ -1,7 +1,7 @@
 /**
  * Created by sumragen on 2/27/16.
  */
-define(['../module'], function (module) {
+define(['../module', 'lodash'], function (module, _) {
     module.controller('Dashboard.Schedule.ScheduleController', [
         '$scope',
         '$rootScope',
@@ -10,8 +10,9 @@ define(['../module'], function (module) {
         '$uibModal',
         'Dashboard.Schedule.ScheduleService',
         'ScheduleConstants',
+        'Common.SchedulingUtil',
         //'Common.ModalService',
-        function ($scope, $rootScope, moment, $filter, $uibModal, scheduleService, scheduleConst) {
+        function ($scope, $rootScope, moment, $filter, $uibModal, scheduleService, scheduleConst, schedulingUtil) {
             var self = this;
             self.showDayModal = function (date) {
                 var modalInstance = $uibModal.open({
@@ -41,50 +42,30 @@ define(['../module'], function (module) {
             var y = date.getFullYear();
 
             $scope.eventSource = {
-                url: "http://www.google.com/calendar/feeds/usa__en%40holiday.calendar.google.com/public/basic",
                 className: 'gcal-event',
                 currentTimezone: 'America/Chicago'
             };
 
             $scope.events = [];
 
-            $scope.eventsF = function (start, end, timezone, callback) {
+            $scope.eventsF = function (start, end) {
                 var s = new Date(start).getTime() / 1000;
                 var e = new Date(end).getTime() / 1000;
                 var m = new Date(start).getMonth();
                 scheduleService.loadSchedule().then(function (data) {
                     $scope.currentSchedule = data.data.schedule;
                     createEventList($scope.currentSchedule.objects.schedule, start, end);
-                    callback();
                 });
             };
 
-            $scope.createEvent = function (lesson, step, start, end) {
-
-                lessonTime = scheduleConst.TimeSchedule[lesson.num];
-
-                var d = new Date(start).getDate();
-                var m = new Date(start).getMonth();
-                var y = new Date(start).getFullYear();
-
-                if((d > new Date(end).getDate() && new Date(end).getDate() > 10) || (d < new Date(end).getDate() && new Date(end).getDate() - d > 10)){
-                    for (i = 1; i < 6;i++){
-                        tempDay = new Date(start+i*7*24*3600*1000).getDate();
-                        tempMonth = new Date(start+i*7*24*3600*1000).getMonth();
-                        tempYear = new Date(start+i*7*24*3600*1000).getFullYear();
-                        $scope.events.push({
-                            title: lesson.lesson,
-                            start: new Date(tempYear, tempMonth, tempDay + step, lessonTime.startH, lessonTime.startM),
-                            end: new Date(tempYear, tempMonth, tempDay + step, lessonTime.endH, lessonTime.endM),
-                            allDay: false
-                        });
-                    }
-                }
+            $scope.createEvent = function (lesson, step) {
+                lessonTime = schedulingUtil.getLessonsScheduling(lesson.num, -20);
                 $scope.events.push({
                     title: lesson.lesson,
-                    start: new Date(y, m, d + step, lessonTime.startH, lessonTime.startM),
-                    end: new Date(y, m, d + step, lessonTime.endH, lessonTime.endM),
-                    allDay: false
+                    start: lessonTime.from.h + ':' + lessonTime.from.m,
+                    end: lessonTime.to.h + ':' +  lessonTime.to.m,
+                    allDay: false,
+                    dow: [step + 1]
                 });
             };
 

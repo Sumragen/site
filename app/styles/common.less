@@ -24,3 +24,35 @@ a.Roboto-custom-text{
     display: none;
   }
 }
+//animation
+body{
+  .ng-hide {
+    opacity: 0;
+  }
+
+  .ng-hide-remove, .ng-hide-add {
+    display: block !important;
+  }
+
+  .ng-hide-remove {
+    transition: all linear 500ms;
+  }
+
+  .ng-hide-add {
+    transition: none;
+  }
+  [ui-view].ng-enter {
+    -webkit-transition:all .5s ease-in-out;
+    -moz-transition:all .5s ease-in-out;
+    -o-transition:all .5s ease-in-out;
+    transition:all .5s ease-in-out;
+  }
+
+  [ui-view].ng-enter {
+    opacity: 0;
+  }
+
+  [ui-view].ng-enter-active {
+    opacity: 1;
+  }
+}

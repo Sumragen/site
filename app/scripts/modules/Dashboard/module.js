@@ -13,7 +13,7 @@ define(['angular', 'angular-animate'], function (module) {
                 .state('dashboard', {
                     url: "/dashboard",
                     abstract: true,
-                    templateUrl: './views/common/dashboard.html',
+                    templateUrl: './views/dashboard/master.html',
                     controller: 'Dashboard.MasterController as controller',
                     data: {
                         redirect: function (user) {

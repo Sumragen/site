@@ -1,13 +1,15 @@
-<form ng-if="!controller.showSchemaForm">
-    <h3 class="">Profile
-        <img src="../../../images/pencil2.png" height="1.6%" width="1.6%" ng-click="controller.toggleShowSchemaForm()" class="custom-profile-edit"></h3>
+<div ng-show="!controller.showSchemaForm" class="profile-view">
+    <div class="profile-title">
+        <h3 class="profile-caption">Profile</h3>
+        <i class="material-icons" ng-click="controller.toggleShowSchemaForm()">mode_edit</i>
+    </div>
     <h4>First name : {{currentUser.firstName}}</h4>
     <h4>Last name : {{currentUser.lastName}}</h4>
     <h4>Login : {{currentUser.login}}</h4>
     <h4>Email : {{currentUser.email}}</h4>
-</form>
+</div>
 
-<div ng-if="controller.showSchemaForm">
+<div ng-show="controller.showSchemaForm">
     <form name="editForm"
           sf-schema="schema"
           sf-form="form"

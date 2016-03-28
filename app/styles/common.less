@@ -41,4 +41,18 @@ body{
   .ng-hide-add {
     transition: none;
   }
+  [ui-view].ng-enter {
+    -webkit-transition:all .5s ease-in-out;
+    -moz-transition:all .5s ease-in-out;
+    -o-transition:all .5s ease-in-out;
+    transition:all .5s ease-in-out;
+  }
+
+  [ui-view].ng-enter {
+    opacity: 0;
+  }
+
+  [ui-view].ng-enter-active {
+    opacity: 1;
+  }
 }

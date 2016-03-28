@@ -46,11 +46,7 @@ define(
                                 var from = _cache['BASE_LESSONS_SCHEDULE'][index].from;
                                 var to = _cache['BASE_LESSONS_SCHEDULE'][parseInt(index) + 1].to;
                                 var difference = to.diff(from) / (60 * 1000);
-                                if (difference > 5) {
-                                    _cache['TIME_BREAKS'][index] = difference;
-                                }else{
-                                    _cache['TIME_BREAKS'][index] = 5;
-                                }
+                                _cache['TIME_BREAKS'][index] = difference > 5 ? difference : 5;
                             });
                         }
                     };

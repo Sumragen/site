@@ -39,6 +39,7 @@ define(['../module', 'lodash'], function (module, _) {
             var date = new Date();
 
 
+            //schedulingUtil.setTimeBreaks([1,2,3,4,5,6,7,8]);
             console.log(schedulingUtil.getCache());
 
             $scope.eventSource = {
@@ -86,7 +87,7 @@ define(['../module', 'lodash'], function (module, _) {
             $scope.uiConfig = {
                 calendar: {
                     firstDay: 1,
-                    height: 450,
+                    height: 700,
                     editable: true,
                     header: {
                         left: 'month basicWeek basicDay',

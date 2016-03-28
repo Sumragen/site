@@ -38,7 +38,7 @@ define(['../module', 'lodash'], function (module, _) {
             };
             var date = new Date();
 
-            schedulingUtil.setTimeShift(-10);
+
             console.log(schedulingUtil.getCache());
 
             $scope.eventSource = {
@@ -60,8 +60,8 @@ define(['../module', 'lodash'], function (module, _) {
 
                 $scope.events.push({
                     title: lesson.lesson,
-                    start: lessonTime.from.h + ':' + lessonTime.from.m,
-                    end: lessonTime.to.h + ':' +  lessonTime.to.m,
+                    start: lessonTime.from.hours() + ':' + lessonTime.from.minutes(),
+                    end: lessonTime.to.hours() + ':' +  lessonTime.to.minutes(),
                     allDay: false,
                     dow: [step]
                 });

@@ -5,73 +5,73 @@ define(
     ['../module', 'lodash', 'tv4', 'moment'],
     function (module, _, tv4, moment) {
         'use strict';
-        var BASE_LESSONS_SCHEDULE = {
-            0: {
-                from: {h: 7, m: 30},
-                to: {h: 8, m: 15}
-            },
-            1: {
-                from: {h: 8, m: 30},
-                to: {h: 9, m: 15}
-            },
-            2: {
-                from: {h: 9, m: 25},
-                to: {h: 10, m: 10}
-            },
-            3: {
-                from: {h: 10, m: 30},
-                to: {h: 11, m: 15}
-            },
-            4: {
-                from: {h: 11, m: 30},
-                to: {h: 12, m: 15}
-            },
-            5: {
-                from: {h: 12, m: 25},
-                to: {h: 13, m: 10}
-            },
-            6: {
-                from: {h: 13, m: 20},
-                to: {h: 14, m: 5}
-            },
-            7: {
-                from: {h: 14, m: 10},
-                to: {h: 14, m: 55}
-            },
-            8: {
-                from: {h: 15, m: 0},
-                to: {h: 15, m: 45}
-            }
-        };
+        var lessonsBeginningTime = moment().hour(7).minute(30);
+        var lessonDuration = 45;
+        var timeBreaks = [15, 10, 10, 20, 15, 10, 5, 5];
+        var BASE_LESSONS_SCHEDULE = [];
+
+        function init(lessonsBeginningTime) {
+            _.each([0, 1, 2, 3, 4, 5, 6, 7, 8], function (lesson) {
+                if (lesson === 0) {
+                    BASE_LESSONS_SCHEDULE.push({
+                        from: lessonsBeginningTime,
+                        to: lessonsBeginningTime.clone().minutes(lessonsBeginningTime.minutes() + lessonDuration)
+                    });
+                } else {
+                    var previous = BASE_LESSONS_SCHEDULE[lesson - 1].to.clone();
+                    var next = previous.minutes(previous.minutes() + timeBreaks[lesson - 1]);
+                    BASE_LESSONS_SCHEDULE.push({
+                        from: next,
+                        to: next.clone().minutes(next.minutes() + lessonDuration)
+                    });
+                }
+            });
+            return BASE_LESSONS_SCHEDULE;
+        }
+
         module.factory('Common.SchedulingUtil',
             [
                 '$log',
                 function ($log) {
                     var service = {};
                     var _timeShift = 0;
+                    var _timeBreaks = timeBreaks;
                     var _cache = {};
-                    service.setTimeShift = function (timeShift) {
-                        if (angular.isNumber(timeShift) && !isNaN(timeShift)) {
-                            _timeShift = timeShift;
-                            _cache['BASE_LESSONS_SCHEDULE'] = angular.copy(BASE_LESSONS_SCHEDULE);
-                            _.each(_cache['BASE_LESSONS_SCHEDULE'], function (lesson,index) {
-                                var from = moment();
-                                from.hours(lesson.from.h);
-                                from.minutes(lesson.from.m);
-                                var to = moment();
-                                to.hours(lesson.to.h);
-                                to.minutes(lesson.to.m);
-                                from.minutes(from.minutes() + (index === 0 ?  _timeShift : ((index - 1 )* _timeShift)));
-                                to.minutes(to.minutes() + (index === 0 ?  _timeShift : ((index - 1 )* _timeShift)));
-                                lesson.from = {h: from.hours(), m: from.minutes()};
-                                lesson.to = {h: to.hours(), m: to.minutes()};
-                            })
-                        } else {
-                            $log.error('Time shift wrong format. Number expected.');
+
+                    service.setTimeBreaks = function (timeBreaks) {
+                        if (timeBreaks != null && timeBreaks.value === 8) {
+                            _timeBreaks = timeBreaks;
+                            _cache['TIME_BREAKS'] = _timeBreaks;
+                            _.each(_cache['TIME_BREAKS'], function (timeBreak, index) {
+                                var from = _cache['BASE_LESSONS_SCHEDULE'][index].from;
+                                var to = _cache['BASE_LESSONS_SCHEDULE'][parseInt(index) + 1].to;
+                                var difference = to.diff(from) / (60 * 1000);
+                                if (difference > 5) {
+                                    _cache['TIME_BREAKS'][index] = difference;
+                                }else{
+                                    _cache['TIME_BREAKS'][index] = 5;
+                                }
+                            });
                         }
                     };
+                    service.setLessonsDuration = function (duration) {
+                        if (duration > 0 && angular.isNumber(duration)) {
+                            lessonDuration = duration;
+                            lessonsBeginningTime = moment().hour(7).minute(30);
+                            _cache['BASE_LESSONS_SCHEDULE'] = angular.copy(init(lessonsBeginningTime));
+                            _timeBreaks = timeBreaks;
+                            _cache['TIME_BREAKS'] = _timeBreaks;
+                            _.each(_cache['TIME_BREAKS'], function (timeBreak, index) {
+                                var from = _cache['BASE_LESSONS_SCHEDULE'][index].to;
+                                var to = _cache['BASE_LESSONS_SCHEDULE'][parseInt(index) + 1].from;
+                                _cache['TIME_BREAKS'][index] = to.diff(from) / (60 * 1000);
+                            });
+                        }
+                    };
+                    service.setLessonsDuration(lessonDuration);
                     service.getCache = function () {
-                        return angular.copy(_cache['BASE_LESSONS_SCHEDULE']);
+                        //return angular.copy(_cache['BASE_LESSONS_SCHEDULE']);
+                        return angular.copy(_cache['TIME_BREAKS']);
                     };
                     service.getTimeShift = function () {
                         return _timeShift;

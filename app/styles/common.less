@@ -24,3 +24,21 @@ a.Roboto-custom-text{
     display: none;
   }
 }
+//animation
+body{
+  .ng-hide {
+    opacity: 0;
+  }
+
+  .ng-hide-remove, .ng-hide-add {
+    display: block !important;
+  }
+
+  .ng-hide-remove {
+    transition: all linear 500ms;
+  }
+
+  .ng-hide-add {
+    transition: none;
+  }
+}

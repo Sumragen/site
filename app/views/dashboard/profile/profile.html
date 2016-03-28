@@ -1,4 +1,4 @@
-<form ng-if="!controller.showSchemaForm">
+<form ng-show="!controller.showSchemaForm">
     <h3 class="">Profile
         <img src="../../../images/pencil2.png" height="1.6%" width="1.6%" ng-click="controller.toggleShowSchemaForm()" class="custom-profile-edit"></h3>
     <h4>First name : {{currentUser.firstName}}</h4>
@@ -7,7 +7,7 @@
     <h4>Email : {{currentUser.email}}</h4>
 </form>
 
-<div ng-if="controller.showSchemaForm">
+<div ng-show="controller.showSchemaForm">
     <form name="editForm"
           sf-schema="schema"
           sf-form="form"

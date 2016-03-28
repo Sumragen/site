@@ -1,7 +1,7 @@
 /**
  * Created by sumragen on 3/18/16.
  */
-define(['../module'], function (module) {
+define(['../module','lodash'], function (module,_) {
     module.controller('Dashboard.Schedule.DayController', [
         '$scope',
         '$rootScope',
@@ -18,11 +18,15 @@ define(['../module'], function (module) {
                 $uibModalInstance.close();
             };
 
-            //var selectedDate = moment(date).format('dddd');
             var selectedDay = $filter('date')(moment(date).format('dddd'), 'dddd');
 
-
             var tempSchedule = currentSchedule.objects.schedule;
+            _.find(tempSchedule,function (schedule) {
+                if (selectedDay === schedule.name) {
+                    self.currentDay = scheduleService.parseLessons(schedule);
+                    return;
+                }
+            });
             for (i = 0; i < tempSchedule.length; i++) {
                 if (selectedDay === tempSchedule[i].name) {
                     self.currentDay = scheduleService.parseLessons(tempSchedule[i]);

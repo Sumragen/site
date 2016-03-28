@@ -92,28 +92,6 @@ define(['lodash'], function (_) {
             teacher: [5, 4]
         }
     ];
-    //var defaultDays = [
-    //    {
-    //        name: 'Monday',
-    //        lessons: [defaultLessons[1], defaultLessons[2], defaultLessons[1], null, null, null, null, null]
-    //    },
-    //    {
-    //        name: 'Tuesday',
-    //        lessons: [null, defaultLessons[1], defaultLessons[2], defaultLessons[3], null, null, null, null]
-    //    },
-    //    {
-    //        name: 'Wednesday',
-    //        lessons: [defaultLessons[4], defaultLessons[0], defaultLessons[3], null, null, null, null, null]
-    //    },
-    //    {
-    //        name: 'Thursday',
-    //        lessons: [null, defaultLessons[5], defaultLessons[4], defaultLessons[2], null, null, null, null]
-    //    },
-    //    {
-    //        name: 'Friday',
-    //        lessons: [defaultLessons[0], defaultLessons[1], defaultLessons[4], null, null, null, null, null]
-        //}
-    //];
     var defautlStage = {
         stage: 5,
         suffix: 'A',
@@ -123,7 +101,7 @@ define(['lodash'], function (_) {
         },
         schedule: [
             {
-                name:  'Monday',
+                name: 'Monday',
                 lessons: [
                     {
                         lesson: 'History',
@@ -138,7 +116,7 @@ define(['lodash'], function (_) {
                         order: [3]
                     }
                 ]
-            },{
+            }, {
                 name: 'Tuesday',
                 lessons: [
                     {
@@ -160,7 +138,7 @@ define(['lodash'], function (_) {
                         order: [1]
                     }
                 ]
-            },{
+            }, {
                 name: 'Wednesday',
                 lessons: [
                     {
@@ -176,7 +154,7 @@ define(['lodash'], function (_) {
                         order: [3]
                     }
                 ]
-            },{
+            }, {
                 name: 'Thursday',
                 lessons: [
                     {
@@ -192,7 +170,7 @@ define(['lodash'], function (_) {
                         order: [2]
                     }
                 ]
-            },{
+            }, {
                 name: 'Friday',
                 lessons: [
                     {
@@ -225,8 +203,7 @@ define(['lodash'], function (_) {
             },
             event: {
                 objects: defaultEvents,
-                lastIndex: 0,
-                //list: defaultEvents
+                lastIndex: 0
             },
             stages: {
                 objects: defautlStage,
@@ -252,7 +229,7 @@ define(['lodash'], function (_) {
         load();
         var i = 0;
         var tempUser = angular.fromJson(dataUser);
-        return  _.find(data.user.objects,function(item){
+        return _.find(data.user.objects, function (item) {
             if (tempUser.username === item.login && tempUser.password === item.password) {
                 return item;
             }
@@ -262,14 +239,15 @@ define(['lodash'], function (_) {
     dataSource.updateUser = function (dataUser) {
         load();
         var i = 0;
+        var _user = null;
         var tempUser = angular.fromJson(dataUser);
-        for (i; i < data.user.objects.length; i++) {
-            if (tempUser.id === data.user.objects[i].id) {
-                data.user.objects[i] = tempUser.user;
+        return _.find(data.user.objects, function (user,index) {
+            if (tempUser.id === user.id) {
+                data.user.objects[index] = tempUser.user;
                 commit();
-                return data.user.objects[i];
+                return user;
             }
-        }
+        });
     };
     dataSource.addUser = function (tempUser) {
         load();

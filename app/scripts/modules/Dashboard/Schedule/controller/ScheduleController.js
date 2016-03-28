@@ -38,8 +38,6 @@ define(['../module', 'lodash'], function (module, _) {
             };
             var date = new Date();
 
-
-            //schedulingUtil.setTimeBreaks([1,2,3,4,5,6,7,8]);
             console.log(schedulingUtil.getCache());
 
             $scope.eventSource = {

@@ -48,7 +48,7 @@ define(
                 function () {
                     var service = {};
                     service.getLesson = function (lesson, timeShift, timeBreaks) {
-                        if (timeShift === null || timeShift === 0) {
+                        if (!timeShift) {
                             return angular.copy(BASE_LESSONS_SCHEDULE[lesson]);
                         } else {
                             var tempLesson = angular.copy(BASE_LESSONS_SCHEDULE[lesson]);
@@ -77,7 +77,11 @@ define(
                             return service.getLesson(lesson, timeshift, timeBreaks);
                         } else {
                             //all of them
-                            //return angular.copy()
+                            var tempLessons = [];
+                            for(lesson = 0; lesson < 9; lesson++){
+                                tempLessons.push(service.getLesson(lesson, timeshift, timeBreaks));
+                            }
+                            return tempLessons;
                         }
                     };
                     return service;

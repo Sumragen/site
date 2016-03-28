@@ -59,18 +59,18 @@ define(['../module', 'lodash'], function (module, _) {
             };
 
             $scope.createEvent = function (lesson, step) {
-                lessonTime = schedulingUtil.getLessonsScheduling(lesson.num, -20);
+                var lessonTime = schedulingUtil.getLessonsScheduling(lesson.num, 0);
                 $scope.events.push({
                     title: lesson.lesson,
                     start: lessonTime.from.h + ':' + lessonTime.from.m,
                     end: lessonTime.to.h + ':' +  lessonTime.to.m,
                     allDay: false,
-                    dow: [step + 1]
+                    dow: [step]
                 });
             };
 
             function createEventList(schedule, start, end) {
-                var step = -1;
+                var step = 0;
                 schedule.forEach(function (day) {
                     step++;
                     self.tempSchedule = scheduleService.parseLessons(day);

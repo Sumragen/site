@@ -56,17 +56,17 @@ define(
                             //from
                             if (tempLesson.from.m - (lesson === 0 ? Math.abs(timeShift) : lesson * Math.abs(timeShift)) < 0) {
                                 tempLesson.from.h = tempLesson.from.h - 1;
-                                tempLesson.from.m = tempLesson.from.m + 60 - lesson * Math.abs(timeShift);
+                                tempLesson.from.m = tempLesson.from.m + 60 - (lesson - 1) * Math.abs(timeShift);
                             } else {
-                                tempLesson.from.m = tempLesson.from.m - lesson * Math.abs(timeShift);
+                                tempLesson.from.m = tempLesson.from.m - (lesson - 1) * Math.abs(timeShift);
                             }
 
                             //to
                             if (tempLesson.to.m - (lesson === 0 ? Math.abs(timeShift) : lesson * Math.abs(timeShift)) < 0) {
                                 tempLesson.to.h = tempLesson.to.h - 1;
-                                tempLesson.to.m = tempLesson.to.m + 60 - lesson * Math.abs(timeShift);
+                                tempLesson.to.m = tempLesson.to.m + 60 - (lesson - 1) * Math.abs(timeShift);
                             } else {
-                                tempLesson.to.m = tempLesson.to.m - lesson * Math.abs(timeShift);
+                                tempLesson.to.m = tempLesson.to.m - (lesson - 1 ) * Math.abs(timeShift);
                             }
                             return tempLesson;
                         }
@@ -78,7 +78,7 @@ define(
                         } else {
                             //all of them
                             var tempLessons = [];
-                            for(lesson = 0; lesson < 9; lesson++){
+                            for (lesson = 0; lesson < 9; lesson++) {
                                 tempLessons.push(service.getLesson(lesson, timeshift, timeBreaks));
                             }
                             return tempLessons;

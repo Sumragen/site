@@ -59,7 +59,7 @@ define(['../module', 'lodash'], function (module, _) {
             };
 
             $scope.createEvent = function (lesson, step) {
-                var lessonTime = schedulingUtil.getLessonsScheduling(lesson.num, 0);
+                var lessonTime = schedulingUtil.getLessonsScheduling(lesson.num, -5);
                 $scope.events.push({
                     title: lesson.lesson,
                     start: lessonTime.from.h + ':' + lessonTime.from.m,

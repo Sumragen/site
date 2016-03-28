@@ -56,17 +56,17 @@ define(
                             //from
                             if (tempLesson.from.m - (lesson === 0 ? Math.abs(timeShift) : lesson * Math.abs(timeShift)) < 0) {
                                 tempLesson.from.h = tempLesson.from.h - 1;
-                                tempLesson.from.m = tempLesson.from.m + 60 - Math.abs(timeShift);
+                                tempLesson.from.m = tempLesson.from.m + 60 - lesson * Math.abs(timeShift);
                             } else {
-                                tempLesson.from.m = tempLesson.from.m - Math.abs(timeShift);
+                                tempLesson.from.m = tempLesson.from.m - lesson * Math.abs(timeShift);
                             }
 
                             //to
-                            if (tempLesson.to.m - lesson * Math.abs(timeShift) < 0) {
+                            if (tempLesson.to.m - (lesson === 0 ? Math.abs(timeShift) : lesson * Math.abs(timeShift)) < 0) {
                                 tempLesson.to.h = tempLesson.to.h - 1;
-                                tempLesson.to.m = tempLesson.to.m + 60 - Math.abs(timeShift);
+                                tempLesson.to.m = tempLesson.to.m + 60 - lesson * Math.abs(timeShift);
                             } else {
-                                tempLesson.to.m = tempLesson.to.m - Math.abs(timeShift);
+                                tempLesson.to.m = tempLesson.to.m - lesson * Math.abs(timeShift);
                             }
                             return tempLesson;
                         }

@@ -2,8 +2,8 @@
  * Created by artem on 3/28/16.
  */
 define(
-    ['../module', 'lodash', 'tv4'],
-    function (module, _, tv4) {
+    ['../module', 'lodash', 'tv4', 'moment'],
+    function (module, _, tv4, moment) {
         'use strict';
         var BASE_LESSONS_SCHEDULE = {
             0: {
@@ -43,33 +43,41 @@ define(
                 to: {h: 15, m: 45}
             }
         };
-        module.service('Common.SchedulingUtil',
+        module.factory('Common.SchedulingUtil',
             [
-                function () {
+                '$log',
+                function ($log) {
                     var service = {};
-                    service.getLesson = function (lesson, timeShift, timeBreaks) {
-                        if (!timeShift) {
-                            return angular.copy(BASE_LESSONS_SCHEDULE[lesson]);
+                    var _timeShift = 0;
+                    var _cache = {};
+                    service.setTimeShift = function (timeShift) {
+                        if (angular.isNumber(timeShift) && !isNaN(timeShift)) {
+                            _timeShift = timeShift;
+                            _cache['BASE_LESSONS_SCHEDULE'] = angular.copy(BASE_LESSONS_SCHEDULE);
+                            _.each(_cache['BASE_LESSONS_SCHEDULE'], function (lesson,index) {
+                                var from = moment();
+                                from.hours(lesson.from.h);
+                                from.minutes(lesson.from.m);
+                                var to = moment();
+                                to.hours(lesson.to.h);
+                                to.minutes(lesson.to.m);
+                                from.minutes(from.minutes() + (index === 0 ?  _timeShift : ((index - 1 )* _timeShift)));
+                                to.minutes(to.minutes() + (index === 0 ?  _timeShift : ((index - 1 )* _timeShift)));
+                                lesson.from = {h: from.hours(), m: from.minutes()};
+                                lesson.to = {h: to.hours(), m: to.minutes()};
+                            })
                         } else {
-                            var tempLesson = angular.copy(BASE_LESSONS_SCHEDULE[lesson]);
-
-                            //from
-                            if (tempLesson.from.m - (lesson === 0 ? Math.abs(timeShift) : lesson * Math.abs(timeShift)) < 0) {
-                                tempLesson.from.h = tempLesson.from.h - 1;
-                                tempLesson.from.m = tempLesson.from.m + 60 - (lesson - 1) * Math.abs(timeShift);
-                            } else {
-                                tempLesson.from.m = tempLesson.from.m - (lesson - 1) * Math.abs(timeShift);
-                            }
-
-                            //to
-                            if (tempLesson.to.m - (lesson === 0 ? Math.abs(timeShift) : lesson * Math.abs(timeShift)) < 0) {
-                                tempLesson.to.h = tempLesson.to.h - 1;
-                                tempLesson.to.m = tempLesson.to.m + 60 - (lesson - 1) * Math.abs(timeShift);
-                            } else {
-                                tempLesson.to.m = tempLesson.to.m - (lesson - 1 ) * Math.abs(timeShift);
-                            }
-                            return tempLesson;
+                            $log.error('Time shift wrong format. Number expected.');
                         }
+                    };
+                    service.getCache = function () {
+                        return angular.copy(_cache['BASE_LESSONS_SCHEDULE']);
+                    };
+                    service.getTimeShift = function () {
+                        return _timeShift;
+                    };
+                    service.getLesson = function (lesson, timeShift, timeBreaks) {
+                        return angular.copy(_cache['BASE_LESSONS_SCHEDULE'][lesson]);
                     };
                     service.getLessonsScheduling = function (lesson, timeshift, timeBreaks) {
                         if (lesson != null) {

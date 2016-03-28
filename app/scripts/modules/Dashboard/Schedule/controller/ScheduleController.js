@@ -37,9 +37,9 @@ define(['../module', 'lodash'], function (module, _) {
                     });
             };
             var date = new Date();
-            var d = date.getDate();
-            var m = date.getMonth();
-            var y = date.getFullYear();
+
+            schedulingUtil.setTimeShift(-10);
+            console.log(schedulingUtil.getCache());
 
             $scope.eventSource = {
                 className: 'gcal-event',
@@ -49,9 +49,6 @@ define(['../module', 'lodash'], function (module, _) {
             $scope.events = [];
 
             $scope.eventsF = function (start, end) {
-                var s = new Date(start).getTime() / 1000;
-                var e = new Date(end).getTime() / 1000;
-                var m = new Date(start).getMonth();
                 scheduleService.loadSchedule().then(function (data) {
                     $scope.currentSchedule = data.data.schedule;
                     createEventList($scope.currentSchedule.objects.schedule, start, end);
@@ -59,7 +56,8 @@ define(['../module', 'lodash'], function (module, _) {
             };
 
             $scope.createEvent = function (lesson, step) {
-                var lessonTime = schedulingUtil.getLessonsScheduling(lesson.num, -5);
+                var lessonTime = schedulingUtil.getLessonsScheduling(lesson.num);
+
                 $scope.events.push({
                     title: lesson.lesson,
                     start: lessonTime.from.h + ':' + lessonTime.from.m,

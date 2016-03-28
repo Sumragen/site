@@ -1,4 +1,7 @@
 <div>
     <h4><b>{{ $infoWND.anchor.name}}</b></h4>
     <p>{{$infoWND.anchor.title}}</p>
+    <div ng-if="$infoWND.anchor.hasStreetView">
+        <div class="btn btn-default" ng-click="$parent.$parent.$parent.toggleStreetView($infoWND.anchor)">Toggle Street View</div>
+    </div>
 </div>

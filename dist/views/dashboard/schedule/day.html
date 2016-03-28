@@ -12,7 +12,7 @@
         <tbody>
         <tr ng-repeat="lesson in controller.currentDay track by $index" ng-if="$index !== 0 || (lesson != null || lesson.name != null)" class="info">
             <td>{{$index}}</td>
-            <td>{{lesson.name}}</td>
+            <td>{{lesson.lesson}}</td>
             <td>{{lesson.classroom}}</td>
             <td>{{lesson.teacher}}</td>
         </tr>

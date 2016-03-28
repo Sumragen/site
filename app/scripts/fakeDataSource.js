@@ -252,11 +252,12 @@ define(['lodash'], function (_) {
         load();
         var i = 0;
         var tempUser = angular.fromJson(dataUser);
-        for (i; i < data.user.objects.length; i++) {
-            if (tempUser.login === data.user.objects[i].login && tempUser.password === data.user.objects[i].password) {
-                return data.user.objects[i];
+        return  _.find(data.user.objects,function(item){
+            if (tempUser.username === item.login && tempUser.password === item.password) {
+                return item;
             }
-        }
+        });
+
     };
     dataSource.updateUser = function (dataUser) {
         load();

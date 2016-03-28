@@ -6,11 +6,11 @@ define(['../module'], function (module) {
         var self = this;
 
         self.changeAvatar = function () {
-            var selectedFile = new Image (document.getElementById('userImage').files[0]);
+           /* var selectedFile = new Image (document.getElementById('userImage').files[0]);
             var user = JSON.parse(localStorage.getItem("currentUserLS"));
             user.avatar = selectedFile;
             localStorage.removeItem("currentUserLS");
-            localStorage.setItem("currentUserLS",JSON.stringify(user));
+            localStorage.setItem("currentUserLS",JSON.stringify(user));*/
         };
 
         return self;

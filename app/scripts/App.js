@@ -70,7 +70,6 @@ define([
                         $rootScope.contextUser = user;
                     });
                     $rootScope.getSchoolName = function () {
-                        var user = JSON.parse(localStorage.getItem("currentUserLS"));
                         return 'School ' + '24';//+ user.school;
                     };
 

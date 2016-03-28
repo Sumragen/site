@@ -12,7 +12,12 @@ module.exports = function (grunt, appConfig) {
         },
         dev: {
             files: {
-                '.tmp/index.html': ['app/index.html']
+                '<%= appConfig.server %>/index.html': ['app/index.html']
+            }
+        },
+        dist: {
+            files: {
+                '<%= appConfig.dist %>/index.html': ['<%= appConfig.app %>/index.html']
             }
         }
     }

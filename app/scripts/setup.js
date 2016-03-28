@@ -12,7 +12,7 @@ define(
         App.config([
             '$httpProvider',
             function ($httpProvider) {
-                if(appConfig.useHeaderAuth){
+                if (appConfig.useHeaderAuth) {
                     $httpProvider.defaults.headers.common['X-Requested-By'] = 'DockerWebUI';
                     if (appConfig.useCookiesAuth) {
                         $httpProvider.defaults.withCredentials = true;
@@ -23,18 +23,14 @@ define(
                     return {
                         'request': function (config) {
                             // handle on request action
-                            if (config.apiName === 'DockerWebUI') {
-                                if (appConfig.useFakeAPIService === false && config.isApiCall === true) {
-                                    config.url = appConfig.apiUrl + config.url;
-                                }
+                            if (appConfig.useFakeAPIService === false && config.isApiCall === true) {
+                                config.url = appConfig.apiUrl + config.url;
                             }
                             return config;
                         },
                         'requestError': function (rejection) {
                             return $q.reject(rejection);
-                        }
-
-                        ,
+                        },
                         /**
                          * This function receives a response object as a parameter and has to return a response object
                          * or a promise. The response object includes the request configuration, headers, status and data

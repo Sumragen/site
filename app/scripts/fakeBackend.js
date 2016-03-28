@@ -6,7 +6,7 @@ define(
     function (module, fakeDataSource) {
         'use strict';
         module.run(['$httpBackend','$q',function($httpBackend) {
-            $httpBackend.whenPOST('/signIn').respond(function (method,url,checkUser) {
+            $httpBackend.whenPOST('/api/login').respond(function (method, url, checkUser) {
                 var user = fakeDataSource.checkCurrentUser(checkUser);
                 if (user){
                     return [200, {currentUser: user, sessionToken: 'simple sessionToken'}, {}];
@@ -38,7 +38,7 @@ define(
                     return [400,{errorCode:3,message:'Schedule not found'}];
                 }
             });
-            $httpBackend.whenPOST('/register').respond(function(method, url, data) {
+            $httpBackend.whenPOST('/api/register').respond(function (method, url, data) {
                 fakeDataSource.addUser(data);
                 return [200, angular.fromJson(data), {}];
             });

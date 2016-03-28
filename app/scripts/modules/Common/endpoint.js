@@ -17,7 +17,7 @@ define(['./module'], function (module) {
                     list: function (data) {
                         return {
                             method: METHODS.POST,
-                            url: '/register',
+                            url: '/api/register',
                             isApiCall: true,
                             data: data
                         }
@@ -27,10 +27,10 @@ define(['./module'], function (module) {
                     user: function (userIn) {
                         return {
                             method: METHODS.POST,
-                            url: '/signIn',
+                            url: '/api/login',
                             isApiCall: true,
                             data: {
-                                login: userIn.currentLogin,
+                                username: userIn.currentLogin,
                                 password: userIn.currentPassword
                             }
                         }

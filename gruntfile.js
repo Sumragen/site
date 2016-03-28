@@ -2,7 +2,7 @@
  * Created by trainee on 2/25/16.
  */
 /*global module,require*/
-module.exports = function(grunt){
+module.exports = function (grunt) {
     require('load-grunt-tasks')(grunt);
     var config = {
         appConfig: {
@@ -28,6 +28,14 @@ module.exports = function(grunt){
         ]);
     });
 
+    grunt.registerTask('dist', function () {
+        grunt.task.run([
+            'copy:dist',
+            'processhtml:dist',
+            'less:dist',
+            'requirejs:dist'
+        ])
+    });
     grunt.registerTask('serve', function () {
         grunt.task.run([
             'build',
@@ -37,9 +45,9 @@ module.exports = function(grunt){
         ]);
     });
 
-    grunt.registerTask('copyFiles',function (){
-       grunt.task.run([
-           'copy:files'
-       ]);
+    grunt.registerTask('copyFiles', function () {
+        grunt.task.run([
+            'copy:files'
+        ]);
     });
 };

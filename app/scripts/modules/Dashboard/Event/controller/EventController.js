@@ -33,7 +33,7 @@ define(['../module', 'lodash'], function (module, _) {
             $scope.cssOpts = {width: '100%', height: '700px'};
             $scope.gmOpts = {zoom: 16};
             $scope.closeInfoWindow = function (infowindow) {
-                infowindow.close(true);
+                infowindow.close();
             };
 
             $scope.checkIsStreetViewPossible = function (map, marker) {
@@ -63,7 +63,7 @@ define(['../module', 'lodash'], function (module, _) {
                             marker.hasStreetView = result;
                         });
                         infowindow.$ready(function (wnd) { // pass infowindow object
-                            wnd.open(map, marker); //open infowindow
+                                wnd.open(map, marker); //open infowindow
                         });
                     });
                 }
@@ -90,7 +90,6 @@ define(['../module', 'lodash'], function (module, _) {
                             name: event.name,
                             position: new google.maps.LatLng(event.latitude, event.longitude),
                             map: map,
-                            toggleStreetView: $scope.toggleStreetView,
                             title: event.title
                         });
                         $scope.markers.push(marker);

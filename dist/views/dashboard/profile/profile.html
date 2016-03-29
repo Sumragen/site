@@ -15,6 +15,7 @@
           sf-form="form"
           sf-model="profile">
     </form>
+    <input type="file" id="userAvatar" custom-profile-directive="uploadUserAva" ng-click="addUserAvatar()">
     <a class="btn btn-default" ng-click="controller.toggleShowSchemaForm()">Cancel</a>
     <a class="btn btn-info" ng-click="controller.editProfile(editForm)">Submit</a>
 </div>

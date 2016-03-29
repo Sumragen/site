@@ -62,6 +62,9 @@ define(['../module'], function (module) {
                         "type": "string",
                         "pattern": "^\\S+@\\S+$",
                         "description": "Your email"
+                    },
+                    'avatar': {
+                        type: 'file'
                     }
                 },
                 "required": [
@@ -89,6 +92,15 @@ define(['../module'], function (module) {
                 {
                     "key": "email",
                     "placeholder": "email"
+                },
+                {
+                    key: 'avatar',
+                    title: 'Upload avatar',
+                    type: 'fileinput',
+                    fileType: 'dataUrl',
+                    onFIleSelect: function (file) {
+                        console.log(file);
+                    }
                 }
             ];
 

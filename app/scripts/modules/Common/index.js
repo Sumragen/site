@@ -7,6 +7,7 @@ define(
         './service/SecurityContext',
         './service/schedulingUtil',
         './service/validationMessageBuilder',
+        './directive/uploadFile',
         './endpoint'
     ],
     function () {

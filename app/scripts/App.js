@@ -140,7 +140,15 @@ define([
                 '$stateProvider',
                 '$urlRouterProvider',
                 'schemaFormProvider',
-                function ($stateProvider, $urlRouterProvider, schemaFormProvider) {
+                'schemaFormDecoratorsProvider',
+                function ($stateProvider, $urlRouterProvider, schemaFormProvider ,schemaFormDecoratorsProvider) {
+
+                    schemaFormDecoratorsProvider.addMapping(
+                        'bootstrapDecorator',
+                        'fileinput',
+                        'views/dashboard/profile/uploadFile.html'
+                    );
+
                     schemaFormProvider.postProcess(function (form) {
                         if (typeof validationInjector == 'function') {
                             var form = validationInjector(form);

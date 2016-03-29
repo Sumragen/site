@@ -11,25 +11,24 @@ define(['../module'], function (module) {
                 link: function ($scope, element, attrs, ngModelController) {
                     if (element.attr('type') === 'file') {
                         element.bind("change", function (changeEvent) {
-                                if ($scope.form.fileType === 'dataUrl') {
-                                    var reader = new FileReader();
-                                    reader.onloadend = function () {
-                                        if (typeof $scope.form.onFIleSelect === 'function') {
-                                            $scope.form.onFIleSelect(reader.result);
-                                        }
-                                        ngModelController.$setViewValue(reader.result);
-                                        ngModelController.$commitViewValue();
-                                    };
-                                    reader.readAsDataURL(changeEvent.target.files[0]);
-                                } else {
+                            if ($scope.form.fileType === 'dataUrl') {
+                                var reader = new FileReader();
+                                reader.onloadend = function () {
                                     if (typeof $scope.form.onFIleSelect === 'function') {
-                                        $scope.form.onFIleSelect(changeEvent.target.files[0]);
+                                        $scope.form.onFIleSelect(reader.result);
                                     }
-                                    ngModelController.$setViewValue(changeEvent.target.files[0]);
+                                    ngModelController.$setViewValue(reader.result);
                                     ngModelController.$commitViewValue();
+                                };
+                                reader.readAsDataURL(changeEvent.target.files[0]);
+                            } else {
+                                if (typeof $scope.form.onFIleSelect === 'function') {
+                                    $scope.form.onFIleSelect(changeEvent.target.files[0]);
                                 }
+                                ngModelController.$setViewValue(changeEvent.target.files[0]);
+                                ngModelController.$commitViewValue();
                             }
-                        );
+                        });
                     }
                 },
             }

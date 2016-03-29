@@ -11,7 +11,7 @@ define(['../module'], function (module) {
             var service = {};
 
             service.updateUser = function (user) {
-                return $http(Endpoint.updateUser.user(user))
+                return $http(Endpoint.user.update(user))
                     .then(function (data) {
                         return securityContext.setPrincipal(data.data);
                     }, function (err) {

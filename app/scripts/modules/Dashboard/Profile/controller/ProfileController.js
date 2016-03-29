@@ -97,10 +97,7 @@ define(['../module'], function (module) {
                     key: 'avatar',
                     title: 'Upload avatar',
                     type: 'fileinput',
-                    fileType: 'dataUrl',
-                    onFIleSelect: function (file) {
-                        console.log(file);
-                    }
+                    fileType: 'dataUrl'
                 }
             ];
 

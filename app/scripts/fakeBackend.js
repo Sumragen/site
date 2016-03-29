@@ -15,7 +15,7 @@ define(
                     return [400, {errorCode: 1, message: 'Username or password is incorrect'}];
                 }
             });
-            $httpBackend.whenPUT(prefix + '/user').respond(function (method, url, tempUser) {
+            $httpBackend.whenPUT(/\/user\/(0-9)*/).respond(function (method, url, tempUser) {
                 var user = fakeDataSource.updateUser(tempUser);
                 if (user) {
                     return [200, user, {}];

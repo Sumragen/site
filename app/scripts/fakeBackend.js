@@ -2,43 +2,44 @@
  * Created by trainee on 3/3/16.
  */
 define(
-    ['./App','./fakeDataSource'],
+    ['./App', './fakeDataSource'],
     function (module, fakeDataSource) {
         'use strict';
-        module.run(['$httpBackend','$q',function($httpBackend) {
-            $httpBackend.whenPOST('/api/login').respond(function (method, url, checkUser) {
+        module.run(['$httpBackend', '$q', function ($httpBackend) {
+            var prefix = '/api';
+            $httpBackend.whenPOST(prefix + '/login').respond(function (method, url, checkUser) {
                 var user = fakeDataSource.checkCurrentUser(checkUser);
-                if (user){
+                if (user) {
                     return [200, {currentUser: user, sessionToken: 'simple sessionToken'}, {}];
-                }else{
-                    return [400,{errorCode:1,message:'Username or password is incorrect'}];
+                } else {
+                    return [400, {errorCode: 1, message: 'Username or password is incorrect'}];
                 }
             });
-            $httpBackend.whenPOST('/updateUser').respond(function (method,url,tempUser) {
+            $httpBackend.whenPUT(prefix + '/user').respond(function (method, url, tempUser) {
                 var user = fakeDataSource.updateUser(tempUser);
-                if (user){
+                if (user) {
                     return [200, user, {}];
-                }else{
-                    return [400,{errorCode:4,message:'wrong update'}];
+                } else {
+                    return [400, {errorCode: 4, message: 'wrong update'}];
                 }
             });
-            $httpBackend.whenGET('/events').respond(function (method, url) {
+            $httpBackend.whenGET(prefix + '/events').respond(function (method, url) {
                 var events = fakeDataSource.getEvents();
-                if (events){
+                if (events) {
                     return [200, {events: events}, {}];
-                }else{
-                    return [400,{errorCode:2,message:'Events not found'}];
+                } else {
+                    return [400, {errorCode: 2, message: 'Events not found'}];
                 }
             });
-            $httpBackend.whenGET('/schedule').respond(function (method, url) {
+            $httpBackend.whenGET(prefix + '/schedule').respond(function (method, url) {
                 var schedule = fakeDataSource.getSchedule();
-                if (schedule){
+                if (schedule) {
                     return [200, {schedule: schedule}, {}];
-                }else{
-                    return [400,{errorCode:3,message:'Schedule not found'}];
+                } else {
+                    return [400, {errorCode: 3, message: 'Schedule not found'}];
                 }
             });
-            $httpBackend.whenPOST('/api/register').respond(function (method, url, data) {
+            $httpBackend.whenPOST(prefix + '/register').respond(function (method, url, data) {
                 fakeDataSource.addUser(data);
                 return [200, angular.fromJson(data), {}];
             });

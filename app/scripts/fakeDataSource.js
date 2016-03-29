@@ -8,7 +8,7 @@ define(['lodash'], function (_) {
         id: 1,
         firstName: 'root',
         lastName: 'root',
-        login: 'root',
+        username: 'root',
         email: 'root@gmail.com',
         password: 'root'
     };
@@ -230,10 +230,9 @@ define(['lodash'], function (_) {
 
     dataSource.checkCurrentUser = function (dataUser) {
         load();
-        var i = 0;
         var tempUser = angular.fromJson(dataUser);
-        return _.find(data.user.objects, function (item) {
-            if (tempUser.username === item.login && tempUser.password === item.password) {
+        return _.find(data.user.objects,function (item) {
+            if (tempUser.username === item.username && tempUser.password === item.password) {
                 return item;
             }
         });

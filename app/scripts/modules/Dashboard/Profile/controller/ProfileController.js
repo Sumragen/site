@@ -39,19 +39,19 @@ define(['../module'], function (module) {
             $scope.schema = {
                 "type": "object",
                 "properties": {
-                    firstName: {
+                    first_name: {
                         type: "string",
                         minLength: 4,
                         title: "First Name",
                         description: "Your first name"
                     },
-                    lastName: {
+                    last_name: {
                         type: "string",
                         minLength: 4,
                         title: "Last Name",
                         description: "Your last name"
                     },
-                    login: {
+                    username: {
                         type: "string",
                         minLength: 4,
                         title: "Login",
@@ -68,25 +68,25 @@ define(['../module'], function (module) {
                     }
                 },
                 "required": [
-                    "firstName",
-                    "lastName",
-                    "login",
+                    "first_name",
+                    "last_name",
+                    "username",
                     "email"
                 ]
             };
 
             $scope.form = [
                 {
-                    "key": "firstName",
+                    "key": "first_name",
                     "placeholder": "First name"
 
                 },
                 {
-                    "key": "lastName",
+                    "key": "last_name",
                     "placeholder": "Last name"
                 },
                 {
-                    "key": "login",
+                    "key": "username",
                     "placeholder": "username"
                 },
                 {

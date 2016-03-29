@@ -24,28 +24,31 @@ define(['lodash'], function (_) {
             id: 1,
             name: 'Rest',
             date: '01.03.2016',
-            title: 'first event (test version)',
-            streetView: true,
-            latitude: 46.6699334,
-            longitude: 32.6169105
+            description: 'first event (test version)',
+            location: {
+                latitude: 46.6699334,
+                longitude: 32.6169105
+            }
         },
         {
             id: 2,
             name: "Children's hospital",
             date: '09.23.2016',
-            title: 'Medical inspection',
-            streetView: false,
-            latitude: 46.6676171,
-            longitude: 32.6100075
+            description: 'Medical inspection',
+            location: {
+                latitude: 46.6676171,
+                longitude: 32.6100075
+            }
         },
         {
             id: 3,
             name: 'spring ball',
             date: '08.07.2016',
-            title: 'spring ball',
-            streetView: true,
-            latitude: 46.6716115,
-            longitude: 32.6100684
+            description: 'spring ball',
+            location: {
+                latitude: 46.6716115,
+                longitude: 32.6100684
+            }
         }
     ];
     var defaultSubjects = [
@@ -241,7 +244,7 @@ define(['lodash'], function (_) {
         var i = 0;
         var _user = null;
         var tempUser = angular.fromJson(dataUser);
-        return _.find(data.user.objects, function (user,index) {
+        return _.find(data.user.objects, function (user, index) {
             if (tempUser.id === user.id) {
                 data.user.objects[index] = tempUser.user;
                 commit();

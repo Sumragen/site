@@ -6,8 +6,8 @@ define(['lodash'], function (_) {
 
     var AbstractUser = {
         id: 1,
-        firstName: 'root',
-        lastName: 'root',
+        first_name: 'root',
+        last_name: 'root',
         username: 'root',
         email: 'root@gmail.com',
         password: 'root'

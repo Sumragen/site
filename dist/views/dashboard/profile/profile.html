@@ -3,6 +3,8 @@
         <h3 class="profile-caption">Profile</h3>
         <i class="material-icons" ng-click="controller.toggleShowSchemaForm()">mode_edit</i>
     </div>
+    <!--<div>{{currentUser.avatar}}</div>-->
+    <!--<img height="200px" width="100px" src={{currentUser.avatar}}>-->
     <h4>First name : {{currentUser.firstName}}</h4>
     <h4>Last name : {{currentUser.lastName}}</h4>
     <h4>Login : {{currentUser.login}}</h4>
@@ -15,7 +17,6 @@
           sf-form="form"
           sf-model="profile">
     </form>
-    <input type="file" id="userAvatar" custom-profile-directive="uploadUserAva" ng-click="addUserAvatar()">
     <a class="btn btn-default" ng-click="controller.toggleShowSchemaForm()">Cancel</a>
     <a class="btn btn-info" ng-click="controller.editProfile(editForm)">Submit</a>
 </div>

@@ -13,18 +13,12 @@ define(['../module'], function (module) {
                 error: null
             };
 
-            service.signUp = function (newUser) {
-                return $http(Endpoint.signUp.list({
-                    first_name: newUser.FirstName,
-                    last_name: newUser.LastName,
-                    username: newUser.Login,
-                    email: newUser.Email,
-                    password: newUser.Psw
-                }));
+            service.signUp = function (user) {
+                return $http(Endpoint.auth.register(user));
             };
 
-            service.signIn = function (userIn) {
-                return $http(Endpoint.signIn.user(userIn))
+            service.signIn = function (user) {
+                return $http(Endpoint.auth.login(user))
                     .then(function (data) {
                         return securityContext.setPrincipal(data.data.currentUser);
                     }, function (err) {

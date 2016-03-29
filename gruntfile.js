@@ -38,9 +38,10 @@ module.exports = function (grunt) {
     });
     grunt.registerTask('serve', function () {
         grunt.task.run([
-            'build',
+            'copy:server',
+            'processhtml',
+            'less:development',
             'connect:livereload',
-            //'processhtml',
             'watch'
         ]);
     });

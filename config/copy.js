@@ -30,6 +30,34 @@ module.exports = {
                 dest: '<%= appConfig.dist %>/vendor/'
             }]
     },
+    server: {
+        files: [
+            {
+                expand: true,
+                dot: true,
+                cwd: '<%= appConfig.app %>',
+                dest: '<%= appConfig.server %>',
+                src: ['*.{ico,png,txt}',
+                    '.htaccess',
+                    '*.html',
+                    'views/**/*.html',
+                    'images/**/*',
+                    'fonts/**/.*'
+                ]
+            },
+            {
+                expand: true,
+                cwd: 'bower_components/bootstrap/dist',
+                src: 'fonts/*',
+                dest: '<%= appConfig.server %>'
+            }, {
+                expand: true,
+                dot: true,
+                cwd: 'bower_components',
+                src: 'requirejs/*.js',
+                dest: '<%= appConfig.server %>/vendor/'
+            }]
+    },
     html: {
         expand: true,
         cwd: 'app/',

@@ -3,8 +3,8 @@
  */
 define(
     [
-        './controller/AuthController',
-        './service/AuthService'
+        './controller/authController',
+        './service/authService'
     ],
     function () {
         'use strict';

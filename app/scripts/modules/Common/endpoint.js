@@ -1,8 +1,8 @@
 /**
  * Created by trainee on 3/15/16.
  */
-define(['./module'], function (module) {
-    module.factory('Endpoint',[
+define(['./module', 'lodash'], function (module, _) {
+    module.factory('Endpoint', [
         function () {
             var METHODS = {
                 GET: 'GET',
@@ -12,65 +12,66 @@ define(['./module'], function (module) {
                 PATCH: 'PATCH'
             };
 
+            function API(options) {
+                var prefix = '/api';
+                options.url = prefix + options.url;
+                this['isApiCall'] = true;
+                return _.merge(options, this);
+            }
+
             var routes = {
-                signUp: {
-                    list: function (data) {
-                        return {
+                auth: {
+                    register: function (data) {
+                        return new API({
                             method: METHODS.POST,
-                            url: '/api/register',
-                            isApiCall: true,
+                            url: '/register',
                             data: data
-                        }
-                    }
-                },
-                signIn: {
-                    user: function (userIn) {
-                        return {
+                        })
+                    },
+                    login: function (user) {
+                        return new API({
                             method: METHODS.POST,
-                            url: '/api/login',
-                            isApiCall: true,
+                            url: '/login',
                             data: {
-                                username: userIn.currentLogin,
-                                password: userIn.currentPassword
+                                username: user.username,
+                                password: user.password
                             }
+                        })
+                    },
+                    logOut: function (user) {
+                        return {
+                            method: METHODS.POST,
+                            url: '/logOut'
                         }
                     }
                 },
-                logOut:{
-                    user: function (user) {
-                        return {
-                            method: METHODS.POST,
-                            url: '/logOut',
-                            isApiCall: true
-                        }
-                    }
-                },
-                updateUser: {
-                    user: function (userIn) {
-                        return {
-                            method: METHODS.POST,
-                            url: '/updateUser',
-                            isApiCall: true,
-                            data: userIn
-                        }
+                user: {
+                    get: function () {
+                    },
+                    list: function () {
+                    },
+                    update: function (user) {
+                        return new API({
+                            method: METHODS.PUT,
+                            url: '/user/' + user.id,
+                            data: user
+                        })
                     }
                 },
                 events: {
                     list: function () {
-                        return {
+                        return new API({
                             method: METHODS.GET,
-                            url: '/events',
-                            isApiCall: true
-                        }
+                            url: '/events'
+                        })
                     }
                 },
                 schedule: {
                     list: function () {
-                        return {
+                        return new API({
                             method: METHODS.GET,
-                            url: '/schedule',
-                            isApiCall: true
-                        }
+                            url: '/schedule'
+                        })
                     }
                 }
             };

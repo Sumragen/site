@@ -86,7 +86,7 @@ define(['../module'], function (module) {
             self.signIn = function (form) {
                 $scope.$broadcast('schemaFormValidate');
                 if (form.$valid) {
-                    authService.signIn($scope.sf.model).then(function (user) {
+                    authService.signIn($scope.login.model).then(function (user) {
                         $scope.error = null;
                         $uibModalInstance.close();
                     }, function (err) {

@@ -11,7 +11,7 @@ define(['../module'], function (module) {
         '$state',
         '$timeout',
         'InfoWindow',
-        function ($scope, $rootScope,  $http, AuthService, $state, $timeout, InfoWindow) {
+        function ($scope, $rootScope, $http, AuthService, $state, $timeout, InfoWindow) {
             var self = this;
 
             //NonAuthController methods
@@ -45,7 +45,7 @@ define(['../module'], function (module) {
 
             //LocateCtrl
             $scope.markers = [];
-            $scope.cssOpts = {width: '100%', height: '100%', 'min-width': '400px', 'min-height': '200px'};
+            $scope.cssOpts = {width: '80%', height: '70%', position: 'absolute'};
             $scope.gmOpts = {zoom: 16, center: new google.maps.LatLng(46.671627, 32.610014)};
             $scope.closeInfoWindow = function (infowindow) {
                 infowindow.close(true);

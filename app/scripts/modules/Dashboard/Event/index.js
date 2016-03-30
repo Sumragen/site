@@ -3,8 +3,8 @@
  */
 define(
     [
-        './controller/EventController',
-        './service/EventService'
+        './controller/eventController',
+        './service/eventService'
     ],
     function () {
         'use strict';

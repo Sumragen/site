@@ -4,7 +4,7 @@
 define(
     [
         './controller/profileController',
-        './service/ProfileService'
+        './service/profileService'
     ],
     function () {
         'use strict';

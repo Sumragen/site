@@ -3,7 +3,7 @@
  */
 define(
     [
-        './controller/ScheduleController',
+        './controller/scheduleController',
         './controller/dayController',
         './service/scheduleService',
         './../../../const'

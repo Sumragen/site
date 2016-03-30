@@ -8,6 +8,7 @@ define(
         './service/schedulingUtil',
         './service/validationMessageBuilder',
         './directive/uploadFile',
+        './directive/setImage',
         './endpoint'
     ],
     function () {

@@ -6,9 +6,11 @@ define(['../module'], function (module) {
         function () {
             return {
                 restrict: 'A',
-                link: function ($scope, element, attrs) {
-
-                }
+                scope: {
+                    typeImage: '@sSetImage',
+                    imageUrl: '='
+                },
+                templateUrl: '/views/common/setImage.html'
             }
         }
     ]);

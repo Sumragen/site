@@ -3,7 +3,8 @@
         <h3 class="profile-caption">Profile</h3>
         <i class="material-icons" ng-click="controller.toggleShowSchemaForm()">mode_edit</i>
     </div>
-    <img height="15%" width="15%" src="{{currentUser.avatar}}" class="user-avatar-on-profile" ng-show="currentUser.avatar">
+    <div s-set-image="Avatar" image-url="currentUser.avatar"></div>
+
     <i class="material-icons user-avatar-on-profile" ng-show="!currentUser.avatar">face</i>
     <h4>First name : {{currentUser.first_name}}</h4>
     <h4>Last name : {{currentUser.last_name}}</h4>

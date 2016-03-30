@@ -1,21 +1,23 @@
-<div ng-show="!controller.showSchemaForm" class="profile-view">
-    <div class="profile-title">
-        <h3 class="profile-caption">Profile</h3>
-        <i class="material-icons" ng-click="controller.toggleShowSchemaForm()">mode_edit</i>
+<div class="profile-module-wrapper">
+    <div ng-show="!controller.showSchemaForm" class="profile-view">
+        <div class="profile-title">
+            <h3 class="profile-caption">Profile</h3>
+            <i class="material-icons" ng-click="controller.toggleShowSchemaForm()">mode_edit</i>
+        </div>
+        <div s-set-image="Avatar" image-url="currentUser.avatar"></div>
+        <h4>First name : {{currentUser.first_name}}</h4>
+        <h4>Last name : {{currentUser.last_name}}</h4>
+        <h4>Login : {{currentUser.username}}</h4>
+        <h4>Email : {{currentUser.email}}</h4>
     </div>
-    <div s-set-image="Avatar" image-url="currentUser.avatar"></div>
-    <h4>First name : {{currentUser.first_name}}</h4>
-    <h4>Last name : {{currentUser.last_name}}</h4>
-    <h4>Login : {{currentUser.username}}</h4>
-    <h4>Email : {{currentUser.email}}</h4>
-</div>
 
-<div ng-show="controller.showSchemaForm">
-    <form name="editForm"
-          sf-schema="schema"
-          sf-form="form"
-          sf-model="profile">
-    </form>
-    <a class="btn btn-default" ng-click="controller.toggleShowSchemaForm()">Cancel</a>
-    <a class="btn btn-info" ng-click="controller.editProfile(editForm)">Submit</a>
+    <div ng-show="controller.showSchemaForm">
+        <form name="editForm"
+              sf-schema="schema"
+              sf-form="form"
+              sf-model="profile">
+        </form>
+        <a class="btn btn-default" ng-click="controller.toggleShowSchemaForm()">Cancel</a>
+        <a class="btn btn-info" ng-click="controller.editProfile(editForm)">Submit</a>
+    </div>
 </div>

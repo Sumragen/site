@@ -2,8 +2,8 @@
     <div class="col-xs-6 col-md-3">
         <a href="#" class="thumbnail">
             <img src="{{imageUrl}}" ng-show="imageUrl">
-            <i class="material-icons" ng-show="!imageUrl">person</i>
+            <i class="material-icons image-not-found" ng-show="!imageUrl">person</i>
+            <h2><div ng-show="!imageUrl">{{typeImage}} not found!</div></h2>
         </a>
     </div>
 </div>
-<div ng-show="!imageUrl">{{typeImage}} not found!</div>

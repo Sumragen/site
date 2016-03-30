@@ -51,7 +51,7 @@ define(['../module'], function (module) {
                 infowindow.close(true);
             };
             $scope.ready = function (map) {
-                var infowindow = new InfoWindow({templateUrl: './views/dashboard/nonauth/marker.html'}); //it's not infowindow now. (object like "javascript promise", but not a promise)
+                var infowindow = new InfoWindow({templateUrl: '../../../../views/Dashboard/nonauth/marker.html'}); //it's not infowindow now. (object like "javascript promise", but not a promise)
                 function attach(marker) {
                     google.maps.event.addListener(marker, 'click', function (markerObj) { //on marker click
                         infowindow.$ready(function (wnd) { // pass infowindow object

@@ -76,7 +76,7 @@ define([
                     $rootScope.showSignInModal = function () {
                         var modalInstance = $uibModal.open({
                             animation: true,
-                            templateUrl: "./views/auth/logIn.html",
+                            templateUrl: "../views/Auth/logIn.html",
                             controller: "AuthController as controller"
                         });
 
@@ -90,7 +90,7 @@ define([
                     $rootScope.showSignUpModal = function () {
                         var modalInstance = $uibModal.open({
                             animation: true,
-                            templateUrl: "../views/auth/signUp.html",
+                            templateUrl: "../views/Auth/signUp.html",
                             controller: "AuthController as controller"
                         });
 

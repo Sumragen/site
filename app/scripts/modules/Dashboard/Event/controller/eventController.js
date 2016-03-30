@@ -30,8 +30,8 @@ define(['../module', 'lodash'], function (module, _) {
 
             //Map version
             $scope.markers = [];
-            $scope.cssOpts = {width: '100%', height: '700px'};
-            $scope.gmOpts = {zoom: 16};
+            $scope.cssOpts = {width: '80%', height: '70%', position: 'absolute'};
+            $scope.gmOpts = {zoom: 16, mapTypeControlOptions: google.maps.MapTypeControlStyle.HORIZONTAL_BAR};
             $scope.closeInfoWindow = function (infowindow) {
                 infowindow.close();
             };
@@ -56,14 +56,14 @@ define(['../module', 'lodash'], function (module, _) {
                 $scope.map = map;
 
 
-                var infowindow = new InfoWindow({templateUrl: '../../../../../views/Dashboard/nonauth/marker.html'}); //it's not infowindow now. (object like "javascript promise", but not a promise)
+                var infowindow = new InfoWindow({templateUrl: 'views/Dashboard/nonauth/marker.html'}); //it's not infowindow now. (object like "javascript promise", but not a promise)
                 function attach(marker) {
                     google.maps.event.addListener(marker, 'click', function (markerObj) { //on marker click
                         $scope.checkIsStreetViewPossible($scope.map, marker).then(function (result) {
                             marker.hasStreetView = result;
                         });
                         infowindow.$ready(function (wnd) { // pass infowindow object
-                                wnd.open(map, marker); //open infowindow
+                            wnd.open(map, marker); //open infowindow
                         });
                     });
                 }

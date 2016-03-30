@@ -4,7 +4,7 @@
 define(
     [
         './controller/masterController',
-        './service/SecurityContext',
+        './service/securityContext',
         './service/schedulingUtil',
         './service/validationMessageBuilder',
         './directive/uploadFile',

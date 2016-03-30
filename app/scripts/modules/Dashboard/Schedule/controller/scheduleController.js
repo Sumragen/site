@@ -33,12 +33,8 @@ define(['../module', 'lodash'], function (module, _) {
                     .then(function () {
                         //$state.go('dashboard.profile');
                     }, function () {
-                        console.log('Modal dismissed');
                     });
             };
-            var date = new Date();
-
-            console.log(schedulingUtil.getCache());
 
             $scope.eventSource = {
                 className: 'gcal-event',

@@ -28,7 +28,7 @@ require.config({
         'material': '../../bower_components/bootstrap-material-design/dist/js/material',
         'tv4': '../../bower_components/tv4/tv4',
         'objectpath': '../../bower_components/objectpath/lib/ObjectPath',
-        'google': 'https://maps.googleapis.com/maps/api/js?v=3.22'
+        'google': 'https://maps.googleapis.com/maps/api/js?v=3.24&key=AIzaSyB2I-5q7CdsT5Kx1hQMuEgWiWCH_0U_7Ts'
     },
     shim: {
         'bootstrap-decorator': {
@@ -78,8 +78,8 @@ require.config({
             deps: ['angular-strap', 'angular-strap']
         },
         googlemaps: {
-            deps:[],
-            exports:'google'
+            deps: [],
+            exports: 'google'
         },
         'ui.bootstrap': {
             deps: ['angular']

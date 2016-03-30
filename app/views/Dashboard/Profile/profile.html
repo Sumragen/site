@@ -6,8 +6,10 @@
         </div>
         <div class="row">
             <div class="col-xs-6 col-md-3">
-                <a href="#" class="thumbnail">
-                    <div s-set-image="Avatar" image-url="currentUser.avatar" ng-model="$$value$$"></div>
+                <a href="#" class="thumbnail material-icons">
+                    <div s-set-image="person" image-url="currentUser.avatar" ng-model="$$value$$">
+                        <div ng-if="!imageUrl">{{typeImage}}</div>
+                    </div>
                 </a>
             </div>
         </div>

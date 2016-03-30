@@ -8,7 +8,7 @@ define(['angular', 'angular-animate'], function (module) {
                 .state('common', {
                     url: "/anonymous",
                     abstract: true,
-                    templateUrl: './views/common/nonauth.html',
+                    templateUrl: '../../../views/Common/nonauth.html',
                     controller: 'Common.MasterController as controller',
                     data: {
                         redirect: function (user) {

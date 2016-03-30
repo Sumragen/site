@@ -14,6 +14,9 @@ define(['../module'], function (module) {
                 compile: function compile(element, attrs) {
                     return {
                         pre: function (scope, element, attrs, ngModelController) {
+
+                        },
+                        post: function (scope, element, attrs, ngModelController) {
                             var image = new Image();
                             image.onload = function () {
                                 console.log('onload');
@@ -23,20 +26,25 @@ define(['../module'], function (module) {
                                     width: '300px',
                                     height: '350px'
                                 });
+                                ngModelController.$setViewValue(null);
+                                ngModelController.$commitViewValue();
                             };
                             image.onerror = function () {
                                 console.log('onerror');
                                 element.addClass('image-not-found');
+                                ngModelController.$setViewValue(scope.typeImage);
+                                ngModelController.$commitViewValue();
                             };
                             image.src = scope.imageUrl;
-                        },
-                        post: function (scope, element, attrs, ngModelController) {
-
                         }
                     }
                 },
-                link: function (scope, element, attrs) {
+                link: function (scope, element, attrs,ngModel) {
+                    init();
 
+                    function init() {
+                        ngModel.$setViewValue('test');
+                    }
                 },
                 //templateUrl: '/views/Common/setImage.html'
             }

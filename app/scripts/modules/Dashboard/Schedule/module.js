@@ -7,7 +7,7 @@ define(['angular', 'angular-ui-calendar'], function (module) {
             $stateProvider
                 .state('dashboard.schedule', {
                     url: "/schedule",
-                    templateUrl: './views/dashboard/schedule/schedule.html',
+                    templateUrl: '../../../../views/Dashboard/Schedule/schedule.html',
                     controller: 'Dashboard.Schedule.ScheduleController as controller'
                 });
         });

@@ -18,7 +18,7 @@ define(['angular', 'angular-animate'], function (module) {
                 })
                 .state('common.home', {
                     url: "/home",
-                    templateUrl: './views/dashboard/home.html'
+                    templateUrl: '../../../views/Dashboard/home.html'
                 });
         });
 });

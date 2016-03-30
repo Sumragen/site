@@ -3,7 +3,7 @@
  */
 define(
     [
-        './controller/ProfileController',
+        './controller/profileController',
         './service/ProfileService'
     ],
     function () {

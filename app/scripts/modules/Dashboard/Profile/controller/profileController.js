@@ -42,26 +42,22 @@ define(['../module'], function (module) {
                     first_name: {
                         type: "string",
                         minLength: 4,
-                        title: "First Name",
-                        description: "Your first name"
+                        title: "First Name"
                     },
                     last_name: {
                         type: "string",
                         minLength: 4,
-                        title: "Last Name",
-                        description: "Your last name"
+                        title: "Last Name"
                     },
                     username: {
                         type: "string",
                         minLength: 4,
-                        title: "Login",
-                        description: "Your login"
+                        title: "Login"
                     },
                     "email": {
                         "title": "Email",
                         "type": "string",
-                        "pattern": "^\\S+@\\S+$",
-                        "description": "Your email"
+                        "pattern": "^\\S+@\\S+$"
                     },
                     'avatar': {
                         type: 'file'

@@ -19,7 +19,7 @@
                     <li><a class="Roboto-custom-text">Hi, {{contextUser.username}}!</a></li>
                     <li class="dropdown">
                         <a href="" data-target="#" class="dropdown-toggle Roboto-custom-text" data-toggle="dropdown">
-                            <img height="30px" width="30px" src={{contextUser.avatar}} class="user-avatar-on-header" ng-if=contextUser.avatar>
+                            <img height="30px" width="30px" ng-src={{contextUser.avatar}} class="user-avatar-on-header" ng-if=contextUser.avatar>
                             <i class="material-icons" ng-if=!contextUser.avatar>face</i>
                         </a>
                         <ul class="dropdown-menu">

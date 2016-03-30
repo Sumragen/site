@@ -142,7 +142,7 @@ define([
                     schemaFormDecoratorsProvider.addMapping(
                         'bootstrapDecorator',
                         'fileinput',
-                        'views/dashboard/profile/uploadFile.html'
+                        'views/Common/uploadFile.html'
                     );
 
                     schemaFormProvider.postProcess(function (form) {

@@ -10,7 +10,7 @@ define(['../module'], function (module) {
                     typeImage: '@sSetImage',
                     imageUrl: '='
                 },
-                templateUrl: '/views/common/setImage.html'
+                templateUrl: '/views/Common/setImage.html'
             }
         }
     ]);

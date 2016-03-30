@@ -18,7 +18,7 @@ module.exports = {
         }
     },
     less: {
-        files: ['<%= appConfig.app %>/styles/*.less'],
+        files: ['<%= appConfig.app %>/styles/**/*.less'],
         tasks: ['less:development'],
         options: {
             livereload: true

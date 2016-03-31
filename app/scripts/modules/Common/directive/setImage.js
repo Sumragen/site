@@ -3,50 +3,34 @@
  */
 define(['../module'], function (module) {
     module.directive('sSetImage', [
-        '$compile',
-        function ($compile) {
+        function () {
             return {
                 restrict: 'A',
-                scope: {
-                    typeImage: '@sSetImage',
-                    imageUrl: '='
-                },
-                require: '^ngModel',
                 compile: function compile(element, attrs) {
                     return {
-                        pre: function (scope, element, attrs, ngModelController) {
+                        post: function (scope, element, attrs) {
+                            var errorClass = attrs['sClassOnError'];
+                            var imageUrl = attrs['imageUrl'];
 
-                        },
-                        post: function (scope, element, attrs, ngModelController) {
                             var image = new Image();
-                            image.onload = function () {
-                                console.log('onload');
+
+                            attrs.$observe('imageUrl', function(newUrl){
                                 element.css({
-                                    backgroundImage: 'url(' + scope.imageUrl + ')',
-                                    backgroundSize: 'cover',
-                                    width: '300px',
-                                    height: '350px'
+                                    backgroundImage: 'url(' + newUrl + ')'
                                 });
-                                ngModelController.$setViewValue(null);
-                                ngModelController.$commitViewValue();
+                            });
+                            image.onload = function () {
+                                element.addClass('avatar');
+                                element.css({
+                                    backgroundImage: 'url(' + imageUrl + ')'
+                                });
                             };
                             image.onerror = function () {
-                                console.log('onerror');
-                                element.addClass("material-icons image-not-found");
-                                //$compile(element)(scope);
-                                if (scope.typeImage === 'Avatar') {
-                                    ngModelController.$setViewValue('person');
-                                } else {
-                                    ngModelController.$setViewValue('image');
-                                }
-                                ngModelController.$commitViewValue();
+                                element.addClass(errorClass || '');
                             };
-                            image.src = scope.imageUrl;
+                            image.src = imageUrl;
                         }
                     }
-                },
-                link: function (scope, element, attrs, ngModel) {
-
                 }
             }
         }

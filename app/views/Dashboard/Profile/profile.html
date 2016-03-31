@@ -7,12 +7,7 @@
         <div class="row">
             <div class="col-xs-6 col-md-3">
                 <a href="#" class="thumbnail">
-                    <div s-set-image="Avatar"
-                         image-url="currentUser.avatar"
-                         ng-model="imageType"
-                         ng-bind="imageType">
-                    </div>
-                    <div ng-show="imageType">{{imageType}} not found!</div>
+                    <div s-set-image="" class="material-icons" s-class-on-error="person" image-url="{{currentUser.avatar}}"></div>
                 </a>
             </div>
         </div>

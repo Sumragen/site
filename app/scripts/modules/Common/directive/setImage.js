@@ -9,7 +9,8 @@ define(['../module'], function (module) {
                 link: function (scope, element, attrs) {
                     var errorClass = attrs['sClassOnError'];
                     var image = new Image();
-                    attrs.$observe('imageUrl', function (newUrl) {
+                    attrs.$observe('sImageUrl', function (newUrl) {
+
                         image.onload = function () {
                             element.removeClass(errorClass);
                             element.addClass('avatar');
@@ -17,10 +18,12 @@ define(['../module'], function (module) {
                                 backgroundImage: 'url(' + newUrl + ')'
                             });
                         };
+
                         image.onerror = function () {
                             element.removeClass('avatar');
                             element.addClass(errorClass || '');
                         };
+
                         if (typeof newUrl === 'string') {
                             image.src = newUrl;
                         }else{

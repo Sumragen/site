@@ -18,6 +18,7 @@ define(['../module'], function (module) {
                             });
                         };
                         image.onerror = function () {
+                            element.removeClass('avatar');
                             element.addClass(errorClass || '');
                         };
                         if (typeof newUrl === 'string') {

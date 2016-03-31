@@ -3,7 +3,8 @@
  */
 define(['../module'], function (module) {
     module.directive('sSetImage', [
-        function () {
+        '$compile',
+        function ($compile) {
             return {
                 restrict: 'A',
                 scope: {
@@ -31,22 +32,22 @@ define(['../module'], function (module) {
                             };
                             image.onerror = function () {
                                 console.log('onerror');
-                                element.addClass('image-not-found');
-                                ngModelController.$setViewValue(scope.typeImage);
+                                element.addClass("material-icons image-not-found");
+                                //$compile(element)(scope);
+                                if (scope.typeImage === 'Avatar') {
+                                    ngModelController.$setViewValue('person');
+                                } else {
+                                    ngModelController.$setViewValue('image');
+                                }
                                 ngModelController.$commitViewValue();
                             };
                             image.src = scope.imageUrl;
                         }
                     }
                 },
-                link: function (scope, element, attrs,ngModel) {
-                    init();
+                link: function (scope, element, attrs, ngModel) {
 
-                    function init() {
-                        ngModel.$setViewValue('test');
-                    }
-                },
-                //templateUrl: '/views/Common/setImage.html'
+                }
             }
         }
     ]);

@@ -19,7 +19,7 @@ define(['../module'], function (module) {
             self.showSchemaForm = false;
             self.toggleShowSchemaForm = function () {
                 $scope.currentUser = SecurityContext.getPrincipal();
-                $scope.form[4].previewUrl = $scope.currentUser.avatar;
+                $scope.form[0].previewUrl = $scope.currentUser.avatar;
                 self.showSchemaForm = !self.showSchemaForm;
             };
 
@@ -74,6 +74,15 @@ define(['../module'], function (module) {
 
             $scope.form = [
                 {
+                    key: 'avatar',
+                    title: 'Upload avatar',
+                    type: 'fileinput',
+                    fileType: 'dataUrl',
+                    previewType: 'images',
+                    previewUrl: null,
+                    onFileSelect: null
+                },
+                {
                     "key": "first_name",
                     "placeholder": "First name"
 
@@ -89,15 +98,6 @@ define(['../module'], function (module) {
                 {
                     "key": "email",
                     "placeholder": "email"
-                },
-                {
-                    key: 'avatar',
-                    title: 'Upload avatar',
-                    type: 'fileinput',
-                    fileType: 'dataUrl',
-                    previewType: 'images',
-                    previewUrl: null,
-                    onFileSelect: null
                 }
             ];
 

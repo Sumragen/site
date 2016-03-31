@@ -9,18 +9,16 @@ define(['../module'], function (module) {
                 link: function (scope, element, attrs) {
                     var errorClass = attrs['sClassOnError'];
                     var image = new Image();
-                    attrs.$observe('sImageUrl', function (newUrl) {
+                    attrs.$observe('sSetImage', function (newUrl) {
 
                         image.onload = function () {
                             element.removeClass(errorClass);
-                            element.addClass('avatar');
                             element.css({
                                 backgroundImage: 'url(' + newUrl + ')'
                             });
                         };
 
                         image.onerror = function () {
-                            element.removeClass('avatar');
                             element.addClass(errorClass || '');
                         };
 

@@ -18,6 +18,7 @@ define(['../module'], function (module) {
 
             self.showSchemaForm = false;
             self.toggleShowSchemaForm = function () {
+                $scope.currentUser = SecurityContext.getPrincipal();
                 self.showSchemaForm = !self.showSchemaForm;
             };
 

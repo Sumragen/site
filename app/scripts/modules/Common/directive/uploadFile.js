@@ -28,9 +28,9 @@ define(['../module'], function (module) {
 
                                     reader.readAsDataURL(changeEvent.target.files[0]);
                                 }else{
-                                    ngModelController.$setViewValue(null);
+                                    ngModelController.$setViewValue($scope.$parent.$parent.$parent.model.avatar);
                                     ngModelController.$commitViewValue();
-                                    $scope.form.previewUrl = null;
+                                    $scope.form.previewUrl = $scope.$parent.$parent.$parent.model.avatar;
                                     $scope.$apply();
                                 }
                             } else {

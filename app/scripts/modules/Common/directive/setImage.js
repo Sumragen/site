@@ -6,27 +6,26 @@ define(['../module'], function (module) {
         function () {
             return {
                 restrict: 'A',
-                link: function (scope, element, attrs){
+                link: function (scope, element, attrs) {
                     var errorClass = attrs['sClassOnError'];
-                    var imageUrl = attrs['imageUrl'];
-
                     var image = new Image();
-
-                    attrs.$observe('imageUrl', function(newUrl){
-                        element.css({
-                            backgroundImage: 'url(' + newUrl + ')'
-                        });
+                    attrs.$observe('imageUrl', function (newUrl) {
+                        image.onload = function () {
+                            element.removeClass(errorClass);
+                            element.addClass('avatar');
+                            element.css({
+                                backgroundImage: 'url(' + newUrl + ')'
+                            });
+                        };
+                        image.onerror = function () {
+                            element.addClass(errorClass || '');
+                        };
+                        if (typeof newUrl === 'string') {
+                            image.src = newUrl;
+                        }else{
+                            image.onerror();
+                        }
                     });
-                    image.onload = function () {
-                        element.addClass('avatar');
-                        element.css({
-                            backgroundImage: 'url(' + imageUrl + ')'
-                        });
-                    };
-                    image.onerror = function () {
-                        element.addClass(errorClass || '');
-                    };
-                    image.src = imageUrl;
                 }
             }
         }

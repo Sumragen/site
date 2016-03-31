@@ -30,7 +30,10 @@ define(['../module'], function (module) {
                             }
                         });
                     }
-                },
+                    $scope.$on('destroy', function () {
+                        element.unbind();
+                    })
+                }
             }
         }
     ]);

@@ -19,6 +19,8 @@ define(['../module'], function (module) {
                                     }
                                     ngModelController.$setViewValue(reader.result);
                                     ngModelController.$commitViewValue();
+                                    $scope.form.previewUrl = reader.result;
+                                    $scope.$apply();
                                 };
                                 reader.readAsDataURL(changeEvent.target.files[0]);
                             } else {

@@ -12,7 +12,6 @@ define(['../module'], function (module) {
             var currentUser = SecurityContext.getPrincipal();
             $scope.currentUser = currentUser;
 
-
             $rootScope.$on('securityContext:updated', function (e, user) {
                 $scope.currentUser = currentUser;
             });
@@ -94,6 +93,8 @@ define(['../module'], function (module) {
                     title: 'Upload avatar',
                     type: 'fileinput',
                     fileType: 'dataUrl',
+                    previewType: 'images',
+                    previewUrl: 'previewUrl Test',
                     onFileSelect: null
                 }
             ];

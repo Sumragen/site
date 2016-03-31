@@ -3,6 +3,13 @@
     <label class="control-label {{form.labelHtmlClass}}" ng-class="{'sr-only': !showTitle()}"
            for="{{form.key.slice(-1)[0]}}">{{form.title}}</label>
 
+    <div class="row" ng-show="form.previewType === 'images'">
+        <div class="col-xs-6 col-md-3">
+            <a href="#" class="thumbnail">
+                <div s-set-image="{{form.previewUrl}}" class="material-icons avatar" s-class-on-error="person"></div>
+            </a>
+        </div>
+    </div>
 
     <input ng-if="!form.fieldAddonLeft && !form.fieldAddonRight"
            accept="image/*"

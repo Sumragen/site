@@ -20,6 +20,9 @@ define(['../module'], function (module) {
 
                         image.onerror = function () {
                             element.addClass(errorClass || '');
+                            element.css({
+                                backgroundImage: 'none'
+                            });
                         };
 
                         if (typeof newUrl === 'string') {

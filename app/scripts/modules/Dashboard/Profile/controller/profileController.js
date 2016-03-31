@@ -19,6 +19,7 @@ define(['../module'], function (module) {
             self.showSchemaForm = false;
             self.toggleShowSchemaForm = function () {
                 $scope.currentUser = SecurityContext.getPrincipal();
+                $scope.form[4].previewUrl = null;
                 self.showSchemaForm = !self.showSchemaForm;
             };
 
@@ -95,7 +96,7 @@ define(['../module'], function (module) {
                     type: 'fileinput',
                     fileType: 'dataUrl',
                     previewType: 'images',
-                    previewUrl: 'previewUrl Test',
+                    previewUrl: null,
                     onFileSelect: null
                 }
             ];

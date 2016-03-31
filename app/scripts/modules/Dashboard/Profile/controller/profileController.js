@@ -18,6 +18,7 @@ define(['../module'], function (module) {
 
             self.showSchemaForm = false;
             self.toggleShowSchemaForm = function () {
+                $scope.profile = $scope.currentUser || {};
                 $scope.currentUser = SecurityContext.getPrincipal();
                 $scope.form[0].previewUrl = $scope.currentUser.avatar;
                 self.showSchemaForm = !self.showSchemaForm;
@@ -100,8 +101,6 @@ define(['../module'], function (module) {
                     "placeholder": "email"
                 }
             ];
-
-            $scope.profile = $scope.currentUser || {};
         }
     ]);
 });

@@ -27,6 +27,11 @@ define(['../module'], function (module) {
                                     };
 
                                     reader.readAsDataURL(changeEvent.target.files[0]);
+                                }else{
+                                    ngModelController.$setViewValue(null);
+                                    ngModelController.$commitViewValue();
+                                    $scope.form.previewUrl = null;
+                                    $scope.$apply();
                                 }
                             } else {
                                 if (typeof $scope.form.onFileSelect === 'function') {

@@ -42,10 +42,14 @@ require.config({
             deps: ['angular']
         },
         'material': {
-            deps: ['twitter-bootstrap','ripples']
+            deps: ['twitter-bootstrap', 'ripples', 'arrive']
+        },
+        arrive: {
+            deps: ['jquery'],
+            exports: 'arrive'
         },
         'ripples': {
-            deps: ['jquery','arrive']
+            deps: ['jquery']
         },
         'angular-ui-calendar': {
             deps: ['angular', 'fullcalendar']

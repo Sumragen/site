@@ -8,7 +8,6 @@ define([
         'logicify-gmap',
         'twitter-bootstrap',
         'material',
-        'ripples',
         'angular-strap',
         'angular-strap-tpl',
         'angular-animate',

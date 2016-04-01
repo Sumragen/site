@@ -44,18 +44,21 @@ logicify-gmap {
 //animation
 @overflow : auto;
 html, body {
-  .avatar{
-    background-size: contain;
-    background-repeat: no-repeat;
-    width: 100%;
-    height: 235px;
+  .thumbnail {
+    width: 300px;
+    .avatar {
+      background-size: contain;
+      background-repeat: no-repeat;
+      width: 100%;
+      height: 235px;
+    }
   }
-  .person{
+  .person {
     width: 215px;
     height: 200px;
   }
-  .person:after{
-    content:'person';
+  .person:after {
+    content: 'person';
     font-size: 200px;
   }
   position: relative;
@@ -74,7 +77,7 @@ html, body {
   .page-content {
 
   }
-  .fixed-width{
+  .fixed-width {
     margin-left: 15%;
     margin-right: 15%;
   }

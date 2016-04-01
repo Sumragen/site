@@ -3,17 +3,8 @@
     <label class="control-label {{form.labelHtmlClass}}" ng-class="{'sr-only': !showTitle()}"
            for="{{form.key.slice(-1)[0]}}">{{form.title}}</label>
 
-
-    <div class="row" ng-show="form.previewType === 'image'">
-        <div class="col-sm-6 col-md-4">
-            <div class="thumbnail">
-                <img ng-src="{{ngModel.$viewValue}}" alt="Preview">
-            </div>
-        </div>
-    </div>
-
     <input ng-if="!form.fieldAddonLeft && !form.fieldAddonRight"
-           accept="image/*"
+           accept="{{form.previewType}}/*"
            ng-model="$$value$$"
            s-upload-file="form.fileType"
            ng-show="form.key"
@@ -35,7 +26,7 @@
           class="input-group-addon"
           ng-bind-html="form.fieldAddonLeft"></span>
         <input ng-show="form.key"
-               accept="image/*"
+               accept="{{form.previewType}}/*"
                ng-model="$$value$$"
                s-upload-file="form.fileType"
                type="file"
@@ -65,4 +56,12 @@
       class="sr-only">{{ hasSuccess() ? '(success)' : '(error)' }}</span>
 
     <div class="help-block" sf-message="form.description"></div>
+</div>
+
+<div class="row" ng-show="form.previewType === 'image'">
+    <div class="col-sm-6 col-md-4">
+        <div class="thumbnail">
+            <img ng-src="{{ngModel.$viewValue}}" alt="Preview">
+        </div>
+    </div>
 </div>

@@ -61,7 +61,7 @@
 <div class="row" ng-show="form.previewType === 'image'">
     <div class="col-sm-6 col-md-4">
         <div class="thumbnail">
-            <img ng-src="{{ngModel.$viewValue}}" alt="Preview">
+            <div s-set-image="{{ngModel.$viewValue}}" class="material-icons avatar" s-class-on-error="person"></div>
         </div>
     </div>
 </div>

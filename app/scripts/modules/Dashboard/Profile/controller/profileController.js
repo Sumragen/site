@@ -18,19 +18,14 @@ define(['../module'], function (module) {
 
             self.showSchemaForm = false;
             self.toggleShowSchemaForm = function () {
-                $scope.profile = $scope.currentUser || {};
                 $scope.currentUser = SecurityContext.getPrincipal();
-                $scope.form[0].previewUrl = $scope.currentUser.avatar;
                 self.showSchemaForm = !self.showSchemaForm;
             };
 
             self.editProfile = function (form) {
                 $scope.$broadcast('schemaFormValidate');
                 if (form.$valid) {
-                    profileService.updateUser({
-                        user: $scope.profile,
-                        id: currentUser.id
-                    }).then(function () {
+                    profileService.updateUser($scope.currentUser).then(function () {
                         self.toggleShowSchemaForm();
                     }, function () {
                         //some code
@@ -79,8 +74,7 @@ define(['../module'], function (module) {
                     title: 'Upload avatar',
                     type: 'fileinput',
                     fileType: 'dataUrl',
-                    previewType: 'images',
-                    previewUrl: null,
+                    previewType: 'image',
                     onFileSelect: null
                 },
                 {

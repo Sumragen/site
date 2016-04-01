@@ -4,13 +4,14 @@
            for="{{form.key.slice(-1)[0]}}">{{form.title}}</label>
 
 
-    <div class="row" ng-show="form.previewType === 'images'">
+    <div class="row" ng-show="form.previewType === 'image'">
         <div class="col-sm-6 col-md-4">
             <div class="thumbnail">
                 <img ng-src="{{ngModel.$viewValue}}" alt="Preview">
             </div>
         </div>
     </div>
+
     <input ng-if="!form.fieldAddonLeft && !form.fieldAddonRight"
            accept="image/*"
            ng-model="$$value$$"

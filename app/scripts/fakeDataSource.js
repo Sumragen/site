@@ -245,7 +245,7 @@ define(['lodash'], function (_) {
         var tempUser = angular.fromJson(dataUser);
         return _.find(data.user.objects, function (user, index) {
             if (tempUser.id === user.id) {
-                data.user.objects[index] = tempUser.user;
+                data.user.objects[index] = tempUser;
                 commit();
                 return user;
             }

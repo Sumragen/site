@@ -13,25 +13,22 @@ define(['../module'], function (module) {
                         element.bind("change", function (changeEvent) {
                             if ($scope.form.fileType === 'dataUrl') {
                                 var reader = new FileReader();
-                                var fileTypes = ['jpeg', 'jpg', 'pjpeg', 'png', 'svg', 'tiff', 'ico', 'wbm'];
-                                var extension = changeEvent.target.files[0].name.split('.').pop().toLowerCase(), isSuccess = fileTypes.indexOf(extension);
-                                if (isSuccess !== -1) {
+                                var fileMIMEType = changeEvent.target.files[0].type;
+
+                                if (fileMIMEType.indexOf($scope.form.previewType) > -1) {
                                     reader.onloadend = function () {
                                         if (typeof $scope.form.onFileSelect === 'function') {
                                             $scope.form.onFileSelect(reader.result);
                                         }
                                         ngModelController.$setViewValue(reader.result);
                                         ngModelController.$commitViewValue();
-                                        $scope.form.previewUrl = reader.result;
                                         $scope.$apply();
                                     };
 
                                     reader.readAsDataURL(changeEvent.target.files[0]);
                                 }else{
-                                    ngModelController.$setViewValue($scope.$parent.$parent.$parent.model.avatar);
+                                    ngModelController.$setViewValue(ngModelController.$modelValue);
                                     ngModelController.$commitViewValue();
-                                    $scope.form.previewUrl = $scope.$parent.$parent.$parent.model.avatar;
-                                    $scope.$apply();
                                 }
                             } else {
                                 if (typeof $scope.form.onFileSelect === 'function') {

@@ -28,6 +28,7 @@ require.config({
         'material': '../../bower_components/bootstrap-material-design/dist/js/material',
         'tv4': '../../bower_components/tv4/tv4',
         'objectpath': '../../bower_components/objectpath/lib/ObjectPath',
+        'arrive': '../../bower_components/arrive/src/arrive',
         'google': 'https://maps.googleapis.com/maps/api/js?v=3.24&key=AIzaSyB2I-5q7CdsT5Kx1hQMuEgWiWCH_0U_7Ts'
     },
     shim: {
@@ -41,7 +42,10 @@ require.config({
             deps: ['angular']
         },
         'material': {
-            deps: ['angular', 'twitter-bootstrap']
+            deps: ['twitter-bootstrap','ripples']
+        },
+        'ripples': {
+            deps: ['jquery','arrive']
         },
         'angular-ui-calendar': {
             deps: ['angular', 'fullcalendar']
@@ -56,9 +60,7 @@ require.config({
         'angular-strap': {
             deps: ['angular']
         },
-        'ripples': {
-            deps: ['twitter-bootstrap', 'jquery']
-        },
+
         'angular-touch': {
             deps: ['angular']
         },

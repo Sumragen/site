@@ -35,7 +35,8 @@
     "angular-touch": "^1.5.2",
     "angular-schema-form": "^0.8.12",
     "tv4": "^1.2.7",
-    "objectpath": "^1.2.1"
+    "objectpath": "^1.2.1",
+    "arrive": "^2.3.1"
   },
   "devDependencies": {
     "angular-bootstrap": "^1.2.4",

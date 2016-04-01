@@ -50,7 +50,7 @@ define(['../module', 'lodash'], function (module, _) {
                 self.tempSchedule = scheduleService.parseLessons(day);
                 self.tempSchedule.forEach(function (lesson) {
                     if (lesson) {
-                        var lessonTime = schedulingUtil.getLessonsScheduling(lesson.num);
+                        var lessonTime = schedulingUtil.getLesson(lesson.num);
                         $scope.events.push({
                             title: lesson.lesson,
                             start: lessonTime.from.hours() + ':' + lessonTime.from.minutes(),

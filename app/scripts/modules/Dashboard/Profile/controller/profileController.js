@@ -75,6 +75,7 @@ define(['../module'], function (module) {
                     type: 'fileinput',
                     fileType: 'dataUrl',
                     previewType: 'image',
+                    accept: 'image/png,image/jpeg',
                     onFileSelect: null
                 },
                 {

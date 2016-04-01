@@ -15,20 +15,19 @@ define(['../module'], function (module) {
                                 var reader = new FileReader();
                                 var fileMIMEType = changeEvent.target.files[0].type;
 
-                                if (fileMIMEType.indexOf($scope.form.previewType) > -1) {
-                                    reader.onloadend = function () {
-                                        if (typeof $scope.form.onFileSelect === 'function') {
-                                            $scope.form.onFileSelect(reader.result);
-                                        }
-                                        ngModelController.$setViewValue(reader.result);
-                                        ngModelController.$commitViewValue();
-                                    };
+                                $scope.form.accept.split(',').forEach(function (type) {
+                                    if (fileMIMEType.indexOf(type) > -1) {
+                                        reader.onloadend = function () {
+                                            if (typeof $scope.form.onFileSelect === 'function') {
+                                                $scope.form.onFileSelect(reader.result);
+                                            }
+                                            ngModelController.$setViewValue(reader.result);
+                                            ngModelController.$commitViewValue();
+                                        };
 
-                                    reader.readAsDataURL(changeEvent.target.files[0]);
-                                }else{
-                                    ngModelController.$setViewValue(ngModelController.$modelValue);
-                                    ngModelController.$commitViewValue();
-                                }
+                                        reader.readAsDataURL(changeEvent.target.files[0]);
+                                    }
+                                });
                             } else {
                                 if (typeof $scope.form.onFileSelect === 'function') {
                                     $scope.form.onFileSelect(changeEvent.target.files[0]);

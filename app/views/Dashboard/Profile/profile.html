@@ -5,10 +5,10 @@
             <i class="material-icons" ng-click="controller.toggleShowSchemaForm()">mode_edit</i>
         </div>
         <div class="row">
-            <div class="col-xs-6 col-md-3">
-                <a href="#" class="thumbnail">
+            <div class="col-sm-6 col-md-4">
+                <div class="thumbnail">
                     <div s-set-image="{{currentUser.avatar}}" class="material-icons avatar" s-class-on-error="person"></div>
-                </a>
+                </div>
             </div>
         </div>
         <h4>First name : {{currentUser.first_name}}</h4>
@@ -21,7 +21,7 @@
         <form name="editForm"
               sf-schema="schema"
               sf-form="form"
-              sf-model="profile">
+              sf-model="currentUser">
         </form>
         <a class="btn btn-default" ng-click="controller.toggleShowSchemaForm()">Cancel</a>
         <a class="btn btn-info" ng-click="controller.editProfile(editForm)">Submit</a>

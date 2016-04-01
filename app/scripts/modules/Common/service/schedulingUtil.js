@@ -72,21 +72,15 @@ define(
                     service.getTimeShift = function () {
                         return _timeShift;
                     };
-                    service.getLesson = function (lesson, timeShift, timeBreaks) {
-                        return angular.copy(_cache['BASE_LESSONS_SCHEDULE'][lesson]);
-                    };
-                    service.getLessonsScheduling = function (lesson, timeshift, timeBreaks) {
+                    service.getLesson = function (lesson) {
                         if (lesson != null) {
                             //single lesson
-                            return service.getLesson(lesson, timeshift, timeBreaks);
+                            return angular.copy(_cache['BASE_LESSONS_SCHEDULE'][lesson]);
                         } else {
                             //all of them
-                            var tempLessons = [];
-                            for (lesson = 0; lesson < 9; lesson++) {
-                                tempLessons.push(service.getLesson(lesson, timeshift, timeBreaks));
-                            }
-                            return tempLessons;
+                            return angular.copy(_cache['BASE_LESSONS_SCHEDULE']);
                         }
+
                     };
                     return service;
                 }

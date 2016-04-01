@@ -13,10 +13,10 @@ define(['../module'], function (module) {
                         element.bind("change", function (changeEvent) {
                             if ($scope.form.fileType === 'dataUrl') {
                                 var reader = new FileReader();
-                                var fileMIMEType = changeEvent.target.files[0].type;
+                                var fileMimeType = changeEvent.target.files[0].type;
 
                                 $scope.form.accept.split(',').forEach(function (type) {
-                                    if (fileMIMEType.indexOf(type) > -1) {
+                                    if (fileMimeType.indexOf(type) > -1) {
                                         reader.onloadend = function () {
                                             if (typeof $scope.form.onFileSelect === 'function') {
                                                 $scope.form.onFileSelect(reader.result);

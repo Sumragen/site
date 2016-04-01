@@ -1,5 +1,5 @@
 <!--temp ng-controller; root controller-->
-<header>
+<header class="common-header">
     <div class="navbar custom-navbar">
         <div class="container-fluid">
             <div class="navbar-header custom-navbar-header">
@@ -16,7 +16,6 @@
                     <li><a ng-click="showSignUpModal()" href="" class="Roboto-custom-text">Sign Up</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right custom-navbar-right" ng-if=contextUser>
-                    <li><a class="Roboto-custom-text">Hi, {{contextUser.username}}!</a></li>
                     <li class="dropdown">
                         <a href="" data-target="#" class="dropdown-toggle Roboto-custom-text" data-toggle="dropdown">
                             <div class="list-group">

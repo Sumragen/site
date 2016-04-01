@@ -17,7 +17,7 @@ define(['../module', 'lodash'], function (module, _) {
             self.showDayModal = function (date) {
                 var modalInstance = $uibModal.open({
                     animation: true,
-                    templateUrl: "../../../../../views/Dashboard/Schedule/day.html",
+                    templateUrl: "views/Dashboard/Schedule/day.html",
                     controller: "Dashboard.Schedule.DayController as controller",
                     size: 'lg',
                     windowClass: 'custom-modal-day',

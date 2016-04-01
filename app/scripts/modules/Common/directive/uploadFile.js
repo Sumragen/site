@@ -9,6 +9,7 @@ define(['../module'], function (module) {
                 restrict: 'A',
                 require: '^ngModel',
                 link: function ($scope, element, attrs, ngModelController) {
+                    $scope.form.previewType === 'image' ? $scope.form.accept = $scope.form.accept || 'image/*' : $scope.form.accept = $scope.form.accept || '';
                     if (element.attr('type') === 'file') {
                         element.bind("change", function (changeEvent) {
                             if ($scope.form.fileType === 'dataUrl') {

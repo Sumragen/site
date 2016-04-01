@@ -4,7 +4,7 @@
            for="{{form.key.slice(-1)[0]}}">{{form.title}}</label>
 
     <input ng-if="!form.fieldAddonLeft && !form.fieldAddonRight"
-           accept="{{form.accept || '/*'}}"
+           accept="{{form.accept}}"
            ng-model="$$value$$"
            s-upload-file="form.fileType"
            ng-show="form.key"

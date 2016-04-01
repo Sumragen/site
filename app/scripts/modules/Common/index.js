@@ -9,6 +9,7 @@ define(
         './service/validationMessageBuilder',
         './directive/uploadFile',
         './directive/setImage',
+        './directive/loadingIndicator',
         './endpoint'
     ],
     function () {

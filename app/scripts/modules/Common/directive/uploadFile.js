@@ -3,8 +3,7 @@
  */
 define(['../module'], function (module) {
     module.directive('sUploadFile', [
-        'Endpoint',
-        function (endpoint) {
+        function () {
             return {
                 restrict: 'A',
                 require: '^ngModel',
@@ -25,7 +24,6 @@ define(['../module'], function (module) {
                                             ngModelController.$setViewValue(reader.result);
                                             ngModelController.$commitViewValue();
                                         };
-
                                         reader.readAsDataURL(changeEvent.target.files[0]);
                                     }
                                 });

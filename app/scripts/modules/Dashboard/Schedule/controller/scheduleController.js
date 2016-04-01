@@ -11,8 +11,10 @@ define(['../module', 'lodash'], function (module, _) {
         'Dashboard.Schedule.ScheduleService',
         'ScheduleConstants',
         'Common.SchedulingUtil',
-        //'Common.ModalService',
-        function ($scope, $rootScope, moment, $filter, $uibModal, scheduleService, scheduleConst, schedulingUtil) {
+        'scheduleData',
+        function ($scope, $rootScope, moment, $filter, $uibModal, scheduleService, scheduleConst, schedulingUtil, scheduleData) {
+            var someData = scheduleData;
+
             var self = this;
             self.showDayModal = function (date) {
                 var modalInstance = $uibModal.open({
@@ -29,11 +31,11 @@ define(['../module', 'lodash'], function (module, _) {
                     }
                 });
 
-                modalInstance.result
-                    .then(function () {
-                        //$state.go('dashboard.profile');
-                    }, function () {
-                    });
+                modalInstance.result.then(function () {
+                    //$state.go('dashboard.profile');
+                }, function () {
+
+                });
             };
 
             $scope.eventSource = {
@@ -42,39 +44,28 @@ define(['../module', 'lodash'], function (module, _) {
             };
 
             $scope.events = [];
-
-            $scope.eventsF = function (start, end) {
-                scheduleService.loadSchedule().then(function (data) {
-                    $scope.currentSchedule = data.data.schedule;
-                    createEventList($scope.currentSchedule.objects.schedule, start, end);
+            var step = 0;
+            scheduleData.data.schedule.objects.schedule.forEach(function (day) {
+                step++;
+                self.tempSchedule = scheduleService.parseLessons(day);
+                self.tempSchedule.forEach(function (lesson) {
+                    if (lesson) {
+                        var lessonTime = schedulingUtil.getLessonsScheduling(lesson.num);
+                        $scope.events.push({
+                            title: lesson.lesson,
+                            start: lessonTime.from.hours() + ':' + lessonTime.from.minutes(),
+                            end: lessonTime.to.hours() + ':' + lessonTime.to.minutes(),
+                            allDay: false,
+                            dow: [step]
+                        });
+                    }
                 });
+            });
+
+            $scope.eventsF = function (start, end, timezone, callback) {
+                $scope.currentSchedule = scheduleData.data.schedule;
+                callback()
             };
-
-            $scope.createEvent = function (lesson, step) {
-                var lessonTime = schedulingUtil.getLessonsScheduling(lesson.num);
-
-                $scope.events.push({
-                    title: lesson.lesson,
-                    start: lessonTime.from.hours() + ':' + lessonTime.from.minutes(),
-                    end: lessonTime.to.hours() + ':' +  lessonTime.to.minutes(),
-                    allDay: false,
-                    dow: [step]
-                });
-            };
-
-            function createEventList(schedule, start, end) {
-                var step = 0;
-                schedule.forEach(function (day) {
-                    step++;
-                    self.tempSchedule = scheduleService.parseLessons(day);
-                    self.tempSchedule.forEach(function (lesson) {
-                        if (lesson) {
-                            $scope.createEvent(lesson, step, start, end);
-                        }
-                    });
-                });
-                return $scope.events;
-            }
 
             $scope.eventSources = [$scope.events, $scope.eventSource, $scope.eventsF];
 

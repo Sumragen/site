@@ -55,7 +55,7 @@ define(['../module', 'lodash'], function (module, _) {
             };
             $scope.ready = function (map) {
                 $scope.map = map;
-
+                $scope.showMap = true;
 
                 var infowindow = new InfoWindow({templateUrl: 'views/Dashboard/nonauth/marker.html'}); //it's not infowindow now. (object like "javascript promise", but not a promise)
                 function attach(marker) {
@@ -83,23 +83,28 @@ define(['../module', 'lodash'], function (module, _) {
                     }
                 };
 
-                eventService.loadEvents().then(function (data) {
-                    $scope.eventList = data.data.events;
-                    _.each($scope.eventList, function (event) {
-                        var marker = new google.maps.Marker({
-                            id: event.id,
-                            name: event.name,
-                            position: new google.maps.LatLng(event.location.latitude, event.location.longitude),
-                            map: map,
-                            title: event.description
+                eventService.loadEvents()
+                    .then(function (data) {
+                        $scope.eventList = data.data.events;
+                        _.each($scope.eventList, function (event) {
+                            var marker = new google.maps.Marker({
+                                id: event.id,
+                                name: event.name,
+                                position: new google.maps.LatLng(event.location.latitude, event.location.longitude),
+                                map: map,
+                                title: event.description
+                            });
+                            $scope.markers.push(marker);
+                            marker.setDraggable(true);
+                            attach(marker);
                         });
-                        $scope.markers.push(marker);
-                        marker.setDraggable(true);
-                        attach(marker);
+                    })
+                    .catch(function (err) {
+                        $scope.error = err.data.message
+                    })
+                    .finally(function () {
+                        $scope.showMap = false;
                     });
-                }, function (err) {
-                    $scope.error = err.data.message
-                });
             };
         }
     ]);

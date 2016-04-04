@@ -1,4 +1,6 @@
-<div class="map">
+<div s-loading-indicator=""></div>
+
+<div class="map" ng-if="!busy">
     <logicify-gmap center="gmOpts.center"
                    gm-options="gmOpts"
                    gm-ready="ready"

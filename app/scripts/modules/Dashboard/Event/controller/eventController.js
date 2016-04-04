@@ -10,22 +10,24 @@ define(['../module', 'lodash'], function (module, _) {
         'Dashboard.Event.EventService',
         function ($q, $scope, $timeout, InfoWindow, eventService) {
             var self = this;
-            $scope.busy = true;
 
             function initMap(map) {
                 $timeout(function () {
                     google.maps.event.trigger(map, 'resize');
                     map.setCenter(new google.maps.LatLng(46.6718272, 32.6118258));
+                    $scope.busy = false;
                 });
             }
 
             self.selectedPage = function (check) {
+                $scope.busy = true;
                 if (check) {
                     $scope.showMap = true;
-                    initMap($scope.map)
+                    initMap($scope.map);
                 } else {
                     $scope.showMap = false;
                 }
+                $scope.busy = false;
             };
 
             //Map version
@@ -52,7 +54,6 @@ define(['../module', 'lodash'], function (module, _) {
                 return defer.promise;
             };
             $scope.ready = function (map) {
-
                 $scope.map = map;
 
 
@@ -99,8 +100,6 @@ define(['../module', 'lodash'], function (module, _) {
                 }, function (err) {
                     $scope.error = err.data.message
                 });
-
-
             };
         }
     ]);

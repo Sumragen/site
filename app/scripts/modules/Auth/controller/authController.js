@@ -6,11 +6,12 @@ define(['../module'], function (module) {
         '$scope',
         //'close',
         '$http',
-        'AuthService',
         '$uibModalInstance',
         '$q',
         '$state',
-        function ($scope, $http, authService, $uibModalInstance, $q, $state) {
+        '$timeout',
+        'AuthService',
+        function ($scope, $http, $uibModalInstance, $q, $state, $timeout, authService) {
             var self = this;
 
             $scope.login = {
@@ -72,24 +73,31 @@ define(['../module'], function (module) {
                 model: {}
             };
             $scope.cancel = function () {
+                $scope.busy = true;
                 $uibModalInstance.dismiss('cancel');
+                $scope.busy = false;
             };
 
             self.signUp = function (form) {
+                $scope.busy = true;
                 $scope.$broadcast('schemaFormValidate');
                 if (form.$valid) {
                     authService.signUp($scope.signUp.model);
+                    $scope.busy = false;
                     $uibModalInstance.close();
                 }
             };
 
             self.signIn = function (form) {
+                $scope.busy = true;
                 $scope.$broadcast('schemaFormValidate');
                 if (form.$valid) {
                     authService.signIn($scope.login.model).then(function (user) {
                         $scope.error = null;
+                        $scope.busy = false;
                         $uibModalInstance.close();
                     }, function (err) {
+                        $scope.busy = false;
                         $scope.error = err.data.message;
                     });
                 }

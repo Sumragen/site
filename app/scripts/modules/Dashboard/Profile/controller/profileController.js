@@ -3,14 +3,21 @@
  */
 define(['../module'], function (module) {
     module.controller('Dashboard.Profile.ProfileController', [
-        'Common.SecurityContext',
         '$scope',
-        'Dashboard.Profile.ProfileService',
         '$rootScope',
-        function (SecurityContext, $scope, profileService, $rootScope) {
+        '$timeout',
+        'Common.SecurityContext',
+        'Dashboard.Profile.ProfileService',
+        function ($scope, $rootScope, $timeout, SecurityContext, profileService) {
             var self = this;
-            var currentUser = SecurityContext.getPrincipal();
-            $scope.currentUser = currentUser;
+            var currentUser;
+            $scope.busy = true;
+
+            $timeout(function () {
+                currentUser = SecurityContext.getPrincipal();
+                $scope.currentUser = currentUser;
+                $scope.busy = false;
+            }, 0);
 
             $rootScope.$on('securityContext:updated', function (e, user) {
                 $scope.currentUser = currentUser;
@@ -18,17 +25,23 @@ define(['../module'], function (module) {
 
             self.showSchemaForm = false;
             self.toggleShowSchemaForm = function () {
-                $scope.currentUser = SecurityContext.getPrincipal();
-                self.showSchemaForm = !self.showSchemaForm;
+                $scope.busy = true;
+                $timeout(function () {
+                    $scope.currentUser = SecurityContext.getPrincipal();
+                    self.showSchemaForm = !self.showSchemaForm;
+                    $scope.busy = false;
+                }, 0);
             };
 
             self.editProfile = function (form) {
+                $scope.busy = true;
                 $scope.$broadcast('schemaFormValidate');
                 if (form.$valid) {
                     profileService.updateUser($scope.currentUser).then(function () {
+                        $scope.busy = false;
                         self.toggleShowSchemaForm();
                     }, function () {
-                        //some code
+                        $scope.busy = false;
                     });
                 }
             };

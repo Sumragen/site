@@ -1,4 +1,6 @@
-<div class="custom-modal-content">
+<div s-loading-indicator=""></div>
+
+<div class="custom-modal-content" ng-if="!busy">
     <h3>{{selectedDate}}</h3>
     <table class="table table-striped table-hover ">
         <thead>
@@ -10,7 +12,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr ng-repeat="lesson in controller.currentDay track by $index" ng-if="$index !== 0 || (lesson != null || lesson.name != null)" class="info">
+        <tr ng-repeat="lesson in currentDay track by $index" ng-if="$index !== 0 || (lesson != null || lesson.name != null)" class="info">
             <td>{{$index}}</td>
             <td>{{lesson.lesson}}</td>
             <td>{{lesson.classroom}}</td>
@@ -19,6 +21,6 @@
         </tbody>
     </table>
     <p>
-    <h3><b>{{controller.currentDay.dayOff}}</b></h3></p>
+    <h3><b>{{currentDay.dayOff}}</b></h3></p>
     <button type="reset" class="btn btn-default custom-btn-cancel" ng-click="controller.close()">Close</button>
 </div>

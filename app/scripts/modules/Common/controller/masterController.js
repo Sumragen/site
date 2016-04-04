@@ -36,7 +36,9 @@ define(['../module'], function (module) {
 
 
             self.selectTab = function (tab) {
+                $scope.busy = true;
                 self.currentTab = tab;
+                $scope.busy = false;
             };
 
             self.isSelected = function (tab) {

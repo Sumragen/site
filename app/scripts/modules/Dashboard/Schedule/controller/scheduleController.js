@@ -70,7 +70,7 @@ define(['../module', 'lodash'], function (module, _) {
             $timeout(function () {
                 $scope.eventSources = [$scope.events, $scope.eventSource, $scope.eventsF];
                 $scope.busy = false;
-            },1000);
+            },0);
 
             $scope.uiConfig = {
                 calendar: {

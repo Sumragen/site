@@ -8,13 +8,12 @@ define(['../module', 'lodash'], function (module, _) {
         'moment',
         '$filter',
         '$uibModal',
+        '$timeout',
         'Dashboard.Schedule.ScheduleService',
         'ScheduleConstants',
         'Common.SchedulingUtil',
         'scheduleData',
-        function ($scope, $rootScope, moment, $filter, $uibModal, scheduleService, scheduleConst, schedulingUtil, scheduleData) {
-            var someData = scheduleData;
-
+        function ($scope, $rootScope, moment, $filter, $uibModal, $timeout, scheduleService, scheduleConst, schedulingUtil, scheduleData) {
             var self = this;
             self.showDayModal = function (date) {
                 var modalInstance = $uibModal.open({
@@ -67,7 +66,11 @@ define(['../module', 'lodash'], function (module, _) {
                 callback()
             };
 
-            $scope.eventSources = [$scope.events, $scope.eventSource, $scope.eventsF];
+            $scope.busy = true;
+            $timeout(function () {
+                $scope.eventSources = [$scope.events, $scope.eventSource, $scope.eventsF];
+                $scope.busy = false;
+            },1000);
 
             $scope.uiConfig = {
                 calendar: {

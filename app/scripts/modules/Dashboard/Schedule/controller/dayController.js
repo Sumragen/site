@@ -1,7 +1,7 @@
 /**
  * Created by sumragen on 3/18/16.
  */
-define(['../module','lodash'], function (module,_) {
+define(['../module', 'lodash'], function (module, _) {
     module.controller('Dashboard.Schedule.DayController', [
         '$scope',
         '$rootScope',

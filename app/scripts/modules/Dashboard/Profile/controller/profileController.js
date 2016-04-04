@@ -37,12 +37,13 @@ define(['../module'], function (module) {
                 $scope.busy = true;
                 $scope.$broadcast('schemaFormValidate');
                 if (form.$valid) {
-                    profileService.updateUser($scope.currentUser).then(function () {
-                        $scope.busy = false;
-                        self.toggleShowSchemaForm();
-                    }, function () {
-                        $scope.busy = false;
-                    });
+                    profileService.updateUser($scope.currentUser)
+                        .then(function () {
+                            self.toggleShowSchemaForm();
+                        })
+                        .finally(function () {
+                            $scope.busy = false;
+                        });
                 }
             };
 

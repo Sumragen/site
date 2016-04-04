@@ -73,18 +73,18 @@ define(['../module'], function (module) {
                 model: {}
             };
             $scope.cancel = function () {
-                $scope.busy = true;
                 $uibModalInstance.dismiss('cancel');
-                $scope.busy = false;
             };
 
             self.signUp = function (form) {
                 $scope.busy = true;
                 $scope.$broadcast('schemaFormValidate');
                 if (form.$valid) {
-                    authService.signUp($scope.signUp.model);
-                    $scope.busy = false;
-                    $uibModalInstance.close();
+                    authService.signUp($scope.signUp.model)
+                        .then(function () {
+                            $scope.busy = false;
+                            $uibModalInstance.close();
+                        });
                 }
             };
 
@@ -92,14 +92,17 @@ define(['../module'], function (module) {
                 $scope.busy = true;
                 $scope.$broadcast('schemaFormValidate');
                 if (form.$valid) {
-                    authService.signIn($scope.login.model).then(function (user) {
-                        $scope.error = null;
-                        $scope.busy = false;
-                        $uibModalInstance.close();
-                    }, function (err) {
-                        $scope.busy = false;
-                        $scope.error = err.data.message;
-                    });
+                    authService.signIn($scope.login.model)
+                        .then(function (user) {
+                            $scope.error = null;
+                            $uibModalInstance.close();
+                        })
+                        .catch(function (err) {
+                            $scope.error = err.data.message;
+                        })
+                        .finally(function () {
+                            $scope.busy = false;
+                        });
                 }
             };
         }]);

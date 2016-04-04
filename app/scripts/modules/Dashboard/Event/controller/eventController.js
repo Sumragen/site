@@ -15,7 +15,6 @@ define(['../module', 'lodash'], function (module, _) {
                 $timeout(function () {
                     google.maps.event.trigger(map, 'resize');
                     map.setCenter(new google.maps.LatLng(46.6718272, 32.6118258));
-                    $scope.busy = false;
                 });
             }
 

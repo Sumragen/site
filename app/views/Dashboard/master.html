@@ -5,6 +5,7 @@
         <a ui-sref-active="active" ui_sref="dashboard.events" href="" class="btn">Events</a>
     </div>
     <div class="fixed-width">
-        <div class="content" ui-view></div>
+        <div class="content" ng-if="!busy" ui-view></div>
+        <div s-loading-indicator=""></div>
     </div>
 </div>

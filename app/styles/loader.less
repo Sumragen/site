@@ -1,30 +1,31 @@
-$green: #008744;
-$blue: #0057e7;
-$red: #d62d20;
-$yellow: #ffa700;
-$white: #eee;
+@green: #008744;
+@blue: #0057e7;
+@red: #d62d20;
+@yellow: #ffa700;
+@white: #eee;
 
 // scaling... any units
-$width: 100px;
+@width: 100px;
 
 body {
-  background-color: $white;
+  background-color: @white;
 }
 
 // demo-specific
 
 .showbox {
-  position: absolute;
+  //position: absolute;
   top: 0; bottom: 0; left: 0; right: 0;
-  padding: 5%;
+  height: 400px;
+  padding-top: 5%;
 }
 
 // end demo-specific
 
 .loader {
-  position: relative;
+  //position: relative;
   margin: 0px auto;
-  width: $width;
+  width: @width;
   &:before {
     content:'';
     display: block;
@@ -37,7 +38,7 @@ body {
   height: 100%;
   transform-origin: center center;
   width: 100%;
-  position: absolute;
+  //position: absolute;
   top: 0; bottom: 0; left: 0; right: 0;
   margin: auto;
 }
@@ -74,15 +75,15 @@ body {
 }
 @keyframes color{
   100%, 0%{
-    stroke: $red;
+    stroke: @red;
   }
   40%{
-    stroke: $blue;
+    stroke: @blue;
   }
   66%{
-    stroke: $green;
+    stroke: @green;
   }
   80%, 90%{
-    stroke: $yellow;
+    stroke: @yellow;
   }
 }

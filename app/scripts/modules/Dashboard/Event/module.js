@@ -8,7 +8,17 @@ define(['angular'],function(module){
                 .state('dashboard.events', {
                     url: "/events",
                     templateUrl: '../../../../views/Dashboard/Events/events.html',
-                    controller: 'Dashboard.Event.EventController as controller'
+                    controller: 'Dashboard.Event.EventController as controller',
+                    resolve: {
+                        eventsData: function (Endpoint, $http, $q) {
+                            return $http(Endpoint.events.list())
+                                .then(function (data) {
+                                    return data;
+                                }, function (err) {
+                                    return $q.reject(err);
+                                });
+                        }
+                    }
                 });
         });
 

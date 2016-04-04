@@ -9,14 +9,6 @@ define(['../module'], function (module) {
         function ($http, $q, Endpoint) {
             var service = {};
 
-            service.loadEvents = function () {
-                return $http(Endpoint.events.list())
-                    .then(function (data) {
-                        return data;
-                    }, function (err) {
-                        return $q.reject(err);
-                    });
-            };
             return service;
         }]);
 });

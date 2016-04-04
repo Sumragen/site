@@ -9,14 +9,6 @@ define(['../module', 'lodash'], function (module, _) {
         function ($http, $q, Endpoint) {
             var service = {};
 
-            service.loadSchedule = function () {
-                return $http(Endpoint.schedule.list())
-                    .then(function (data) {
-                        return data;
-                    }, function (err) {
-                        return $q.reject(err);
-                    });
-            };
             service.parseLessons = function(day) {
                 var schedule = [null,null,null,null,null,null,null,null,null];
                 _.each(day.lessons,function(lesson){

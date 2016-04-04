@@ -8,7 +8,8 @@ define(['../module', 'lodash'], function (module, _) {
         '$timeout',
         'InfoWindow',
         'Dashboard.Event.EventService',
-        function ($q, $scope, $timeout, InfoWindow, eventService) {
+        'eventsData',
+        function ($q, $scope, $timeout, InfoWindow, eventService, eventsData) {
             var self = this;
 
             function initMap(map) {
@@ -81,29 +82,20 @@ define(['../module', 'lodash'], function (module, _) {
                         self.panorama.setVisible(false);
                     }
                 };
-
-                eventService.loadEvents()
-                    .then(function (data) {
-                        $scope.eventList = data.data.events;
-                        _.each($scope.eventList, function (event) {
-                            var marker = new google.maps.Marker({
-                                id: event.id,
-                                name: event.name,
-                                position: new google.maps.LatLng(event.location.latitude, event.location.longitude),
-                                map: map,
-                                title: event.description
-                            });
-                            $scope.markers.push(marker);
-                            marker.setDraggable(true);
-                            attach(marker);
-                        });
-                    })
-                    .catch(function (err) {
-                        $scope.error = err.data.message
-                    })
-                    .finally(function () {
-                        $scope.showMap = false;
+                $scope.eventList = eventsData.data.events;
+                _.each($scope.eventList, function (event) {
+                    var marker = new google.maps.Marker({
+                        id: event.id,
+                        name: event.name,
+                        position: new google.maps.LatLng(event.location.latitude, event.location.longitude),
+                        map: map,
+                        title: event.description
                     });
+                    $scope.markers.push(marker);
+                    marker.setDraggable(true);
+                    attach(marker);
+                    $scope.showMap = false;
+                });
             };
         }
     ]);

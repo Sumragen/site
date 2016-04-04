@@ -7,7 +7,7 @@ define(
         './service/securityContext',
         './service/schedulingUtil',
         './service/validationMessageBuilder',
-        './service/userPermission',
+        './service/permissionsService',
         './directive/uploadFile',
         './directive/setImage',
         './directive/loadingIndicator',

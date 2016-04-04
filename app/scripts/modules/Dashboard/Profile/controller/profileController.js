@@ -8,14 +8,17 @@ define(['../module'], function (module) {
         '$timeout',
         'Common.SecurityContext',
         'Dashboard.Profile.ProfileService',
-        function ($scope, $rootScope, $timeout, SecurityContext, profileService) {
+        'Common.PermissionsService',
+        function ($scope, $rootScope, $timeout, SecurityContext, profileService, permissionsService) {
             var self = this;
             var currentUser;
             $scope.busy = true;
+            var teacher = [0x001,0x003,0x004,0x007,0x00b,0x00c,0x00d,0x00e];
 
             $timeout(function () {
                 currentUser = SecurityContext.getPrincipal();
                 $scope.currentUser = currentUser;
+                console.log(permissionsService.hasPermissions( null , teacher));
                 $scope.busy = false;
             }, 0);
 
@@ -44,6 +47,7 @@ define(['../module'], function (module) {
                         });
                 }
             };
+
 
             $scope.schema = {
                 "type": "object",

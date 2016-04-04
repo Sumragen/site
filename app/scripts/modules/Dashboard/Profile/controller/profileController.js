@@ -25,12 +25,10 @@ define(['../module'], function (module) {
 
             self.showSchemaForm = false;
             self.toggleShowSchemaForm = function () {
-                $scope.busy = true;
                 $timeout(function () {
                     $scope.currentUser = SecurityContext.getPrincipal();
                     self.showSchemaForm = !self.showSchemaForm;
-                    $scope.busy = false;
-                }, 0);
+                });
             };
 
             self.editProfile = function (form) {

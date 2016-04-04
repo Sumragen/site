@@ -13,8 +13,6 @@ define(['../module', 'lodash'], function (module, _) {
         'Dashboard.Schedule.ScheduleService',
         function ($scope, $rootScope, $uibModalInstance, currentSchedule, moment, date, $filter, scheduleService) {
             var self = this;
-            $scope.busy = true;
-
             self.close = function () {
                 $uibModalInstance.close();
             };
@@ -23,16 +21,14 @@ define(['../module', 'lodash'], function (module, _) {
 
             var tempSchedule = currentSchedule.objects.schedule;
 
-            for (i = 0; i < tempSchedule.length; i++) {
-                if (selectedDay === tempSchedule[i].name) {
-                    $scope.currentDay = scheduleService.parseLessons(tempSchedule[i]);
-                    $scope.busy = false;
-                    return;
-                }
-            }
-
             $scope.currentDay = {dayOff: 'day off'};
-            $scope.busy = false;
+
+            _.each(tempSchedule, function (schedule) {
+                if (selectedDay === schedule.name) {
+                    $scope.currentDay = scheduleService.parseLessons(schedule);
+                }
+            });
+
         }
     ]);
 });

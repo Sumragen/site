@@ -61,11 +61,7 @@ define(['../module', 'lodash'], function (module, _) {
                 });
             });
 
-            $scope.busy = true;
-            $timeout(function () {
-                $scope.eventSources = [$scope.events, $scope.eventSource];
-                $scope.busy = false;
-            },0);
+            $scope.eventSources = [$scope.events, $scope.eventSource];
 
             $scope.uiConfig = {
                 calendar: {

@@ -12,6 +12,35 @@ define(['lodash'], function (_) {
         email: 'root@gmail.com',
         password: 'root'
     };
+    var defaultUsers = [
+        {
+            id: 1,
+            first_name: 'root',
+            last_name: 'root',
+            username: 'admin',
+            email: 'admin@gmail.com',
+            password: 'admin',
+            role: 'ADMIN'
+        },
+        {
+            id: 1,
+            first_name: 'root',
+            last_name: 'root',
+            username: 'teacher',
+            email: 'root@gmail.com',
+            password: 'teacher',
+            role: 'TEACHER'
+        },
+        {
+            id: 1,
+            first_name: 'root',
+            last_name: 'root',
+            username: 'student',
+            email: 'root@gmail.com',
+            password: 'student',
+            role: 'STUDENT'
+        }
+    ];
     var AbstractSubject = {
         id: 1,
         name: 'Literature',
@@ -199,9 +228,7 @@ define(['lodash'], function (_) {
     } else {
         localStorage.setItem("datasource", JSON.stringify({
             user: {
-                objects: [
-                    AbstractUser
-                ],
+                objects: defaultUsers,
                 lastIndex: 1
             },
             event: {

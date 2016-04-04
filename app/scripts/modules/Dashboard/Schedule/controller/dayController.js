@@ -30,7 +30,9 @@ define(['../module', 'lodash'], function (module, _) {
                     return;
                 }
             }
+
             $scope.currentDay = {dayOff: 'day off'};
+            $scope.busy = false;
         }
     ]);
 });

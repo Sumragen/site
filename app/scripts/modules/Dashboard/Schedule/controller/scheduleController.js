@@ -24,7 +24,7 @@ define(['../module', 'lodash'], function (module, _) {
                     windowClass: 'custom-modal-day',
                     resolve: {
                         currentSchedule: function () {
-                            return $scope.currentSchedule;
+                            return scheduleData.data.schedule;
                         },
                         date: date
                     }
@@ -61,14 +61,9 @@ define(['../module', 'lodash'], function (module, _) {
                 });
             });
 
-            $scope.eventsF = function (start, end, timezone, callback) {
-                $scope.currentSchedule = scheduleData.data.schedule;
-                callback()
-            };
-
             $scope.busy = true;
             $timeout(function () {
-                $scope.eventSources = [$scope.events, $scope.eventSource, $scope.eventsF];
+                $scope.eventSources = [$scope.events, $scope.eventSource];
                 $scope.busy = false;
             },0);
 

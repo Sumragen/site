@@ -24,11 +24,14 @@ define(['../module', 'lodash'], function (module, _) {
                 'canDeleteEvents': 0x00e
             };
 
-            with (permissionSet) {
-                var admin = [isTeacher, hasAdminRights, canViewUsers, canEditUser, canAddUsers, canDeleteUsers, canViewSchedule, canEditSchedule, canAddSchedule, canDeleteSchedule, canViewEvents, canEditEvents, canAddEvents, canDeleteEvents];
-                var teacher = [isTeacher, canViewUsers, canEditUser, canViewSchedule, canViewEvents, canEditEvents, canAddEvents, canDeleteEvents];
-                var student = [canViewUsers, canEditUser, canViewSchedule, canViewEvents];
-            }
+            var p = permissionSet;
+            var admin = [
+                p.isTeacher, p.hasAdminRights, p.canViewUsers, p.canEditUser, p.canAddUsers,
+                p.canDeleteUsers, p.canViewSchedule, p.canEditSchedule, p.canAddSchedule, p.canDeleteSchedule,
+                p.canViewEvents, p.canEditEvents, p.canAddEvents, p.canDeleteEvents];
+            var teacher = [p.isTeacher, p.canViewUsers, p.canEditUser, p.canViewSchedule, p.canViewEvents, p.canEditEvents, p.canAddEvents, p.canDeleteEvents];
+            var student = [p.canViewUsers, p.canEditUser, p.canViewSchedule, p.canViewEvents];
+
 
             service.hasPermissions = function (user, checkPermissions) {
                 !user ? user = securityContext.getPrincipal() : user;

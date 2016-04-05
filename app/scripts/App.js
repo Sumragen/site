@@ -35,8 +35,8 @@ define([
             'angularMoment',
             'AuthModule',
             'Common',
-            'Settings',
-            'Dashboard'
+            'Dashboard',
+            'Settings'
         ];
         var validationInjector = null;
         var app = angular.module('MyApp', deps)

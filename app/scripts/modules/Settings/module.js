@@ -17,7 +17,7 @@ define(['angular', 'angular-animate'], function (module) {
                     controller: 'Settings.MasterController as controller',
                     data: {
                         redirect: function (user) {
-                            if(!user) return 'settings.users';
+                            if(!user) return 'common.home';
                         }
                     }
                 });

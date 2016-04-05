@@ -68,6 +68,13 @@ define(['./module', 'lodash'], function (module, _) {
                             method: METHODS.GET,
                             url: '/events'
                         })
+                    },
+                    update: function (event) {
+                        return new API({
+                            method: METHODS.PUT,
+                            url: '/event/' + event.id,
+                            data: event
+                        })
                     }
                 },
                 schedule: {

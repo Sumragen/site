@@ -24,21 +24,11 @@ define(['../module', 'lodash'], function (module, _) {
                 'canDeleteEvents': 0x00e
             };
 
-            /**
-             * Todo: you should use verbose name of permission to fill default group set.
-             * E.g. [permissionSet.isTeacher, permissionSet.hasAdminRights, ...]
-             * @type {number[]}
-             */
-            //example
             with (permissionSet) {
-                var myPermissionGroup = [
-                    isTeacher, hasAdminRights, canAddSchedule, canAddUsers
-                ]
+                var admin = [isTeacher, hasAdminRights, canViewUsers, canEditUser, canAddUsers, canDeleteUsers, canViewSchedule, canEditSchedule, canAddSchedule, canDeleteSchedule, canViewEvents, canEditEvents, canAddEvents, canDeleteEvents];
+                var teacher = [isTeacher, canViewUsers, canEditUser, canViewSchedule, canViewEvents, canEditEvents, canAddEvents, canDeleteEvents];
+                var student = [canViewUsers, canEditUser, canViewSchedule, canViewEvents];
             }
-            var admin = [0x001, 0x002, 0x003, 0x004, 0x005, 0x006, 0x007, 0x008, 0x009, 0x00a, 0x00b, 0x00c, 0x00d, 0x00e];
-            var teacher = [0x001, 0x003, 0x004, 0x007, 0x00b, 0x00c, 0x00d, 0x00e];
-            var student = [0x003, 0x004, 0x007, 0x00b];
-
 
             service.hasPermissions = function (user, checkPermissions) {
                 !user ? user = securityContext.getPrincipal() : user;

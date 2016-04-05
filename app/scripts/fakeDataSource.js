@@ -267,14 +267,23 @@ define(['lodash'], function (_) {
     };
     dataSource.updateUser = function (dataUser) {
         load();
-        var i = 0;
-        var _user = null;
         var tempUser = angular.fromJson(dataUser);
         return _.find(data.user.objects, function (user, index) {
             if (tempUser.id === user.id) {
                 data.user.objects[index] = tempUser;
                 commit();
                 return user;
+            }
+        });
+    };
+    dataSource.updateEvent = function (dataEvent) {
+        load();
+        var tempEvent = angular.fromJson(dataEvent);
+        return _.find(data.event.objects, function (event, index) {
+            if (tempEvent.id === event.id) {
+                data.event.objects[index] = tempEvent;
+                commit();
+                return event;
             }
         });
     };

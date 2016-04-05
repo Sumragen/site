@@ -9,16 +9,16 @@ define(['angular'],function(module){
                     url: "/manageRoles",
                     templateUrl: 'views/Dashboard/Settings/ManageRoles/manageRoles.html',
                     controller: 'Dashboard.Settings.ManageRoles.ManageRolesController as controller',
-                    //resolve: {
-                    //    eventsData: function (Endpoint, $http, $q) {
-                    //        return $http(Endpoint.events.list())
-                    //            .then(function (data) {
-                    //                return data;
-                    //            }, function (err) {
-                    //                return $q.reject(err);
-                    //            });
-                    //    }
-                    //}
+                    resolve: {
+                        rolesData: function (Endpoint, $http, $q) {
+                            return $http(Endpoint.role.list())
+                                .then(function (data) {
+                                    return data.data.roles;
+                                }, function (err) {
+                                    return $q.reject(err);
+                                });
+                        }
+                    }
                 });
         });
 });

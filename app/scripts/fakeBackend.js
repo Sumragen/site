@@ -55,6 +55,26 @@ define(
                     return [400, {errorCode: 4, message: 'Users not found'}];
                 }
             });
+            $httpBackend.whenGET(prefix + '/roles').respond(function (method, url) {
+                var roles = fakeDataSource.getRoles();
+                if (roles) {
+                    return [200, {roles: roles}, {}];
+                } else {
+                    return [400, {errorCode: 5, message: 'Roles not found'}];
+                }
+            });
+            $httpBackend.whenPUT(/\/role\/(0-9)*/).respond(function (method, url, tempRole) {
+                var role = fakeDataSource.updateRole(tempRole);
+                if (role) {
+                    return [200, role, {}];
+                } else {
+                    return [400, {errorCode: 4, message: 'wrong update'}];
+                }
+            });
+            $httpBackend.whenPOST(prefix + '/add/role').respond(function (method, url, data) {
+                fakeDataSource.addRole(data);
+                return [200, angular.fromJson(data), {}];
+            });
             $httpBackend.whenPOST(prefix + '/register').respond(function (method, url, data) {
                 fakeDataSource.addUser(data);
                 return [200, angular.fromJson(data), {}];

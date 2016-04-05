@@ -4,14 +4,44 @@
 define(['lodash'], function (_) {
     var dataSource = {};
 
-    var AbstractUser = {
-        id: 1,
-        first_name: 'root',
-        last_name: 'root',
-        username: 'root',
-        email: 'root@gmail.com',
-        password: 'root'
+    var permissionSet = {
+        'isTeacher': 0x001,
+        'hasAdminRights': 0x002,
+        'canViewUsers': 0x003,
+        'canEditUser': 0x004,
+        'canAddUsers': 0x005,
+        'canDeleteUsers': 0x006,
+        'canViewSchedule': 0x007,
+        'canEditSchedule': 0x008,
+        'canAddSchedule': 0x009,
+        'canDeleteSchedule': 0x00a,
+        'canViewEvents': 0x00b,
+        'canEditEvents': 0x00c,
+        'canAddEvents': 0x00d,
+        'canDeleteEvents': 0x00e
     };
+
+    var p = permissionSet;
+    var admin = {
+        id: 1,
+        name: 'admin',
+        permissions: [p.isTeacher, p.hasAdminRights, p.canViewUsers, p.canEditUser, p.canAddUsers,
+            p.canDeleteUsers, p.canViewSchedule, p.canEditSchedule, p.canAddSchedule, p.canDeleteSchedule,
+            p.canViewEvents, p.canEditEvents, p.canAddEvents, p.canDeleteEvents]
+    };
+    var teacher = {
+        id: 2,
+        name: 'teacher',
+        permissions: [p.isTeacher,
+            p.canViewUsers, p.canEditUser, p.canViewSchedule, p.canViewEvents, p.canEditEvents, p.canAddEvents, p.canDeleteEvents]
+    };
+    var student = {
+        id: 3,
+        name: 'student',
+        permissions: [p.canViewUsers,
+            p.canEditUser, p.canViewSchedule, p.canViewEvents]
+    };
+
     var defaultUsers = [
         {
             id: 1,
@@ -20,7 +50,7 @@ define(['lodash'], function (_) {
             username: 'admin',
             email: 'Davidich@smotra.ru',
             password: 'admin',
-            permissions: [0x001,0x002,0x003,0x004,0x005,0x006,0x007,0x008,0x009,0x00a,0x00b,0x00c,0x00d,0x00e]
+            permissions: admin
         },
         {
             id: 2,
@@ -29,7 +59,7 @@ define(['lodash'], function (_) {
             username: 'teacher',
             email: 'zarrubin@24auto.ru',
             password: 'teacher',
-            permissions: [0x001,0x003,0x004,0x007,0x00b,0x00c,0x00d,0x00e]
+            permissions: teacher
         },
         {
             id: 3,
@@ -38,7 +68,7 @@ define(['lodash'], function (_) {
             username: 'student',
             email: 'Gocha@gmail.com',
             password: 'student',
-            permissions: [0x003,0x004,0x007,0x00b]
+            permissions: student
         }
     ];
     var AbstractSubject = {
@@ -238,14 +268,13 @@ define(['lodash'], function (_) {
             stages: {
                 objects: defautlStage,
                 lastIndex: 0
+            },
+            role: {
+                objects: [admin, teacher, student],
+                lastIndex: 3
             }
         }));
     }
-
-    //example
-    //var user = _.merge(AbstractUser, {user: 'user', password: 'pass'});
-    //data.user.objects = [user];
-    //data.user.lastIndex = 0;
 
     function commit() {
         localStorage.setItem('datasource', JSON.stringify(data));
@@ -258,7 +287,7 @@ define(['lodash'], function (_) {
     dataSource.checkCurrentUser = function (dataUser) {
         load();
         var tempUser = angular.fromJson(dataUser);
-        return _.find(data.user.objects,function (item) {
+        return _.find(data.user.objects, function (item) {
             if (tempUser.username === item.username && tempUser.password === item.password) {
                 return item;
             }
@@ -287,6 +316,24 @@ define(['lodash'], function (_) {
             }
         });
     };
+    dataSource.updateRole = function (dataRole) {
+        load();
+        var tempRole = angular.fromJson(dataRole);
+        return _.find(data.role.objects, function (role, index) {
+            if (tempRole.id === role.id) {
+                data.role.objects[index] = tempRole;
+                commit();
+                return role;
+            }
+        });
+    };
+    dataSource.addRole = function (tempRole) {
+        load();
+        var role = angular.fromJson(tempRole);
+        role.id = ++data.role.lastIndex;
+        data.role.objects.push(role);
+        commit();
+    };
     dataSource.addUser = function (tempUser) {
         load();
         var user = angular.fromJson(tempUser);
@@ -294,6 +341,11 @@ define(['lodash'], function (_) {
         user.permissions = [0x003, 0x004, 0x007, 0x00b];
         data.user.objects.push(user);
         commit();
+    };
+
+    dataSource.getRoles = function () {
+        load();
+        return data.role.objects;
     };
 
     dataSource.getUsers = function () {

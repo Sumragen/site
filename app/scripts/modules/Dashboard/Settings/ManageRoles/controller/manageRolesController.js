@@ -1,16 +1,20 @@
 /**
  * Created by sumragen on 2/27/16.
  */
-define(['../module'], function (module) {
+define(['../module','lodash'], function (module,_) {
     module.controller('Dashboard.Settings.ManageRoles.ManageRolesController', [
         '$scope',
-        function ($scope) {
+        '$http',
+        '$timeout',
+        'Endpoint',
+        'rolesData',
+        function ($scope, $http, $timeout, Endpoint, rolesData) {
             var self = this;
             $scope.permissions = [
-                {title: 'Teacher can do this?', code: 0x001},
-                {title: 'Administrator rights are required?', code: 0x002},
+                {title: 'Teacher rights', code: 0x001},
+                {title: 'Administrator rights', code: 0x002},
                 {title: 'Can view list of all users', code: 0x003},
-                {title: 'Can edit any user', code: 0x004},
+                {title: 'Can edit user list', code: 0x004},
                 {title: 'Can add new user', code: 0x005},
                 {title: 'Can delete users', code: 0x006},
                 {title: 'Can view schedule', code: 0x007},
@@ -35,11 +39,56 @@ define(['../module'], function (module) {
                 }
             };
 
+            $scope.showRoleEditor = false;
+            $scope.toggleShowRoleEditor = function (role) {
+                $timeout(function () {
+                    if (role) {
+                        $scope.isExist = true;
+                        $scope.selection = role.permissions;
+                        $scope.id = role.id;
+                        $scope.roleName = role.name;
+                    } else {
+                        $scope.isExist = false;
+                        $scope.selection = [];
+                        $scope.id = '';
+                        $scope.roleName = '';
+                    }
+                    $scope.showRoleEditor = !$scope.showRoleEditor;
+                });
+            };
+
+            $scope.roles = rolesData;
+
+            $scope.updateRole = function (name) {
+                var _role = {};
+                _role.name = name;
+                _role.id = $scope.id;
+                _role.permissions = $scope.selection.sort(function (a, b) {
+                    return a - b;
+                });
+                return $http(Endpoint.role.update(_role))
+                    .then(function (data) {
+                        _.find($scope.roles, function (role, index) {
+                            if(role.id === _role.id){
+                                $scope.roles[index] = data.data;
+                            }
+                        });
+                        $scope.toggleShowRoleEditor(_role);
+                        return data.data;
+                    });
+            };
+
             $scope.createRole = function (name) {
                 var _role = {};
                 _role.name = name;
-                _role.permissions = $scope.selection;
-                return _role;
+                _role.permissions = $scope.selection.sort(function (a, b) {
+                    return a - b;
+                });
+                return $http(Endpoint.role.post(_role))
+                    .then(function (role) {
+                        $scope.roles.push(role.data);
+                        $scope.toggleShowRoleEditor(role.data);
+                    });
             }
         }
     ]);

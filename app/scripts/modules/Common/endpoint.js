@@ -84,6 +84,28 @@ define(['./module', 'lodash'], function (module, _) {
                             url: '/schedule'
                         })
                     }
+                },
+                role:{
+                    list: function () {
+                        return new API({
+                            method: METHODS.GET,
+                            url: '/roles'
+                        })
+                    },
+                    post: function (data) {
+                        return new API({
+                            method: METHODS.POST,
+                            url: '/add/role',
+                            data: data
+                        })
+                    },
+                    update: function (role) {
+                        return new API({
+                            method: METHODS.PUT,
+                            url: '/role/' + role.id,
+                            data: role
+                        })
+                    }
                 }
             };
             return routes;

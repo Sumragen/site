@@ -13,7 +13,7 @@ define(['angular'],function(module){
                         eventsData: function (Endpoint, $http, $q) {
                             return $http(Endpoint.events.list())
                                 .then(function (data) {
-                                    return data;
+                                    return data.data.events;
                                 }, function (err) {
                                     return $q.reject(err);
                                 });

@@ -24,7 +24,7 @@ define(['../module', 'lodash'], function (module, _) {
                     windowClass: 'custom-modal-day',
                     resolve: {
                         currentSchedule: function () {
-                            return scheduleData.data.schedule;
+                            return scheduleData;
                         },
                         date: date
                     }
@@ -44,7 +44,7 @@ define(['../module', 'lodash'], function (module, _) {
 
             $scope.events = [];
             var step = 0;
-            scheduleData.data.schedule.objects.schedule.forEach(function (day) {
+            scheduleData.objects.schedule.forEach(function (day) {
                 step++;
                 self.tempSchedule = scheduleService.parseLessons(day);
                 self.tempSchedule.forEach(function (lesson) {

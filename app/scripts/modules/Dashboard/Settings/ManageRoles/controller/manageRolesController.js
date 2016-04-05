@@ -47,11 +47,14 @@ define(['../module','lodash'], function (module,_) {
                         $scope.selection = role.permissions;
                         $scope.id = role.id;
                         $scope.roleName = role.name;
+                        $scope.roleDesc = role.description;
                     } else {
                         $scope.isExist = false;
                         $scope.selection = [];
                         $scope.id = '';
                         $scope.roleName = '';
+                        $scope.roleDesc = '';
+
                     }
                     $scope.showRoleEditor = !$scope.showRoleEditor;
                 });

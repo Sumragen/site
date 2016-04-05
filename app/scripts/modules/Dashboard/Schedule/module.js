@@ -12,7 +12,7 @@ define(['angular', 'angular-ui-calendar'], function (module) {
                         scheduleData: function (Endpoint, $http, $q) {
                             return $http(Endpoint.schedule.list())
                                 .then(function (data) {
-                                    return data;
+                                    return data.data.schedule;
                                 }, function (err) {
                                     return $q.reject(err);
                                 });

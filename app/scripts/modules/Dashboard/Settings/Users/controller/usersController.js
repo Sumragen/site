@@ -11,21 +11,25 @@ define(['../module'], function (module) {
             var self = this;
             $scope.users = usersData;
 
-            self.showSchemaForm = false;
-            self.toggleShowSchemaForm = function (user) {
+            $scope.showEditForm = false;
+            $scope.toggleShowEditForm = function (user) {
                 $timeout(function () {
-                    $scope.selectedUser = user;
-                    self.showSchemaForm = !self.showSchemaForm;
+                    if (user) {
+                        $scope.selectedUser = user;
+                    } else {
+                        $scope.selectedUser = {};
+                    }
+                    $scope.showEditForm = !$scope.showEditForm;
                 });
             };
 
-            self.editProfile = function (form) {
+            $scope.editProfile = function (form) {
                 $scope.busy = true;
                 $scope.$broadcast('schemaFormValidate');
                 if (form.$valid) {
                     profileService.updateUser($scope.selectedUser)
                         .then(function () {
-                            self.toggleShowSchemaForm($scope.selectedUser);
+                            $scope.toggleShowEditForm();
                         })
                         .finally(function () {
                             $scope.busy = false;

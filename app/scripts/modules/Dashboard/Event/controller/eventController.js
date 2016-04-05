@@ -19,7 +19,31 @@ define(['../module', 'lodash'], function (module, _) {
                 });
             }
 
-            self.selectedPage = function (check) {
+            $scope.selectedEvent = {};
+            $scope.showEditForm = false;
+            $scope.toggleShowEditForm = function (event) {
+                $timeout(function () {
+                    initMap($scope.map);
+                    $scope.selectedEvent = event;
+                    $scope.showEditForm = !$scope.showEditForm;
+                });
+            };
+
+            $scope.editEvent = function (form) {
+                $scope.busy = false;
+                $scope.$broadcast('schemaFormValidate');
+                if (form.$valid) {
+                    eventService.updateEvent($scope.selectedEvent)
+                        .then(function () {
+                            $scope.toggleShowEditForm();
+                        })
+                        .finally(function () {
+                            $scope.busy = false;
+                        });
+                }
+            };
+
+            $scope.selectedPage = function (check) {
                 $scope.busy = true;
                 if (check) {
                     $scope.showMap = true;
@@ -69,20 +93,20 @@ define(['../module', 'lodash'], function (module, _) {
                     });
                 }
 
-                self.panorama = map.getStreetView();
+                var panorama = map.getStreetView();
 
-                map.setStreetView(self.panorama);
+                map.setStreetView(panorama);
 
                 $scope.toggleStreetView = function (marker) {
-                    var toggle = self.panorama.getVisible();
+                    var toggle = panorama.getVisible();
                     if (toggle == false) {
-                        self.panorama.setPosition(marker.position);
-                        self.panorama.setVisible(true);
+                        panorama.setPosition(marker.position);
+                        panorama.setVisible(true);
                     } else {
-                        self.panorama.setVisible(false);
+                        panorama.setVisible(false);
                     }
                 };
-                $scope.eventList = eventsData.data.events;
+                $scope.eventList = eventsData;
                 _.each($scope.eventList, function (event) {
                     var marker = new google.maps.Marker({
                         id: event.id,
@@ -97,6 +121,50 @@ define(['../module', 'lodash'], function (module, _) {
                     $scope.showMap = false;
                 });
             };
+            $scope.schema = {
+                "type": "object",
+                "properties": {
+                    name: {
+                        type: "string",
+                        minLength: 1,
+                        title: "Name"
+                    },
+                    description: {
+                        type: "string",
+                        minLength: 4,
+                        title: "Description"
+                    },
+                    date: {
+                        type: "string",
+                        minLength: 4,
+                        title: "date"
+                    },
+                    event_map: {
+                        type: 'map'
+                    }
+                },
+                "required": [
+                    "name",
+                    "description",
+                    "date"
+                ]
+            };
+
+            $scope.form = [
+                {
+                    "key": "name",
+                    "placeholder": "Name"
+
+                },
+                {
+                    "key": "description",
+                    "placeholder": "Description"
+                },
+                {
+                    "key": "date",
+                    "placeholder": "Date"
+                }
+            ];
         }
     ]);
 });

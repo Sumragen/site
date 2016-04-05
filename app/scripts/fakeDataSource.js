@@ -25,6 +25,7 @@ define(['lodash'], function (_) {
     var admin = {
         id: 1,
         name: 'admin',
+        description: 'admin rights',
         permissions: [p.isTeacher, p.hasAdminRights, p.canViewUsers, p.canEditUser, p.canAddUsers,
             p.canDeleteUsers, p.canViewSchedule, p.canEditSchedule, p.canAddSchedule, p.canDeleteSchedule,
             p.canViewEvents, p.canEditEvents, p.canAddEvents, p.canDeleteEvents]
@@ -32,12 +33,14 @@ define(['lodash'], function (_) {
     var teacher = {
         id: 2,
         name: 'teacher',
+        description: 'teacher rights',
         permissions: [p.isTeacher,
             p.canViewUsers, p.canEditUser, p.canViewSchedule, p.canViewEvents, p.canEditEvents, p.canAddEvents, p.canDeleteEvents]
     };
     var student = {
         id: 3,
         name: 'student',
+        description: 'student rights',
         permissions: [p.canViewUsers,
             p.canEditUser, p.canViewSchedule, p.canViewEvents]
     };

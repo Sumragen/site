@@ -2,7 +2,7 @@
  * Created by sumragen on 2/27/16.
  */
 define(['../module'], function (module) {
-    module.controller('Settings.ManageRoles.ManageRolesController', [
+    module.controller('Dashboard.Settings.ManageRoles.ManageRolesController', [
         '$scope',
         function ($scope) {
             var self = this;

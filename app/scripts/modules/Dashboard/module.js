@@ -5,8 +5,9 @@ define(['angular', 'angular-animate'], function (module) {
     return module.module('Dashboard', [
             'Dashboard.Event',
             'Dashboard.Schedule',
+            'Dashboard.Settings',
             'Dashboard.Profile'
-    ])
+        ])
         .config(function ($stateProvider) {
             $stateProvider
                 .state('dashboard', {
@@ -16,7 +17,7 @@ define(['angular', 'angular-animate'], function (module) {
                     controller: 'Dashboard.MasterController as controller',
                     data: {
                         redirect: function (user) {
-                            if(!user) return 'common.home';
+                            if (!user) return 'common.home';
                         }
                     }
                 });

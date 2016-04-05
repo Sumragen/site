@@ -14,6 +14,8 @@ define(['../module'], function (module) {
         function ($scope, $rootScope, $http, AuthService, $state, $timeout, InfoWindow) {
             var self = this;
 
+
+
             //NonAuthController methods
             $scope.tabs = [
                 {

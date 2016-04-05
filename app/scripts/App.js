@@ -20,7 +20,6 @@ define([
         'ui.bootstrap',
         'ui.bootstrap.tpls',
         'modules/Auth/index',
-        'modules/Settings/index',
         'modules/Common/index',
         'modules/Dashboard/index'
     ],
@@ -35,8 +34,7 @@ define([
             'angularMoment',
             'AuthModule',
             'Common',
-            'Dashboard',
-            'Settings'
+            'Dashboard'
         ];
         var validationInjector = null;
         var app = angular.module('MyApp', deps)
@@ -73,6 +71,7 @@ define([
                     $rootScope.getSchoolName = function () {
                         return 'School ' + '24';//+ user.school;
                     };
+
 
                     $rootScope.showSignInModal = function () {
                         var modalInstance = $uibModal.open({
@@ -118,6 +117,7 @@ define([
                                 if (redirect) {
                                     event.preventDefault();
                                     $state.go(redirect);
+                                    //if(redirect.indexOf('settings'))
                                     return false;
                                 }
                             } else {
@@ -125,6 +125,9 @@ define([
                                 $state.go(nextState.data.redirect);
                                 return false;
                             }
+                            nextState.name.indexOf('settings') > -1
+                                ? $rootScope.showSettingsPage = true
+                                : $rootScope.showSettingsPage = false;
                         }
                         return true;
                     });
@@ -138,7 +141,7 @@ define([
                 '$urlRouterProvider',
                 'schemaFormProvider',
                 'schemaFormDecoratorsProvider',
-                function ($stateProvider, $urlRouterProvider, schemaFormProvider ,schemaFormDecoratorsProvider) {
+                function ($stateProvider, $urlRouterProvider, schemaFormProvider, schemaFormDecoratorsProvider) {
 
                     schemaFormDecoratorsProvider.addMapping(
                         'bootstrapDecorator',

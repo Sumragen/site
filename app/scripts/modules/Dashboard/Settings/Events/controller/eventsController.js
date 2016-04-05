@@ -2,10 +2,10 @@
  * Created by sumragen on 2/27/16.
  */
 define(['../module'], function (module) {
-    module.controller('Settings.Events.EventsController', [
+    module.controller('Dashboard.Settings.Events.EventsController', [
         '$scope',
         '$timeout',
-        'Settings.Events.EventsService',
+        'Dashboard.Settings.Events.EventsService',
         'eventsData',
         function ($scope, $timeout, eventsService, eventsData) {
             var self = this;

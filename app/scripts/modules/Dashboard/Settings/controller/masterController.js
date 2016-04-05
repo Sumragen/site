@@ -2,7 +2,7 @@
  * Created by trainee on 3/17/16.
  */
 define(['../module'], function (module) {
-    module.controller('Settings.MasterController', [
+    module.controller('Dashboard.Settings.MasterController', [
         function () {
             var self = this;
         }]);

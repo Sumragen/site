@@ -2,13 +2,13 @@
  * Created by sumragen on 2/27/16.
  */
 define(['angular'],function(module){
-    return module.module('Settings.Events',[])
+    return module.module('Dashboard.Settings.Events',[])
         .config(function ($stateProvider) {
             $stateProvider
-                .state('settings.events', {
+                .state('dashboard.settings.events', {
                     url: "/events",
-                    templateUrl: 'views/Settings/Events/events.html',
-                    controller: 'Settings.Events.EventsController as controller',
+                    templateUrl: 'views/Dashboard/Settings/Events/events.html',
+                    controller: 'Dashboard.Settings.Events.EventsController as controller',
                     resolve: {
                         eventsData: function (Endpoint, $http, $q) {
                             return $http(Endpoint.events.list())

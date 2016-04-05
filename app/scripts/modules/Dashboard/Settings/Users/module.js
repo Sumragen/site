@@ -2,13 +2,13 @@
  * Created by sumragen on 2/27/16.
  */
 define(['angular'],function(module){
-    return module.module('Settings.Users',[])
+    return module.module('Dashboard.Settings.Users',[])
         .config(function ($stateProvider) {
             $stateProvider
-                .state('settings.users', {
+                .state('dashboard.settings.users', {
                     url: "/users",
-                    templateUrl: 'views/Settings/Users/users.html',
-                    controller: 'Settings.Users.UsersController as controller',
+                    templateUrl: 'views/Dashboard/Settings/Users/users.html',
+                    controller: 'Dashboard.Settings.Users.UsersController as controller',
                     resolve: {
                         usersData: function (Endpoint, $http, $q) {
                             return $http(Endpoint.user.list())

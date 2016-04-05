@@ -2,7 +2,7 @@
  * Created by trainee on 4/5/16.
  */
 define(['../module'], function (module) {
-    module.service('Settings.Events.EventsService', [
+    module.service('Dashboard.Settings.Events.EventsService', [
         '$http',
         '$q',
         'Endpoint',

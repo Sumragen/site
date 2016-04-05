@@ -2,13 +2,13 @@
  * Created by sumragen on 2/27/16.
  */
 define(['angular'],function(module){
-    return module.module('Settings.ManageRoles',[])
+    return module.module('Dashboard.Settings.ManageRoles',[])
         .config(function ($stateProvider) {
             $stateProvider
-                .state('settings.manageRoles', {
+                .state('dashboard.settings.manageRoles', {
                     url: "/manageRoles",
-                    templateUrl: 'views/Settings/ManageRoles/manageRoles.html',
-                    controller: 'Settings.ManageRoles.ManageRolesController as controller',
+                    templateUrl: 'views/Dashboard/Settings/ManageRoles/manageRoles.html',
+                    controller: 'Dashboard.Settings.ManageRoles.ManageRolesController as controller',
                     //resolve: {
                     //    eventsData: function (Endpoint, $http, $q) {
                     //        return $http(Endpoint.events.list())

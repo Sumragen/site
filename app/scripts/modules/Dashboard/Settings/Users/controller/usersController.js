@@ -2,7 +2,7 @@
  * Created by sumragen on 2/27/16.
  */
 define(['../module'], function (module) {
-    module.controller('Settings.Users.UsersController', [
+    module.controller('Dashboard.Settings.Users.UsersController', [
         '$scope',
         '$timeout',
         'Dashboard.Profile.ProfileService',

@@ -5,6 +5,7 @@ define([
     './controller/masterController',
     './Event/index',
     './Profile/index',
+    './Settings/index',
     './Schedule/index'
 ], function () {
 

@@ -149,6 +149,12 @@ define([
                         'views/Common/uploadFile.html'
                     );
 
+                    schemaFormDecoratorsProvider.addMapping(
+                        'bootstrapDecorator',
+                        'eventmap',
+                        'views/Common/eventMap.html'
+                    );
+
                     schemaFormProvider.postProcess(function (form) {
                         if (typeof validationInjector == 'function') {
                             var form = validationInjector(form);

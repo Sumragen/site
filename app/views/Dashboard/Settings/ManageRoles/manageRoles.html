@@ -1,6 +1,6 @@
 <div s-loading-indicator=""></div>
 
-<div class="profile-module-wrapper" ng-if="!busy">
+<div class="profile-module-wrapper" ng-show="!busy">
     <div class="form-group label-floating">
         <label class="control-label" for="newRoleName">Name of new role</label>
         <input class="form-control" id="newRoleName" ng-model="newName" type="text">
@@ -17,6 +17,4 @@
         </div>
     </div>
     <a class="btn btn-raised btn-success" ng-click="createRole(newName)">Create</a>
-
-
 </div>

@@ -23,7 +23,7 @@ define(['lodash'], function (_) {
             permissions: [0x001,0x002,0x003,0x004,0x005,0x006,0x007,0x008,0x009,0x00a,0x00b,0x00c,0x00d,0x00e]
         },
         {
-            id: 1,
+            id: 2,
             first_name: 'Aleksey',
             last_name: 'Zarrubin',
             username: 'teacher',
@@ -32,7 +32,7 @@ define(['lodash'], function (_) {
             permissions: [0x001,0x003,0x004,0x007,0x00b,0x00c,0x00d,0x00e]
         },
         {
-            id: 1,
+            id: 3,
             first_name: 'George',
             last_name: 'Chivchan',
             username: 'student',
@@ -229,7 +229,7 @@ define(['lodash'], function (_) {
         localStorage.setItem("datasource", JSON.stringify({
             user: {
                 objects: defaultUsers,
-                lastIndex: 1
+                lastIndex: 3
             },
             event: {
                 objects: defaultEvents,
@@ -282,8 +282,14 @@ define(['lodash'], function (_) {
         load();
         var user = angular.fromJson(tempUser);
         user.id = ++data.user.lastIndex;
+        user.permissions = [0x003, 0x004, 0x007, 0x00b];
         data.user.objects.push(user);
         commit();
+    };
+
+    dataSource.getUsers = function () {
+        load();
+        return data.user.objects;
     };
 
     dataSource.getEvents = function () {

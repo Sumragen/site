@@ -1,0 +1,34 @@
+<div s-loading-indicator=""></div>
+
+<div class="profile-module-wrapper" ng-if="!busy">
+    <table class="table table-striped table-hover" ng-show="!controller.showSchemaForm">
+        <thead>
+        <tr>
+            <td>id</td>
+            <td>Name</td>
+            <td>Surname</td>
+            <td>Login</td>
+            <td>Email</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="user in users track by user.id" class="success" ng-click="controller.toggleShowSchemaForm(user)">
+            <td>{{user.id}}</td>
+            <td>{{user.first_name}}</td>
+            <td>{{user.last_name}}</td>
+            <td>{{user.username}}</td>
+            <td>{{user.email}}</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div ng-show="controller.showSchemaForm">
+        <form name="editForm"
+              sf-schema="schema"
+              sf-form="form"
+              sf-model="selectedUser">
+        </form>
+        <a class="btn btn-default" ng-click="controller.toggleShowSchemaForm()">Cancel</a>
+        <a class="btn btn-info" ng-click="controller.editProfile(editForm)">Submit</a>
+    </div>
+</div>

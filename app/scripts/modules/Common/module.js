@@ -8,7 +8,7 @@ define(['angular', 'angular-animate'], function (module) {
                 .state('common', {
                     url: "/anonymous",
                     abstract: true,
-                    templateUrl: '../../../views/Common/nonauth.html',
+                    templateUrl: 'views/Common/nonauth.html',
                     controller: 'Common.MasterController as controller',
                     data: {
                         redirect: function (user) {
@@ -18,7 +18,7 @@ define(['angular', 'angular-animate'], function (module) {
                 })
                 .state('common.home', {
                     url: "/home",
-                    templateUrl: '../../../views/Dashboard/home.html'
+                    templateUrl: 'views/Dashboard/home.html'
                 });
         });
 });

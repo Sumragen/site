@@ -49,6 +49,10 @@ define(['./module', 'lodash'], function (module, _) {
                     get: function () {
                     },
                     list: function () {
+                        return new API({
+                            method: METHODS.GET,
+                            url: '/users'
+                        })
                     },
                     update: function (user) {
                         return new API({

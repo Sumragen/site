@@ -20,6 +20,7 @@ define([
         'ui.bootstrap',
         'ui.bootstrap.tpls',
         'modules/Auth/index',
+        'modules/Settings/index',
         'modules/Common/index',
         'modules/Dashboard/index'
     ],
@@ -34,6 +35,7 @@ define([
             'angularMoment',
             'AuthModule',
             'Common',
+            'Settings',
             'Dashboard'
         ];
         var validationInjector = null;

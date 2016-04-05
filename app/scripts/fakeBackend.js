@@ -39,6 +39,14 @@ define(
                     return [400, {errorCode: 3, message: 'Schedule not found'}];
                 }
             });
+            $httpBackend.whenGET(prefix + '/users').respond(function (method, url) {
+                var users = fakeDataSource.getUsers();
+                if (users) {
+                    return [200, {users: users}, {}];
+                } else {
+                    return [400, {errorCode: 4, message: 'Users not found'}];
+                }
+            });
             $httpBackend.whenPOST(prefix + '/register').respond(function (method, url, data) {
                 fakeDataSource.addUser(data);
                 return [200, angular.fromJson(data), {}];

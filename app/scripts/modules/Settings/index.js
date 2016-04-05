@@ -3,9 +3,10 @@
  */
 define([
     './controller/masterController',
-    './Event/index',
-    './Profile/index',
-    './Schedule/index'
+    './Events/index',
+    './ManageRoles/index',
+    './Schedule/index',
+    './Users/index'
 ], function () {
 
 });

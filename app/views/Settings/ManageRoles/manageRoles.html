@@ -1,0 +1,22 @@
+<div s-loading-indicator=""></div>
+
+<div class="profile-module-wrapper" ng-if="!busy">
+    <div class="form-group label-floating">
+        <label class="control-label" for="newRoleName">Name of new role</label>
+        <input class="form-control" id="newRoleName" ng-model="newName" type="text">
+    </div>
+
+    <div class="form-group">
+        <div class="checkbox" ng-repeat="permission in permissions">
+            <label>
+                <input type="checkbox"
+                       ng-checked="selection.indexOf(permission.code) > -1"
+                       ng-click="toggleSelection(permission.code)"
+                > {{permission.title}}
+            </label>
+        </div>
+    </div>
+    <a class="btn btn-raised btn-success" ng-click="createRole(newName)">Create</a>
+
+
+</div>

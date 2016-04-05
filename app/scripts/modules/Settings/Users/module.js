@@ -2,18 +2,18 @@
  * Created by sumragen on 2/27/16.
  */
 define(['angular'],function(module){
-    return module.module('Dashboard.Event',[])
+    return module.module('Settings.Users',[])
         .config(function ($stateProvider) {
             $stateProvider
-                .state('dashboard.events', {
-                    url: "/events",
-                    templateUrl: 'views/Dashboard/Events/events.html',
-                    controller: 'Dashboard.Event.EventController as controller',
+                .state('settings.users', {
+                    url: "/users",
+                    templateUrl: 'views/Settings/Users/users.html',
+                    controller: 'Settings.Users.UsersController as controller',
                     resolve: {
-                        eventsData: function (Endpoint, $http, $q) {
-                            return $http(Endpoint.events.list())
+                        usersData: function (Endpoint, $http, $q) {
+                            return $http(Endpoint.user.list())
                                 .then(function (data) {
-                                    return data;
+                                    return data.data.users;
                                 }, function (err) {
                                     return $q.reject(err);
                                 });
@@ -21,5 +21,4 @@ define(['angular'],function(module){
                     }
                 });
         });
-
 });

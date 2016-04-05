@@ -11,7 +11,8 @@ define(['../module'], function (module) {
         '$state',
         '$timeout',
         'InfoWindow',
-        function ($scope, $rootScope,  $http, AuthService, $state,$timeout, InfoWindow) {
+        'Common.PermissionsService',
+        function ($scope, $rootScope, $http, AuthService, $state, $timeout, InfoWindow, permServ) {
             var self = this;
         }]);
 });

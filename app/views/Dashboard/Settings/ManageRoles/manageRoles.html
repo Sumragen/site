@@ -20,17 +20,17 @@
     </div>
     <div ng-show="showRoleEditor">
         <div class="form-group label-floating">
-            <input class="form-control" id="roleName" ng-model="roleName" placeholder="Name" type="text">
+            <input class="form-control" id="roleName" ng-model="currentRole.name" placeholder="Name" type="text">
         </div>
         <div class="form-group label-floating">
-            <input class="form-control" id="roleDesc" ng-model="roleDesc" placeholder="Description" type="text">
+            <input class="form-control" id="roleDesc" ng-model="currentRole.description" placeholder="Description" type="text">
         </div>
         <div class="form-group">
-            <div class="checkbox" ng-repeat="permission in permissions">
+            <div class="checkbox" ng-repeat="permission in permissionSet">
                 <label>
                     <input type="checkbox"
-                           ng-checked="selection.indexOf(permission.code) > -1"
-                           ng-click="toggleSelection(permission.code)"
+                           ng-checked="permissions.indexOf(permission.value) > -1"
+                           ng-click="togglePermissions(permission.value)"
                     > {{permission.title}}
                 </label>
             </div>
@@ -38,7 +38,7 @@
 
         <a class="btn btn-raised btn-default" ng-click="toggleShowRoleEditor()">Cancel</a>
 
-        <a class="btn btn-raised btn-success" ng-click="createRole(roleName)" ng-show="!isExist">Create</a>
-        <a class="btn btn-raised btn-success" ng-click="updateRole(roleName)" ng-show="isExist">Update</a>
+        <a class="btn btn-raised btn-success" ng-click="createRole(currentRole.name)" ng-show="!isExist">Create</a>
+        <a class="btn btn-raised btn-success" ng-click="updateRole(currentRole.name)" ng-show="isExist">Update</a>
     </div>
 </div>

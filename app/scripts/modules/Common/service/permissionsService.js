@@ -6,22 +6,21 @@ define(['../module', 'lodash'], function (module, _) {
         'Common.SecurityContext',
         function (securityContext) {
             var service = {};
-
             var permissionSet = {
-                'isTeacher': 0x001,
-                'hasAdminRights': 0x002,
-                'canViewUsers': 0x003,
-                'canEditUser': 0x004,
-                'canAddUsers': 0x005,
-                'canDeleteUsers': 0x006,
-                'canViewSchedule': 0x007,
-                'canEditSchedule': 0x008,
-                'canAddSchedule': 0x009,
-                'canDeleteSchedule': 0x00a,
-                'canViewEvents': 0x00b,
-                'canEditEvents': 0x00c,
-                'canAddEvents': 0x00d,
-                'canDeleteEvents': 0x00e
+                'isTeacher': {value: 0x001, title: 'Teacher rights'},
+                'hasAdminRights': {value: 0x002, title: 'Administrator rights'},
+                'canViewUsers': {value: 0x003, title: 'Can view list of all users'},
+                'canEditUser': {value: 0x004, title: 'Can edit user list'},
+                'canAddUsers': {value: 0x005, title: 'Can add new user'},
+                'canDeleteUsers': {value: 0x006, title: 'Can delete users'},
+                'canViewSchedule': {value: 0x007, title: 'Can view schedule'},
+                'canEditSchedule': {value: 0x008, title: 'Can edit schedule'},
+                'canAddSchedule': {value: 0x009, title: 'Can add schedule'},
+                'canDeleteSchedule': {value: 0x00a, title: 'Can delete schedule'},
+                'canViewEvents': {value: 0x00b, title: 'Can view list of all events'},
+                'canEditEvents': {value: 0x00c, title: 'Can edit events list'},
+                'canAddEvents': {value: 0x00d, title: 'Can add events'},
+                'canDeleteEvents': {value: 0x00e, title: 'Can delete events'}
             };
 
             var p = permissionSet;
@@ -32,6 +31,9 @@ define(['../module', 'lodash'], function (module, _) {
             var teacher = [p.isTeacher, p.canViewUsers, p.canEditUser, p.canViewSchedule, p.canViewEvents, p.canEditEvents, p.canAddEvents, p.canDeleteEvents];
             var student = [p.canViewUsers, p.canEditUser, p.canViewSchedule, p.canViewEvents];
 
+            service.getPermissionSet = function () {
+                return permissionSet;
+            };
 
             service.hasPermissions = function (user, checkPermissions) {
                 !user ? user = securityContext.getPrincipal() : user;

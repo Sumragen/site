@@ -11,7 +11,7 @@ define(['../module', 'lodash'], function (module, _) {
         'Dashboard.Settings.ManageRolesService',
         'rolesData',
         function ($scope, $http, $timeout, Endpoint, permissionService, manageRolesService,rolesData) {
-            var self = this;
+
             $scope.permissionSet = permissionService.getPermissionSet();
 
             $scope.permissions = [];
@@ -39,18 +39,23 @@ define(['../module', 'lodash'], function (module, _) {
             $scope.roles = rolesData;
 
             $scope.deleteRole = function () {
+                $scope.busy = true;
                 manageRolesService.deleteRole($scope.currentRole)
                     .then(function (data) {
                         $scope.roles = data;
                         $scope.toggleShowRoleEditor($scope.currentRole);
+                    })
+                    .finally(function () {
+                        $scope.busy = false;
                     });
             };
 
             $scope.updateRole = function () {
+                $scope.busy = true;
                 $scope.currentRole.permissions = $scope.permissions.sort(function (a, b) {
                     return a - b;
                 });
-                return manageRolesService.updateRole($scope.currentRole)
+                manageRolesService.updateRole($scope.currentRole)
                     .then(function (data) {
                         _.find($scope.roles, function (role, index) {
                             if (role.id === $scope.currentRole.id) {
@@ -59,17 +64,24 @@ define(['../module', 'lodash'], function (module, _) {
                         });
                         $scope.toggleShowRoleEditor($scope.currentRole);
                         return data;
+                    })
+                    .finally(function () {
+                        $scope.busy = false;
                     });
             };
 
             $scope.createRole = function () {
+                $scope.busy = true;
                 $scope.currentRole.permissions = $scope.permissions.sort(function (a, b) {
                     return a - b;
                 });
-                return manageRolesService.createRole($scope.currentRole)
+                manageRolesService.createRole($scope.currentRole)
                     .then(function (roles) {
                         $scope.roles = roles;
                         $scope.toggleShowRoleEditor($scope.currentRole);
+                    })
+                    .finally(function () {
+                        $scope.busy = false;
                     });
             }
         }

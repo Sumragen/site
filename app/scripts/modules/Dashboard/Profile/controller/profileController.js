@@ -4,11 +4,10 @@
 define(['../module'], function (module) {
     module.controller('Dashboard.Profile.ProfileController', [
         '$scope',
-        '$rootScope',
         '$timeout',
         'Common.SecurityContext',
         'Dashboard.Profile.ProfileService',
-        function ($scope, $rootScope, $timeout, SecurityContext, profileService) {
+        function ($scope, $timeout, SecurityContext, profileService) {
             var currentUser;
             $scope.busy = true;
 
@@ -18,7 +17,7 @@ define(['../module'], function (module) {
                 $scope.busy = false;
             });
 
-            $rootScope.$on('securityContext:updated', function (e, user) {
+            $scope.$on('securityContext:updated', function (e, user) {
                 $scope.currentUser = currentUser;
             });
 

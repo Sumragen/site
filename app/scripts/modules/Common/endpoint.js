@@ -89,7 +89,7 @@ define(['./module', 'lodash'], function (module, _) {
                     delete: function (role) {
                         return new API({
                             method: METHODS.DELETE,
-                            url: '/delete/role/' + role.id,
+                            url: '/role/' + role.id,
                             data: role
                         })
                     },
@@ -102,7 +102,7 @@ define(['./module', 'lodash'], function (module, _) {
                     post: function (data) {
                         return new API({
                             method: METHODS.POST,
-                            url: '/add/role',
+                            url: '/role',
                             data: data
                         })
                     },

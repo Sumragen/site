@@ -71,7 +71,7 @@ define(
                     return [400, {errorCode: 4, message: 'wrong update'}];
                 }
             });
-            $httpBackend.whenDELETE(/\/delete\/role\/(0-9)*/).respond(function (method, url, tempRole) {
+            $httpBackend.whenDELETE(/\/role\/(0-9)*/).respond(function (method, url, tempRole) {
                 var roles = fakeDataSource.deleteRole(tempRole);
                 if (roles) {
                     return [200, roles, {}];
@@ -79,7 +79,7 @@ define(
                     return [400, {errorCode: 6, message: 'wrong delete'}];
                 }
             });
-            $httpBackend.whenPOST(prefix + '/add/role').respond(function (method, url, data) {
+            $httpBackend.whenPOST(prefix + '/role').respond(function (method, url, data) {
                 var roles = fakeDataSource.addRole(data);
                 if (roles) {
                     return [200, roles, {}];

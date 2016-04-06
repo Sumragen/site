@@ -16,8 +16,8 @@ define(['angular', 'angular-animate'], function (module) {
                     data: {
                         //check user permissions
                         redirect: function (user) {
-                            if (!user) {
-                                return 'common.home';
+                            if (!user || user.roles[0].permissions.indexOf(1) < 0) {
+                                return 'common.home'
                             }
                         }
                     }

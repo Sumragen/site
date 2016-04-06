@@ -38,7 +38,7 @@
 
         <a class="btn btn-raised btn-default" ng-click="toggleShowRoleEditor()">Cancel</a>
 
-        <a class="btn btn-raised btn-success" ng-click="createRole(currentRole.name)" ng-show="!isExist">Create</a>
+        <a class="btn btn-raised btn-success" ng-click="createRole(currentRole.name)" ng-hide="isExist">Create</a>
         <a class="btn btn-raised btn-success" ng-click="updateRole(currentRole.name)" ng-show="isExist">Update</a>
 
         <a class="btn btn-raised btn-warning" ng-click="deleteRole()" ng-show="isExist">Delete</a>

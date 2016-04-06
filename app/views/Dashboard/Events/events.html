@@ -27,7 +27,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr ng-repeat="event in eventList track by $index" class="success" ng-click="toggleShowEditForm(event)">
+            <tr ng-repeat="event in eventList track by $index" class="success events-item" ng-click="toggleShowEditForm(event)">
                 <td>{{event.id}}</td>
                 <td>{{event.name}}</td>
                 <td>{{event.description}}</td>

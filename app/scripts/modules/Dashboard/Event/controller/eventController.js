@@ -5,11 +5,12 @@ define(['../module', 'lodash'], function (module, _) {
     module.controller('Dashboard.Event.EventController', [
         '$q',
         '$scope',
+        '$rootScope',
         '$timeout',
         'InfoWindow',
         'Dashboard.Event.EventService',
         'eventsData',
-        function ($q, $scope, $timeout, InfoWindow, eventService, eventsData) {
+        function ($q, $scope, $rootScope, $timeout, InfoWindow, eventService, eventsData) {
             var self = this;
 
             function initMap(map) {
@@ -21,13 +22,15 @@ define(['../module', 'lodash'], function (module, _) {
 
             $scope.selectedEvent = {};
             $scope.showEditForm = false;
-            $scope.toggleShowEditForm = function (event) {
-                $timeout(function () {
-                    initMap($scope.map);
-                    $scope.selectedEvent = event;
-                    $scope.showEditForm = !$scope.showEditForm;
-                });
-            };
+            if ($rootScope.showSettingsPage) {
+                $scope.toggleShowEditForm = function (event) {
+                    $timeout(function () {
+                        initMap($scope.map);
+                        $scope.selectedEvent = event;
+                        $scope.showEditForm = !$scope.showEditForm;
+                    });
+                };
+            }
 
             $scope.editEvent = function (form) {
                 $scope.busy = false;

@@ -14,9 +14,5 @@ define(['../module'], function (module) {
         'Common.PermissionsService',
         function ($scope, $rootScope, $http, AuthService, $state, $timeout, InfoWindow, permServ) {
             var self = this;
-            self.showSettingsPage = false;
-            $scope.toggleShowSettingsPage = function () {
-                return self.showSettingsPage = !self.showSettingsPage;
-            };
         }]);
 });

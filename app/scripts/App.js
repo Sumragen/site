@@ -117,7 +117,6 @@ define([
                                 if (redirect) {
                                     event.preventDefault();
                                     $state.go(redirect);
-                                    //if(redirect.indexOf('settings'))
                                     return false;
                                 }
                             } else {

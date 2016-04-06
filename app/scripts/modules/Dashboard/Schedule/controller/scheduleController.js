@@ -15,10 +15,16 @@ define(['../module', 'lodash'], function (module, _) {
         'scheduleData',
         function ($scope, $rootScope, moment, $filter, $uibModal, $timeout, scheduleService, scheduleConst, schedulingUtil, scheduleData) {
             var self = this;
+            var _templateUrl = "views/Dashboard/Schedule/day.html";
+
+            if($rootScope.showSettingsPage){
+                _templateUrl = "views/Dashboard/Schedule/daySettings.html";
+            }
+
             self.showDayModal = function (date) {
                 var modalInstance = $uibModal.open({
                     animation: true,
-                    templateUrl: "views/Dashboard/Schedule/day.html",
+                    templateUrl: _templateUrl,
                     controller: "Dashboard.Schedule.DayController as controller",
                     size: 'lg',
                     windowClass: 'custom-modal-day',

@@ -10,8 +10,8 @@ define(['../module', 'lodash'], function (module, _) {
         'moment',
         'date',
         '$filter',
-        'Dashboard.Schedule.ScheduleService',
-        function ($scope, $rootScope, $uibModalInstance, currentSchedule, moment, date, $filter, scheduleService) {
+        'Dashboard.Schedule.ScheduleDataService',
+        function ($scope, $rootScope, $uibModalInstance, currentSchedule, moment, date, $filter, scheduleDataService) {
             var self = this;
             self.close = function () {
                 $uibModalInstance.close();
@@ -25,7 +25,7 @@ define(['../module', 'lodash'], function (module, _) {
 
             _.each(tempSchedule, function (schedule) {
                 if (selectedDay === schedule.name) {
-                    $scope.currentDay = scheduleService.parseLessons(schedule);
+                    $scope.currentDay = scheduleDataService.parseLessons(schedule);
                 }
             });
 

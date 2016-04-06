@@ -8,8 +8,9 @@ define(['../module', 'lodash'], function (module, _) {
         '$timeout',
         'Endpoint',
         'Common.PermissionsService',
+        'Dashboard.Settings.ManageRolesService',
         'rolesData',
-        function ($scope, $http, $timeout, Endpoint, permissionService, rolesData) {
+        function ($scope, $http, $timeout, Endpoint, permissionService, manageRolesService,rolesData) {
             var self = this;
             $scope.permissionSet = permissionService.getPermissionSet();
 
@@ -41,15 +42,15 @@ define(['../module', 'lodash'], function (module, _) {
                 $scope.currentRole.permissions = $scope.permissions.sort(function (a, b) {
                     return a - b;
                 });
-                return $http(Endpoint.role.update($scope.currentRole))
+                return manageRolesService.updateRole($scope.currentRole)
                     .then(function (data) {
                         _.find($scope.roles, function (role, index) {
                             if (role.id === $scope.currentRole.id) {
-                                $scope.roles[index] = data.data;
+                                $scope.roles[index] = data;
                             }
                         });
                         $scope.toggleShowRoleEditor($scope.currentRole);
-                        return data.data;
+                        return data;
                     });
             };
 
@@ -57,10 +58,10 @@ define(['../module', 'lodash'], function (module, _) {
                 $scope.currentRole.permissions = $scope.permissions.sort(function (a, b) {
                     return a - b;
                 });
-                return $http(Endpoint.role.post($scope.currentRole))
+                return manageRolesService.createRole($scope.currentRole)
                     .then(function (role) {
-                        $scope.roles.push(role.data);
-                        $scope.toggleShowRoleEditor(role.data);
+                        $scope.roles.push(role);
+                        $scope.toggleShowRoleEditor(role);
                     });
             }
         }

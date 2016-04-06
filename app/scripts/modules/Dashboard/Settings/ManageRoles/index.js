@@ -3,7 +3,8 @@
  */
 define(
     [
-        './controller/manageRolesController'
+        './controller/manageRolesController',
+        './service/manageRolesService'
     ],
     function () {
         'use strict';

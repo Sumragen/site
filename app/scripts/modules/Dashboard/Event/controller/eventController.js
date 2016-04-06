@@ -5,12 +5,12 @@ define(['../module', 'lodash'], function (module, _) {
     module.controller('Dashboard.Event.EventController', [
         '$q',
         '$scope',
-        '$rootScope',
+        '$state',
         '$timeout',
         'InfoWindow',
         'Dashboard.Event.EventService',
         'eventsData',
-        function ($q, $scope, $rootScope, $timeout, InfoWindow, eventService, eventsData) {
+        function ($q, $scope, $state, $timeout, InfoWindow, eventService, eventsData) {
             var self = this;
 
             function initMap(map) {
@@ -22,7 +22,7 @@ define(['../module', 'lodash'], function (module, _) {
 
             $scope.selectedEvent = {};
             $scope.showEditForm = false;
-            if ($rootScope.showSettingsPage) {
+            if ($state.current.name.indexOf('settings') > -1) {
                 $scope.toggleShowEditForm = function (event) {
                     $timeout(function () {
                         initMap($scope.map);

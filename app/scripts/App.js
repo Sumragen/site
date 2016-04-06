@@ -19,6 +19,7 @@ define([
         'moment',
         'ui.bootstrap',
         'ui.bootstrap.tpls',
+        //'controller/masterController',
         'modules/Auth/index',
         'modules/Common/index',
         'modules/Dashboard/index'
@@ -124,9 +125,6 @@ define([
                                 $state.go(nextState.data.redirect);
                                 return false;
                             }
-                            nextState.name.indexOf('settings') > -1
-                                ? $rootScope.showSettingsPage = true
-                                : $rootScope.showSettingsPage = false;
                         }
                         return true;
                     });

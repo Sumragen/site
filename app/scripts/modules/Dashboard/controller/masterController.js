@@ -3,16 +3,13 @@
  */
 define(['../module'], function (module) {
     module.controller('Dashboard.MasterController', [
+        '$state',
         '$scope',
         '$rootScope',
-        //'Common.ModalService',
-        '$http',
-        'AuthService',
-        '$state',
-        '$timeout',
-        'InfoWindow',
-        'Common.PermissionsService',
-        function ($scope, $rootScope, $http, AuthService, $state, $timeout, InfoWindow, permServ) {
-            var self = this;
+        function ($state, $scope, $rootScope) {
+            $rootScope.$on('$stateChangeSuccess', function () {
+                $scope.isSettings = $state.current.name.indexOf('settings') > -1;
+                return true;
+            });
         }]);
 });

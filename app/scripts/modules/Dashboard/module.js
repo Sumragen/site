@@ -16,6 +16,11 @@ define(['angular', 'angular-animate'], function (module) {
                     templateUrl: 'views/Dashboard/master.html',
                     controller: 'Dashboard.MasterController as controller',
                     data: {
+                        buttons: [
+                            {name: 'Profile', state: 'dashboard.profile'},
+                            {name: 'Schedule', state: 'dashboard.schedule'},
+                            {name: 'Events', state: 'dashboard.events'}
+                        ],
                         redirect: function (user) {
                             if (!user) return 'common.home';
                         }

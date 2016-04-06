@@ -14,6 +14,12 @@ define(['angular', 'angular-animate'], function (module) {
                     templateUrl: 'views/Dashboard/Settings/master.html',
                     controller: 'Dashboard.Settings.MasterController as controller',
                     data: {
+                        buttons: [
+                            {name: 'Users', state: 'dashboard.settings.users'},
+                            {name: 'Events', state: 'dashboard.settings.events'},
+                            {name: 'Schedule', state: 'dashboard.settings.schedule'},
+                            {name: 'Manage roles', state: 'dashboard.settings.manageRoles'}
+                        ],
                         //check user permissions
                         redirect: function (user, permissionService) {
                             var permissions = permissionService.getPermissionSet(),

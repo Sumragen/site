@@ -7,9 +7,5 @@ define(['../module'], function (module) {
         '$scope',
         '$rootScope',
         function ($state, $scope, $rootScope) {
-            $rootScope.$on('$stateChangeSuccess', function () {
-                $scope.isSettings = $state.current.name.indexOf('settings') > -1;
-                return true;
-            });
         }]);
 });

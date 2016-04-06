@@ -112,6 +112,7 @@ define([
                     $rootScope.$on('$stateChangeStart', function (event, nextState, nextStateParams, curState, curStateParams) {
                         $uibModalStack.dismissAll();
                         $rootScope.currentState = nextState;
+                        $rootScope.globalButtons = (nextState.data || {}).buttons || $rootScope.globalButtons;
                         //Redirect handling
                         if (nextState.data && nextState.data.redirect) {
                             if (typeof nextState.data.redirect === 'function') {

@@ -4,9 +4,9 @@
     <div class="list-group user-list-item" ng-repeat="user in users track by user.id"  ng-show="!showEditForm">
         <div class="list-group-item" ng-click="toggleShowEditForm(user)">
             <div class="row-action-primary">
-                <div class="row-picture user-list-avatar">
-                    <img class="circle" src="{{user.avatar}}" ng-if="user.avatar" alt="icon">
-                    <i class="material-icons" ng-if="!user.avatar">person</i>
+                <div class="row-picture">
+                    <img class="circle user-list-avatar" src="{{user.avatar}}" ng-if="user.avatar" alt="icon">
+                    <i class="material-icons user-list-icon" ng-if="!user.avatar">person</i>
                 </div>
             </div>
             <div class="row-content">

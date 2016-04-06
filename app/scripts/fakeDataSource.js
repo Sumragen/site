@@ -336,6 +336,7 @@ define(['lodash'], function (_) {
         role.id = ++data.role.lastIndex;
         data.role.objects.push(role);
         commit();
+        return data.role.objects;
     };
     dataSource.addUser = function (tempUser) {
         load();
@@ -366,5 +367,16 @@ define(['lodash'], function (_) {
         return data.stages;
     };
 
+    dataSource.deleteRole = function (dataRole) {
+        load();
+        var tempRole = angular.fromJson(dataRole);
+        _.find(data.role.objects, function (role, index) {
+            if (tempRole.id === role.id) {
+                data.role.objects.splice(index,1);
+                commit();
+            }
+        });
+        return data.role.objects;
+    };
     return dataSource;
 });

@@ -20,6 +20,12 @@ define(['../module', 'lodash'], function (module, _) {
                         return data.data;
                     });
             };
+            service.deleteRole = function (currentRole) {
+                return $http(Endpoint.role.delete(currentRole))
+                    .then(function (data) {
+                        return data.data;
+                    });
+            };
             return service;
         }]);
 });

@@ -71,9 +71,21 @@ define(
                     return [400, {errorCode: 4, message: 'wrong update'}];
                 }
             });
+            $httpBackend.whenDELETE(/\/delete\/role\/(0-9)*/).respond(function (method, url, tempRole) {
+                var roles = fakeDataSource.deleteRole(tempRole);
+                if (roles) {
+                    return [200, roles, {}];
+                } else {
+                    return [400, {errorCode: 6, message: 'wrong delete'}];
+                }
+            });
             $httpBackend.whenPOST(prefix + '/add/role').respond(function (method, url, data) {
-                fakeDataSource.addRole(data);
-                return [200, angular.fromJson(data), {}];
+                var roles = fakeDataSource.addRole(data);
+                if (roles) {
+                    return [200, roles, {}];
+                } else {
+                    return [400, {errorCode: 7, message: 'wrong add role'}];
+                }
             });
             $httpBackend.whenPOST(prefix + '/register').respond(function (method, url, data) {
                 fakeDataSource.addUser(data);

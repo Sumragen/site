@@ -38,6 +38,14 @@ define(['../module', 'lodash'], function (module, _) {
 
             $scope.roles = rolesData;
 
+            $scope.deleteRole = function () {
+                manageRolesService.deleteRole($scope.currentRole)
+                    .then(function (data) {
+                        $scope.roles = data;
+                        $scope.toggleShowRoleEditor($scope.currentRole);
+                    });
+            };
+
             $scope.updateRole = function () {
                 $scope.currentRole.permissions = $scope.permissions.sort(function (a, b) {
                     return a - b;
@@ -59,9 +67,9 @@ define(['../module', 'lodash'], function (module, _) {
                     return a - b;
                 });
                 return manageRolesService.createRole($scope.currentRole)
-                    .then(function (role) {
-                        $scope.roles.push(role);
-                        $scope.toggleShowRoleEditor(role);
+                    .then(function (roles) {
+                        $scope.roles = roles;
+                        $scope.toggleShowRoleEditor($scope.currentRole);
                     });
             }
         }

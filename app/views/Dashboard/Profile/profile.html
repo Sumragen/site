@@ -1,9 +1,9 @@
 <div s-loading-indicator=""></div>
 <div class="profile-module-wrapper" ng-if="!busy">
-    <div ng-show="!controller.showSchemaForm" class="profile-view">
+    <div ng-show="!showSchemaForm" class="profile-view">
         <div class="profile-title">
             <h3 class="profile-caption">Profile</h3>
-            <i class="material-icons" ng-click="controller.toggleShowSchemaForm()">mode_edit</i>
+            <i class="material-icons" ng-click="toggleShowSchemaForm()">mode_edit</i>
         </div>
         <div class="row">
             <div class="col-sm-6 col-md-4">
@@ -18,13 +18,13 @@
         <h4>Email : {{currentUser.email}}</h4>
     </div>
 
-    <div ng-show="controller.showSchemaForm">
+    <div ng-show="showSchemaForm">
         <form name="editForm"
               sf-schema="schema"
               sf-form="form"
               sf-model="currentUser">
         </form>
-        <a class="btn btn-default" ng-click="controller.toggleShowSchemaForm()">Cancel</a>
-        <a class="btn btn-info" ng-click="controller.editProfile(editForm)">Submit</a>
+        <a class="btn btn-default" ng-click="toggleShowSchemaForm()">Cancel</a>
+        <a class="btn btn-info" ng-click="editProfile(editForm)">Submit</a>
     </div>
 </div>

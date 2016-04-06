@@ -32,7 +32,7 @@ define(['../module', 'lodash'], function (module, _) {
             var student = [p.canViewUsers, p.canEditUser, p.canViewSchedule, p.canViewEvents];
 
             service.getPermissionSet = function () {
-                return permissionSet;
+                return angular.copy(permissionSet);
             };
 
             service.hasPermissions = function (user, checkPermissions) {

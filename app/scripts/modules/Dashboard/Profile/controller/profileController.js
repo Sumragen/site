@@ -9,7 +9,6 @@ define(['../module'], function (module) {
         'Common.SecurityContext',
         'Dashboard.Profile.ProfileService',
         function ($scope, $rootScope, $timeout, SecurityContext, profileService) {
-            var self = this;
             var currentUser;
             $scope.busy = true;
 
@@ -17,27 +16,27 @@ define(['../module'], function (module) {
                 currentUser = SecurityContext.getPrincipal();
                 $scope.currentUser = currentUser;
                 $scope.busy = false;
-            }, 0);
+            });
 
             $rootScope.$on('securityContext:updated', function (e, user) {
                 $scope.currentUser = currentUser;
             });
 
-            self.showSchemaForm = false;
-            self.toggleShowSchemaForm = function () {
+            $scope.showSchemaForm = false;
+            $scope.toggleShowSchemaForm = function () {
                 $timeout(function () {
                     $scope.currentUser = SecurityContext.getPrincipal();
-                    self.showSchemaForm = !self.showSchemaForm;
+                    $scope.showSchemaForm = !$scope.showSchemaForm;
                 });
             };
 
-            self.editProfile = function (form) {
+            $scope.editProfile = function (form) {
                 $scope.busy = true;
                 $scope.$broadcast('schemaFormValidate');
                 if (form.$valid) {
                     profileService.updateUser($scope.currentUser)
                         .then(function () {
-                            self.toggleShowSchemaForm();
+                            $scope.toggleShowSchemaForm();
                         })
                         .finally(function () {
                             $scope.busy = false;

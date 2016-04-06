@@ -9,14 +9,9 @@ define(['angular', 'angular-ui-calendar'], function (module) {
                     templateUrl: 'views/Dashboard/Schedule/schedule.html',
                     controller: 'Dashboard.Schedule.ScheduleController as controller',
                     resolve: {
-                        scheduleData: function (Endpoint, $http, $q) {
-                            return $http(Endpoint.schedule.list())
-                                .then(function (data) {
-                                    return data.data.schedule;
-                                }, function (err) {
-                                    return $q.reject(err);
-                                });
-                        }
+                        scheduleData: ['Dashboard.Schedule.ScheduleService',function (scheduleService) {
+                            return scheduleService.getSchedule();
+                        }]
                     }
                 });
             });

@@ -8,11 +8,18 @@ define(['../module', 'lodash'], function (module, _) {
         'Endpoint',
         function ($http, $q, Endpoint) {
             var service = {};
-
-            service.parseLessons = function(day) {
-                var schedule = [null,null,null,null,null,null,null,null,null];
-                _.each(day.lessons,function(lesson){
-                    _.each(lesson.order,function(order){
+            service.getSchedule = function () {
+                return $http(Endpoint.schedule.list())
+                    .then(function (data) {
+                        return data.data.schedule;
+                    }, function (err) {
+                        return $q.reject(err);
+                    });
+            };
+            service.parseLessons = function (day) {
+                var schedule = [null, null, null, null, null, null, null, null, null];
+                _.each(day.lessons, function (lesson) {
+                    _.each(lesson.order, function (order) {
                         schedule[order] = angular.copy(lesson);
                         schedule[order].num = order;
                         schedule[order].day = day.name;

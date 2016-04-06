@@ -1,10 +1,10 @@
 <div s-loading-indicator=""></div>
 
 <div class="profile-module-wrapper" ng-show="!busy">
-    <div class="list-group" ng-repeat="user in users track by user.id"  ng-show="!showEditForm">
+    <div class="list-group user-list-item" ng-repeat="user in users track by user.id"  ng-show="!showEditForm">
         <div class="list-group-item" ng-click="toggleShowEditForm(user)">
             <div class="row-action-primary">
-                <div class="row-picture" >
+                <div class="row-picture user-list-avatar">
                     <img class="circle" src="{{user.avatar}}" ng-if="user.avatar" alt="icon">
                     <i class="material-icons" ng-if="!user.avatar">person</i>
                 </div>
@@ -14,13 +14,13 @@
 
                 <p class="list-group-item-text">
                 <table class="table table-striped table-hover">
-                    <tbody>
-                    <tr >
-                        <td>{{user.first_name}}</td>
-                        <td>{{user.last_name}}</td>
-                        <td>{{user.email}}</td>
+                    <thead>
+                    <tr>
+                        <td><h4>{{user.first_name}}</h4></td>
+                        <td><h4>{{user.last_name}}</h4></td>
+                        <td><h4>{{user.email}}</h4></td>
                     </tr>
-                    </tbody>
+                    </thead>
                 </table>
                 </p>
             </div>

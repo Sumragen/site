@@ -16,6 +16,14 @@ define(['../module'], function (module) {
                         return $q.reject(err);
                     });
             };
+            service.getEventList = function () {
+                return $http(Endpoint.events.list())
+                    .then(function (data) {
+                        return data.data.events;
+                    }, function (err) {
+                        return $q.reject(err);
+                    });
+            };
             return service;
         }]);
 });

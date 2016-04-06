@@ -41,8 +41,8 @@ define(['../module', 'lodash'], function (module, _) {
                  return false
                  }
                  });*/
-                for (var i = 0; i < user.permissions.length; i++) {
-                    if (user.permissions[i] !== checkPermissions[i]) return false;
+                for (var i = 0; i < user.roles[0].length; i++) {
+                    if (user.roles[0].permissions[i] !== checkPermissions[i]) return false;
                 }
                 return true;
             };

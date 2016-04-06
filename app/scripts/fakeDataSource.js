@@ -53,7 +53,7 @@ define(['lodash'], function (_) {
             username: 'admin',
             email: 'Davidich@smotra.ru',
             password: 'admin',
-            permissions: admin
+            roles: [admin]
         },
         {
             id: 2,
@@ -62,7 +62,7 @@ define(['lodash'], function (_) {
             username: 'teacher',
             email: 'zarrubin@24auto.ru',
             password: 'teacher',
-            permissions: teacher
+            roles: [teacher]
         },
         {
             id: 3,
@@ -71,7 +71,7 @@ define(['lodash'], function (_) {
             username: 'student',
             email: 'Gocha@gmail.com',
             password: 'student',
-            permissions: student
+            roles: [student]
         }
     ];
     var AbstractSubject = {
@@ -341,7 +341,7 @@ define(['lodash'], function (_) {
         load();
         var user = angular.fromJson(tempUser);
         user.id = ++data.user.lastIndex;
-        user.permissions = [0x003, 0x004, 0x007, 0x00b];
+        user.roles = [student];
         data.user.objects.push(user);
         commit();
     };

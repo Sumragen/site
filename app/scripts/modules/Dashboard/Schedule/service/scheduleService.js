@@ -16,17 +16,6 @@ define(['../module', 'lodash'], function (module, _) {
                         return $q.reject(err);
                     });
             };
-            service.parseLessons = function (day) {
-                var schedule = [null, null, null, null, null, null, null, null, null];
-                _.each(day.lessons, function (lesson) {
-                    _.each(lesson.order, function (order) {
-                        schedule[order] = angular.copy(lesson);
-                        schedule[order].num = order;
-                        schedule[order].day = day.name;
-                    });
-                });
-                return schedule;
-            };
             return service;
         }]);
 });

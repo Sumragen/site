@@ -10,14 +10,15 @@ define(['../module', 'lodash'], function (module, _) {
         '$uibModal',
         '$timeout',
         'Dashboard.Schedule.ScheduleService',
+        'Dashboard.Schedule.ScheduleDataService',
         'ScheduleConstants',
         'Common.SchedulingUtil',
         'scheduleData',
-        function ($scope, $rootScope, moment, $filter, $uibModal, $timeout, scheduleService, scheduleConst, schedulingUtil, scheduleData) {
+        function ($scope, $rootScope, moment, $filter, $uibModal, $timeout, scheduleService, scheduleDataService, scheduleConst, schedulingUtil, scheduleData) {
             var self = this;
             var _templateUrl = "views/Dashboard/Schedule/day.html";
 
-            if($rootScope.showSettingsPage){
+            if ($rootScope.showSettingsPage) {
                 _templateUrl = "views/Dashboard/Schedule/daySettings.html";
             }
 
@@ -52,7 +53,7 @@ define(['../module', 'lodash'], function (module, _) {
             var step = 0;
             scheduleData.objects.schedule.forEach(function (day) {
                 step++;
-                self.tempSchedule = scheduleService.parseLessons(day);
+                self.tempSchedule = scheduleDataService.parseLessons(day);
                 self.tempSchedule.forEach(function (lesson) {
                     if (lesson) {
                         var lessonTime = schedulingUtil.getLesson(lesson.num);

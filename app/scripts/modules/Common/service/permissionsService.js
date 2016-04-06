@@ -35,7 +35,7 @@ define(['../module', 'lodash'], function (module, _) {
                 return angular.copy(permissionSet);
             };
 
-            service.hasPermissions = function (user, checkPermissions) {
+            service.hasPermissions = function (checkPermissions, user) {
                 !user ? user = securityContext.getPrincipal() : user;
 
                 /*_.each(user.permissions, function (permission, $index) {
@@ -43,8 +43,10 @@ define(['../module', 'lodash'], function (module, _) {
                  return false
                  }
                  });*/
-                for (var i = 0; i < user.roles[0].length; i++) {
-                    if (user.roles[0].permissions[i] !== checkPermissions[i]) return false;
+                for (var i = 0; i < checkPermissions.length; i++) {
+                    if (user.roles[0].permissions[i] !== checkPermissions[i]) {
+                        return false;
+                    }
                 }
                 return true;
             };

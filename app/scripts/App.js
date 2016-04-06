@@ -47,7 +47,8 @@ define([
                 '$uibModal',
                 '$uibModalStack',
                 'Common.ValidationMessagesBuilder',
-                function ($rootScope, $state, $stateParams, SecurityContext, $uibModal, $uibModalStack, validationMessagesBuilder) {
+                'Common.PermissionsService',
+                function ($rootScope, $state, $stateParams, SecurityContext, $uibModal, $uibModalStack, validationMessagesBuilder, permissionsService) {
 
                     /**
                      * This method is to-way binding function. It gets a form, set a validation message and give it back
@@ -114,7 +115,7 @@ define([
                         //Redirect handling
                         if (nextState.data && nextState.data.redirect) {
                             if (typeof nextState.data.redirect === 'function') {
-                                var redirect = nextState.data.redirect(SecurityContext.getPrincipal());
+                                var redirect = nextState.data.redirect(SecurityContext.getPrincipal(), permissionsService);
                                 if (redirect) {
                                     event.preventDefault();
                                     $state.go(redirect);

@@ -15,8 +15,10 @@ define(['angular', 'angular-animate'], function (module) {
                     controller: 'Dashboard.Settings.MasterController as controller',
                     data: {
                         //check user permissions
-                        redirect: function (user) {
-                            if (!user || user.roles[0].permissions.indexOf(1) < 0) {
+                        redirect: function (user, permissionService) {
+                            var permissions = permissionService.getPermissionSet(),
+                                requiredPermissions = [permissions.isTeacher.value];
+                            if (!user || !permissionService.hasPermissions(requiredPermissions)) {
                                 return 'common.home'
                             }
                         }

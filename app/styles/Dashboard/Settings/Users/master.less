@@ -1,14 +1,33 @@
 .user-list-item {
   cursor: pointer;
 }
+
 .user-list-item :hover {
   background: #dddddd;
 }
+
 .user-list-avatar {
-  top: 40px;
+  top: 10px;
   position: relative;
 }
+
 .user-list-icon {
   top: 25px;
   position: relative;
+}
+
+.wrap {
+  text-align: justify;
+}
+
+.wrap:after {
+  display: inline-block;
+  content: "";
+  width: 100%;
+}
+
+.wrap {
+  .item-wrap {
+    display: inline-block;
+  }
 }

@@ -14,6 +14,7 @@ define([
         'angular-mocks',
         'angular-moment',
         'angular-touch',
+        'infiniteScroll',
         //'angular-schema-form',
         'bootstrap-decorator',
         'moment',

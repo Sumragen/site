@@ -46,13 +46,17 @@ define(['./module', 'lodash'], function (module, _) {
                     }
                 },
                 user: {
-                    get: function () {
-                    },
-                    list: function () {
+                    list: function (offset, limit) {
                         return new API({
                             method: METHODS.GET,
-                            url: '/users'
+                            url: '/users/?offset=' + offset + '&limit=' + limit,
+                            data: {
+                                offset: offset,
+                                limit: limit
+                            }
                         })
+                    },
+                    get: function () {
                     },
                     update: function (user) {
                         return new API({
@@ -85,7 +89,7 @@ define(['./module', 'lodash'], function (module, _) {
                         })
                     }
                 },
-                role:{
+                role: {
                     delete: function (role) {
                         return new API({
                             method: METHODS.DELETE,

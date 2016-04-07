@@ -47,8 +47,8 @@ define(
                     return [400, {errorCode: 3, message: 'Schedule not found'}];
                 }
             });
-            $httpBackend.whenGET(prefix + '/users').respond(function (method, url) {
-                var users = fakeDataSource.getUsers();
+            $httpBackend.whenGET(/\/users\/\?offset=[0-9]*&limit=[0-9]*/).respond(function (method, url, amount) {
+                var users = fakeDataSource.getUsers(amount);
                 if (users) {
                     return [200, {users: users}, {}];
                 } else {

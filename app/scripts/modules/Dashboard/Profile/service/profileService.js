@@ -10,6 +10,13 @@ define(['../module'], function (module) {
         function ($http, $q, Endpoint, securityContext) {
             var service = {};
 
+            service.loadUsers = function (offset, limit) {
+                return $http(Endpoint.user.list(offset, limit))
+                    .then(function (users) {
+                        return users.data.users;
+                    });
+            };
+
             service.updateUser = function (user) {
                 return $http(Endpoint.user.update(user))
                     .then(function (data) {

@@ -1,35 +1,41 @@
-<div s-loading-indicator=""></div>
 
-<div class="profile-module-wrapper" ng-show="!busy">
-    <div class="list-group user-list-item" ng-repeat="user in users track by user.id" ng-show="!showEditForm">
-        <div class="list-group-item" ng-click="toggleShowEditForm(user)">
+<div class="profile-module-wrapper">
 
-            <div class="row-action-primary">
-                <i class="material-icons user-list-avatar" ng-if="!user.avatar">person</i>
-                <div class="row-picture">
-                    <img class="circle" src="{{user.avatar}}" ng-if="user.avatar" alt="icon">
+    <div infinite-scroll='loadMoreUsers()'
+         infinite-scroll-distance='1'
+         infinite-scroll-disabled='busy'>
+        <div class="list-group user-list-item" ng-repeat="user in users track by $index" ng-show="!showEditForm">
+            <div class="list-group-item" ng-click="toggleShowEditForm(user)">
+
+                <div class="row-action-primary">
+                    <i class="material-icons user-list-avatar" ng-if="!user.avatar">person</i>
+                    <div class="row-picture">
+                        <img class="circle" src="{{user.avatar}}" ng-if="user.avatar" alt="icon">
+                    </div>
+                </div>
+                <div class="row-content">
+                    <h4 class="list-group-item-heading">{{user.username}}</h4>
+
+                    <p class="list-group-item-text wrap">
+                        <item class="item-wrap">{{user.first_name}}</item>
+                        <item class="item-wrap">{{user.last_name}}</item>
+                        <item class="item-wrap">{{user.email}}</item>
+                    </p>
                 </div>
             </div>
-            <div class="row-content">
-                <h4 class="list-group-item-heading">{{user.username}}</h4>
-
-                <p class="list-group-item-text wrap">
-                    <item class="item-wrap">{{user.first_name}}</item>
-                    <item class="item-wrap">{{user.last_name}}</item>
-                    <item class="item-wrap">{{user.email}}</item>
-                </p>
-            </div>
+            <div class="list-group-separator"></div>
+            <div  style='clear: both'></div>
         </div>
-        <div class="list-group-separator"></div>
-    </div>
 
-    <div ng-show="showEditForm">
-        <form name="editForm"
-              sf-schema="schema"
-              sf-form="form"
-              sf-model="selectedUser">
-        </form>
-        <a class="btn btn-default" ng-click="toggleShowEditForm()">Cancel</a>
-        <a class="btn btn-info" ng-click="editProfile(editForm)">Submit</a>
+        <div ng-show="showEditForm">
+            <form name="editForm"
+                  sf-schema="schema"
+                  sf-form="form"
+                  sf-model="selectedUser">
+            </form>
+            <a class="btn btn-default" ng-click="toggleShowEditForm()">Cancel</a>
+            <a class="btn btn-info" ng-click="editProfile(editForm)">Submit</a>
+        </div>
     </div>
 </div>
+<div s-loading-indicator="" ng-show="busy"></div>

@@ -2,7 +2,7 @@
  * Created by sumragen on 2/27/16.
  */
 define(['angular'],function(module){
-    return module.module('Dashboard.Settings.Users',[])
+    return module.module('Dashboard.Settings.Users',['infinite-scroll'])
         .config(function ($stateProvider) {
             $stateProvider
                 .state('dashboard.settings.users', {
@@ -11,7 +11,7 @@ define(['angular'],function(module){
                     controller: 'Dashboard.Settings.Users.UsersController as controller',
                     resolve: {
                         usersData: function (Endpoint, $http, $q) {
-                            return $http(Endpoint.user.list())
+                            return $http(Endpoint.user.list(0, 6))
                                 .then(function (data) {
                                     return data.data.users;
                                 }, function (err) {

@@ -11,6 +11,24 @@ define(['../module'], function (module) {
             var self = this;
             $scope.users = usersData;
 
+            var limit = 2;
+
+
+            $scope.loadMoreUsers = function () {
+                if($scope.busy) return;
+                $scope.busy = true;
+
+                profileService.loadUsers($scope.users.length, limit)
+                    .then(function (users) {
+                        $scope.users = $scope.users.concat(users);
+                    })
+                    .finally(function () {
+                        $timeout(function () {
+                            $scope.busy = false;
+                        }, 0);
+                    });
+            };
+
             $scope.showEditForm = false;
             $scope.toggleShowEditForm = function (user) {
                 $timeout(function () {

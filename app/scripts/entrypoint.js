@@ -29,9 +29,13 @@ require.config({
         'tv4': '../../bower_components/tv4/tv4',
         'objectpath': '../../bower_components/objectpath/lib/ObjectPath',
         'arrive': '../../bower_components/arrive/src/arrive',
+        'infiniteScroll': '../../bower_components/ngInfiniteScroll/build/ng-infinite-scroll',
         'google': 'https://maps.googleapis.com/maps/api/js?v=3.24&key=AIzaSyB2I-5q7CdsT5Kx1hQMuEgWiWCH_0U_7Ts'
     },
     shim: {
+        'infiniteScroll': {
+            deps: ['angular', 'jquery']
+        },
         'bootstrap-decorator': {
             deps: ['schemaForm']
         },

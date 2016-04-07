@@ -9,16 +9,14 @@ define(['../module'], function (module) {
         'Dashboard.Profile.ProfileService',
         function ($scope, $timeout, SecurityContext, profileService) {
             var currentUser;
-            $scope.busy = true;
 
             $timeout(function () {
-                currentUser = SecurityContext.getPrincipal();
-                $scope.currentUser = currentUser;
-                $scope.busy = false;
+                $scope.currentUser  = SecurityContext.getPrincipal();
             });
 
+
             $scope.$on('securityContext:updated', function (e, user) {
-                $scope.currentUser = currentUser;
+                $scope.currentUser = user;
             });
 
             $scope.showSchemaForm = false;

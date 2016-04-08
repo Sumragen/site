@@ -35,6 +35,7 @@ define([
             'ui.bootstrap',
             'angularMoment',
             'AuthModule',
+            'infinite-scroll',
             'Common',
             'Dashboard'
         ];

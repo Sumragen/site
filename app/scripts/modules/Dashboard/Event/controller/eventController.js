@@ -59,7 +59,7 @@ define(['../module', 'lodash'], function (module, _) {
 
             //Map version
             $scope.markers = [];
-            $scope.cssOpts = {width: '70%', height: '70%', position: 'absolute'};
+            $scope.cssOpts = {width: '100%', height: '70%', position: 'absolute'};
             $scope.gmOpts = {zoom: 16, mapTypeControlOptions: google.maps.MapTypeControlStyle.HORIZONTAL_BAR};
             $scope.closeInfoWindow = function (infowindow) {
                 infowindow.close();

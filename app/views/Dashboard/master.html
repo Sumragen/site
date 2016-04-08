@@ -3,7 +3,9 @@
         <a ui-sref-active="active" class="btn" ng-repeat="button in globalButtons" ui-sref="{{button.state}}"
            ng-bind-html="button.name"></a>
     </div>
-    <div class="fixed-width">
-        <div class="content" ui-view></div>
+    <div class="scrolling-module-wrapper">
+        <div class="fixed-width">
+            <div class="content" ui-view></div>
+        </div>
     </div>
 </div>

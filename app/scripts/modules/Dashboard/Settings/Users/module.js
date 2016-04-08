@@ -2,7 +2,7 @@
  * Created by sumragen on 2/27/16.
  */
 define(['angular'],function(module){
-    return module.module('Dashboard.Settings.Users',['infinite-scroll'])
+    return module.module('Dashboard.Settings.Users',[])
         .config(function ($stateProvider) {
             $stateProvider
                 .state('dashboard.settings.users', {

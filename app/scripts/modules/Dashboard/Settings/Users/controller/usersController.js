@@ -11,21 +11,21 @@ define(['../module'], function (module) {
             var self = this;
             $scope.users = usersData;
 
+            $scope.scrollDisabled = false;
             var limit = 2;
-
 
             $scope.loadMoreUsers = function () {
                 if($scope.busy) return;
                 $scope.busy = true;
-
                 profileService.loadUsers($scope.users.length, limit)
                     .then(function (users) {
+                        if($scope.users.concat(users).length - $scope.users.length < limit) $scope.scrollDisabled = true;
                         $scope.users = $scope.users.concat(users);
                     })
                     .finally(function () {
                         $timeout(function () {
                             $scope.busy = false;
-                        }, 0);
+                        });
                     });
             };
 

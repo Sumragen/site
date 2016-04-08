@@ -15,6 +15,7 @@ define([
         'angular-moment',
         'angular-touch',
         'infiniteScroll',
+        'bootstrapDateTimePicker',
         //'angular-schema-form',
         'bootstrap-decorator',
         'moment',
@@ -148,6 +149,12 @@ define([
                         'bootstrapDecorator',
                         'fileinput',
                         'views/Common/uploadFile.html'
+                    );
+
+                    schemaFormDecoratorsProvider.addMapping(
+                        'bootstrapDecorator',
+                        'datetimepicker',
+                        'views/Common/datetimepicker.html'
                     );
 
                     schemaFormProvider.postProcess(function (form) {

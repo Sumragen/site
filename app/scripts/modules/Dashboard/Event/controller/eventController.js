@@ -1,7 +1,7 @@
 /**
  * Created by sumragen on 2/27/16.
  */
-define(['../module', 'lodash'], function (module, _) {
+define(['../module', 'lodash', 'jquery'], function (module, _) {
     module.controller('Dashboard.Event.EventController', [
         '$q',
         '$scope',
@@ -20,13 +20,32 @@ define(['../module', 'lodash'], function (module, _) {
                 });
             }
 
+
             $scope.selectedEvent = {};
+
             $scope.showEditForm = false;
             if ($state.current.name.indexOf('settings') > -1) {
                 $scope.toggleShowEditForm = function (event) {
                     $timeout(function () {
                         initMap($scope.map);
                         $scope.selectedEvent = event;
+                        (event) ? $scope.form = [
+                            {
+                                "key": "name",
+                                "placeholder": "Name"
+
+                            },
+                            {
+                                "key": "description",
+                                "placeholder": "Description"
+                            },
+                            {
+                                "key": "date",
+                                "type": "datetimepicker",
+                                "currentDate": event.date,
+                                "placeholder": "Date"
+                            }
+                        ] : $scope.form;
                         $scope.showEditForm = !$scope.showEditForm;
                     });
                 };
@@ -36,6 +55,8 @@ define(['../module', 'lodash'], function (module, _) {
                 $scope.busy = false;
                 $scope.$broadcast('schemaFormValidate');
                 if (form.$valid) {
+                    var selectedDate = $('#sfDateTimePicker').data('date');
+                    if (selectedDate) $scope.selectedEvent.date = selectedDate;
                     eventService.updateEvent($scope.selectedEvent)
                         .then(function () {
                             $scope.toggleShowEditForm();
@@ -138,9 +159,7 @@ define(['../module', 'lodash'], function (module, _) {
                         title: "Description"
                     },
                     date: {
-                        type: "string",
-                        minLength: 4,
-                        title: "date"
+                        type: "date"
                     },
                     event_map: {
                         type: 'map'
@@ -153,21 +172,7 @@ define(['../module', 'lodash'], function (module, _) {
                 ]
             };
 
-            $scope.form = [
-                {
-                    "key": "name",
-                    "placeholder": "Name"
-
-                },
-                {
-                    "key": "description",
-                    "placeholder": "Description"
-                },
-                {
-                    "key": "date",
-                    "placeholder": "Date"
-                }
-            ];
+            $scope.form = [];
         }
     ]);
 });

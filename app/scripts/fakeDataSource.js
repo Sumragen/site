@@ -409,7 +409,7 @@ define(['lodash'], function (_) {
         {
             id: 1,
             name: 'Rest',
-            date: '01.03.2016',
+            date: '02/03/2016 11:50 AM',
             description: 'first event (test version)',
             location: {
                 latitude: 46.6699334,
@@ -419,7 +419,7 @@ define(['lodash'], function (_) {
         {
             id: 2,
             name: "Children's hospital",
-            date: '09.23.2016',
+            date: '09/23/2016 14:30 AM',
             description: 'Medical inspection',
             location: {
                 latitude: 46.6676171,
@@ -429,7 +429,7 @@ define(['lodash'], function (_) {
         {
             id: 3,
             name: 'spring ball',
-            date: '08.07.2016',
+            date: '04/19/2016 16:00 AM',
             description: 'spring ball',
             location: {
                 latitude: 46.6716115,

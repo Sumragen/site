@@ -30,9 +30,13 @@ require.config({
         'objectpath': '../../bower_components/objectpath/lib/ObjectPath',
         'arrive': '../../bower_components/arrive/src/arrive',
         'infiniteScroll': '../../bower_components/ngInfiniteScroll/build/ng-infinite-scroll',
+        'bootstrapDateTimePicker':'../../bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min',
         'google': 'https://maps.googleapis.com/maps/api/js?v=3.24&key=AIzaSyB2I-5q7CdsT5Kx1hQMuEgWiWCH_0U_7Ts'
     },
     shim: {
+        'bootstrapDateTimePicker': {
+            deps: ['jquery','moment','twitter-bootstrap']
+        },
         'infiniteScroll': {
             deps: ['angular', 'jquery']
         },

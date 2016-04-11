@@ -13,13 +13,13 @@ define(['../module'], function (module) {
                     $(element[0])
                         .parent()
                         .datetimepicker({
-                        defaultDate: new Date(attrs['sDateTimePicker']),
-                        format: 'LLL'
-                    })
+                            defaultDate: new Date(attrs['sDateTimePicker']),
+                            format: 'LLL'
+                        })
                         .on('dp.change', function (e) {
-                        ngModelController.$setViewValue(moment(new Date(e.date)).format('LLL'));
-                        ngModelController.$commitViewValue();
-                    });
+                            ngModelController.$setViewValue(moment(new Date(e.date)).format('LLL'));
+                            ngModelController.$commitViewValue();
+                        });
 
                 }
             }

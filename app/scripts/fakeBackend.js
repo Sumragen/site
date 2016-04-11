@@ -24,9 +24,9 @@ define(
                 }
             });
             $httpBackend.whenPUT(/\/event\/(0-9)*/).respond(function (method, url, tempEvent) {
-                var event = fakeDataSource.updateEvent(tempEvent);
-                if (event) {
-                    return [200, event, {}];
+                var events = fakeDataSource.updateEvent(tempEvent);
+                if (events) {
+                    return [200, events, {}];
                 } else {
                     return [400, {errorCode: 4, message: 'wrong update'}];
                 }

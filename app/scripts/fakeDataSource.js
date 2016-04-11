@@ -635,13 +635,13 @@ define(['lodash'], function (_) {
     dataSource.updateEvent = function (dataEvent) {
         load();
         var tempEvent = angular.fromJson(dataEvent);
-        return _.find(data.event.objects, function (event, index) {
+        _.find(data.event.objects, function (event, index) {
             if (tempEvent.id === event.id) {
                 data.event.objects[index] = tempEvent;
                 commit();
-                return event;
             }
         });
+        return data.event.objects;
     };
     dataSource.updateRole = function (dataRole) {
         load();

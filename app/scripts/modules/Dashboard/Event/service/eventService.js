@@ -11,7 +11,7 @@ define(['../module'], function (module) {
             service.updateEvent = function (event) {
                 return $http(Endpoint.events.update(event))
                     .then(function (data) {
-                        return data;
+                        return data.data;
                     }, function (err) {
                         return $q.reject(err);
                     });

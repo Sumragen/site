@@ -9,6 +9,7 @@ define(
         './service/validationMessageBuilder',
         './service/permissionsService',
         './directive/uploadFile',
+        './directive/datetimepicker',
         './directive/setImage',
         './directive/loadingIndicator',
         './endpoint'

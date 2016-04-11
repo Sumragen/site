@@ -20,6 +20,7 @@ define(['../module', 'lodash', 'jquery'], function (module, _) {
                 });
             }
 
+            $scope.eventList = eventsData;
 
             $scope.selectedEvent = {};
 
@@ -28,24 +29,28 @@ define(['../module', 'lodash', 'jquery'], function (module, _) {
                 $scope.toggleShowEditForm = function (event) {
                     $timeout(function () {
                         initMap($scope.map);
-                        $scope.selectedEvent = event;
-                        (event) ? $scope.form = [
-                            {
-                                "key": "name",
-                                "placeholder": "Name"
+                        if (event) {
+                            $scope.selectedEvent = angular.copy(event);
+                            $scope.form = [
+                                {
+                                    "key": "name",
+                                    "placeholder": "Name"
 
-                            },
-                            {
-                                "key": "description",
-                                "placeholder": "Description"
-                            },
-                            {
-                                "key": "date",
-                                "type": "datetimepicker",
-                                "currentDate": event.date,
-                                "placeholder": "Date"
-                            }
-                        ] : $scope.form;
+                                },
+                                {
+                                    "key": "description",
+                                    "placeholder": "Description"
+                                },
+                                {
+                                    "key": "date",
+                                    "type": "datetimepicker",
+                                    "currentDate": $scope.selectedEvent.date,
+                                    "placeholder": "Date"
+                                }
+                            ]
+                        } else {
+                            $scope.form = [];
+                        }
                         $scope.showEditForm = !$scope.showEditForm;
                     });
                 };
@@ -55,10 +60,9 @@ define(['../module', 'lodash', 'jquery'], function (module, _) {
                 $scope.busy = false;
                 $scope.$broadcast('schemaFormValidate');
                 if (form.$valid) {
-                    var selectedDate = $('#sfDateTimePicker').data('date');
-                    if (selectedDate) $scope.selectedEvent.date = selectedDate;
                     eventService.updateEvent($scope.selectedEvent)
-                        .then(function () {
+                        .then(function (data) {
+                            $scope.eventList = data;
                             $scope.toggleShowEditForm();
                         })
                         .finally(function () {
@@ -130,7 +134,6 @@ define(['../module', 'lodash', 'jquery'], function (module, _) {
                         panorama.setVisible(false);
                     }
                 };
-                $scope.eventList = eventsData;
                 _.each($scope.eventList, function (event) {
                     var marker = new google.maps.Marker({
                         id: event.id,
@@ -160,9 +163,6 @@ define(['../module', 'lodash', 'jquery'], function (module, _) {
                     },
                     date: {
                         type: "date"
-                    },
-                    event_map: {
-                        type: 'map'
                     }
                 },
                 "required": [

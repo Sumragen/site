@@ -14,7 +14,7 @@ define(['../module', 'lodash'], function (module, _) {
         'ScheduleConstants',
         'Common.SchedulingUtil',
         'scheduleData',
-        function ($scope, $state,moment, $filter, $uibModal, $timeout, scheduleService, scheduleDataService, scheduleConst, schedulingUtil, scheduleData) {
+        function ($scope, $state, moment, $filter, $uibModal, $timeout, scheduleService, scheduleDataService, scheduleConst, schedulingUtil, scheduleData) {
             var self = this;
             var _templateUrl = "views/Dashboard/Schedule/day.html";
 

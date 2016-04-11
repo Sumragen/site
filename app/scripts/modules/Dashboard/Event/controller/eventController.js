@@ -27,11 +27,11 @@ define(['../module', 'lodash', 'jquery'], function (module, _) {
             $scope.showEditForm = false;
             if ($state.current.name.indexOf('settings') > -1) {
                 $scope.toggleShowEditForm = function (event) {
-                        initMap($scope.map);
-                        if (event) {
-                            $scope.event.model = angular.copy(event);
-                        }
-                        $scope.showEditForm = !$scope.showEditForm;
+                    initMap($scope.map);
+                    if (event) {
+                        $scope.event.model = angular.copy(event);
+                    }
+                    $scope.showEditForm = !$scope.showEditForm;
                 };
             }
 
@@ -163,6 +163,9 @@ define(['../module', 'lodash', 'jquery'], function (module, _) {
                 {
                     "key": "date",
                     "type": "datetimepicker",
+                    "$options": {
+                        format: 'LLL'
+                    },
                     "placeholder": "Date"
                 }
             ]

@@ -10,10 +10,13 @@ define(['../module'], function (module) {
                 restrict: 'A',
                 require: '^ngModel',
                 link: function ($scope, element, attrs, ngModelController) {
-                    $('div.date').datetimepicker({
-                        defaultDate: attrs['sDateTimePicker'],
+                    $(element[0])
+                        .parent()
+                        .datetimepicker({
+                        defaultDate: new Date(attrs['sDateTimePicker']),
                         format: 'LLL'
-                    }).on('dp.change', function (e) {
+                    })
+                        .on('dp.change', function (e) {
                         ngModelController.$setViewValue(moment(new Date(e.date)).format('LLL'));
                         ngModelController.$commitViewValue();
                     });

@@ -1,6 +1,7 @@
 <div class="dashboard-module-wrapper">
-    <div class="btn-group btn-group-justified btn-group-raised custom-btn-group">
-        <a ui-sref-active="active" class="btn" ng-repeat="button in globalButtons" ui-sref="{{button.state}}"
+    <div class="btn-group btn-group-justified custom-btn-group">
+        <a ui-sref-active="active" class="btn btn btn-default" ng-repeat="button in globalButtons"
+           ui-sref="{{button.state}}"
            ng-bind-html="button.name"></a>
     </div>
     <div class="scrolling-module-wrapper">

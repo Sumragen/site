@@ -16,10 +16,38 @@ define(['../module', 'lodash'], function (module, _) {
         'scheduleData',
         function ($scope, $state, moment, $filter, $uibModal, $timeout, scheduleService, scheduleDataService, scheduleConst, schedulingUtil, scheduleData) {
             var self = this;
+            $scope.busy = false;
             var _templateUrl = "views/Dashboard/Schedule/day.html";
 
             if ($state.current.name.indexOf('settings') > -1) {
                 _templateUrl = "views/Dashboard/Schedule/daySettings.html";
+
+                scheduleService.getStages()
+                    .then(function (data) {
+                        $scope.stages = [{suffix: []}];
+                        _.each(data, function (stage) {
+                            _.each([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], function (index) {
+                                if (stage.stage === index + 1) {
+                                    if ($scope.stages[index]) {
+                                        $scope.stages[index].suffix.push(stage)
+                                    } else {
+                                        $scope.stages[index] = {suffix: [stage]}
+                                    }
+                                }
+                            });
+                        })
+
+                    });
+
+                $scope.selectStage = function (stage, suffix) {
+                    $scope.busy = true;
+                    scheduleService.getStageBySuffix(stage, suffix)
+                        .then(function (data) {
+                            $scope.events.splice(0);
+                            parseLessons(data.data.stage.schedule);
+                            $scope.busy = false;
+                        });
+                };
             }
 
             self.showDayModal = function (date) {
@@ -50,23 +78,28 @@ define(['../module', 'lodash'], function (module, _) {
             };
 
             $scope.events = [];
-            var step = 0;
-            scheduleData.objects.schedule.forEach(function (day) {
-                step++;
-                self.tempSchedule = scheduleDataService.parseLessons(day);
-                self.tempSchedule.forEach(function (lesson) {
-                    if (lesson) {
-                        var lessonTime = schedulingUtil.getLesson(lesson.num);
-                        $scope.events.push({
-                            title: lesson.lesson,
-                            start: lessonTime.from.hours() + ':' + lessonTime.from.minutes(),
-                            end: lessonTime.to.hours() + ':' + lessonTime.to.minutes(),
-                            allDay: false,
-                            dow: [step]
-                        });
-                    }
+
+            function parseLessons(schedule) {
+                var step = 0;
+                schedule.forEach(function (day) {
+                    step++;
+                    self.tempSchedule = scheduleDataService.parseLessons(day);
+                    self.tempSchedule.forEach(function (lesson) {
+                        if (lesson) {
+                            var lessonTime = schedulingUtil.getLesson(lesson.num);
+                            $scope.events.push({
+                                title: lesson.lesson,
+                                start: lessonTime.from.hours() + ':' + lessonTime.from.minutes(),
+                                end: lessonTime.to.hours() + ':' + lessonTime.to.minutes(),
+                                allDay: false,
+                                dow: [step]
+                            });
+                        }
+                    });
                 });
-            });
+            }
+
+            parseLessons(scheduleData.schedule);
 
             $scope.eventSources = [$scope.events, $scope.eventSource];
 

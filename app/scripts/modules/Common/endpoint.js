@@ -89,6 +89,21 @@ define(['./module', 'lodash'], function (module, _) {
                         })
                     }
                 },
+                stage: {
+                    get: function (data) {
+                        return new API({
+                            method: METHODS.GET,
+                            url: '/stage/?' + data.stage + data.suffix,
+                            data: data
+                        })
+                    },
+                    list: function () {
+                        return new API({
+                            method: METHODS.GET,
+                            url: '/stages'
+                        })
+                    }
+                },
                 role: {
                     delete: function (role) {
                         return new API({

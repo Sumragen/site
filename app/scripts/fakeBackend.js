@@ -47,6 +47,22 @@ define(
                     return [400, {errorCode: 3, message: 'Schedule not found'}];
                 }
             });
+            $httpBackend.whenGET(/\/stage\/\?[0-9]*[A-D]/).respond(function (method, url, stage) {
+                var stage = fakeDataSource.getStageBySuffix(stage);
+                if (stage) {
+                    return [200, {stage: stage}, {}];
+                } else {
+                    return [400, {errorCode: 3, message: 'Stage not found'}];
+                }
+            });
+            $httpBackend.whenGET(prefix + '/stages').respond(function (method, url) {
+                var stages = fakeDataSource.getStages();
+                if (stages) {
+                    return [200, {stages: stages}, {}];
+                } else {
+                    return [400, {errorCode: 3, message: 'Stages not found'}];
+                }
+            });
             $httpBackend.whenGET(/\/users\/\?offset=[0-9]*&limit=[0-9]*/).respond(function (method, url, amount) {
                 var users = fakeDataSource.getUsers(amount);
                 if (users) {

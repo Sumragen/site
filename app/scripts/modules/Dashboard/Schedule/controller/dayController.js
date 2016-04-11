@@ -19,7 +19,7 @@ define(['../module', 'lodash'], function (module, _) {
 
             var selectedDay = $filter('date')(moment(date).format('dddd'), 'dddd');
 
-            var tempSchedule = currentSchedule.objects.schedule;
+            var tempSchedule = currentSchedule.schedule;
 
             $scope.currentDay = {dayOff: 'day off'};
 

@@ -16,6 +16,21 @@ define(['../module', 'lodash'], function (module, _) {
                         return $q.reject(err);
                     });
             };
+            service.getStages = function () {
+                return $http(Endpoint.stage.list())
+                    .then(function (data) {
+                        return data.data.stages;
+                    });
+            };
+            service.getStageBySuffix = function (stage, suffix) {
+                return $http(Endpoint.stage.get({stage: stage, suffix: suffix}))
+                    .then(function (data) {
+                        return data;
+                    })
+                    .catch(function (err) {
+                        return $q.reject(err);
+                    });
+            };
             return service;
         }]);
 });

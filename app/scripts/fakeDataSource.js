@@ -483,6 +483,7 @@ define(['lodash'], function (_) {
     ];
     var defaultStages = [
         {
+            id: 1,
             stage: 5,
             suffix: 'A',
             'form-master': {
@@ -580,6 +581,7 @@ define(['lodash'], function (_) {
             ]
         },
         {
+            id: 2,
             stage: 11,
             suffix: 'A',
             'form-master': {
@@ -641,6 +643,7 @@ define(['lodash'], function (_) {
             ]
         },
         {
+            id: 3,
             stage: 11,
             suffix: 'B',
             'form-master': {
@@ -824,9 +827,9 @@ define(['lodash'], function (_) {
     };
     dataSource.getStageBySuffix = function (tempData) {
         load();
-        var tempStageData = angular.fromJson(tempData);
+        var stageId = angular.fromJson(tempData);
         return _.find(data.stages.objects, function (stage) {
-            if(tempStageData.stage === stage.stage && tempStageData.suffix === stage.suffix){
+            if(stageId === stage.id){
                 return stage;
             }
         })

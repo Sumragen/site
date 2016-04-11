@@ -3,10 +3,7 @@
  */
 define(['../module', 'lodash'], function (module, _) {
     module.service('Dashboard.Schedule.ScheduleDataService', [
-        '$http',
-        '$q',
-        'Endpoint',
-        function ($http, $q, Endpoint) {
+        function () {
             var service = {};
             service.parseLessons = function (day) {
                 var schedule = [null, null, null, null, null, null, null, null, null];

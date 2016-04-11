@@ -47,8 +47,8 @@ define(
                     return [400, {errorCode: 3, message: 'Schedule not found'}];
                 }
             });
-            $httpBackend.whenGET(/\/stage\/\?[0-9]*[A-D]/).respond(function (method, url, stage) {
-                var stage = fakeDataSource.getStageBySuffix(stage);
+            $httpBackend.whenGET(/\/stage\/[0-9]*/).respond(function (method, url, stageId) {
+                var stage = fakeDataSource.getStageBySuffix(stageId);
                 if (stage) {
                     return [200, {stage: stage}, {}];
                 } else {

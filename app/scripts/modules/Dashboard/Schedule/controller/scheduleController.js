@@ -39,9 +39,9 @@ define(['../module', 'lodash'], function (module, _) {
 
                     });
 
-                $scope.selectStage = function (stage, suffix) {
+                $scope.selectStage = function (id) {
                     $scope.busy = true;
-                    scheduleService.getStageBySuffix(stage, suffix)
+                    scheduleService.getStageBySuffix(id)
                         .then(function (data) {
                             $scope.events.splice(0);
                             parseLessons(data.data.stage.schedule);

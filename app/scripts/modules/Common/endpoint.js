@@ -90,11 +90,11 @@ define(['./module', 'lodash'], function (module, _) {
                     }
                 },
                 stage: {
-                    get: function (data) {
+                    get: function (id) {
                         return new API({
                             method: METHODS.GET,
-                            url: '/stage/?' + data.stage + data.suffix,
-                            data: data
+                            url: '/stage/' + id,
+                            data: id
                         })
                     },
                     list: function () {

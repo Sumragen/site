@@ -22,8 +22,8 @@ define(['../module', 'lodash'], function (module, _) {
                         return data.data.stages;
                     });
             };
-            service.getStageBySuffix = function (stage, suffix) {
-                return $http(Endpoint.stage.get({stage: stage, suffix: suffix}))
+            service.getStageBySuffix = function (id) {
+                return $http(Endpoint.stage.get(id))
                     .then(function (data) {
                         return data;
                     })

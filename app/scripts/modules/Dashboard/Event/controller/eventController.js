@@ -44,7 +44,6 @@ define(['../module', 'lodash', 'jquery'], function (module, _) {
                                 {
                                     "key": "date",
                                     "type": "datetimepicker",
-                                    "currentDate": $scope.selectedEvent.date,
                                     "placeholder": "Date"
                                 }
                             ]

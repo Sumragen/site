@@ -40,9 +40,9 @@
     <!--edit form-->
     <div ng-if="showEditForm">
         <form name="editForm"
-              sf-schema="schema"
-              sf-form="form"
-              sf-model="selectedEvent">
+              sf-schema="event.schema"
+              sf-form="event.form"
+              sf-model="event.model">
         </form>
         <a class="btn btn-default" ng-click="toggleShowEditForm()">Cancel</a>
         <a class="btn btn-info" ng-click="editEvent(editForm)">Submit</a>

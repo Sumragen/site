@@ -22,36 +22,16 @@ define(['../module', 'lodash', 'jquery'], function (module, _) {
 
             $scope.eventList = eventsData;
 
-            $scope.selectedEvent = {};
+            $scope.event = {};
 
             $scope.showEditForm = false;
             if ($state.current.name.indexOf('settings') > -1) {
                 $scope.toggleShowEditForm = function (event) {
-                    $timeout(function () {
                         initMap($scope.map);
                         if (event) {
-                            $scope.selectedEvent = angular.copy(event);
-                            $scope.form = [
-                                {
-                                    "key": "name",
-                                    "placeholder": "Name"
-
-                                },
-                                {
-                                    "key": "description",
-                                    "placeholder": "Description"
-                                },
-                                {
-                                    "key": "date",
-                                    "type": "datetimepicker",
-                                    "placeholder": "Date"
-                                }
-                            ]
-                        } else {
-                            $scope.form = [];
+                            $scope.event.model = angular.copy(event);
                         }
                         $scope.showEditForm = !$scope.showEditForm;
-                    });
                 };
             }
 
@@ -59,7 +39,7 @@ define(['../module', 'lodash', 'jquery'], function (module, _) {
                 $scope.busy = false;
                 $scope.$broadcast('schemaFormValidate');
                 if (form.$valid) {
-                    eventService.updateEvent($scope.selectedEvent)
+                    eventService.updateEvent($scope.event.model)
                         .then(function (data) {
                             $scope.eventList = data;
                             $scope.toggleShowEditForm();
@@ -147,7 +127,7 @@ define(['../module', 'lodash', 'jquery'], function (module, _) {
                     $scope.showMap = false;
                 });
             };
-            $scope.schema = {
+            $scope.event.schema = {
                 "type": "object",
                 "properties": {
                     name: {
@@ -170,8 +150,22 @@ define(['../module', 'lodash', 'jquery'], function (module, _) {
                     "date"
                 ]
             };
+            $scope.event.form = [
+                {
+                    "key": "name",
+                    "placeholder": "Name"
 
-            $scope.form = [];
+                },
+                {
+                    "key": "description",
+                    "placeholder": "Description"
+                },
+                {
+                    "key": "date",
+                    "type": "datetimepicker",
+                    "placeholder": "Date"
+                }
+            ]
         }
     ]);
 });

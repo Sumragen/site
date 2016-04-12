@@ -26,7 +26,10 @@ define(['angular'], function (module) {
                 .state('dashboard.settings.schedule.edit.day', {
                     url: "/day",
                     templateUrl: 'views/Dashboard/Settings/Schedule/Edit/day.html',
-                    controller: 'Dashboard.Settings.Schedule.Edit.Day as controller'
+                    controller: 'Dashboard.Settings.Schedule.Edit.DayController as controller',
+                    params: {
+                        day : null
+                    }
                 });
         });
 });

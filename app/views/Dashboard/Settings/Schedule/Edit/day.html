@@ -1,2 +1,18 @@
-<div>Full schedule</div>
-<button ui-sref="dashboard.settings.schedule.edit.singleClass">Single Class</button>
+<a class="btn btn-raised btn-default" ui-sref="dashboard.settings.schedule.selector">Back</a>
+
+<h1>{{selectedDay.title}}</h1>
+
+<table class="table table-striped stage-table" ng-if="!busy && !showDaysTable">
+    <thead>
+    <tr>
+        <th>#</th>
+        <th ng-repeat="num in [0,1,2,3,4,5,6,7,8]">{{num}}</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="stage in stages | orderBy: ['stage','suffix'] track by $index" class="active">
+        <td>{{stage.stage}}-{{stage.suffix}}</td>
+        <td ng-repeat="lesson in stage.day track by $index">{{(lesson)?lesson.title:null}}</td>
+    </tr>
+    </tbody>
+</table>

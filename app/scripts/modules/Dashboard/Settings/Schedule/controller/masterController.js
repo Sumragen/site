@@ -9,6 +9,39 @@ define(['../module', 'lodash'], function (module, _) {
         'Dashboard.Schedule.ScheduleDataService',
         function ($scope, $state, scheduleService, scheduleDataService) {
             $scope.busy = false;
+
+            $scope.days = [
+                {
+                    num: 1,
+                    name: 'Mon',
+                    title: 'Monday'
+                }, {
+                    num: 2,
+                    name: 'Tue',
+                    title: 'Tuesday'
+                }, {
+                    num: 3,
+                    name: 'Wed',
+                    title: 'Wednesday'
+                }, {
+                    num: 4,
+                    name: 'Thu',
+                    title: 'Thursday'
+                }, {
+                    num: 5,
+                    name: 'Fri',
+                    title: 'Friday'
+                }, {
+                    num: 6,
+                    name: 'Sat',
+                    title: 'Saturday'
+                }, {
+                    num: 7,
+                    name: 'Sun',
+                    title: 'Sunday'
+                }
+            ];
+
             scheduleService.getStages()
                 .then(function (data) {
                     $scope.stages = [{suffix: []}];
@@ -20,13 +53,9 @@ define(['../module', 'lodash'], function (module, _) {
                             maxAmount = stage.stage;
                         }
                     });
-                    var stageAmount = [];
-                    while (amount < maxAmount) {
-                        stageAmount.push(amount++);
-                    }
 
                     _.each(data, function (stage) {
-                        _.each(stageAmount, function (index) {
+                        _.each(_.range(maxAmount), function (index) {
                             if (stage.stage === index + 1) {
                                 if ($scope.stages[index]) {
                                     $scope.stages[index].suffix.push(stage)
@@ -38,14 +67,18 @@ define(['../module', 'lodash'], function (module, _) {
                     })
                 });
 
+
             $scope.selectStage = function (id) {
-                $scope.busy = true;
                 scheduleService.getStageBySuffix(id)
                     .then(function (data) {
-                        $scope.busy = false;
-                        $state.go('dashboard.settings.schedule.edit.stage', {stage: data.data.stage})
+                        $state.go('dashboard.settings.schedule.edit.stage', {stage: data.data.stage});
                     });
             };
+
+            $scope.selectDay = function (day) {
+                $state.go('dashboard.settings.schedule.edit.day', {day: day})
+            };
+
 
             $scope.selectedPage = function (check) {
                 $scope.showDaysTable = check;

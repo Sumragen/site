@@ -11,7 +11,7 @@ define(['../module', 'lodash'], function (module, _) {
                 var events = [];
                 schedule.forEach(function (day) {
                     step++;
-                    self.tempSchedule = parse(day);
+                    self.tempSchedule = service.parse(day);
                     self.tempSchedule.forEach(function (lesson) {
                         if (lesson) {
                             var lessonTime = schedulingUtil.getLesson(lesson.num);
@@ -20,14 +20,15 @@ define(['../module', 'lodash'], function (module, _) {
                                 start: lessonTime.from.hours() + ':' + lessonTime.from.minutes(),
                                 end: lessonTime.to.hours() + ':' + lessonTime.to.minutes(),
                                 allDay: false,
-                                dow: [step]
+                                dow: [step],
+                                num: lesson.num
                             });
                         }
                     });
                 });
                 return events;
             };
-            function parse(day){
+            service.parse = function (day){
                 var schedule = [null, null, null, null, null, null, null, null, null];
                 _.each(day.lessons, function (lesson) {
                     _.each(lesson.order, function (order) {
@@ -37,7 +38,7 @@ define(['../module', 'lodash'], function (module, _) {
                     });
                 });
                 return schedule;
-            }
+            };
             return service;
         }]);
 });

@@ -18,7 +18,7 @@ define(['angular', 'angular-animate'], function (module) {
                         buttons: [
                             {name: 'Users', state: 'dashboard.settings.users'},
                             {name: 'Events', state: 'dashboard.settings.events'},
-                            {name: 'Schedule', state: 'dashboard.settings.schedule.stages'},
+                            {name: 'Schedule', state: 'dashboard.settings.schedule.selector'},
                             {name: 'Manage roles', state: 'dashboard.settings.manageRoles'}
                         ],
                         //check user permissions

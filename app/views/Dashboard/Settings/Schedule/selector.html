@@ -1,0 +1,29 @@
+<div class="form-group">
+    <div class="col-right">
+        <div class="togglebutton">
+            Stages
+            <label>
+                <input type="checkbox" ng-model="toggleViews" ng-change="selectedPage(toggleViews)">
+            </label>
+            Days
+        </div>
+    </div>
+</div>
+
+<table class="table table-striped stage-table" ng-if="!busy && !showDaysTable">
+    <thead>
+    <tr>
+        <th>Stage</th>
+        <th colspan="4">Suffix</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="stage in stages track by $index" class="active">
+        <td>{{$index+1}}</td>
+        <td class="stage-suffix" ng-repeat="suffix in stage.suffix" ng-click="selectStage(suffix.id)">
+            {{suffix.suffix}}
+        </td>
+    </tr>
+    </tbody>
+</table>
+

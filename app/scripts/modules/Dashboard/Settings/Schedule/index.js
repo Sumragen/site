@@ -3,9 +3,7 @@
  */
 define([
     './controller/masterController',
-    './Days/index',
-    './Edit/index',
-    './Stages/index'
+    './Edit/index'
 ], function () {
 
 });

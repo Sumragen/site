@@ -3,9 +3,31 @@
  */
 define(['../module', 'lodash'], function (module, _) {
     module.service('Dashboard.Schedule.ScheduleDataService', [
-        function () {
+        'Common.SchedulingUtil',
+        function (schedulingUtil) {
             var service = {};
-            service.parseLessons = function (day) {
+            service.parseLessons = function (schedule) {
+                var step = 0;
+                var events = [];
+                schedule.forEach(function (day) {
+                    step++;
+                    self.tempSchedule = parse(day);
+                    self.tempSchedule.forEach(function (lesson) {
+                        if (lesson) {
+                            var lessonTime = schedulingUtil.getLesson(lesson.num);
+                            events.push({
+                                title: lesson.lesson,
+                                start: lessonTime.from.hours() + ':' + lessonTime.from.minutes(),
+                                end: lessonTime.to.hours() + ':' + lessonTime.to.minutes(),
+                                allDay: false,
+                                dow: [step]
+                            });
+                        }
+                    });
+                });
+                return events;
+            };
+            function parse(day){
                 var schedule = [null, null, null, null, null, null, null, null, null];
                 _.each(day.lessons, function (lesson) {
                     _.each(lesson.order, function (order) {
@@ -15,7 +37,7 @@ define(['../module', 'lodash'], function (module, _) {
                     });
                 });
                 return schedule;
-            };
+            }
             return service;
         }]);
 });

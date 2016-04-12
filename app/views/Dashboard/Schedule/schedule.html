@@ -1,16 +1,2 @@
 <div s-loading-indicator="" ng-show="busy"></div>
-<table class="table table-striped stage-table" ng-if="stages && !busy">
-    <thead>
-    <tr>
-        <th>Stage</th>
-        <th colspan="4">Suffix</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr ng-repeat="stage in stages track by $index" class="active">
-        <td>{{$index+1}}</td>
-        <td class="stage-suffix" ng-repeat="suffix in stage.suffix" ng-click="selectStage(suffix.id)" >{{suffix.suffix}}</td>
-    </tr>
-    </tbody>
-</table>
 <div ui-calendar="uiConfig.calendar" ng-model="eventSources" ng-if="!busy"></div>

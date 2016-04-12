@@ -59,6 +59,7 @@ define(['lodash'], function (_) {
         return {
             id: ++data.user.lastIndex,
             first_name: randomWord(7),
+            last_name: randomWord(9),
             username: randomWord(9),
             email: randomWord(4) + '@' + randomWord(5) + '.com',
             password: 'password',

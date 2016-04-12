@@ -21,6 +21,7 @@ define(['lodash'], function (_) {
         'canDeleteEvents': 0x00e
     };
 
+    var data = {};
     var p = permissionSet;
     var admin = {
         id: 1,
@@ -44,6 +45,26 @@ define(['lodash'], function (_) {
         permissions: [p.canViewUsers,
             p.canEditUser, p.canViewSchedule, p.canViewEvents]
     };
+
+    function randomWord(strLengt) {
+        var text = "";
+        var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        for (var i = 0; i < strLengt; i++) {
+            text += possible.charAt(Math.floor(Math.random() * possible.length));
+        }
+        return text;
+    }
+
+    function generateRandomUser(role) {
+        return {
+            id: ++data.user.lastIndex,
+            first_name: randomWord(7),
+            username: randomWord(9),
+            email: randomWord(4) + '@' + randomWord(5) + '.com',
+            password: 'password',
+            roles: [role]
+        }
+    }
 
     var defaultUsers = [
         {
@@ -72,332 +93,9 @@ define(['lodash'], function (_) {
             email: 'Gocha@gmail.com',
             password: 'student',
             roles: [student]
-        },
-        {
-            id: 3,
-            first_name: 'George',
-            last_name: 'Chivchan',
-            username: 'student',
-            email: 'Gocha@gmail.com',
-            password: 'student',
-            roles: [student]
-        },
-        {
-            id: 3,
-            first_name: 'George',
-            last_name: 'Chivchan',
-            username: 'student',
-            email: 'Gocha@gmail.com',
-            password: 'student',
-            roles: [student]
-        },
-        {
-            id: 3,
-            first_name: 'George',
-            last_name: 'Chivchan',
-            username: 'student',
-            email: 'Gocha@gmail.com',
-            password: 'student',
-            roles: [student]
-        },
-        {
-            id: 3,
-            first_name: 'George',
-            last_name: 'Chivchan',
-            username: 'student',
-            email: 'Gocha@gmail.com',
-            password: 'student',
-            roles: [student]
-        },
-        {
-            id: 3,
-            first_name: 'George',
-            last_name: 'Chivchan',
-            username: 'student',
-            email: 'Gocha@gmail.com',
-            password: 'student',
-            roles: [student]
-        },
-        {
-            id: 3,
-            first_name: 'George',
-            last_name: 'Chivchan',
-            username: 'student',
-            email: 'Gocha@gmail.com',
-            password: 'student',
-            roles: [student]
-        },
-        {
-            id: 3,
-            first_name: 'George',
-            last_name: 'Chivchan',
-            username: 'student',
-            email: 'Gocha@gmail.com',
-            password: 'student',
-            roles: [student]
-        },
-        {
-            id: 3,
-            first_name: 'George',
-            last_name: 'Chivchan',
-            username: 'student',
-            email: 'Gocha@gmail.com',
-            password: 'student',
-            roles: [student]
-        },
-        {
-            id: 3,
-            first_name: 'George',
-            last_name: 'Chivchan',
-            username: 'student',
-            email: 'Gocha@gmail.com',
-            password: 'student',
-            roles: [student]
-        },
-        {
-            id: 3,
-            first_name: 'George',
-            last_name: 'Chivchan',
-            username: 'student',
-            email: 'Gocha@gmail.com',
-            password: 'student',
-            roles: [student]
-        },
-        {
-            id: 3,
-            first_name: 'George',
-            last_name: 'Chivchan',
-            username: 'student',
-            email: 'Gocha@gmail.com',
-            password: 'student',
-            roles: [student]
-        },
-        {
-            id: 2,
-            first_name: 'Aleksey',
-            last_name: 'Zarrubin',
-            username: 'teacher',
-            email: 'zarrubin@24auto.ru',
-            password: 'teacher',
-            roles: [teacher]
-        },
-        {
-            id: 2,
-            first_name: 'Aleksey',
-            last_name: 'Zarrubin',
-            username: 'teacher',
-            email: 'zarrubin@24auto.ru',
-            password: 'teacher',
-            roles: [teacher]
-        },
-        {
-            id: 2,
-            first_name: 'Aleksey',
-            last_name: 'Zarrubin',
-            username: 'teacher',
-            email: 'zarrubin@24auto.ru',
-            password: 'teacher',
-            roles: [teacher]
-        },
-        {
-            id: 2,
-            first_name: 'Aleksey',
-            last_name: 'Zarrubin',
-            username: 'teacher',
-            email: 'zarrubin@24auto.ru',
-            password: 'teacher',
-            roles: [teacher]
-        },
-        {
-            id: 2,
-            first_name: 'Aleksey',
-            last_name: 'Zarrubin',
-            username: 'teacher',
-            email: 'zarrubin@24auto.ru',
-            password: 'teacher',
-            roles: [teacher]
-        },
-        {
-            id: 2,
-            first_name: 'Aleksey',
-            last_name: 'Zarrubin',
-            username: 'teacher',
-            email: 'zarrubin@24auto.ru',
-            password: 'teacher',
-            roles: [teacher]
-        },
-        {
-            id: 2,
-            first_name: 'Aleksey',
-            last_name: 'Zarrubin',
-            username: 'teacher',
-            email: 'zarrubin@24auto.ru',
-            password: 'teacher',
-            roles: [teacher]
-        },
-        {
-            id: 2,
-            first_name: 'Aleksey',
-            last_name: 'Zarrubin',
-            username: 'teacher',
-            email: 'zarrubin@24auto.ru',
-            password: 'teacher',
-            roles: [teacher]
-        },
-        {
-            id: 2,
-            first_name: 'Aleksey',
-            last_name: 'Zarrubin',
-            username: 'teacher',
-            email: 'zarrubin@24auto.ru',
-            password: 'teacher',
-            roles: [teacher]
-        },
-        {
-            id: 2,
-            first_name: 'Aleksey',
-            last_name: 'Zarrubin',
-            username: 'teacher',
-            email: 'zarrubin@24auto.ru',
-            password: 'teacher',
-            roles: [teacher]
-        },
-        {
-            id: 2,
-            first_name: 'Aleksey',
-            last_name: 'Zarrubin',
-            username: 'teacher',
-            email: 'zarrubin@24auto.ru',
-            password: 'teacher',
-            roles: [teacher]
-        },
-        {
-            id: 2,
-            first_name: 'Aleksey',
-            last_name: 'Zarrubin',
-            username: 'teacher',
-            email: 'zarrubin@24auto.ru',
-            password: 'teacher',
-            roles: [teacher]
-        },
-        {
-            id: 2,
-            first_name: 'Aleksey',
-            last_name: 'Zarrubin',
-            username: 'teacher',
-            email: 'zarrubin@24auto.ru',
-            password: 'teacher',
-            roles: [teacher]
-        },
-        {
-            id: 2,
-            first_name: 'Aleksey',
-            last_name: 'Zarrubin',
-            username: 'teacher',
-            email: 'zarrubin@24auto.ru',
-            password: 'teacher',
-            roles: [teacher]
-        },
-        {
-            id: 2,
-            first_name: 'Aleksey',
-            last_name: 'Zarrubin',
-            username: 'teacher',
-            email: 'zarrubin@24auto.ru',
-            password: 'teacher',
-            roles: [teacher]
-        },
-        {
-            id: 2,
-            first_name: 'Aleksey',
-            last_name: 'Zarrubin',
-            username: 'teacher',
-            email: 'zarrubin@24auto.ru',
-            password: 'teacher',
-            roles: [teacher]
-        },
-        {
-            id: 2,
-            first_name: 'Aleksey',
-            last_name: 'Zarrubin',
-            username: 'teacher',
-            email: 'zarrubin@24auto.ru',
-            password: 'teacher',
-            roles: [teacher]
-        },
-        {
-            id: 2,
-            first_name: 'Aleksey',
-            last_name: 'Zarrubin',
-            username: 'teacher',
-            email: 'zarrubin@24auto.ru',
-            password: 'teacher',
-            roles: [teacher]
-        },
-        {
-            id: 2,
-            first_name: 'Aleksey',
-            last_name: 'Zarrubin',
-            username: 'teacher',
-            email: 'zarrubin@24auto.ru',
-            password: 'teacher',
-            roles: [teacher]
-        },
-        {
-            id: 2,
-            first_name: 'Aleksey',
-            last_name: 'Zarrubin',
-            username: 'teacher',
-            email: 'zarrubin@24auto.ru',
-            password: 'teacher',
-            roles: [teacher]
-        },
-        {
-            id: 2,
-            first_name: 'Aleksey',
-            last_name: 'Zarrubin',
-            username: 'teacher',
-            email: 'zarrubin@24auto.ru',
-            password: 'teacher',
-            roles: [teacher]
-        },
-        {
-            id: 2,
-            first_name: 'Aleksey',
-            last_name: 'Zarrubin',
-            username: 'teacher',
-            email: 'zarrubin@24auto.ru',
-            password: 'teacher',
-            roles: [teacher]
-        },
-        {
-            id: 2,
-            first_name: 'Aleksey',
-            last_name: 'Zarrubin',
-            username: 'teacher',
-            email: 'zarrubin@24auto.ru',
-            password: 'teacher',
-            roles: [teacher]
-        },
-        {
-            id: 2,
-            first_name: 'Aleksey',
-            last_name: 'Zarrubin',
-            username: 'teacher',
-            email: 'zarrubin@24auto.ru',
-            password: 'teacher',
-            roles: [teacher]
-        },
-        {
-            id: 5,
-            first_name: 'Sumragen',
-            last_name: 'Get Fly',
-            username: 'Sumragen',
-            email: 'zarrubin@24auto.ru',
-            password: 'teacher',
-            roles: [teacher]
         }
     ];
+
     var AbstractSubject = {
         id: 1,
         name: 'Literature',
@@ -1529,7 +1227,7 @@ define(['lodash'], function (_) {
             ]
         }
     ];
-    var data = {};
+
 
     if (localStorage.getItem("datasource")) {
         load();
@@ -1552,6 +1250,12 @@ define(['lodash'], function (_) {
                 lastIndex: 3
             }
         }));
+        //init users
+        load();
+        _.each(_.range(20), function () {
+            data.user.objects.push(generateRandomUser(teacher));
+        });
+        commit();
     }
 
     function commit() {

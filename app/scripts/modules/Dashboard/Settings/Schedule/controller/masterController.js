@@ -1,7 +1,7 @@
 /**
  * Created by trainee on 3/17/16.
  */
-define(['../module'], function (module) {
+define(['../module', 'lodash'], function (module, _) {
     module.controller('Dashboard.Settings.Schedule.ScheduleSelectorController', [
         '$scope',
         '$state',
@@ -15,13 +15,13 @@ define(['../module'], function (module) {
 
                     var amount = 0;
                     var maxAmount = 0;
-                        _.each(data, function (stage) {
-                            if (maxAmount < stage.stage) {
-                                maxAmount = stage.stage;
-                            }
-                        });
+                    _.each(data, function (stage) {
+                        if (maxAmount < stage.stage) {
+                            maxAmount = stage.stage;
+                        }
+                    });
                     var stageAmount = [];
-                    while(amount < maxAmount){
+                    while (amount < maxAmount) {
                         stageAmount.push(amount++);
                     }
 

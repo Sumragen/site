@@ -11,8 +11,6 @@ define(['../module', 'lodash', 'jquery'], function (module, _) {
         'Dashboard.Event.EventService',
         'eventsData',
         function ($q, $scope, $state, $timeout, InfoWindow, eventService, eventsData) {
-            var self = this;
-
             function initMap(map) {
                 $timeout(function () {
                     google.maps.event.trigger(map, 'resize');
@@ -90,7 +88,7 @@ define(['../module', 'lodash', 'jquery'], function (module, _) {
 
                 var infowindow = new InfoWindow({templateUrl: 'views/Dashboard/nonauth/marker.html'}); //it's not infowindow now. (object like "javascript promise", but not a promise)
                 function attach(marker) {
-                    google.maps.event.addListener(marker, 'click', function (markerObj) { //on marker click
+                    google.maps.event.addListener(marker, 'click', function () { //on marker click
                         $scope.checkIsStreetViewPossible($scope.map, marker).then(function (result) {
                             marker.hasStreetView = result;
                         });
@@ -122,7 +120,7 @@ define(['../module', 'lodash', 'jquery'], function (module, _) {
                         title: event.description
                     });
                     $scope.markers.push(marker);
-                    marker.setDraggable(true);
+                    marker.setDraggable($state.current.name.indexOf('settings') > -1);
                     attach(marker);
                     $scope.showMap = false;
                 });

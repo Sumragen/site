@@ -57,7 +57,7 @@ define(['../module', 'lodash'], function (module, _) {
                     _.each(data, function (stage) {
                         _.each(_.range(maxAmount), function (index) {
                             if (stage.stage === index + 1) {
-                                stage.filterName =  stage.stage + stage.suffix + ' ' + stage.stage + '-' + stage.suffix;
+                                stage.filterName =  stage.stage + stage.suffix + ' ' + stage.stage + '-' + stage.suffix + ' ' + stage.formMaster.name;
                                 $scope.stages.push(stage);
                             }
                         });

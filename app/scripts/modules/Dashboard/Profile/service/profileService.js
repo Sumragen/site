@@ -20,7 +20,7 @@ define(['../module'], function (module) {
             service.updateUser = function (user) {
                 return $http(Endpoint.user.update(user))
                     .then(function (data) {
-                        return securityContext.setPrincipal(data.data);
+                        return (JSON.parse(localStorage.getItem('currentUserLS')) === data.data.id) ? securityContext.setPrincipal(data.data) : data.data;
                     }, function (err) {
                         return $q.reject(err);
                     });

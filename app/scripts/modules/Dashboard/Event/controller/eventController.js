@@ -21,9 +21,9 @@ define(['../module', 'lodash', 'jquery'], function (module, _) {
             $scope.eventList = eventsData;
 
             $scope.event = {};
-
+            $scope.isSettingPage = $state.current.name.indexOf('settings') > -1;
             $scope.showEditForm = false;
-            if ($state.current.name.indexOf('settings') > -1) {
+            if ($scope.isSettingPage) {
                 $scope.toggleShowEditForm = function (event) {
                     initMap($scope.map);
                     if (event) {
@@ -120,7 +120,7 @@ define(['../module', 'lodash', 'jquery'], function (module, _) {
                         title: event.description
                     });
                     $scope.markers.push(marker);
-                    marker.setDraggable($state.current.name.indexOf('settings') > -1);
+                    marker.setDraggable($scope.isSettingPage);
                     attach(marker);
                     $scope.showMap = false;
                 });

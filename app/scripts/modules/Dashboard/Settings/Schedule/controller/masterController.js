@@ -13,38 +13,38 @@ define(['../module', 'lodash'], function (module, _) {
             $scope.days = [
                 {
                     num: 1,
-                    name: 'Mon',
+                    name: 'M',
                     title: 'Monday'
                 }, {
                     num: 2,
-                    name: 'Tue',
+                    name: 'T',
                     title: 'Tuesday'
                 }, {
                     num: 3,
-                    name: 'Wed',
+                    name: 'W',
                     title: 'Wednesday'
                 }, {
                     num: 4,
-                    name: 'Thu',
+                    name: 'T',
                     title: 'Thursday'
                 }, {
                     num: 5,
-                    name: 'Fri',
+                    name: 'F',
                     title: 'Friday'
                 }, {
                     num: 6,
-                    name: 'Sat',
+                    name: 'S',
                     title: 'Saturday'
                 }, {
                     num: 7,
-                    name: 'Sun',
+                    name: 'S',
                     title: 'Sunday'
                 }
             ];
 
             scheduleService.getStages()
                 .then(function (data) {
-                    $scope.stages = [{suffix: []}];
+                    $scope.stages = [];
 
                     var amount = 0;
                     var maxAmount = 0;
@@ -57,14 +57,11 @@ define(['../module', 'lodash'], function (module, _) {
                     _.each(data, function (stage) {
                         _.each(_.range(maxAmount), function (index) {
                             if (stage.stage === index + 1) {
-                                if ($scope.stages[index]) {
-                                    $scope.stages[index].suffix.push(stage)
-                                } else {
-                                    $scope.stages[index] = {suffix: [stage]}
-                                }
+                                stage.filterName =  stage.stage + stage.suffix + ' ' + stage.stage + '-' + stage.suffix;
+                                $scope.stages.push(stage);
                             }
                         });
-                    })
+                    });
                 });
 
 

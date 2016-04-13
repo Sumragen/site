@@ -32,7 +32,8 @@ define(['../module', 'lodash'], function (module, _) {
                                 }
                             });
                         });
-                        $scope.stages.push({stage: stage.stage, suffix: stage.suffix, day: tempDayLessons});
+                        stage.filterName =  stage.stage + stage.suffix + ' ' + stage.stage + '-' + stage.suffix;
+                        $scope.stages.push({stage: stage.stage, suffix: stage.suffix, filterName: stage.filterName, day: tempDayLessons});
                     });
                 });
         }]);

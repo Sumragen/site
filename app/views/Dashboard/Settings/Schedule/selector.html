@@ -12,42 +12,19 @@
     </div>
 
     <!--Stages-->
-    <table class="table table-striped stage-table" ng-if="!busy && !showDaysTable">
-        <thead>
-        <tr>
-            <th>Stage</th>
-            <th colspan="4">Suffix</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr ng-repeat="stage in stages track by $index" class="active">
-            <td>{{$index+1}}</td>
-            <td class="stage-suffix" ng-repeat="suffix in stage.suffix" ng-click="selectStage(suffix.id)">
-                {{suffix.suffix}}
-            </td>
-        </tr>
-        </tbody>
-    </table>
+    <div ng-if="!busy && !showDaysTable">
+        <input class="form-control" type="text" ng-model="searchText.filterName" placeholder="Filter">
+        <div ng-repeat="stage in stages | filter: searchText | orderBy:['stage', 'suffix'] track by $index"
+             class="well card-well" ng-click="selectStage(stage.id)">
+            <h3><strong>{{stage.stage}}-{{stage.suffix}}</strong></h3>
+            <div>{{stage.formMaster.name}}</div>
+        </div>
+    </div>
 
     <!--Days-->
-    <table class="table table-striped day-table" ng-if="!busy && showDaysTable">
-        <thead>
-        <tr>
-            <td ng-repeat="day in days">{{day.num}}</td>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-            <td ng-repeat="day in days">
-                <div class="row" >
-                    <div class="col-md-3">
-                        <div class="thumbnail day-card" ng-click="selectDay(day)">
-                            {{day.name}}
-                        </div>
-                    </div>
-                </div>
-            </td>
-        </tr>
-        </tbody>
-    </table>
+    <div ng-repeat="day in days" class="well card-well" ng-click="selectDay(day)" ng-if="!busy && showDaysTable">
+        <div class="first-day-latter" ng-style="{color: (day.num < 6) ? 'black' : 'red'}">{{day.name}}</div>
+        <div class="day-title" ng-style="{color: (day.num < 6) ? 'black' : 'red'}">{{day.title}}</div>
+    </div>
+
 </div>

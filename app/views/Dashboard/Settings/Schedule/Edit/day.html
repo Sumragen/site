@@ -2,6 +2,9 @@
 
 <h1>{{selectedDay.title}}</h1>
 
+<input class="form-control" type="text" ng-model="searchText.day.title" placeholder="Filter by subject">
+<input class="form-control" type="text" ng-model="searchText.filterName" placeholder="Filter by stage">
+
 <table class="table table-striped stage-table" ng-if="!busy && !showDaysTable">
     <thead>
     <tr>
@@ -10,7 +13,7 @@
     </tr>
     </thead>
     <tbody>
-    <tr ng-repeat="stage in stages | orderBy: ['stage','suffix'] track by $index" class="active">
+    <tr ng-repeat="stage in stages | filter: searchText | orderBy: ['stage','suffix'] track by $index" class="active">
         <td>{{stage.stage}}-{{stage.suffix}}</td>
         <td ng-repeat="lesson in stage.day track by $index">{{(lesson)?lesson.title:null}}</td>
     </tr>

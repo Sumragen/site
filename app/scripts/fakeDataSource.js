@@ -151,7 +151,7 @@ define(['lodash'], function (_) {
             id: 1,
             stage: 5,
             suffix: 'A',
-            'form-master': {
+            formMaster: {
                 id: 19,
                 name: 'Lisa Kuddrow'
             },
@@ -249,7 +249,7 @@ define(['lodash'], function (_) {
             id: 2,
             stage: 11,
             suffix: 'A',
-            'form-master': {
+            formMaster: {
                 id: 19,
                 name: 'Lisa Kuddrow'
             },
@@ -311,7 +311,7 @@ define(['lodash'], function (_) {
             id: 3,
             stage: 11,
             suffix: 'B',
-            'form-master': {
+            formMaster: {
                 id: 19,
                 name: 'Lisa Kuddrow'
             },
@@ -379,7 +379,7 @@ define(['lodash'], function (_) {
             id: 4,
             stage: 1,
             suffix: 'A',
-            'form-master': {
+            formMaster: {
                 id: 19,
                 name: 'Lisa Kuddrow'
             },
@@ -465,7 +465,7 @@ define(['lodash'], function (_) {
             id: 5,
             stage: 2,
             suffix: 'A',
-            'form-master': {
+            formMaster: {
                 id: 19,
                 name: 'Lisa Kuddrow'
             },
@@ -533,7 +533,7 @@ define(['lodash'], function (_) {
             id: 6,
             stage: 3,
             suffix: 'A',
-            'form-master': {
+            formMaster: {
                 id: 19,
                 name: 'Lisa Kuddrow'
             },
@@ -601,7 +601,7 @@ define(['lodash'], function (_) {
             id: 7,
             stage: 4,
             suffix: 'A',
-            'form-master': {
+            formMaster: {
                 id: 19,
                 name: 'Lisa Kuddrow'
             },
@@ -669,7 +669,7 @@ define(['lodash'], function (_) {
             id: 8,
             stage: 5,
             suffix: 'B',
-            'form-master': {
+            formMaster: {
                 id: 19,
                 name: 'Lisa Kuddrow'
             },
@@ -737,7 +737,7 @@ define(['lodash'], function (_) {
             id: 9,
             stage: 6,
             suffix: 'A',
-            'form-master': {
+            formMaster: {
                 id: 19,
                 name: 'Lisa Kuddrow'
             },
@@ -835,7 +835,7 @@ define(['lodash'], function (_) {
             id: 10,
             stage: 7,
             suffix: 'A',
-            'form-master': {
+            formMaster: {
                 id: 19,
                 name: 'Lisa Kuddrow'
             },
@@ -915,7 +915,7 @@ define(['lodash'], function (_) {
             id: 11,
             stage: 8,
             suffix: 'A',
-            'form-master': {
+            formMaster: {
                 id: 19,
                 name: 'Lisa Kuddrow'
             },
@@ -1013,7 +1013,7 @@ define(['lodash'], function (_) {
             id: 12,
             stage: 9,
             suffix: 'A',
-            'form-master': {
+            formMaster: {
                 id: 19,
                 name: 'Lisa Kuddrow'
             },
@@ -1111,7 +1111,7 @@ define(['lodash'], function (_) {
             id: 13,
             stage: 10,
             suffix: 'A',
-            'form-master': {
+            formMaster: {
                 id: 19,
                 name: 'Lisa Kuddrow'
             },

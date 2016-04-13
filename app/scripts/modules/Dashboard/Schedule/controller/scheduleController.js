@@ -73,7 +73,7 @@ define(['../module', 'lodash'], function (module, _) {
                         center: 'title',
                         right: 'today prev,next'
                     },
-                    dayClick: (isSettingsPage) ? showEditPanel() : showDayModal()
+                    dayClick: showDayModal
                 }
             };
         }]);

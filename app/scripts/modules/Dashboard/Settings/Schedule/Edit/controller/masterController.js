@@ -36,5 +36,8 @@ define(['../module', 'lodash'], function (module, _) {
                         $scope.stages.push({stage: stage.stage, suffix: stage.suffix, filterName: stage.filterName, day: tempDayLessons});
                     });
                 });
+            $scope.selectLesson = function (lesson) {
+                lesson;
+            }
         }]);
 });

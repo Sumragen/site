@@ -25,7 +25,7 @@ define(['../module', 'lodash'], function (module, _) {
 
             _.each(tempSchedule, function (schedule) {
                 if (selectedDay === schedule.name) {
-                    $scope.currentDay = scheduleDataService.parseLessons(schedule);
+                    $scope.currentDay = scheduleDataService.parse(schedule);
                 }
             });
 

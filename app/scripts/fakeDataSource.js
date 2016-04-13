@@ -1206,11 +1206,11 @@ define(['lodash'], function (_) {
             },
             event: {
                 objects: defaultEvents,
-                lastIndex: 0
+                lastIndex: 3
             },
             stages: {
                 objects: defaultStages,
-                lastIndex: 0
+                lastIndex: 13
             },
             role: {
                 objects: [admin, teacher, student],

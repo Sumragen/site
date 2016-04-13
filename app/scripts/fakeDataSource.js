@@ -67,6 +67,23 @@ define(['lodash'], function (_) {
         }
     }
 
+    function generateRandomEvent() {
+        var mounts = ['January', 'February', 'March', 'April', 'May',
+            'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+        var dayTime = ['AM', 'PM'];
+        return {
+            id: ++data.event.lastIndex,
+            name: randomWord(6),
+            date: mounts[Math.floor(Math.random() * 12)] + ' ' + Math.floor(Math.random() * 30) + ', ' +
+            Math.floor(Math.random() * 2000 + 20) + ' ' + Math.floor(Math.random() * 12) + ':' + Math.floor(Math.random() * 59) + +' ' + dayTime[Math.floor(Math.random() * 2)],
+            description: randomWord(20),
+            location: {
+                latitude: Math.random() * 100,
+                longitude: Math.random() * 100
+            }
+        }
+    }
+
     var defaultUsers = [
         {
             id: 1,
@@ -97,13 +114,6 @@ define(['lodash'], function (_) {
         }
     ];
 
-    var AbstractSubject = {
-        id: 1,
-        name: 'Literature',
-        classRooms: [406, 317],
-        allowedStages: [5, 6, 7, 8, 9, 10, 11],
-        teachers: [1, 5, 189]
-    };
     var defaultEvents = [
         {
             id: 1,
@@ -134,50 +144,6 @@ define(['lodash'], function (_) {
                 latitude: 46.6716115,
                 longitude: 32.6100684
             }
-        }
-    ];
-    var defaultSubjects = [
-        {
-            id: 1,
-            name: 'Literature',
-            classroom: [304],
-            allowedStages: [5, 6, 7, 8, 9, 10, 11],
-            teacher: [2, 5]
-        },
-        {
-            id: 2,
-            name: 'Mathematic',
-            classroom: [516, 518, 522],
-            allowedStages: [3, 4, 5, 6, 7, 8, 9, 10, 11],
-            teacher: [1, 7]
-        },
-        {
-            id: 3,
-            name: 'Biology',
-            classroom: [507, 511],
-            allowedStages: [5, 6, 7, 8, 9, 10, 11],
-            teacher: [4, 6]
-        },
-        {
-            id: 4,
-            name: 'DB',
-            classroom: [522, 421, 404, 518],
-            allowedStages: [5, 6, 7, 8, 9, 10, 11],
-            teacher: [1, 6]
-        },
-        {
-            id: 5,
-            name: 'English',
-            classroom: [516],
-            allowedStages: [5, 6, 7, 8, 9, 10, 11],
-            teacher: [8, 3]
-        },
-        {
-            id: 6,
-            name: 'Philosophy',
-            classroom: [411, 516],
-            allowedStages: [5, 6, 7, 8, 9, 10, 11],
-            teacher: [5, 4]
         }
     ];
     var defaultStages = [
@@ -1251,10 +1217,11 @@ define(['lodash'], function (_) {
                 lastIndex: 3
             }
         }));
-        //init users
+        //init random data
         load();
         _.each(_.range(20), function () {
             data.user.objects.push(generateRandomUser(teacher));
+            data.event.objects.push(generateRandomEvent())
         });
         commit();
     }

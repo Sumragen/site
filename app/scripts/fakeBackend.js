@@ -31,6 +31,14 @@ define(
                     return [400, {errorCode: 4, message: 'wrong update'}];
                 }
             });
+            $httpBackend.whenPUT(prefix + '/lesson').respond(function (method, url, tempLesson) {
+                var lesson = fakeDataSource.updateLesson(tempLesson);
+                if (lesson) {
+                    return [200, lesson, {}];
+                } else {
+                    return [400, {errorCode: 4, message: 'wrong update'}];
+                }
+            });
             $httpBackend.whenGET(prefix + '/events').respond(function (method, url) {
                 var events = fakeDataSource.getEvents();
                 if (events) {

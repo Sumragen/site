@@ -1255,6 +1255,12 @@ define(['lodash'], function (_) {
             }
         });
     };
+    dataSource.updateLesson = function (dataLesson) {
+        load();
+        var tempLesson = angular.fromJson(dataLesson);
+        //update lesson
+        return tempLesson;
+    };
     dataSource.updateEvent = function (dataEvent) {
         load();
         var tempEvent = angular.fromJson(dataEvent);

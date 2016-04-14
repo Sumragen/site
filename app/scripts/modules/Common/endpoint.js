@@ -139,6 +139,15 @@ define(['./module', 'lodash'], function (module, _) {
                             data: role
                         })
                     }
+                },
+                lesson: {
+                    update: function (lesson) {
+                        return new API({
+                            method: METHODS.PUT,
+                            url: '/lesson',
+                            data: lesson
+                        })
+                    }
                 }
             };
             return routes;

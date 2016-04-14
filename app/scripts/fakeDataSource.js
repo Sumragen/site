@@ -1295,6 +1295,10 @@ define(['lodash'], function (_) {
         load();
         var event = angular.fromJson(tempEvent);
         event.id = ++data.event.lastIndex;
+        event.location = {
+            latitude: 46.6699334,
+                longitude: 32.6169105
+        };
         data.event.objects.push(event);
         commit();
         return data.event.objects;

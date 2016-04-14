@@ -138,8 +138,8 @@ define(['../module', 'lodash', 'jquery'], function (module, _) {
                     $scope.markers.push(marker);
                     marker.setDraggable($scope.isSettingPage);
                     attach(marker);
-                    $scope.showMap = false;
                 });
+                $scope.showMap = false;
             };
             $scope.event.schema = {
                 "type": "object",

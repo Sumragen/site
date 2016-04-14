@@ -27,7 +27,9 @@
             </tr>
             </thead>
             <tbody>
-            <tr ng-repeat="event in eventList track by $index" class="success events-item" ng-style="isSettingPage ? {'cursor': 'pointer'} : {'cursor': 'default'}" ng-click="toggleShowEditForm(event)">
+            <tr ng-repeat="event in eventList track by $index" class="success events-item"
+                ng-style="isSettingPage ? {'cursor': 'pointer'} : {'cursor': 'default'}"
+                ng-click="toggleShowEditForm(event)">
                 <td>{{$index+1}}</td>
                 <td>{{event.name}}</td>
                 <td>{{event.description}}</td>
@@ -49,7 +51,7 @@
     </div>
 
     <!--map-->
-    <div ng-if="showMap" class="map-container">
+    <div ng-show="showMap" class="map-container">
         <div class="map">
             <logicify-gmap center="gmOpts.center"
                            gm-options="gmOpts"

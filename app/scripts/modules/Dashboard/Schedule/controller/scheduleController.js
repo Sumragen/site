@@ -67,7 +67,7 @@ define(['../module', 'lodash'], function (module, _) {
                 calendar: {
                     firstDay: 1,
                     height: 'auto',
-                    editable: true,
+                    editable: false,
                     header: {
                         left: 'month basicWeek basicDay',
                         center: 'title',

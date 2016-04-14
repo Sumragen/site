@@ -1195,6 +1195,116 @@ define(['lodash'], function (_) {
         }
     ];
 
+    var subjects = [
+        {
+            id: 1,
+            name: 'History',
+            teachers: [1, 5],
+            classRooms: [202]
+        },
+        {
+            id: 2,
+            name: 'Mathematics',
+            teachers: [1, 2],
+            classRooms: [202]
+        },
+        {
+            id: 3,
+            name: 'Biology',
+            teachers: [2, 3],
+            classRooms: [202]
+        },
+        {
+            id: 4,
+            name: 'Astronomy',
+            teachers: [3, 4],
+            classRooms: [202]
+        },
+        {
+            id: 5,
+            name: 'Literature',
+            teachers: [4, 5],
+            classRooms: [202]
+        }
+    ];
+
+    var teachers = [
+        {
+            id: 1,
+            name: 'Kotov Viktor',
+            subjects: [1, 2]
+        },
+        {
+            id: 2,
+            name: 'Artur Krenev',
+            subjects: [2, 3]
+        },
+        {
+            id: 3,
+            name: 'Margarita Vishnevskaya',
+            subjects: [3, 4]
+        },
+        {
+            id: 4,
+            name: 'Leonid Kruglev',
+            subjects: [4, 5]
+        },
+        {
+            id: 5,
+            name: 'Elena Osipova',
+            subjects: [1, 5]
+        }
+    ];
+
+    function checkSubjectTeacher(subjectId, teacherId) {
+        load();
+        _.find(data.subject.objects, function (subject) {
+            if (subject.id === subjectId) {
+                if(function (){
+                    var result = true;
+                    _.find(subject.teachers, function (teacher) {
+                        if (teacher.id === teacherId) {
+                            result = false;
+                        }
+                    });
+                    return result;
+                }){
+                    subject.teachers.push(teacherId);
+                }
+            }
+        });
+        commit();
+    }
+
+    dataSource.updateSubject = function (newSubject) {
+        checkSubjectTeacher(newSubject.lesson, newSubject.teacher);
+        load();
+        var tempSubject = angular.fromJson(newSubject);
+        return _.find(data.subject.objects, function (subject, index) {
+            if (tempSubject.id === subject.id) {
+                data.subject.objects[index] = tempSubject;
+                commit();
+                return subject;
+            }
+        });
+    };
+    //sent data
+    var scheduledLesson = {
+        lesson: 12,
+        date: 'timestamp',
+        teacher: 145,
+        classroom: 32,
+        order: [1, 4]
+    };
+    //returned data
+    var receivedData = {
+        id: 1,
+        lesson: {id: 12, name: 'History'},
+        teacher: {id: 134, name: 'Victor Kotov'},
+        classroom: 32,
+        date: '',
+        order: [1, 4]
+    };
 
     if (localStorage.getItem("datasource")) {
         load();
@@ -1215,6 +1325,18 @@ define(['lodash'], function (_) {
             role: {
                 objects: [admin, teacher, student],
                 lastIndex: 3
+            },
+            subject : {
+                objects: subjects,
+                lastIndex: 5
+            },
+            teacher : {
+                objects: teachers,
+                lastIndex: 5
+            },
+            lesson : {
+                objects: [],
+                lastIndex: 0
             }
         }));
         //init random data
@@ -1234,32 +1356,17 @@ define(['lodash'], function (_) {
         data = JSON.parse(localStorage.getItem('datasource'));
     }
 
-    dataSource.checkCurrentUser = function (dataUser) {
+    //default schedule
+    dataSource.getSchedule = function () {
         load();
-        var tempUser = angular.fromJson(dataUser);
-        return _.find(data.user.objects, function (item) {
-            if (tempUser.username === item.username && tempUser.password === item.password) {
-                return item;
-            }
-        });
+        //temp
+        return data.stages.objects[0];
+    };
 
-    };
-    dataSource.updateUser = function (dataUser) {
+    //Event
+    dataSource.getEvents = function () {
         load();
-        var tempUser = angular.fromJson(dataUser);
-        return _.find(data.user.objects, function (user, index) {
-            if (tempUser.id === user.id) {
-                data.user.objects[index] = tempUser;
-                commit();
-                return user;
-            }
-        });
-    };
-    dataSource.updateLesson = function (dataLesson) {
-        load();
-        var tempLesson = angular.fromJson(dataLesson);
-        //update lesson
-        return tempLesson;
+        return data.event.objects;
     };
     dataSource.updateEvent = function (dataEvent) {
         load();
@@ -1272,6 +1379,188 @@ define(['lodash'], function (_) {
         });
         return data.event.objects;
     };
+    dataSource.addEvent = function (tempEvent) {
+        load();
+        var event = angular.fromJson(tempEvent);
+        event.id = ++data.event.lastIndex;
+        event.location = {
+            latitude: 46.6699334,
+            longitude: 32.6169105
+        };
+        data.event.objects.push(event);
+        commit();
+        return data.event.objects;
+    };
+
+    //Stage
+    dataSource.getStageBySuffix = function (tempData) {
+        load();
+        var stageId = angular.fromJson(tempData);
+        return _.find(data.stages.objects, function (stage) {
+            if (stageId === stage.id) {
+                return stage;
+            }
+        })
+    };
+    dataSource.getStages = function () {
+        load();
+        return data.stages.objects;
+    };
+
+    //Lesson
+    dataSource.getLesson = function (dataLesson) {
+        load();
+        var tempLesson = angular.fromJson(dataLesson);
+        return _.find(data.lesson.objects, function (lesson, index) {
+            if (tempLesson.id === lesson.id) {
+                return lesson;
+            }
+        });
+    };
+    dataSource.getLessons = function () {
+        load();
+        return data.lesson.objects;
+    };
+    dataSource.updateLesson = function (dataLesson) {
+        load();
+        var tempLesson = angular.fromJson(dataLesson);
+        _.find(data.lesson.objects, function (lesson, index) {
+            if (tempLesson.id === lesson.id) {
+                data.lesson.objects[index] = tempLesson;
+                commit();
+            }
+        });
+        return data.lesson.objects;
+    };
+    dataSource.addLesson = function (dataLesson) {
+        load();
+        var lesson = angular.fromJson(dataLesson);
+        lesson.id = ++data.lesson.lastIndex;
+        data.lesson.objects.push(lesson);
+        commit();
+        return data.lesson.objects;
+    };
+    dataSource.deleteLesson = function (dataLesson) {
+        load();
+        var tempLesson = angular.fromJson(dataLesson);
+        _.find(data.lesson.objects, function (lesson, index) {
+            if (tempLesson.id === lesson.id) {
+                data.lesson.objects.splice(index, 1);
+                commit();
+            }
+        });
+        return data.lesson.objects;
+    };
+
+    //Subject
+    dataSource.getSubjects = function () {
+        load();
+        return data.subject.objects;
+    };
+    dataSource.updateSubject = function (dataSubject) {
+        load();
+        var tempSubject = angular.fromJson(dataSubject);
+        _.find(data.subject.objects, function (subject, index) {
+            if (tempSubject.id === subject.id) {
+                data.subject.objects[index] = tempSubject;
+                commit();
+            }
+        });
+        return data.subject.objects;
+    };
+    dataSource.addSubject = function (tempSubject) {
+        load();
+        var subject = angular.fromJson(tempSubject);
+        subject.id = ++data.subject.lastIndex;
+        data.subject.objects.push(subject);
+        commit();
+        return data.subject.objects;
+    };
+    dataSource.deleteSubject = function (dataSubject) {
+        load();
+        var tempSubject = angular.fromJson(dataSubject);
+        _.find(data.subject.objects, function (subject, index) {
+            if (tempSubject.id === subject.id) {
+                data.subject.objects.splice(index, 1);
+                commit();
+            }
+        });
+        return data.subject.objects;
+    };
+
+    //Teacher
+    dataSource.getTeacher = function () {
+        load();
+        return data.teacher.objects;
+    };
+    dataSource.updateTeacher = function (dataTeacher) {
+        load();
+        var tempTeacher = angular.fromJson(dataTeacher);
+        _.find(data.teacher.objects, function (teacher, index) {
+            if (tempTeacher.id === teacher.id) {
+                data.teacher.objects[index] = tempTeacher;
+                commit();
+            }
+        });
+        return data.teacher.objects;
+    };
+    dataSource.addTeacher = function (tempTeacher) {
+        load();
+        var teacher = angular.fromJson(tempTeacher);
+        teacher.id = ++data.teacher.lastIndex;
+        data.teacher.objects.push(teacher);
+        commit();
+        return data.teacher.objects;
+    };
+    dataSource.deleteTeacher = function (dataTeacher) {
+        load();
+        var tempTeacher = angular.fromJson(dataTeacher);
+        _.find(data.teacher.objects, function (teacher, index) {
+            if (tempTeacher.id === teacher.id) {
+                data.teacher.objects.splice(index, 1);
+                commit();
+            }
+        });
+        return data.teacher.objects;
+    };
+
+    //User
+    dataSource.updateUser = function (dataUser) {
+        load();
+        var tempUser = angular.fromJson(dataUser);
+        return _.find(data.user.objects, function (user, index) {
+            if (tempUser.id === user.id) {
+                data.user.objects[index] = tempUser;
+                commit();
+                return user;
+            }
+        });
+    };
+    dataSource.getUsers = function (tempAmount) {
+        load();
+        var amount = angular.fromJson(tempAmount);
+        return data.user.objects.splice(amount.offset, amount.limit);
+    };
+    dataSource.addUser = function (tempUser) {
+        load();
+        var user = angular.fromJson(tempUser);
+        user.id = ++data.user.lastIndex;
+        user.roles = [student];
+        data.user.objects.push(user);
+        commit();
+    };
+    dataSource.checkCurrentUser = function (dataUser) {
+        load();
+        var tempUser = angular.fromJson(dataUser);
+        return _.find(data.user.objects, function (item) {
+            if (tempUser.username === item.username && tempUser.password === item.password) {
+                return item;
+            }
+        });
+
+    };
+
+    //Role
     dataSource.updateRole = function (dataRole) {
         load();
         var tempRole = angular.fromJson(dataRole);
@@ -1291,64 +1580,10 @@ define(['lodash'], function (_) {
         commit();
         return data.role.objects;
     };
-    dataSource.addEvent = function (tempEvent) {
-        load();
-        var event = angular.fromJson(tempEvent);
-        event.id = ++data.event.lastIndex;
-        event.location = {
-            latitude: 46.6699334,
-                longitude: 32.6169105
-        };
-        data.event.objects.push(event);
-        commit();
-        return data.event.objects;
-    };
-    dataSource.addUser = function (tempUser) {
-        load();
-        var user = angular.fromJson(tempUser);
-        user.id = ++data.user.lastIndex;
-        user.roles = [student];
-        data.user.objects.push(user);
-        commit();
-    };
-
     dataSource.getRoles = function () {
         load();
         return data.role.objects;
     };
-
-    dataSource.getUsers = function (tempAmount) {
-        load();
-        var amount = angular.fromJson(tempAmount);
-        return data.user.objects.splice(amount.offset, amount.limit);
-    };
-
-    dataSource.getEvents = function () {
-        load();
-        return data.event.objects;
-    };
-
-    dataSource.getSchedule = function () {
-        load();
-        //temp
-        return data.stages.objects[0];
-    };
-    dataSource.getStageBySuffix = function (tempData) {
-        load();
-        var stageId = angular.fromJson(tempData);
-        return _.find(data.stages.objects, function (stage) {
-            if (stageId === stage.id) {
-                return stage;
-            }
-        })
-    };
-
-    dataSource.getStages = function () {
-        load();
-        return data.stages.objects;
-    };
-
-
     dataSource.deleteRole = function (dataRole) {
         load();
         var tempRole = angular.fromJson(dataRole);
@@ -1360,5 +1595,6 @@ define(['lodash'], function (_) {
         });
         return data.role.objects;
     };
+
     return dataSource;
 });

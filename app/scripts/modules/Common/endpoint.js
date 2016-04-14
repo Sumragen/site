@@ -140,11 +140,96 @@ define(['./module', 'lodash'], function (module, _) {
                         })
                     }
                 },
+                teacher: {
+                    delete: function (teacher) {
+                        return new API({
+                            method: METHODS.DELETE,
+                            url: '/teacher/' + teacher.id,
+                            data: teacher
+                        })
+                    },
+                    list: function () {
+                        return new API({
+                            method: METHODS.GET,
+                            url: '/teachers'
+                        })
+                    },
+                    post: function (data) {
+                        return new API({
+                            method: METHODS.POST,
+                            url: '/teacher',
+                            data: data
+                        })
+                    },
+                    update: function (teacher) {
+                        return new API({
+                            method: METHODS.PUT,
+                            url: '/teacher/' + teacher.id,
+                            data: teacher
+                        })
+                    }
+                },
+                subject: {
+                    delete: function (subject) {
+                        return new API({
+                            method: METHODS.DELETE,
+                            url: '/subject/' + subject.id,
+                            data: subject
+                        })
+                    },
+                    list: function () {
+                        return new API({
+                            method: METHODS.GET,
+                            url: '/subjects'
+                        })
+                    },
+                    post: function (data) {
+                        return new API({
+                            method: METHODS.POST,
+                            url: '/subject',
+                            data: data
+                        })
+                    },
+                    update: function (subject) {
+                        return new API({
+                            method: METHODS.PUT,
+                            url: '/subject/' + subject.id,
+                            data: subject
+                        })
+                    }
+                },
                 lesson: {
+                    get: function (lesson) {
+                        return new API({
+                            method: METHODS.GET,
+                            url: '/lesson/' + lesson.id,
+                            data: lesson
+                        })
+                    },
+                    delete: function (lesson) {
+                        return new API({
+                            method: METHODS.DELETE,
+                            url: '/lesson/' + lesson.id,
+                            data: lesson
+                        })
+                    },
+                    list: function () {
+                        return new API({
+                            method: METHODS.GET,
+                            url: '/lessons'
+                        })
+                    },
+                    post: function (data) {
+                        return new API({
+                            method: METHODS.POST,
+                            url: '/lesson',
+                            data: data
+                        })
+                    },
                     update: function (lesson) {
                         return new API({
                             method: METHODS.PUT,
-                            url: '/lesson',
+                            url: '/lesson/' + lesson.id,
                             data: lesson
                         })
                     }

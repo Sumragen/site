@@ -66,7 +66,7 @@ define(['../module', 'lodash'], function (module, _) {
             $scope.uiConfig = {
                 calendar: {
                     firstDay: 1,
-                    height: 700,
+                    height: 'auto',
                     editable: true,
                     header: {
                         left: 'month basicWeek basicDay',

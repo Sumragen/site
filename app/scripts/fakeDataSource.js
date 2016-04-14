@@ -1285,6 +1285,14 @@ define(['lodash'], function (_) {
         commit();
         return data.role.objects;
     };
+    dataSource.addEvent = function (tempEvent) {
+        load();
+        var event = angular.fromJson(tempEvent);
+        event.id = ++data.event.lastIndex;
+        data.event.objects.push(event);
+        commit();
+        return data.event.objects;
+    };
     dataSource.addUser = function (tempUser) {
         load();
         var user = angular.fromJson(tempUser);

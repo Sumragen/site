@@ -24,6 +24,15 @@ define(['../module'], function (module) {
                         return $q.reject(err);
                     });
             };
+            service.addEvent = function (event) {
+                return $http(Endpoint.events.post(event))
+                    .then(function (data) {
+                        return data.data;
+                    })
+                    .catch(function (err) {
+                        return $q.reject(err);
+                    })
+            };
             return service;
         }]);
 });

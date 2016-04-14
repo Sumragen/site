@@ -103,6 +103,14 @@ define(
                     return [400, {errorCode: 7, message: 'wrong add role'}];
                 }
             });
+            $httpBackend.whenPOST(prefix + '/event').respond(function (method, url, data) {
+                var event = fakeDataSource.addEvent(data);
+                if (event) {
+                    return [200, event, {}];
+                } else {
+                    return [400, {errorCode: 7, message: 'wrong add event'}];
+                }
+            });
             $httpBackend.whenPOST(prefix + '/register').respond(function (method, url, data) {
                 fakeDataSource.addUser(data);
                 return [200, angular.fromJson(data), {}];

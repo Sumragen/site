@@ -28,6 +28,8 @@ define(['../module', 'lodash', 'jquery'], function (module, _) {
                     initMap($scope.map);
                     if (event) {
                         $scope.event.model = angular.copy(event);
+                    }else{
+                        $scope.event.model = {};
                     }
                     $scope.showEditForm = !$scope.showEditForm;
                 };
@@ -38,6 +40,20 @@ define(['../module', 'lodash', 'jquery'], function (module, _) {
                 $scope.$broadcast('schemaFormValidate');
                 if (form.$valid) {
                     eventService.updateEvent($scope.event.model)
+                        .then(function (data) {
+                            $scope.eventList = data;
+                            $scope.toggleShowEditForm();
+                        })
+                        .finally(function () {
+                            $scope.busy = false;
+                        });
+                }
+            };
+            $scope.addEvent = function (form) {
+                $scope.busy = false;
+                $scope.$broadcast('schemaFormValidate');
+                if (form.$valid) {
+                    eventService.addEvent($scope.event.model)
                         .then(function (data) {
                             $scope.eventList = data;
                             $scope.toggleShowEditForm();

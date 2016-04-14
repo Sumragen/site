@@ -1,0 +1,15 @@
+<form class="form-horizontal">
+    <fieldset>
+        <legend>Lesson edit</legend>
+        <label for="inputTitle" class="col-md-2 control-label">Title</label>
+
+        <div class="col-md-10">
+            <input type="text" class="form-control" id="inputTitle" placeholder="Title" ng-model="lesson.title">
+        </div>
+
+        <div class="col-md-10 col-md-offset-2">
+            <button class="btn btn-default" ng-click="resetChanges()">Cancel</button>
+            <button class="btn btn-primary" ng-click="saveChanges()">Save</button>
+        </div>
+    </fieldset>
+</form>

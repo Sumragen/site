@@ -5,10 +5,12 @@ define(['../module', 'lodash'], function (module, _) {
     module.controller('Dashboard.Settings.Schedule.Edit.DayController', [
         '$scope',
         '$stateParams',
+        '$uibModal',
+        '$state',
         'Dashboard.Schedule.ScheduleService',
         'Dashboard.Schedule.ScheduleDataService',
-        function ($scope, $stateParams, scheduleService, scheduleDataService) {
-            $scope.selectedDay = $stateParams.day;
+        function ($scope, $stateParams, $uibModal, $state, scheduleService, scheduleDataService) {
+            $stateParams.day ? $scope.selectedDay = $stateParams.day : $state.go('dashboard.settings.schedule.selector');
 
             scheduleService.getStages()
                 .then(function (data) {
@@ -32,12 +34,34 @@ define(['../module', 'lodash'], function (module, _) {
                                 }
                             });
                         });
-                        stage.filterName =  stage.stage + stage.suffix + ' ' + stage.stage + '-' + stage.suffix;
-                        $scope.stages.push({stage: stage.stage, suffix: stage.suffix, filterName: stage.filterName, day: tempDayLessons});
+                        stage.filterName = stage.stage + stage.suffix + ' ' + stage.stage + '-' + stage.suffix;
+                        $scope.stages.push({
+                            stage: stage.stage,
+                            suffix: stage.suffix,
+                            filterName: stage.filterName,
+                            day: tempDayLessons
+                        });
                     });
                 });
             $scope.selectLesson = function (lesson) {
-                lesson;
+                var modalInstance = $uibModal.open({
+                    animation: true,
+                    templateUrl: 'views/Dashboard/Schedule/lessonEdit.html',
+                    controller: 'Dashboard.Settings.Schedule.Edit.LessonController as controller',
+                    size: 'lg',
+                    windowClass: 'custom-modal-day',
+                    resolve : {
+                        selectedLesson: function () {
+                            return lesson || {};
+                        }
+                    }
+                });
+
+                modalInstance.result.then(function () {
+                    //$state.go('dashboard.profile');
+                }, function () {
+
+                });
             }
         }]);
 });

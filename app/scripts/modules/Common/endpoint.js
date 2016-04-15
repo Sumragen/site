@@ -167,6 +167,13 @@ define(['./module', 'lodash'], function (module, _) {
                             url: '/teacher/' + teacher.id,
                             data: teacher
                         })
+                    },
+                    getSubjects : function (id) {
+                        return new API({
+                            method: METHODS.GET,
+                            url: '/teacher',
+                            data : id
+                        })
                     }
                 },
                 subject: {
@@ -231,6 +238,14 @@ define(['./module', 'lodash'], function (module, _) {
                             method: METHODS.PUT,
                             url: '/lesson/' + lesson.id,
                             data: lesson
+                        })
+                    }
+                },
+                name: {
+                    get: function () {
+                        return new API({
+                            method: METHODS.GET,
+                            url: '/names'
                         })
                     }
                 }

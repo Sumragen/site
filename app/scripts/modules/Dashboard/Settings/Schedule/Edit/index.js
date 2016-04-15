@@ -3,7 +3,6 @@
  */
 define([
     './controller/masterController',
-    './controller/lessonController',
     './service/lessonService'
 ], function () {
 

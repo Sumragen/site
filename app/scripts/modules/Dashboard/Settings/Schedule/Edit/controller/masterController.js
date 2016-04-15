@@ -7,10 +7,57 @@ define(['../module', 'lodash'], function (module, _) {
         '$stateParams',
         '$uibModal',
         '$state',
+        'Dashboard.Settings.Schedule.Edit.LessonService',
         'Dashboard.Schedule.ScheduleService',
         'Dashboard.Schedule.ScheduleDataService',
-        function ($scope, $stateParams, $uibModal, $state, scheduleService, scheduleDataService) {
+        function ($scope, $stateParams, $uibModal, $state, lessonService, scheduleService, scheduleDataService) {
             $stateParams.day ? $scope.selectedDay = $stateParams.day : $state.go('dashboard.settings.schedule.selector');
+
+            $scope.showEditForm = false;
+            $scope.lesson = {};
+            $scope.toggleShowEditForm = function (lesson) {
+                if (lesson) {
+                    $scope.lesson.model = angular.copy(lesson);
+                } else {
+                    $scope.lesson.model = {};
+                }
+                $scope.showEditForm = !$scope.showEditForm;
+            };
+
+            $scope.createLesson = function (form) {
+                $scope.busy = false;
+                $scope.$broadcast('schemaFormValidate');
+                if (form.$valid) {
+                    lessonService.addLesson($scope.lesson.model)
+                        .then(function (data) {
+                            $scope.lessons = data;
+                            $scope.toggleShowEditForm();
+                        })
+                        .finally(function () {
+                            $scope.busy = false;
+                        });
+                }
+            };
+
+            lessonService.getLessons()
+                .then(function (data) {
+                    $scope.lessons = data.lessons;
+                });
+
+            $scope.updateLesson = function (form) {
+                $scope.busy = false;
+                $scope.$broadcast('schemaFormValidate');
+                if (form.$valid) {
+                    lessonService.updateLesson($scope.event.model)
+                        .then(function (data) {
+                            $scope.lessons = data;
+                            $scope.toggleShowEditForm();
+                        })
+                        .finally(function () {
+                            $scope.busy = false;
+                        });
+                }
+            };
 
             scheduleService.getStages()
                 .then(function (data) {
@@ -43,25 +90,50 @@ define(['../module', 'lodash'], function (module, _) {
                         });
                     });
                 });
-            $scope.selectLesson = function (lesson) {
-                var modalInstance = $uibModal.open({
-                    animation: true,
-                    templateUrl: 'views/Dashboard/Schedule/lessonEdit.html',
-                    controller: 'Dashboard.Settings.Schedule.Edit.LessonController as controller',
-                    size: 'lg',
-                    windowClass: 'custom-modal-day',
-                    resolve : {
-                        selectedLesson: function () {
-                            return lesson || {};
-                        }
+
+            $scope.lesson.schema = {
+                "type": "object",
+                "properties": {
+                    subject : {
+                        type: 'number',
+                        title: 'Subject'
+                    },
+                    teacher : {
+                        type: 'number',
+                        title: 'Teacher'
+                    },
+                    classroom: {
+                        type: "number",
+                        minLength: 3,
+                        title: "Classroom"
                     }
+                },
+                "required": [
+                    "subject",
+                    "teacher",
+                    "classroom"
+                ]
+            };
+
+            lessonService.getNames()
+                .then(function (data) {
+                    $scope.lesson.form = [
+                        {
+                            "key": "subject",
+                            type: "select",
+                            titleMap: data.names.subject
+                        },
+                        {
+                            "key": "teacher",
+                            type: "select",
+                            titleMap: data.names.teacher
+                        },
+                        {
+                            "key": "classroom",
+                            "placeholder": "Classroom"
+                        }
+                    ]
                 });
 
-                modalInstance.result.then(function () {
-                    //$state.go('dashboard.profile');
-                }, function () {
-
-                });
-            }
         }]);
 });

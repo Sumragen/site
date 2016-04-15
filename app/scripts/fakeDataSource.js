@@ -160,6 +160,7 @@ define(['lodash'], function (_) {
                     name: 'Monday',
                     lessons: [
                         {
+                            id: 1,
                             lesson: 'History',
                             teacher: 'Victor Kotov',
                             classroom: 32,
@@ -1231,28 +1232,115 @@ define(['lodash'], function (_) {
     var teachers = [
         {
             id: 1,
-            name: 'Kotov Viktor',
+            user: 1,
             subjects: [1, 2]
         },
         {
             id: 2,
-            name: 'Artur Krenev',
+            user: 2,
             subjects: [2, 3]
         },
         {
             id: 3,
-            name: 'Margarita Vishnevskaya',
+            user: 3,
             subjects: [3, 4]
         },
         {
             id: 4,
-            name: 'Leonid Kruglev',
+            user: 4,
             subjects: [4, 5]
         },
         {
             id: 5,
-            name: 'Elena Osipova',
+            user: 5,
             subjects: [1, 5]
+        }
+    ];
+
+    var lessons = [
+        {
+            id: 1,
+            subject: {
+                id: 1,
+                name: 'History'
+            },
+            teacher: {
+                id: 1,
+                name: 'Kotov Viktor'
+            },
+            classroom: 220,
+            day: 'Monday',
+            order: [1, 3]
+        },
+        {
+            id: 2,
+            subject: {
+                id: 2,
+                name: 'Mathematics'
+            },
+            teacher: {
+                id: 2,
+                name: 'Artur Krenev'
+            },
+            classroom: 305,
+            day: 'Tuesday',
+            order: [2]
+        },
+        {
+            id: 3,
+            subject: {
+                id: 5,
+                name: 'Literature'
+            },
+            teacher: {
+                id: 4,
+                name: 'Leonid Kruglev'
+            },
+            classroom: 216,
+            day: 'Wednesday',
+            order: [1]
+        },
+        {
+            id: 4,
+            subject: {
+                id: 1,
+                name: 'History'
+            },
+            teacher: {
+                id: 5,
+                name: 'Elena Osipova'
+            },
+            classroom: 101,
+            day: 'Thursday',
+            order: [4]
+        },
+        {
+            id: 5,
+            subject: {
+                id: 4,
+                name: 'Astronomy'
+            },
+            teacher: {
+                id: 3,
+                name: 'Margarita Vishnevskaya'
+            },
+            classroom: 306,
+            day: 'Friday',
+            order: [1, 3]
+        },
+        {
+            id: 6,
+            subject: {
+                id: 3,
+                name: 'Biology'
+            },
+            teacher: {
+                id: 2,
+                name: 'Artur Krenev'
+            },
+            classroom: 106,
+            day: 'Wednesday',
+            order: [0]
         }
     ];
 
@@ -1260,15 +1348,15 @@ define(['lodash'], function (_) {
         load();
         _.find(data.subject.objects, function (subject) {
             if (subject.id === subjectId) {
-                if(function (){
-                    var result = true;
-                    _.find(subject.teachers, function (teacher) {
-                        if (teacher.id === teacherId) {
-                            result = false;
-                        }
-                    });
-                    return result;
-                }){
+                if (function () {
+                        var result = true;
+                        _.find(subject.teachers, function (teacher) {
+                            if (teacher.id === teacherId) {
+                                result = false;
+                            }
+                        });
+                        return result;
+                    }) {
                     subject.teachers.push(teacherId);
                 }
             }
@@ -1326,17 +1414,17 @@ define(['lodash'], function (_) {
                 objects: [admin, teacher, student],
                 lastIndex: 3
             },
-            subject : {
+            subject: {
                 objects: subjects,
                 lastIndex: 5
             },
-            teacher : {
+            teacher: {
                 objects: teachers,
                 lastIndex: 5
             },
-            lesson : {
-                objects: [],
-                lastIndex: 0
+            lesson: {
+                objects: lessons,
+                lastIndex: 6
             }
         }));
         //init random data
@@ -1408,6 +1496,23 @@ define(['lodash'], function (_) {
     };
 
     //Lesson
+    //sent data
+    var scheduledLesson2 = {
+        lesson: 12,
+        date: 'timestamp',
+        teacher: 145,
+        classroom: 32,
+        order: [1, 4]
+    };
+    //returned data
+    var receivedData2 = {
+        id: 1,
+        lesson: {id: 12, name: 'History'},
+        teacher: {id: 134, name: 'Victor Kotov'},
+        classroom: 32,
+        date: '',
+        order: [1, 4]
+    };
     dataSource.getLesson = function (dataLesson) {
         load();
         var tempLesson = angular.fromJson(dataLesson);
@@ -1436,6 +1541,11 @@ define(['lodash'], function (_) {
         load();
         var lesson = angular.fromJson(dataLesson);
         lesson.id = ++data.lesson.lastIndex;
+        lesson.subject = _.find(data.subject.objects, function (subject) {
+            if (lesson.subject === subject.id) {
+                return {id: subject.id, name: subject.name};
+            }
+        });
         data.lesson.objects.push(lesson);
         commit();
         return data.lesson.objects;
@@ -1489,6 +1599,23 @@ define(['lodash'], function (_) {
     };
 
     //Teacher
+    dataSource.getSubjectsForTeacher = function (dataTeacher) {
+        load();
+        var teacherId = angular.fromJson(dataTeacher);
+        var subjects = [];
+        _.find(data.teacher.objects, function (teacher) {
+            if(teacher.user === teacherId){
+                _.each(teacher.subjects, function (subjectId) {
+                    _.find(data.subject.objects, function (subject) {
+                        if(subject.id === subjectId){
+                            subjects.push({id:subject.id,name:subject.name});
+                        }
+                    })
+                });
+            }
+        });
+        return subjects;
+    };
     dataSource.getTeacher = function () {
         load();
         return data.teacher.objects;
@@ -1594,6 +1721,19 @@ define(['lodash'], function (_) {
             }
         });
         return data.role.objects;
+    };
+
+    dataSource.getNames = function () {
+        load();
+        var _teacher = [];
+        var _subject = [];
+        _.each(data.teacher.objects, function (teacher) {
+            _teacher.push({value: teacher.id, name: teacher.name});
+        });
+        _.each(data.subject.objects, function (subject) {
+            _subject.push({value: subject.id, name: subject.name});
+        });
+        return {teacher : _teacher, subject: _subject};
     };
 
     return dataSource;

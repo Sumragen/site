@@ -157,6 +157,14 @@ define(
             });
 
         //Teacher
+            $httpBackend.whenGET(prefix + '/teacher').respond(function (method, url, data) {
+                var subjects = fakeDataSource.getSubjectsForTeacher(data);
+                if (subjects) {
+                    return [200, subjects, {}];
+                } else {
+                    return [400, {errorCode: 7, message: 'Subjects not found'}];
+                }
+            });
             $httpBackend.whenGET(prefix + '/teachers').respond(function (method, url) {
                 var teachers = fakeDataSource.getTeacher();
                 if (teachers) {
@@ -222,6 +230,15 @@ define(
                     return [200, {schedule: schedule}, {}];
                 } else {
                     return [400, {errorCode: 3, message: 'Schedule not found'}];
+                }
+            });
+
+            $httpBackend.whenGET(prefix + '/names').respond(function (method, url) {
+                var names = fakeDataSource.getNames();
+                if (names) {
+                    return [200, {names: names}, {}];
+                } else {
+                    return [400, {errorCode: 3, message: 'Teachers or subjects not found'}];
                 }
             });
 

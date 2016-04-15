@@ -1,25 +1,27 @@
 /**
  * Created by sumragen on 2/27/16.
  */
-define(['../module'], function (module) {
+define(['../module','lodash'], function (module, _) {
     module.controller('Dashboard.Settings.Users.UsersController', [
         '$scope',
         '$timeout',
         'Dashboard.Profile.ProfileService',
+        'Dashboard.Settings.Schedule.Edit.LessonService',
         'usersData',
-        function ($scope, $timeout, profileService, usersData) {
+        function ($scope, $timeout, profileService, lessonService, usersData) {
             var self = this;
             $scope.users = usersData;
+            $scope.user = {};
 
             $scope.scrollDisabled = false;
             var limit = 2;
 
             $scope.loadMoreUsers = function () {
-                if($scope.busy) return;
+                if ($scope.busy) return;
                 $scope.busy = true;
                 profileService.loadUsers($scope.users.length, limit)
                     .then(function (users) {
-                        if($scope.users.concat(users).length - $scope.users.length < limit) $scope.scrollDisabled = true;
+                        if ($scope.users.concat(users).length - $scope.users.length < limit) $scope.scrollDisabled = true;
                         $scope.users = $scope.users.concat(users);
                     })
                     .finally(function () {
@@ -33,10 +35,55 @@ define(['../module'], function (module) {
             $scope.toggleShowEditForm = function (user) {
                 $timeout(function () {
                     if (user) {
-                        $scope.selectedUser = user;
+                        $scope.user.model = user;
+                        lessonService.getSubjectsForTeacher($scope.user.model.id)
+                            .then(function (data) {
+                                $scope.user.model.subjects = data;
+                            });
                     } else {
-                        $scope.selectedUser = {};
+                        $scope.user.model = {};
                     }
+
+                    lessonService.getNames()
+                        .then(function (data) {
+                            $scope.user.form = [
+                                {
+                                    key: 'avatar',
+                                    title: 'Upload avatar',
+                                    type: 'fileinput',
+                                    fileType: 'dataUrl',
+                                    previewType: 'image',
+                                    accept: 'image/png,image/jpeg',
+                                    onFileSelect: null
+                                },
+                                {
+                                    "key": "first_name",
+                                    "placeholder": "First name"
+
+                                },
+                                {
+                                    "key": "last_name",
+                                    "placeholder": "Last name"
+                                },
+                                {
+                                    "key": "username",
+                                    "placeholder": "username"
+                                },
+                                {
+                                    "key": "email",
+                                    "placeholder": "email"
+                                },
+                                {
+                                    "key": "subjects",
+                                    "type": "multiselect",
+                                    selected: ($scope.user.model.roles[0].permissions[0] === 1 || $scope.user.model.roles[0].permissions[0] === 2)
+                                    ? $scope.user.model.subjects
+                                    : [],
+                                    items: data.names.subject
+                                }
+                            ];
+                        });
+                    $scope.scrollDisabled = !$scope.scrollDisabled;
                     $scope.showEditForm = !$scope.showEditForm;
                 });
             };
@@ -45,7 +92,7 @@ define(['../module'], function (module) {
                 $scope.busy = true;
                 $scope.$broadcast('schemaFormValidate');
                 if (form.$valid) {
-                    profileService.updateUser($scope.selectedUser)
+                    profileService.updateUser($scope.user.model)
                         .then(function () {
                             $scope.toggleShowEditForm();
                         })
@@ -55,7 +102,7 @@ define(['../module'], function (module) {
                 }
             };
 
-            $scope.schema = {
+            $scope.user.schema = {
                 "type": "object",
                 "properties": {
                     first_name: {
@@ -73,13 +120,16 @@ define(['../module'], function (module) {
                         minLength: 4,
                         title: "Login"
                     },
-                    "email": {
+                    email: {
                         "title": "Email",
                         "type": "string",
                         "pattern": "^\\S+@\\S+$"
                     },
-                    'avatar': {
+                    avatar: {
                         type: 'file'
+                    },
+                    subjects: {
+                        type: 'number'
                     }
                 },
                 "required": [
@@ -90,34 +140,6 @@ define(['../module'], function (module) {
                 ]
             };
 
-            $scope.form = [
-                {
-                    key: 'avatar',
-                    title: 'Upload avatar',
-                    type: 'fileinput',
-                    fileType: 'dataUrl',
-                    previewType: 'image',
-                    accept: 'image/png,image/jpeg',
-                    onFileSelect: null
-                },
-                {
-                    "key": "first_name",
-                    "placeholder": "First name"
-
-                },
-                {
-                    "key": "last_name",
-                    "placeholder": "Last name"
-                },
-                {
-                    "key": "username",
-                    "placeholder": "username"
-                },
-                {
-                    "key": "email",
-                    "placeholder": "email"
-                }
-            ];
         }
     ]);
 });

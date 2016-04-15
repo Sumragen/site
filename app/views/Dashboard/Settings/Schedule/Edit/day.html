@@ -1,26 +1,38 @@
 <div class="schedule-settings-edit-module-wrapper">
-    <a class="btn btn-raised btn-default" ui-sref="dashboard.settings.schedule.selector">Back</a>
+    <div ng-if="!showEditForm">
+        <a class="btn btn-raised btn-default" ui-sref="dashboard.settings.schedule.selector">Back</a>
+        <h1>{{selectedDay.title}}</h1>
 
-    <h1>{{selectedDay.title}}</h1>
+        <input class="form-control" type="text" ng-model="searchText.day.title" placeholder="Filter by subject">
+        <input class="form-control" type="text" ng-model="searchText.filterName" placeholder="Filter by stage">
 
-    <input class="form-control" type="text" ng-model="searchText.day.title" placeholder="Filter by subject">
-    <input class="form-control" type="text" ng-model="searchText.filterName" placeholder="Filter by stage">
-
-    <table class="table table-striped table-fixed-layout" ng-if="!busy && !showDaysTable">
-        <thead>
-        <tr>
-            <th>#</th>
-            <th ng-repeat="num in [0,1,2,3,4,5,6,7,8]">{{num}}</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr ng-repeat="stage in stages | filter: searchText | orderBy: ['stage','suffix'] track by $index"
-            class="active">
-            <td>{{stage.stage}}-{{stage.suffix}}</td>
-            <td class="edit-schedule-subject" ng-repeat="lesson in stage.day track by $index" ng-click="selectLesson(lesson)">
-                {{(lesson)?lesson.title:null}}
-            </td>
-        </tr>
-        </tbody>
-    </table>
+        <table class="table table-striped table-fixed-layout" ng-if="!busy && !showDaysTable">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th ng-repeat="num in [0,1,2,3,4,5,6,7,8]">{{num}}</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="stage in stages | filter: searchText | orderBy: ['stage','suffix'] track by $index"
+                class="active">
+                <td>{{stage.stage}}-{{stage.suffix}}</td>
+                <td class="edit-schedule-subject" ng-repeat="lesson in stage.day track by $index"
+                    ng-click="toggleShowEditForm({lesson: lesson, stage: stage.stage, suffix: stage.suffix})">
+                    {{(lesson)?lesson.title:null}}
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <!--edit form-->
+    <div ng-if="showEditForm && !busy">
+        <form name="editForm"
+              sf-schema="lesson.schema"
+              sf-form="lesson.form"
+              sf-model="lesson.model">
+        </form>
+        <a class="btn btn-default" ng-click="toggleShowEditForm()">Cancel</a>
+        <a class="btn btn-info" ng-click="(lesson.model.id)?updateLesson(editForm): createLesson(editForm)">{{(lesson.model.id)?'Update':'Create'}}</a>
+    </div>
 </div>

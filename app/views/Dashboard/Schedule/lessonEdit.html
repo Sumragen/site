@@ -9,7 +9,17 @@
 
         <div class="col-md-10 col-md-offset-2">
             <button class="btn btn-default" ng-click="resetChanges()">Cancel</button>
-            <button class="btn btn-primary" ng-click="saveChanges()">Save</button>
+            <button class="btn btn-primary" ng-click="(isExist) ? saveChanges() : createLesson()">{{(isExist) ? 'Save' : 'Create'}}
+            </button>
         </div>
+
+            <form name="editForm"
+                  sf-schema="lesson.schema"
+                  sf-form="lesson.form"
+                  sf-model="lesson.model">
+            </form>
+            <a class="btn btn-default" ng-click="resetChanges()">Cancel</a>
+            <a class="btn btn-info" ng-click="(lesson.model.id)?saveChanges(editForm): createLesson(editForm)">{{(lesson.model.id)?'Update':'Create'}}</a>
+
     </fieldset>
 </form>

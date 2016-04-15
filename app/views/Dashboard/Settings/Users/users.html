@@ -27,9 +27,9 @@
 
         <div ng-show="showEditForm">
             <form name="editForm"
-                  sf-schema="schema"
-                  sf-form="form"
-                  sf-model="selectedUser">
+                  sf-schema="user.schema"
+                  sf-form="user.form"
+                  sf-model="user.model">
             </form>
             <a class="btn btn-default" ng-click="toggleShowEditForm()">Cancel</a>
             <a class="btn btn-info" ng-click="editProfile(editForm)">Submit</a>

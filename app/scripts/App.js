@@ -14,6 +14,7 @@ define([
         'angular-mocks',
         'angular-moment',
         'angular-touch',
+        'angular-ui-select',
         'infiniteScroll',
         'bootstrapDateTimePicker',
         //'angular-schema-form',
@@ -32,6 +33,8 @@ define([
             'ngMockE2E',
             'ngTouch',
             'ngAnimate',
+            'ngSanitize',
+            'ui.select',
             'ngSanitize',
             'ui.bootstrap',
             'angularMoment',
@@ -155,6 +158,12 @@ define([
                         'bootstrapDecorator',
                         'datetimepicker',
                         'views/Common/datetimepicker.html'
+                    );
+
+                    schemaFormDecoratorsProvider.addMapping(
+                        'bootstrapDecorator',
+                        'multiselect',
+                        'views/Common/multiselect.html'
                     );
 
                     schemaFormProvider.postProcess(function (form) {

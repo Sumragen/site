@@ -1,7 +1,7 @@
 /**
  * Created by sumragen on 2/27/16.
  */
-define(['../module','lodash'], function (module, _) {
+define(['../module', 'lodash'], function (module, _) {
     module.controller('Dashboard.Settings.Users.UsersController', [
         '$scope',
         '$timeout',
@@ -46,6 +46,13 @@ define(['../module','lodash'], function (module, _) {
 
                     lessonService.getNames()
                         .then(function (data) {
+                            _.each($scope.user.model.subjects, function (subject, index) {
+                                _.find(data.names.subject, function (subjectName) {
+                                    if (subject.id === subjectName.id) {
+                                        $scope.user.model.subjects[index] = subjectName;
+                                    }
+                                });
+                            });
                             $scope.user.form = [
                                 {
                                     key: 'avatar',
@@ -77,8 +84,8 @@ define(['../module','lodash'], function (module, _) {
                                     "key": "subjects",
                                     "type": "multiselect",
                                     selected: ($scope.user.model.roles[0].permissions[0] === 1 || $scope.user.model.roles[0].permissions[0] === 2)
-                                    ? $scope.user.model.subjects
-                                    : [],
+                                        ? $scope.user.model.subjects
+                                        : null,
                                     items: data.names.subject
                                 }
                             ];
@@ -129,7 +136,7 @@ define(['../module','lodash'], function (module, _) {
                         type: 'file'
                     },
                     subjects: {
-                        type: 'number'
+                        type: 'Array'
                     }
                 },
                 "required": [

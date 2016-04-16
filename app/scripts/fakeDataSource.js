@@ -1728,10 +1728,10 @@ define(['lodash'], function (_) {
         var _teacher = [];
         var _subject = [];
         _.each(data.teacher.objects, function (teacher) {
-            _teacher.push({value: teacher.id, name: teacher.name});
+            _teacher.push({id: teacher.id, name: teacher.name});
         });
         _.each(data.subject.objects, function (subject) {
-            _subject.push({value: subject.id, name: subject.name});
+            _subject.push({id: subject.id, name: subject.name});
         });
         return {teacher : _teacher, subject: _subject};
     };

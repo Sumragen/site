@@ -39,10 +39,20 @@ define(['../module', 'lodash'], function (module, _) {
                 }
             };
 
-            lessonService.getLessons()
+            lessonService.getLessons($scope.selectedDay)
                 .then(function (data) {
                     $scope.lessons = data.lessons;
                 });
+
+            $scope.checkOrder = function(orders,index){
+                var result = false;
+                _.each(orders, function(order){
+                    if(order === index){
+                        result = true;
+                    }
+                });
+                return result;
+            };
 
             $scope.updateLesson = function (form) {
                 $scope.busy = false;

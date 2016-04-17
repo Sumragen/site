@@ -1268,6 +1268,8 @@ define(['lodash'], function (_) {
                 id: 1,
                 name: 'Kotov Viktor'
             },
+            stage: '1',
+            suffix: 'A',
             classroom: 220,
             day: 'Monday',
             order: [1, 3]
@@ -1282,6 +1284,8 @@ define(['lodash'], function (_) {
                 id: 2,
                 name: 'Artur Krenev'
             },
+            stage: '4',
+            suffix: 'A',
             classroom: 305,
             day: 'Tuesday',
             order: [2]
@@ -1296,6 +1300,8 @@ define(['lodash'], function (_) {
                 id: 4,
                 name: 'Leonid Kruglev'
             },
+            stage: '2',
+            suffix: 'A',
             classroom: 216,
             day: 'Wednesday',
             order: [1]
@@ -1310,6 +1316,8 @@ define(['lodash'], function (_) {
                 id: 5,
                 name: 'Elena Osipova'
             },
+            stage: '11',
+            suffix: 'A',
             classroom: 101,
             day: 'Thursday',
             order: [4]
@@ -1324,6 +1332,8 @@ define(['lodash'], function (_) {
                 id: 3,
                 name: 'Margarita Vishnevskaya'
             },
+            stage: '8',
+            suffix: 'A',
             classroom: 306,
             day: 'Friday',
             order: [1, 3]
@@ -1338,6 +1348,8 @@ define(['lodash'], function (_) {
                 id: 2,
                 name: 'Artur Krenev'
             },
+            stage: '5',
+            suffix: 'A',
             classroom: 106,
             day: 'Wednesday',
             order: [0]
@@ -1522,9 +1534,21 @@ define(['lodash'], function (_) {
             }
         });
     };
-    dataSource.getLessons = function () {
+    // dataSource.getLessons = function () {
+    //     load();
+    //     return data.lesson.objects;
+    // };
+    dataSource.getLessons = function (dataDay) {
         load();
-        return data.lesson.objects;
+        var day = angular.fromJson(dataDay);
+        var _lessons = [];
+        _.each(data.lesson.objects, function (lesson) {
+                if (lesson.day === day.title) {
+                    _lessons.push(lesson);
+                }
+            }
+        );
+        return _lessons;
     };
     dataSource.updateLesson = function (dataLesson) {
         load();
@@ -1604,11 +1628,11 @@ define(['lodash'], function (_) {
         var teacherId = angular.fromJson(dataTeacher);
         var subjects = [];
         _.find(data.teacher.objects, function (teacher) {
-            if(teacher.user === teacherId){
+            if (teacher.user === teacherId) {
                 _.each(teacher.subjects, function (subjectId) {
                     _.find(data.subject.objects, function (subject) {
-                        if(subject.id === subjectId){
-                            subjects.push({id:subject.id,name:subject.name});
+                        if (subject.id === subjectId) {
+                            subjects.push({id: subject.id, name: subject.name});
                         }
                     })
                 });
@@ -1660,9 +1684,9 @@ define(['lodash'], function (_) {
             if (tempUser.id === user.id) {
 
                 _.find(data.teacher.objects, function (teacher, index) {
-                    if(teacher.user === tempUser.id){
-                        _.each(tempUser.subjects,function (subject) {
-                           _subjects.push(subject.id);
+                    if (teacher.user === tempUser.id) {
+                        _.each(tempUser.subjects, function (subject) {
+                            _subjects.push(subject.id);
                         });
                         data.teacher.objects[index].subjects = _subjects;
                     }
@@ -1744,7 +1768,7 @@ define(['lodash'], function (_) {
         _.each(data.subject.objects, function (subject) {
             _subject.push({id: subject.id, name: subject.name});
         });
-        return {teacher : _teacher, subject: _subject};
+        return {teacher: _teacher, subject: _subject};
     };
 
     return dataSource;

@@ -220,10 +220,11 @@ define(['./module', 'lodash'], function (module, _) {
                             data: lesson
                         })
                     },
-                    list: function () {
+                    list: function (day) {
                         return new API({
                             method: METHODS.GET,
-                            url: '/lessons'
+                            url: '/lessons',
+                            data: day
                         })
                     },
                     post: function (data) {

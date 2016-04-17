@@ -89,8 +89,8 @@ define(
                     return [400, {errorCode: 5, message: 'Lesson not found'}];
                 }
             });
-            $httpBackend.whenGET(prefix + '/lessons').respond(function (method, url) {
-                var lessons = fakeDataSource.getLessons();
+            $httpBackend.whenGET(prefix + '/lessons').respond(function (method, url, data) {
+                var lessons = fakeDataSource.getLessons(data);
                 if (lessons) {
                     return [200, {lessons: lessons}, {}];
                 } else {

@@ -82,6 +82,11 @@ define(['../module', 'lodash'], function (module, _) {
                             });
                         });
                         stage.filterName = stage.stage + stage.suffix + ' ' + stage.stage + '-' + stage.suffix;
+                        _.each(tempDayLessons, function (day) {
+                            if (day) {
+                                stage.filterName += ';' + day.title;
+                            }
+                        });
                         $scope.stages.push({
                             stage: stage.stage,
                             suffix: stage.suffix,
@@ -94,11 +99,11 @@ define(['../module', 'lodash'], function (module, _) {
             $scope.lesson.schema = {
                 "type": "object",
                 "properties": {
-                    subject : {
+                    subject: {
                         type: 'number',
                         title: 'Subject'
                     },
-                    teacher : {
+                    teacher: {
                         type: 'number',
                         title: 'Teacher'
                     },

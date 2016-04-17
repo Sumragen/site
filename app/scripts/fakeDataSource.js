@@ -1654,9 +1654,20 @@ define(['lodash'], function (_) {
     //User
     dataSource.updateUser = function (dataUser) {
         load();
+        var _subjects = [];
         var tempUser = angular.fromJson(dataUser);
         return _.find(data.user.objects, function (user, index) {
             if (tempUser.id === user.id) {
+
+                _.find(data.teacher.objects, function (teacher, index) {
+                    if(teacher.user === tempUser.id){
+                        _.each(tempUser.subjects,function (subject) {
+                           _subjects.push(subject.id);
+                        });
+                        data.teacher.objects[index].subjects = _subjects;
+                    }
+                });
+
                 data.user.objects[index] = tempUser;
                 commit();
                 return user;

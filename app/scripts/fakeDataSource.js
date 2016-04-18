@@ -1572,6 +1572,22 @@ define(['lodash'], function (_) {
         _.find(data.lesson.objects, function (lesson, index) {
             if (tempLesson.id === lesson.id) {
                 data.lesson.objects[index] = tempLesson;
+                _.find(data.subject.objects, function (subject) {
+                    if(subject.id === tempLesson.subject){
+                        data.lesson.objects[index].subject = {id: subject.id, name: subject.name};
+                    }
+                });
+                _.find(data.teacher.objects, function (teacher) {
+                    if(teacher.id === tempLesson.teacher){
+                        var _user = {};
+                        _.find(data.user.objects, function (user) {
+                            if(teacher.user === user.id){
+                                _user = user;
+                            }
+                        });
+                        data.lesson.objects[index].teacher = {id: lesson.id, name: _user.first_name + ' ' + _user.last_name};
+                    }
+                });
                 commit();
             }
         });

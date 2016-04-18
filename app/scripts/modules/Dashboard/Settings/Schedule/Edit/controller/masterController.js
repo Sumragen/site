@@ -60,9 +60,9 @@ define(['../module', 'lodash'], function (module, _) {
                             + lesson.subject.name + ';'
                             + lesson.teacher.name;
                         _lessons.push(lesson);
-                    }else{
+                    } else {
                         _.find($scope.lessons, function (checkLesson) {
-                            if(checkLesson.stage === lesson.stage && checkLesson.suffix === lesson.suffix){
+                            if (checkLesson.stage === lesson.stage && checkLesson.suffix === lesson.suffix) {
                                 checkLesson.filterName += lesson.subject.name + ';' + lesson.teacher.name;
                             }
                         })
@@ -89,7 +89,7 @@ define(['../module', 'lodash'], function (module, _) {
                 $scope.busy = false;
                 $scope.$broadcast('schemaFormValidate');
                 if (form.$valid) {
-                    lessonService.updateLesson($scope.event.model)
+                    lessonService.updateLesson($scope.lesson.model)
                         .then(function (data) {
                             $scope.lessons = data;
                             $scope.toggleShowEditForm();
@@ -103,11 +103,11 @@ define(['../module', 'lodash'], function (module, _) {
             $scope.lesson.schema = {
                 "type": "object",
                 "properties": {
-                    'subject.id': {
+                    'subject': {
                         type: 'number',
                         title: 'Subject'
                     },
-                    'teacher.id': {
+                    'teacher': {
                         type: 'number',
                         title: 'Teacher'
                     },
@@ -118,24 +118,31 @@ define(['../module', 'lodash'], function (module, _) {
                     }
                 },
                 "required": [
-                    "subject.id",
-                    "teacher.id",
+                    "subject",
+                    "teacher",
                     "classroom"
                 ]
             };
 
             lessonService.getNames()
                 .then(function (data) {
+                    var _names = {subject: [], teacher: []};
+                    _.each(data.names.subject, function (subject) {
+                        _names.subject.push({value: subject.id, name: subject.name});
+                    });
+                    _.each(data.names.teacher, function (teacher) {
+                        _names.teacher.push({value: teacher.id, name: teacher.name});
+                    });
                     $scope.lesson.form = [
                         {
-                            "key": "subject.id",
+                            "key": "subject",
                             type: "select",
-                            titleMap: data.names.subject
+                            titleMap: _names.subject
                         },
                         {
-                            "key": "teacher.id",
+                            "key": "teacher",
                             type: "select",
-                            titleMap: data.names.teacher
+                            titleMap: _names.teacher
                         },
                         {
                             "key": "classroom",

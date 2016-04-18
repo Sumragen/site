@@ -1620,7 +1620,7 @@ define(['lodash'], function (_) {
         });
         return _lessons;
     };
-    dataSource.addLesson = function (dataLesson) {
+    dataSource.createLesson = function (dataLesson) {
         load();
         var lesson = angular.fromJson(dataLesson);
         lesson.id = ++data.lesson.lastIndex;
@@ -1643,6 +1643,7 @@ define(['lodash'], function (_) {
             }
             return true;
         });
+        lesson.order = [lesson.order];
         data.lesson.objects.push(lesson);
         commit();
         var _lessons = [];

@@ -114,7 +114,7 @@ define(
                 }
             });
             $httpBackend.whenPOST(prefix + '/lesson').respond(function (method, url, data) {
-                var lessons = fakeDataSource.addLesson(data);
+                var lessons = fakeDataSource.createLesson(data);
                 if (lessons) {
                     return [200, lessons, {}];
                 } else {

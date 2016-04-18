@@ -1452,7 +1452,7 @@ define(['lodash'], function (_) {
             },
             lesson: {
                 objects: lessons,
-                lastIndex: 6
+                lastIndex: 7
             }
         }));
         //init random data
@@ -1568,29 +1568,16 @@ define(['lodash'], function (_) {
         var createNew = false;
         data.lesson.objects.every(function (lesson, index) {
             if (tempLesson.id === lesson.id) {
-                //tempLesson.order = [tempLesson.order];
-                var _iter = -1;
-                var _spliceOrder = false;
                 data.lesson.objects[index].order.every(function (order, iter) {
                     if (order === tempLesson.order) {
-                        _spliceOrder = true;
+                        createNew = true;
+                        data.lesson.objects[index].order.splice(iter, 1);
                         return false;
                     }
-                    _iter = iter;
                     return true;
                 });
-                if (_spliceOrder) {
-                    createNew = true;
-                    data.lesson.objects[index].order.splice(_iter+1,1);
-                    tempLesson.order = [tempLesson.order];
-                } else {
-                    data.lesson.objects[index].order.push(tempLesson.order);
-                }
+                tempLesson.order = [tempLesson.order];
 
-                /*version when order doesn't find*/
-                //createNew = true;
-                //data.lesson.objects[index].order.splice(iter);
-                //tempLesson.order = [tempLesson.order];
 
                 data.subject.objects.every(function (subject) {
                     if (subject.id === tempLesson.subject) {
@@ -1615,6 +1602,7 @@ define(['lodash'], function (_) {
                     return true;
                 });
                 if (createNew) {
+                    tempLesson.id = ++data.lesson.lastIndex;
                     data.lesson.objects.push(tempLesson);
                 } else {
                     data.lesson.objects[index] = tempLesson;

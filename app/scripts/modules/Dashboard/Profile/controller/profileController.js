@@ -8,7 +8,6 @@ define(['../module'], function (module) {
         'Common.SecurityContext',
         'Dashboard.Profile.ProfileService',
         function ($scope, $timeout, SecurityContext, profileService) {
-            var currentUser;
 
             $timeout(function () {
                 $scope.currentUser  = SecurityContext.getPrincipal();
@@ -33,6 +32,7 @@ define(['../module'], function (module) {
                 if (form.$valid) {
                     profileService.updateUser($scope.currentUser)
                         .then(function () {
+                            SecurityContext.setPrincipal($scope.currentUser);
                             $scope.toggleShowSchemaForm();
                         })
                         .finally(function () {

@@ -1591,7 +1591,13 @@ define(['lodash'], function (_) {
                 commit();
             }
         });
-        return data.lesson.objects;
+        var _lessons = [];
+        _.each(data.lesson.objects, function (lesson) {
+            if(lesson.day === tempLesson.day){
+                _lessons.push(lesson);
+            }
+        });
+        return _lessons;
     };
     dataSource.addLesson = function (dataLesson) {
         load();

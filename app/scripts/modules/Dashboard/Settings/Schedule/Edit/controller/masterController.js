@@ -15,12 +15,17 @@ define(['../module', 'lodash'], function (module, _) {
 
             $scope.showEditForm = false;
             $scope.lesson = {};
-            $scope.toggleShowEditForm = function (lesson) {
-                if (lesson) {
-                    $scope.lesson.model = angular.copy(lesson.lesson);
-                } else {
-                    $scope.lesson.model = {};
-                }
+            $scope.toggleShowEditForm = function (stage, suffix, index) {
+
+                _.find($scope.lessons, function (lesson) {
+                    if (lesson.stage === stage && lesson.suffix === suffix) {
+                        _.find(lesson.order, function (order) {
+                            if (order === index) {
+                                $scope.lesson.model = angular.copy(lesson)
+                            }
+                        })
+                    }
+                });
                 $scope.showEditForm = !$scope.showEditForm;
             };
 

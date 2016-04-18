@@ -16,8 +16,7 @@ define(['../module', 'lodash'], function (module, _) {
             $scope.showEditForm = false;
             $scope.lesson = {};
             $scope.toggleShowEditForm = function (stage, suffix, index) {
-
-                $scope.lessons.every(function (lesson) {
+                if($scope.lessons.every(function (lesson) {
                     if (lesson.stage === stage && lesson.suffix === suffix) {
                         return lesson.order.every(function (order) {
                             if (order === index) {
@@ -28,7 +27,9 @@ define(['../module', 'lodash'], function (module, _) {
                         })
                     }
                     return true;
-                });
+                })){
+                    $scope.lesson.model = {stage: stage, suffix: suffix, order: [index], day: $scope.selectedDay.title};
+                }
                 $scope.showEditForm = !$scope.showEditForm;
             };
 

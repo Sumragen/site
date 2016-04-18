@@ -1550,10 +1550,6 @@ define(['lodash'], function (_) {
             }
         });
     };
-    // dataSource.getLessons = function () {
-    //     load();
-    //     return data.lesson.objects;
-    // };
     dataSource.getLessons = function (dataDay) {
         load();
         var day = angular.fromJson(dataDay);
@@ -1572,21 +1568,27 @@ define(['lodash'], function (_) {
         _.find(data.lesson.objects, function (lesson, index) {
             if (tempLesson.id === lesson.id) {
                 data.lesson.objects[index] = tempLesson;
-                _.find(data.subject.objects, function (subject) {
+                data.subject.objects.every(function (subject) {
                     if(subject.id === tempLesson.subject){
                         data.lesson.objects[index].subject = {id: subject.id, name: subject.name};
+                        return false;
                     }
+                    return true;
                 });
-                _.find(data.teacher.objects, function (teacher) {
+                data.teacher.objects.every(function (teacher) {
                     if(teacher.id === tempLesson.teacher){
                         var _user = {};
-                        _.find(data.user.objects, function (user) {
+                        data.user.objects.every(function (user) {
                             if(teacher.user === user.id){
                                 _user = user;
+                                return false;
                             }
+                            return true;
                         });
                         data.lesson.objects[index].teacher = {id: lesson.id, name: _user.first_name + ' ' + _user.last_name};
+                        return false;
                     }
+                    return true;
                 });
                 commit();
             }
@@ -1603,14 +1605,34 @@ define(['lodash'], function (_) {
         load();
         var lesson = angular.fromJson(dataLesson);
         lesson.id = ++data.lesson.lastIndex;
-        lesson.subject = _.find(data.subject.objects, function (subject) {
-            if (lesson.subject === subject.id) {
-                return {id: subject.id, name: subject.name};
+        data.subject.objects.every(function (subject) {
+            if(subject.id === lesson.subject){
+                lesson.subject = {id: subject.id, name: subject.name};
+                return false;
             }
+            return true;
+        });
+        data.teacher.objects.every(function (teacher) {
+            if(teacher.id === lesson.teacher){
+                return data.user.objects.every(function (user) {
+                    if(user.id === teacher.user){
+                        lesson.teacher = {id: lesson.id, name: user.first_name + ' ' + user.last_name};
+                        return false;
+                    }
+                    return true;
+                })
+            }
+            return true;
         });
         data.lesson.objects.push(lesson);
         commit();
-        return data.lesson.objects;
+        var _lessons = [];
+        _.each(data.lesson.objects, function (tempLesson) {
+            if(lesson.day === tempLesson.day){
+                _lessons.push(tempLesson);
+            }
+        });
+        return _lessons;
     };
     dataSource.deleteLesson = function (dataLesson) {
         load();

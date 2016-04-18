@@ -17,7 +17,7 @@ define(['../module', 'lodash'], function (module, _) {
             $scope.lesson = {};
             $scope.toggleShowEditForm = function (lesson) {
                 if (lesson) {
-                    $scope.lesson.model = angular.copy(lesson);
+                    $scope.lesson.model = angular.copy(lesson.lesson);
                 } else {
                     $scope.lesson.model = {};
                 }
@@ -103,11 +103,11 @@ define(['../module', 'lodash'], function (module, _) {
             $scope.lesson.schema = {
                 "type": "object",
                 "properties": {
-                    subject: {
+                    'subject.id': {
                         type: 'number',
                         title: 'Subject'
                     },
-                    teacher: {
+                    'teacher.id': {
                         type: 'number',
                         title: 'Teacher'
                     },
@@ -118,8 +118,8 @@ define(['../module', 'lodash'], function (module, _) {
                     }
                 },
                 "required": [
-                    "subject",
-                    "teacher",
+                    "subject.id",
+                    "teacher.id",
                     "classroom"
                 ]
             };
@@ -128,12 +128,12 @@ define(['../module', 'lodash'], function (module, _) {
                 .then(function (data) {
                     $scope.lesson.form = [
                         {
-                            "key": "subject",
+                            "key": "subject.id",
                             type: "select",
                             titleMap: data.names.subject
                         },
                         {
-                            "key": "teacher",
+                            "key": "teacher.id",
                             type: "select",
                             titleMap: data.names.teacher
                         },

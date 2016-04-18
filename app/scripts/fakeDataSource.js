@@ -1353,6 +1353,22 @@ define(['lodash'], function (_) {
             classroom: 106,
             day: 'Wednesday',
             order: [0,2]
+        },
+        {
+            id: 7,
+            subject: {
+                id: 2,
+                name: 'Mathematics'
+            },
+            teacher: {
+                id: 1,
+                name: defaultUsers[1].first_name
+            },
+            stage: '5',
+            suffix: 'B',
+            classroom: 207,
+            day: 'Wednesday',
+            order: [1,2]
         }
     ];
 
@@ -1763,7 +1779,13 @@ define(['lodash'], function (_) {
         var _teacher = [];
         var _subject = [];
         _.each(data.teacher.objects, function (teacher) {
-            _teacher.push({id: teacher.id, name: teacher.name});
+            var _name = '';
+            _.find(data.user.objects, function (user) {
+                if(user.id === teacher.user){
+                    _name = user.first_name + ' ' + user.last_name;
+                }
+            });
+            _teacher.push({id: teacher.id, name: _name});
         });
         _.each(data.subject.objects, function (subject) {
             _subject.push({id: subject.id, name: subject.name});

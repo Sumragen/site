@@ -1442,7 +1442,7 @@ define(['lodash'], function (_) {
         //init random data
         load();
         _.each(_.range(20), function () {
-            data.user.objects.push(generateRandomUser(teacher));
+            data.user.objects.push(generateRandomUser(student));
             data.event.objects.push(generateRandomEvent())
         });
         commit();

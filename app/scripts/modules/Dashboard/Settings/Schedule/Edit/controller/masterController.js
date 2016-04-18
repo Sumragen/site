@@ -21,6 +21,7 @@ define(['../module', 'lodash'], function (module, _) {
                         return lesson.order.every(function (order) {
                             if (order === index) {
                                 $scope.lesson.model = angular.copy(lesson);
+                                $scope.lesson.model.order = index;
                                 return false;
                             }
                             return true;
@@ -28,7 +29,7 @@ define(['../module', 'lodash'], function (module, _) {
                     }
                     return true;
                 })){
-                    $scope.lesson.model = {stage: stage, suffix: suffix, order: [index], day: $scope.selectedDay.title};
+                    $scope.lesson.model = {stage: stage, suffix: suffix, order: index, day: $scope.selectedDay.title};
                 }
                 $scope.showEditForm = !$scope.showEditForm;
             };

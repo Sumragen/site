@@ -17,14 +17,17 @@ define(['../module', 'lodash'], function (module, _) {
             $scope.lesson = {};
             $scope.toggleShowEditForm = function (stage, suffix, index) {
 
-                _.find($scope.lessons, function (lesson) {
+                $scope.lessons.every(function (lesson) {
                     if (lesson.stage === stage && lesson.suffix === suffix) {
-                        _.find(lesson.order, function (order) {
+                        return lesson.order.every(function (order) {
                             if (order === index) {
-                                $scope.lesson.model = angular.copy(lesson)
+                                $scope.lesson.model = angular.copy(lesson);
+                                return false;
                             }
+                            return true;
                         })
                     }
+                    return true;
                 });
                 $scope.showEditForm = !$scope.showEditForm;
             };
@@ -54,10 +57,12 @@ define(['../module', 'lodash'], function (module, _) {
                 var _lessons = [];
                 _.each($scope.lessons, function (lesson) {
                     var _checkResult = true;
-                    _.find(_lessons, function (checkLesson) {
+                    _lessons.every(function (checkLesson) {
                         if (checkLesson.stage === lesson.stage && checkLesson.suffix === lesson.suffix) {
                             _checkResult = false;
+                            return false;
                         }
+                        return true;
                     });
                     if (_checkResult) {
                         lesson.filterName = lesson.stage + lesson.suffix + ';'
@@ -66,26 +71,31 @@ define(['../module', 'lodash'], function (module, _) {
                             + lesson.teacher.name;
                         _lessons.push(lesson);
                     } else {
-                        _.find($scope.lessons, function (checkLesson) {
+                        $scope.lessons.every(function (checkLesson) {
                             if (checkLesson.stage === lesson.stage && checkLesson.suffix === lesson.suffix) {
                                 checkLesson.filterName += lesson.subject.name + ';' + lesson.teacher.name;
+                                return false;
                             }
+                            return true;
                         })
                     }
                 });
                 return _lessons;
             };
 
-            $scope.checkOrder = function (stage, suffix, index) {
+            $scope.getLessonNameByOrder = function (stage, suffix, index) {
                 var result = null;
-                _.find($scope.lessons, function (lesson) {
+                $scope.lessons.every(function (lesson) {
                     if (lesson.stage === stage && lesson.suffix === suffix) {
-                        _.find(lesson.order, function (order) {
+                        return lesson.order.every(function (order) {
                             if (order === index) {
                                 result = lesson.subject.name;
+                                return false;
                             }
+                            return true;
                         })
                     }
+                    return true;
                 });
                 return result;
             };

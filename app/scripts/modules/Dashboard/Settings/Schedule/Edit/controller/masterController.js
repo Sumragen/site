@@ -44,11 +44,42 @@ define(['../module', 'lodash'], function (module, _) {
                     $scope.lessons = data.lessons;
                 });
 
-            $scope.checkOrder = function(orders,index){
-                var result = false;
-                _.each(orders, function(order){
-                    if(order === index){
-                        result = true;
+
+            $scope.listOfLessons = function () {
+                var _lessons = [];
+                _.each($scope.lessons, function (lesson) {
+                    var _checkResult = true;
+                    _.find(_lessons, function (checkLesson) {
+                        if (checkLesson.stage === lesson.stage && checkLesson.suffix === lesson.suffix) {
+                            _checkResult = false;
+                        }
+                    });
+                    if (_checkResult) {
+                        lesson.filterName = lesson.stage + lesson.suffix + ';'
+                            + lesson.stage + '-' + lesson.suffix + ';'
+                            + lesson.subject.name + ';'
+                            + lesson.teacher.name;
+                        _lessons.push(lesson);
+                    }else{
+                        _.find($scope.lessons, function (checkLesson) {
+                            if(checkLesson.stage === lesson.stage && checkLesson.suffix === lesson.suffix){
+                                checkLesson.filterName += lesson.subject.name + ';' + lesson.teacher.name;
+                            }
+                        })
+                    }
+                });
+                return _lessons;
+            };
+
+            $scope.checkOrder = function (stage, suffix, index) {
+                var result = null;
+                _.find($scope.lessons, function (lesson) {
+                    if (lesson.stage === stage && lesson.suffix === suffix) {
+                        _.find(lesson.order, function (order) {
+                            if (order === index) {
+                                result = lesson.subject.name;
+                            }
+                        })
                     }
                 });
                 return result;
@@ -68,43 +99,6 @@ define(['../module', 'lodash'], function (module, _) {
                         });
                 }
             };
-
-            scheduleService.getStages()
-                .then(function (data) {
-                    $scope.tempStages = [];
-
-                    _.each(data, function (stage) {
-                        $scope.tempStages.push({
-                            stage: stage.stage,
-                            suffix: stage.suffix,
-                            schedule: scheduleDataService.parseLessons(stage.schedule)
-                        });
-                    });
-
-                    $scope.stages = [];
-                    _.each($scope.tempStages, function (stage) {
-                        var tempDayLessons = [null, null, null, null, null, null, null, null, null];
-                        _.each(stage.schedule, function (lesson) {
-                            _.each(_.range(9), function (num) {
-                                if (lesson.num === num && $scope.selectedDay.num === lesson.dow[0]) {
-                                    tempDayLessons[num] = lesson;
-                                }
-                            });
-                        });
-                        stage.filterName = stage.stage + stage.suffix + ' ' + stage.stage + '-' + stage.suffix;
-                        _.each(tempDayLessons, function (day) {
-                            if (day) {
-                                stage.filterName += ';' + day.title;
-                            }
-                        });
-                        $scope.stages.push({
-                            stage: stage.stage,
-                            suffix: stage.suffix,
-                            filterName: stage.filterName,
-                            day: tempDayLessons
-                        });
-                    });
-                });
 
             $scope.lesson.schema = {
                 "type": "object",

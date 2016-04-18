@@ -1348,11 +1348,11 @@ define(['lodash'], function (_) {
                 id: 2,
                 name: 'Artur Krenev'
             },
-            stage: '5',
+            stage: '2',
             suffix: 'A',
             classroom: 106,
             day: 'Wednesday',
-            order: [0]
+            order: [0,2]
         }
     ];
 

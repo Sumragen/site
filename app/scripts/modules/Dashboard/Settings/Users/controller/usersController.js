@@ -9,7 +9,6 @@ define(['../module', 'lodash'], function (module, _) {
         'Dashboard.Settings.Schedule.Edit.LessonService',
         'usersData',
         function ($scope, $timeout, profileService, lessonService, usersData) {
-            var self = this;
             $scope.users = usersData;
             $scope.user = {};
 

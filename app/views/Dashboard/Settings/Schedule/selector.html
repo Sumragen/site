@@ -13,8 +13,8 @@
 
     <!--Stages-->
     <div ng-if="!busy && !showDaysTable">
-        <input class="form-control" type="text" ng-model="searchText.filterName" placeholder="Filter">
-        <div ng-repeat="stage in stages | filter: searchText | orderBy:['stage', 'suffix'] track by $index"
+        <input class="form-control" type="text" ng-model="searchText" placeholder="Filter">
+        <div ng-repeat="stage in stages | deepFilter: {formMaster: {name: searchText}, stage: searchText, suffix: searchText} | orderBy:['stage', 'suffix'] track by $index"
              class="well card-well" ng-click="selectStage(stage.id)">
             <h3><strong>{{stage.stage}}-{{stage.suffix}}</strong></h3>
             <div>{{stage.formMaster.name}}</div>

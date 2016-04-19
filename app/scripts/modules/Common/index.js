@@ -11,6 +11,7 @@ define(
         './directive/uploadFile',
         './directive/datetimepicker',
         './directive/setImage',
+        './filters/deepFilter',
         './directive/loadingIndicator',
         './endpoint'
     ],

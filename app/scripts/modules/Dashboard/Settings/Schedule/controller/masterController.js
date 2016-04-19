@@ -57,7 +57,7 @@ define(['../module', 'lodash'], function (module, _) {
                     _.each(data, function (stage) {
                         _.each(_.range(maxAmount), function (index) {
                             if (stage.stage === index + 1) {
-                                stage.filterName =  stage.stage + stage.suffix + ' ' + stage.stage + '-' + stage.suffix + ' ' + stage.formMaster.name;
+                                stage.filterName = stage.stage + stage.suffix + ' ' + stage.stage + '-' + stage.suffix + ' ' + stage.formMaster.name;
                                 $scope.stages.push(stage);
                             }
                         });
@@ -76,8 +76,12 @@ define(['../module', 'lodash'], function (module, _) {
                 $state.go('dashboard.settings.schedule.edit.day', {day: day})
             };
 
-
+            var stateStatus = JSON.parse(localStorage.getItem('scheduleSelectorStateStatus'));
+            if (stateStatus) {
+                $scope.showDaysTable = $scope.toggleViews = stateStatus;
+            }
             $scope.selectedPage = function (check) {
+                localStorage.setItem('scheduleSelectorStateStatus', JSON.stringify(check));
                 $scope.showDaysTable = check;
             };
         }]);

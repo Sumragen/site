@@ -64,15 +64,17 @@ define(['../module', 'lodash', 'jquery'], function (module, _) {
                 }
             };
 
+            var stateStatus = JSON.parse(localStorage.getItem('eventStateStatus'));
+            if (stateStatus) {
+                initMap($scope.map);
+                $scope.showMap = $scope.toggleViews = stateStatus;
+            }
             $scope.selectedPage = function (check) {
-                $scope.busy = true;
-                if (check) {
-                    $scope.showMap = true;
+                localStorage.setItem('eventStateStatus', JSON.stringify(check));
+                $scope.showMap = check;
+                if(check){
                     initMap($scope.map);
-                } else {
-                    $scope.showMap = false;
                 }
-                $scope.busy = false;
             };
 
             //Map version
@@ -100,7 +102,6 @@ define(['../module', 'lodash', 'jquery'], function (module, _) {
             };
             $scope.ready = function (map) {
                 $scope.map = map;
-                $scope.showMap = true;
 
                 var infowindow = new InfoWindow({templateUrl: 'views/Dashboard/nonauth/marker.html'}); //it's not infowindow now. (object like "javascript promise", but not a promise)
                 function attach(marker) {
@@ -139,7 +140,6 @@ define(['../module', 'lodash', 'jquery'], function (module, _) {
                     marker.setDraggable($scope.isSettingPage);
                     attach(marker);
                 });
-                $scope.showMap = false;
             };
             $scope.event.schema = {
                 "type": "object",

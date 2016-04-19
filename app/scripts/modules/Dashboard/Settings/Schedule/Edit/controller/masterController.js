@@ -16,19 +16,21 @@ define(['../module', 'lodash'], function (module, _) {
             $scope.showEditForm = false;
             $scope.lesson = {};
             $scope.toggleShowEditForm = function (stage, suffix, index) {
-                if($scope.lessons.every(function (lesson) {
-                    if (lesson.stage === stage && lesson.suffix === suffix) {
-                        return lesson.order.every(function (order) {
-                            if (order === index) {
-                                $scope.lesson.model = angular.copy(lesson);
-                                $scope.lesson.model.order = index;
-                                return false;
-                            }
-                            return true;
-                        })
-                    }
-                    return true;
-                })){
+                if ($scope.lessons.every(function (lesson) {
+                        if (lesson.stage === stage && lesson.suffix === suffix) {
+                            return lesson.order.every(function (order) {
+                                if (order === index) {
+                                    $scope.lesson.model = angular.copy(lesson);
+                                    $scope.lesson.model.teacher = $scope.lesson.model.teacher.id;
+                                    $scope.lesson.model.subject = $scope.lesson.model.subject.id;
+                                    $scope.lesson.model.order = index;
+                                    return false;
+                                }
+                                return true;
+                            })
+                        }
+                        return true;
+                    })) {
                     $scope.lesson.model = {stage: stage, suffix: suffix, order: index, day: $scope.selectedDay.title};
                 }
                 $scope.showEditForm = !$scope.showEditForm;
@@ -141,25 +143,22 @@ define(['../module', 'lodash'], function (module, _) {
                 ]
             };
 
+            function reformatObject(item) {
+                return {value: item.id, name: item.name}
+            }
+
             lessonService.getNames()
                 .then(function (data) {
-                    var _names = {subject: [], teacher: []};
-                    _.each(data.names.subject, function (subject) {
-                        _names.subject.push({value: subject.id, name: subject.name});
-                    });
-                    _.each(data.names.teacher, function (teacher) {
-                        _names.teacher.push({value: teacher.id, name: teacher.name});
-                    });
                     $scope.lesson.form = [
                         {
                             "key": "subject",
                             type: "select",
-                            titleMap: _names.subject
+                            titleMap: _.map(data.names.subject, reformatObject)
                         },
                         {
                             "key": "teacher",
                             type: "select",
-                            titleMap: _names.teacher
+                            titleMap: _.map(data.names.teacher, reformatObject)
                         },
                         {
                             "key": "classroom",

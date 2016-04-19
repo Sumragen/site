@@ -515,7 +515,7 @@ define(['lodash'], function (_) {
                             teacher: 'Alan Moor',
                             classroom: 32,
                             order: [1, 3]
-                        },
+                        }
                     ]
                 }, {
                     name: 'Friday',
@@ -1404,24 +1404,6 @@ define(['lodash'], function (_) {
             }
         });
     };
-    //sent data
-    var scheduledLesson = {
-        lesson: 12,
-        date: 'timestamp',
-        teacher: 145,
-        classroom: 32,
-        order: [1, 4]
-    };
-    //returned data
-    var receivedData = {
-        id: 1,
-        lesson: {id: 12, name: 'History'},
-        teacher: {id: 134, name: 'Victor Kotov'},
-        classroom: 32,
-        date: '',
-        order: [1, 4]
-    };
-
     if (localStorage.getItem("datasource")) {
         load();
     } else {
@@ -1524,27 +1506,10 @@ define(['lodash'], function (_) {
     };
 
     //Lesson
-    //sent data
-    var scheduledLesson2 = {
-        lesson: 12,
-        date: 'timestamp',
-        teacher: 145,
-        classroom: 32,
-        order: [1, 4]
-    };
-    //returned data
-    var receivedData2 = {
-        id: 1,
-        lesson: {id: 12, name: 'History'},
-        teacher: {id: 134, name: 'Victor Kotov'},
-        classroom: 32,
-        date: '',
-        order: [1, 4]
-    };
     dataSource.getLesson = function (dataLesson) {
         load();
         var tempLesson = angular.fromJson(dataLesson);
-        return _.find(data.lesson.objects, function (lesson, index) {
+        return _.find(data.lesson.objects, function (lesson) {
             if (tempLesson.id === lesson.id) {
                 return lesson;
             }

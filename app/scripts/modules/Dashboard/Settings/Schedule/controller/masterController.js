@@ -76,12 +76,15 @@ define(['../module', 'lodash'], function (module, _) {
                 $state.go('dashboard.settings.schedule.edit.day', {day: day})
             };
 
-            var stateStatus = JSON.parse(localStorage.getItem('scheduleSelectorStateStatus'));
+            var stateStatus = JSON.parse(localStorage.getItem('stateStatus'));
             if (stateStatus) {
-                $scope.showDaysTable = $scope.toggleViews = stateStatus;
+                $scope.showDaysTable = $scope.toggleViews = stateStatus.schedule;
+            }else{
+                stateStatus = {schedule: false};
             }
             $scope.selectedPage = function (check) {
-                localStorage.setItem('scheduleSelectorStateStatus', JSON.stringify(check));
+                stateStatus.schedule = check;
+                localStorage.setItem('stateStatus', JSON.stringify(stateStatus));
                 $scope.showDaysTable = check;
             };
         }]);

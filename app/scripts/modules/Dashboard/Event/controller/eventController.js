@@ -64,13 +64,16 @@ define(['../module', 'lodash', 'jquery'], function (module, _) {
                 }
             };
 
-            var stateStatus = JSON.parse(localStorage.getItem('eventStateStatus'));
-            if (stateStatus) {
+            var stateStatus = JSON.parse(localStorage.getItem('stateStatus'));
+            if (stateStatus && $scope.map) {
                 initMap($scope.map);
-                $scope.showMap = $scope.toggleViews = stateStatus;
+                $scope.showMap = $scope.toggleViews = stateStatus.event;
+            }else{
+                stateStatus = {event: false};
             }
             $scope.selectedPage = function (check) {
-                localStorage.setItem('eventStateStatus', JSON.stringify(check));
+                stateStatus.event = check;
+                localStorage.setItem('stateStatus', JSON.stringify(stateStatus));
                 $scope.showMap = check;
                 if(check){
                     initMap($scope.map);

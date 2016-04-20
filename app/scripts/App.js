@@ -144,9 +144,27 @@ define([
             .config([
                 '$stateProvider',
                 '$urlRouterProvider',
+                '$provide',
                 'schemaFormProvider',
                 'schemaFormDecoratorsProvider',
-                function ($stateProvider, $urlRouterProvider, schemaFormProvider, schemaFormDecoratorsProvider) {
+                function ($stateProvider, $urlRouterProvider, $provide, schemaFormProvider, schemaFormDecoratorsProvider) {
+
+                    $provide.decorator('$httpBackend', function ($delegate) {
+                        var proxy = function (method, url, data, callback, headers) {
+                            var interceptor = function () {
+                                var _this = this,
+                                    _argumenrs = arguments;
+                                setTimeout(function () {
+                                    callback.apply(_this, _argumenrs);
+                                }, 50);
+                            };
+                            return $delegate.call(this, method, url, data, interceptor, headers);
+                        };
+                        for (var key in $delegate) {
+                            proxy[key] = $delegate[key];
+                        }
+                        return proxy;
+                    });
 
                     schemaFormDecoratorsProvider.addMapping(
                         'bootstrapDecorator',

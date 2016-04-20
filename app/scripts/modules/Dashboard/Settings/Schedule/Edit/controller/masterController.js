@@ -37,7 +37,7 @@ define(['../module', 'lodash'], function (module, _) {
             };
 
             $scope.createLesson = function (form) {
-                $scope.busy = false;
+                $scope.busy = true;
                 $scope.$broadcast('schemaFormValidate');
                 if (form.$valid) {
                     lessonService.createLesson($scope.lesson.model)

@@ -1,30 +1,31 @@
 <div class="schedule-settings-selector-module-wrapper">
-    <div class="form-group">
-        <div class="col-right">
-            <div class="togglebutton">
-                Stages
-                <label>
-                    <input type="checkbox" ng-model="toggleViews" ng-checked="showDaysTable" ng-change="selectedPage(toggleViews)">
-                </label>
-                Days
+        <div class="form-group">
+            <div class="col-right">
+                <div class="togglebutton">
+                    Stages
+                    <label>
+                        <input type="checkbox" ng-model="toggleViews" ng-checked="showDaysTable"
+                               ng-change="selectedPage(toggleViews)">
+                    </label>
+                    Days
+                </div>
             </div>
         </div>
-    </div>
 
-    <!--Stages-->
-    <div ng-if="!busy && !showDaysTable">
-        <input class="form-control" type="text" ng-model="searchText" placeholder="Filter">
-        <div ng-repeat="stage in stages | deepFilter: {formMaster: {name: searchText}, stage: searchText, suffix: searchText} | orderBy:['stage', 'suffix'] track by $index"
-             class="well card-well" ng-click="selectStage(stage.id)">
-            <h3><strong>{{stage.stage}}-{{stage.suffix}}</strong></h3>
-            <div>{{stage.formMaster.name}}</div>
+        <!--Stages-->
+        <div ng-if="!busy && !showDaysTable">
+            <input class="form-control" type="text" ng-model="searchText" placeholder="Filter">
+            <div ng-repeat="stage in stages | deepFilter: {formMaster: {name: searchText}, stage: searchText, suffix: searchText} | orderBy:['stage', 'suffix'] track by $index"
+                 class="well card-well" ng-click="selectStage(stage.id)">
+                <h3><strong>{{stage.stage}}-{{stage.suffix}}</strong></h3>
+                <div>{{stage.formMaster.name}}</div>
+            </div>
+        </div>
+
+        <!--Days-->
+        <div ng-repeat="day in days" class="well card-well" ng-click="selectDay(day)" ng-if="!busy && showDaysTable">
+            <div class="first-day-latter" ng-style="{color: (day.num < 6) ? 'black' : 'red'}">{{day.name}}</div>
+            <div class="day-title" ng-style="{color: (day.num < 6) ? 'black' : 'red'}">{{day.title}}</div>
         </div>
     </div>
-
-    <!--Days-->
-    <div ng-repeat="day in days" class="well card-well" ng-click="selectDay(day)" ng-if="!busy && showDaysTable">
-        <div class="first-day-latter" ng-style="{color: (day.num < 6) ? 'black' : 'red'}">{{day.name}}</div>
-        <div class="day-title" ng-style="{color: (day.num < 6) ? 'black' : 'red'}">{{day.title}}</div>
-    </div>
-
 </div>

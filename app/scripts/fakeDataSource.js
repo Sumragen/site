@@ -1543,7 +1543,6 @@ define(['lodash'], function (_) {
                 });
                 tempLesson.order = [tempLesson.order];
 
-
                 data.subject.objects.every(function (subject) {
                     if (subject.id === tempLesson.subject) {
                         tempLesson.subject = {id: subject.id, name: subject.name};
@@ -1561,7 +1560,7 @@ define(['lodash'], function (_) {
                             }
                             return true;
                         });
-                        tempLesson.teacher = {id: lesson.id, name: _user.first_name + ' ' + _user.last_name};
+                        tempLesson.teacher = {id: _user.id, name: _user.first_name + ' ' + _user.last_name};
                         return false;
                     }
                     return true;

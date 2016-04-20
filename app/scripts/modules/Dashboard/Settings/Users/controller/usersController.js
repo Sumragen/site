@@ -6,7 +6,7 @@ define(['../module', 'lodash'], function (module, _) {
         '$scope',
         '$timeout',
         'Dashboard.Profile.ProfileService',
-        'Dashboard.Settings.Schedule.Edit.LessonService',
+        'Dashboard.Settings.Schedule.LessonService',
         'usersData',
         function ($scope, $timeout, profileService, lessonService, usersData) {
             $scope.users = usersData;

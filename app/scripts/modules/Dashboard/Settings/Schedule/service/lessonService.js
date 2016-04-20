@@ -2,7 +2,7 @@
  * Created by trainee on 4/14/16.
  */
 define(['../module', 'lodash'], function (module, _) {
-    module.service('Dashboard.Settings.Schedule.Edit.LessonService', [
+    module.service('Dashboard.Settings.Schedule.LessonService', [
         '$http',
         '$q',
         'Endpoint',

@@ -1518,14 +1518,14 @@ define(['lodash'], function (_) {
     dataSource.getLessons = function (dataDay) {
         load();
         var day = angular.fromJson(dataDay);
-        var _lessons = [];
+        var tempLesson = [];
         _.each(data.lesson.objects, function (lesson) {
                 if (day.title && lesson.day === day.title) {
-                    _lessons.push(lesson);
+                    tempLesson.push(lesson);
                 }
             }
         );
-        return _lessons;
+        return tempLesson;
     };
     dataSource.updateLesson = function (dataLesson) {
         load();
@@ -1552,15 +1552,15 @@ define(['lodash'], function (_) {
                 });
                 data.teacher.objects.every(function (teacher) {
                     if (teacher.id === tempLesson.teacher) {
-                        var _user = {};
+                        var tempUser = {};
                         data.user.objects.every(function (user) {
                             if (teacher.user === user.id) {
-                                _user = user;
+                                tempUser = user;
                                 return false;
                             }
                             return true;
                         });
-                        tempLesson.teacher = {id: _user.id, name: _user.first_name + ' ' + _user.last_name};
+                        tempLesson.teacher = {id: tempUser.id, name: tempUser.first_name + ' ' + tempUser.last_name};
                         return false;
                     }
                     return true;
@@ -1576,13 +1576,13 @@ define(['lodash'], function (_) {
             }
             return true;
         });
-        var _lessons = [];
+        var arrOfLessons = [];
         _.each(data.lesson.objects, function (lesson) {
             if (lesson.day === tempLesson.day) {
-                _lessons.push(lesson);
+                arrOfLessons.push(lesson);
             }
         });
-        return _lessons;
+        return arrOfLessons;
     };
     dataSource.createLesson = function (dataLesson) {
         load();
@@ -1598,7 +1598,7 @@ define(['lodash'], function (_) {
             if (teacher.id === lesson.teacher) {
                 return data.user.objects.every(function (user) {
                     if (user.id === teacher.user) {
-                        lesson.teacher = {id: lesson.id, name: user.first_name + ' ' + user.last_name};
+                        lesson.teacher = {id: user.id, name: user.first_name + ' ' + user.last_name};
                         return false;
                     }
                     return true;
@@ -1607,8 +1607,8 @@ define(['lodash'], function (_) {
             return true;
         });
 
-        var _createNew = true;
-        var _index = -1;
+        var createNew = true;
+        var ind = -1;
         data.lesson.objects.every(function (tempLesson, index) {
             if (tempLesson.classroom === lesson.classroom
                 && tempLesson.day === lesson.day
@@ -1618,27 +1618,27 @@ define(['lodash'], function (_) {
                 && tempLesson.subject.id === lesson.subject.id) {
                 tempLesson.order.push(lesson.order);
                 lesson.order = tempLesson.order;
-                _index = index;
-                _createNew = false;
+                ind = index;
+                createNew = false;
             }
             return true;
         });
-        if (_createNew) {
+        if (createNew) {
             lesson.id = ++data.lesson.lastIndex;
             lesson.order = [lesson.order];
             data.lesson.objects.push(lesson);
         } else {
-            lesson.id = data.lesson.objects[_index].id;
-            data.lesson.objects[_index] = lesson;
+            lesson.id = data.lesson.objects[ind].id;
+            data.lesson.objects[ind] = lesson;
         }
         commit();
-        var _lessons = [];
+        var arrOfLessons = [];
         _.each(data.lesson.objects, function (tempLesson) {
             if (lesson.day === tempLesson.day) {
-                _lessons.push(tempLesson);
+                arrOfLessons.push(tempLesson);
             }
         });
-        return _lessons;
+        return arrOfLessons;
     };
     dataSource.deleteLesson = function (dataLesson) {
         load();
@@ -1744,7 +1744,7 @@ define(['lodash'], function (_) {
     //User
     dataSource.updateUser = function (dataUser) {
         load();
-        var _subjects = [];
+        var subjects = [];
         var tempUser = angular.fromJson(dataUser);
         return _.find(data.user.objects, function (user, index) {
             if (tempUser.id === user.id) {
@@ -1752,9 +1752,9 @@ define(['lodash'], function (_) {
                 _.find(data.teacher.objects, function (teacher, index) {
                     if (teacher.user === tempUser.id) {
                         _.each(tempUser.subjects, function (subject) {
-                            _subjects.push(subject.id);
+                            subjects.push(subject.id);
                         });
-                        data.teacher.objects[index].subjects = _subjects;
+                        data.teacher.objects[index].subjects = subjects;
                     }
                 });
 
@@ -1826,21 +1826,21 @@ define(['lodash'], function (_) {
 
     dataSource.getNames = function () {
         load();
-        var _teacher = [];
-        var _subject = [];
+        var tempTeacher = [];
+        var tempSubject = [];
         _.each(data.teacher.objects, function (teacher) {
-            var _name = '';
+            var name = '';
             _.find(data.user.objects, function (user) {
                 if (user.id === teacher.user) {
-                    _name = user.first_name + ' ' + user.last_name;
+                    name = user.first_name + ' ' + user.last_name;
                 }
             });
-            _teacher.push({id: teacher.id, name: _name});
+            tempTeacher.push({id: teacher.id, name: name});
         });
         _.each(data.subject.objects, function (subject) {
-            _subject.push({id: subject.id, name: subject.name});
+            tempSubject.push({id: subject.id, name: subject.name});
         });
-        return {teacher: _teacher, subject: _subject};
+        return {teacher: tempTeacher, subject: tempSubject};
     };
 
     return dataSource;

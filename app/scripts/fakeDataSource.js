@@ -1520,7 +1520,7 @@ define(['lodash'], function (_) {
         var day = angular.fromJson(dataDay);
         var tempLesson = [];
         _.each(data.lesson.objects, function (lesson) {
-                if (day.title && lesson.day === day.title) {
+                if (day && lesson.day === day.title) {
                     tempLesson.push(lesson);
                 }
             }

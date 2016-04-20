@@ -13,7 +13,6 @@ define(['../module'], function (module) {
                 $scope.currentUser  = SecurityContext.getPrincipal();
             });
 
-
             $scope.$on('securityContext:updated', function (e, user) {
                 $scope.currentUser = user;
             });

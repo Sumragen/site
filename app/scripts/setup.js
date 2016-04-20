@@ -22,6 +22,7 @@ define(
                     var $q = $injector.get('$q');
                     return {
                         'request': function (config) {
+                            $rootScope.$broadcast('loadingFromServer:init');
                             // handle on request action
                             if (appConfig.useFakeAPIService === false && config.isApiCall === true) {
                                 config.url = appConfig.apiUrl + config.url;
@@ -29,6 +30,7 @@ define(
                             return config;
                         },
                         'requestError': function (rejection) {
+                            $rootScope.$broadcast('loadingFromServer:done');
                             return $q.reject(rejection);
                         },
                         /**
@@ -42,6 +44,7 @@ define(
                          * @returns {*}
                          */
                         'response': function (response) {
+                            $rootScope.$broadcast('loadingFromServer:done');
                             return response;
                         }
 
@@ -64,6 +67,7 @@ define(
                                     //return rejection.
                                 }
                             }
+                            $rootScope.$broadcast('loadingFromServer:done');
                             return $q.reject(rejection);
                         }
                     };

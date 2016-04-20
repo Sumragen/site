@@ -13,6 +13,7 @@ define(
         './directive/setImage',
         './filters/deepFilter',
         './directive/loadingIndicator',
+        './directive/loadingFromServer',
         './endpoint'
     ],
     function () {

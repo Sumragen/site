@@ -5,7 +5,6 @@ define(['../module'], function (module) {
     module.controller('Common.MasterController', [
         '$scope',
         '$rootScope',
-        //'Common.ModalService',
         '$http',
         'AuthService',
         '$state',
@@ -13,8 +12,6 @@ define(['../module'], function (module) {
         'InfoWindow',
         function ($scope, $rootScope, $http, AuthService, $state, $timeout, InfoWindow) {
             var self = this;
-
-
 
             //NonAuthController methods
             $scope.tabs = [

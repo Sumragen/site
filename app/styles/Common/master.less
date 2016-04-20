@@ -1,0 +1,51 @@
+.common-module-wrapper{
+  @keyframes opacityAnimation {
+    0%   { opacity:1; }
+    50%  { opacity:0.2; }
+    100% { opacity:1; }
+  }
+  .animate-opacity {
+    opacity:1;
+    animation: opacityAnimation 2.5s infinite;
+  }
+  @keyframes pulse {
+    0% {transform: scale(1);}
+    50% {transform: scale(1.1);}
+    100% {transform: scale(1);}
+  }
+  .pulse {
+    animation-name: pulse;
+    animation-duration: 1s;
+  }
+  .animated {
+    animation-duration: 2.5s;
+    animation-fill-mode: both;
+    animation-iteration-count: infinite;
+  }
+  .text {
+    text-align: center;
+    margin-top: 56px;
+    color: #000000;
+    font-size: 1.0em;
+    font-family: sans-serif;
+    text-transform: uppercase;
+  }
+  .element-pulse{
+    position: absolute;
+    top: 20px;
+    left: 30px;
+  }
+  .circle {
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    background: #6bea50;
+  }
+  .easy-blur{
+    -webkit-filter: blur(4px);
+    -moz-filter: blur(4px);
+    -o-filter: blur(4px);
+    -ms-filter: blur(4px);
+    filter: blur(4px);
+  }
+}

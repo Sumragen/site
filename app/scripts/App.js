@@ -119,6 +119,7 @@ define([
 
                     $rootScope.logOut = function () {
                         SecurityContext.setPrincipal(null);
+                        localStorage.setItem('stateStatus', null);
                         $state.go('common.home');
                     };
 

@@ -1520,7 +1520,7 @@ define(['lodash'], function (_) {
         var day = angular.fromJson(dataDay);
         var _lessons = [];
         _.each(data.lesson.objects, function (lesson) {
-                if (lesson.day === day.title) {
+                if (day.title && lesson.day === day.title) {
                     _lessons.push(lesson);
                 }
             }
@@ -1611,24 +1611,24 @@ define(['lodash'], function (_) {
         var _createNew = true;
         var _index = -1;
         data.lesson.objects.every(function (tempLesson, index) {
-            if(tempLesson.classroom === lesson.classroom
+            if (tempLesson.classroom === lesson.classroom
                 && tempLesson.day === lesson.day
                 && tempLesson.stage === lesson.stage
                 && tempLesson.suffix === lesson.suffix
                 && tempLesson.teacher.id === lesson.teacher.id
-                && tempLesson.subject.id === lesson.subject.id){
+                && tempLesson.subject.id === lesson.subject.id) {
                 tempLesson.order.push(lesson.order);
                 lesson.order = tempLesson.order;
-                    _index = index;
+                _index = index;
                 _createNew = false;
             }
             return true;
         });
-        if(_createNew){
+        if (_createNew) {
             lesson.id = ++data.lesson.lastIndex;
             lesson.order = [lesson.order];
             data.lesson.objects.push(lesson);
-        }else{
+        } else {
             lesson.id = data.lesson.objects[_index].id;
             data.lesson.objects[_index] = lesson;
         }

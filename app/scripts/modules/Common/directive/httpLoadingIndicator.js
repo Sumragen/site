@@ -6,7 +6,7 @@ define(['../module'], function (module) {
         function () {
             return {
                 restrict: 'A',
-                templateUrl: 'views/Common/loadingFromServer.html'
+                templateUrl: 'views/Common/httpLoadingIndicator.html'
             }
         }
     ]);

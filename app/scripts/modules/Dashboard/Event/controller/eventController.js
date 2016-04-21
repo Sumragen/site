@@ -8,9 +8,10 @@ define(['../module', 'lodash', 'jquery'], function (module, _) {
         '$state',
         '$timeout',
         'InfoWindow',
+        'Common.StatePreference',
         'Dashboard.Event.EventService',
         'eventsData',
-        function ($q, $scope, $state, $timeout, InfoWindow, eventService, eventsData) {
+        function ($q, $scope, $state, $timeout, InfoWindow,statePreference, eventService, eventsData) {
             function initMap(map) {
                 $timeout(function () {
                     google.maps.event.trigger(map, 'resize');
@@ -64,16 +65,16 @@ define(['../module', 'lodash', 'jquery'], function (module, _) {
                 }
             };
 
-            var stateStatus = JSON.parse(localStorage.getItem('stateStatus'));
-            if (stateStatus && $scope.map) {
-                initMap($scope.map);
-                $scope.showMap = $scope.toggleViews = stateStatus.event;
-            }else{
-                stateStatus = {event: false};
-            }
+
+            var stateName = 'dashboard.events';
+            $scope.showMap = $scope.toggleViews = $scope.map ? statePreference.getStateData(stateName) : false;
+
             $scope.selectedPage = function (check) {
-                stateStatus.event = check;
-                localStorage.setItem('stateStatus', JSON.stringify(stateStatus));
+                var state = {
+                    name: stateName,
+                    preference: check
+                };
+                statePreference.setStateData(state);
                 $scope.showMap = check;
                 if(check){
                     initMap($scope.map);

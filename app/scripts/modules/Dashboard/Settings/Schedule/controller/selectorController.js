@@ -5,9 +5,10 @@ define(['../module', 'lodash'], function (module, _) {
     module.controller('Dashboard.Settings.Schedule.selectorController', [
         '$scope',
         '$state',
+        'Common.StatePreference',
         'Dashboard.Schedule.ScheduleService',
         'Dashboard.Schedule.ScheduleDataService',
-        function ($scope, $state, scheduleService, scheduleDataService) {
+        function ($scope, $state, statePreference, scheduleService, scheduleDataService) {
             $scope.busy = false;
 
             $scope.days = [
@@ -75,15 +76,16 @@ define(['../module', 'lodash'], function (module, _) {
                 $state.go('dashboard.settings.schedule.edit.day', {day: day})
             };
 
-            var stateStatus = JSON.parse(localStorage.getItem('stateStatus'));
-            if (stateStatus) {
-                $scope.showDaysTable = $scope.toggleViews = stateStatus.schedule;
-            }else{
-                stateStatus = {schedule: false};
-            }
+
+            var stateName = 'dashboard.settings.schedule.selector';
+            $scope.showDaysTable = $scope.toggleViews = statePreference.getStateData(stateName) || false;
+
             $scope.selectedPage = function (check) {
-                stateStatus.schedule = check;
-                localStorage.setItem('stateStatus', JSON.stringify(stateStatus));
+                var state = {
+                    name: stateName,
+                    preference: check
+                };
+                statePreference.setStateData(state);
                 $scope.showDaysTable = check;
             };
         }]);

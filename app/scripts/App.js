@@ -119,7 +119,6 @@ define([
 
                     $rootScope.logOut = function () {
                         SecurityContext.setPrincipal(null);
-                        localStorage.setItem('stateStatus', null);
                         $state.go('common.home');
                     };
 
@@ -164,7 +163,7 @@ define([
                                     _argumenrs = arguments;
                                 setTimeout(function () {
                                     callback.apply(_this, _argumenrs);
-                                }, 500);
+                                }, 0);
                             };
                             return $delegate.call(this, method, url, data, interceptor, headers);
                         };

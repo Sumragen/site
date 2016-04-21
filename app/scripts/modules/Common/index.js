@@ -5,6 +5,7 @@ define(
     [
         './controller/masterController',
         './service/securityContext',
+        './service/statePreference',
         './service/schedulingUtil',
         './service/validationMessageBuilder',
         './service/permissionsService',

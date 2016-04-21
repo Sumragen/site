@@ -7,11 +7,12 @@ define(['../module', 'lodash', 'jquery'], function (module, _) {
         '$scope',
         '$state',
         '$timeout',
+        '$window',
         'InfoWindow',
         'Common.StatePreference',
         'Dashboard.Event.EventService',
         'eventsData',
-        function ($q, $scope, $state, $timeout, InfoWindow,statePreference, eventService, eventsData) {
+        function ($q, $scope, $state, $timeout, $window, InfoWindow, statePreference, eventService, eventsData) {
             function initMap(map) {
                 $timeout(function () {
                     google.maps.event.trigger(map, 'resize');
@@ -29,7 +30,7 @@ define(['../module', 'lodash', 'jquery'], function (module, _) {
                     initMap($scope.map);
                     if (event) {
                         $scope.event.model = angular.copy(event);
-                    }else{
+                    } else {
                         $scope.event.model = {};
                     }
                     $scope.showEditForm = !$scope.showEditForm;
@@ -76,17 +77,23 @@ define(['../module', 'lodash', 'jquery'], function (module, _) {
                 };
                 statePreference.setStateData(state);
                 $scope.showMap = check;
-                if(check){
+                if (check) {
                     initMap($scope.map);
                 }
             };
 
             $scope.saveMarkers = function () {
-                _.each($scope.markers, function (marker,index) {
+                _.each($scope.markers, function (marker, index) {
                     $scope.eventList[index].location.latitude = marker.position.lat();
                     $scope.eventList[index].location.longitude = marker.position.lng();
                 });
-                eventService.updateEventList($scope.eventList);
+                eventService.updateEventList($scope.eventList)
+                    .then(function () {
+                        $window.alert('Done!');
+                    })
+                    .catch(function (err) {
+                        $window.alert(err);
+                    });
             };
 
             //Map version

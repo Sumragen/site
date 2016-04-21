@@ -1522,17 +1522,66 @@ define(['lodash'], function (_) {
             }
         });
     };
-    dataSource.getLessons = function (dataDay) {
+    dataSource.getLessonsByDay = function (dataDay) {
         load();
         var day = angular.fromJson(dataDay);
-        var tempLesson = [];
+        var lessons = [];
         _.each(data.lesson.objects, function (lesson) {
                 if (day && lesson.day === day.title) {
-                    tempLesson.push(lesson);
+                    lessons.push(lesson);
                 }
             }
         );
-        return tempLesson;
+        return lessons;
+    };
+    dataSource.getLessonsByStage = function (dataStage) {
+        load();
+        var stage = angular.fromJson(dataStage);
+        var lessons = [];
+        _.each(data.lesson.objects, function (lesson) {
+                if (stage && Number(lesson.stage) === stage.stage && lesson.suffix === stage.suffix) {
+                    lessons.push(lesson);
+                }
+            }
+        );
+        return lessons;
+    };
+    dataSource.updateLessonById = function (dataLesson) {
+        load();
+        var tempLesson = angular.fromJson(dataLesson);
+        var days = {
+            1: 'Monday',
+            2: 'Tuesday',
+            3: 'Wednesday',
+            4: 'Thursday',
+            5: 'Friday',
+            6: 'Sunday',
+            7: 'Saturday'
+        };
+        _.every(data.lesson.objects, function (lesson, index) {
+            if (tempLesson.id === lesson.id) {
+                if (lesson.order.length > 1) {
+                    _.every(lesson.order, function (order, iter) {
+                        if (order === tempLesson.order) {
+                            data.lesson.objects[index].order.splice(iter, 1);
+                            return false;
+                        }
+                        return true;
+                    });
+                    var newLesson = angular.copy(data.lesson.objects[index]);
+                    newLesson.id = ++data.lesson.lastIndex;
+                    newLesson.order = [tempLesson.order];
+                    newLesson.day = days[Math.abs(tempLesson.dow)];
+                    data.lesson.objects.push(newLesson)
+                } else {
+                    data.lesson.objects[index].day = days[Math.abs(tempLesson.dow)];
+                }
+                return false;
+            }
+            return true;
+        });
+        commit();
+        return data.lesson.objects;
     };
     dataSource.updateLesson = function (dataLesson) {
         load();

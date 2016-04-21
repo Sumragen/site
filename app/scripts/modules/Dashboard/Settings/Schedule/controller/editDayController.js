@@ -51,7 +51,7 @@ define(['../module', 'lodash'], function (module, _) {
                 }
             };
 
-            lessonService.getLessons($scope.selectedDay)
+            lessonService.getLessonsByDay($scope.selectedDay)
                 .then(function (data) {
                     $scope.lessons = data.lessons;
                 });

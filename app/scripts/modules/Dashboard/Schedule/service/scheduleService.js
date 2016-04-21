@@ -8,6 +8,24 @@ define(['../module', 'lodash'], function (module, _) {
         'Endpoint',
         function ($http, $q, Endpoint) {
             var service = {};
+            service.updateLessonById = function (lesson) {
+                return $http(Endpoint.lesson.updateDow(lesson))
+                    .then(function (data) {
+                        return data.data;
+                    })
+                    .catch(function (err) {
+                        return $q.reject(err);
+                    })
+            };
+            service.getLessonsByStage = function (stage) {
+                return $http(Endpoint.lesson.listByStage(stage))
+                    .then(function (data) {
+                        return data.data.lessons;
+                    })
+                    .catch(function (err) {
+                        return $q.reject(err);
+                    })
+            };
             service.getSchedule = function () {
                 return $http(Endpoint.schedule.list())
                     .then(function (data) {

@@ -97,12 +97,28 @@ define(
                     return [400, {errorCode: 5, message: 'Lesson not found'}];
                 }
             });
-            $httpBackend.whenGET(prefix + '/lessons').respond(function (method, url, data) {
-                var lessons = fakeDataSource.getLessons(data);
+            $httpBackend.whenGET(prefix + '/lessonsByDay').respond(function (method, url, day) {
+                var lessons = fakeDataSource.getLessonsByDay(day);
                 if (lessons) {
                     return [200, {lessons: lessons}, {}];
                 } else {
                     return [400, {errorCode: 5, message: 'Lessons not found'}];
+                }
+            });
+            $httpBackend.whenGET(prefix + '/lessonsByStage').respond(function (method, url, stage) {
+                var lessons = fakeDataSource.getLessonsByStage(stage);
+                if (lessons) {
+                    return [200, {lessons: lessons}, {}];
+                } else {
+                    return [400, {errorCode: 5, message: 'Lessons not found'}];
+                }
+            });
+            $httpBackend.whenPUT(prefix + '/lesson').respond(function (method, url, tempLesson) {
+                var lesson = fakeDataSource.updateLessonById(tempLesson);
+                if (lesson) {
+                    return [200, lesson, {}];
+                } else {
+                    return [400, {errorCode: 4, message: 'wrong update'}];
                 }
             });
             $httpBackend.whenPUT(/\/lesson\/(0-9)*/).respond(function (method, url, tempLesson) {

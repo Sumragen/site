@@ -29,6 +29,14 @@ define(['../module', 'lodash'], function (module, _) {
 
             }
 
+            function saveOnEventDrop(event, delta) {
+                scheduleService.updateLessonById({
+                    id: event.lessonId,
+                    order: event.num,
+                    dow: event.dow[0] + delta._days % 7
+                })
+            }
+
             function showDayModal(date) {
                 var modalInstance = $uibModal.open({
                     animation: true,
@@ -57,22 +65,35 @@ define(['../module', 'lodash'], function (module, _) {
             };
 
             if ($stateParams.stage) {
+                $scope.events = [];
                 $scope.stage = $stateParams.stage;
+                $scope.eventsF = function (start, end, timezone, callback) {
+                    scheduleService.getLessonsByStage($stateParams.stage)
+                        .then(function (data) {
+                            callback(scheduleDataService.parseNewLessons(data));
+                        });
+                };
+                $scope.eventSources = [$scope.events, $scope.eventSource, $scope.eventsF];
+            } else {
+                if (isSettingsPage) {
+                    $state.go('dashboard.settings.schedule.selector');
+                }else{
+                    $scope.events = scheduleDataService.parseLessons(($stateParams.stage) ? $stateParams.stage.schedule : null || scheduleData.schedule);
+                    $scope.eventSources = [$scope.events, $scope.eventSource];
+                }
             }
-            $scope.events = scheduleDataService.parseLessons(($stateParams.stage) ? $stateParams.stage.schedule : null || scheduleData.schedule);
-
-            $scope.eventSources = [$scope.events, $scope.eventSource];
 
             $scope.uiConfig = {
                 calendar: {
                     firstDay: 1,
                     height: 'auto',
-                    editable: false,
+                    editable: isSettingsPage,
                     header: {
                         left: 'month basicWeek basicDay',
                         center: 'title',
                         right: 'today prev,next'
                     },
+                    eventDrop: saveOnEventDrop,
                     dayClick: showDayModal
                 }
             };

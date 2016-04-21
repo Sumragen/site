@@ -52,8 +52,8 @@ define(['../module', 'lodash'], function (module, _) {
                         return $q.reject(err);
                     });
             };
-            service.getLessons = function (day) {
-                return $http(Endpoint.lesson.list(day))
+            service.getLessonsByDay = function (day) {
+                return $http(Endpoint.lesson.listByDay(day))
                     .then(function (data) {
                         return data.data;
                     })

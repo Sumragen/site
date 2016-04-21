@@ -227,16 +227,30 @@ define(['./module', 'lodash'], function (module, _) {
                             data: lesson
                         })
                     },
-                    list: function (day) {
+                    listByDay: function (day) {
                         return new API({
                             method: METHODS.GET,
-                            url: '/lessons',
+                            url: '/lessonsByDay',
                             data: day
+                        })
+                    },
+                    listByStage: function (stage) {
+                        return new API({
+                            method: METHODS.GET,
+                            url: '/lessonsByStage',
+                            data: stage
                         })
                     },
                     post: function (data) {
                         return new API({
                             method: METHODS.POST,
+                            url: '/lesson',
+                            data: data
+                        })
+                    },
+                    updateDow: function (data) {
+                        return new API({
+                            method: METHODS.PUT,
                             url: '/lesson',
                             data: data
                         })

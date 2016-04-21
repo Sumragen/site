@@ -29,6 +29,14 @@ define(
                     return [400, {errorCode: 2, message: 'Events not found'}];
                 }
             });
+            $httpBackend.whenPUT(prefix + '/events').respond(function (method, url, tempEvents) {
+                var events = fakeDataSource.updateEventList(tempEvents);
+                if (events) {
+                    return [200, events, {}];
+                } else {
+                    return [400, {errorCode: 4, message: 'wrong update'}];
+                }
+            });
             $httpBackend.whenPUT(/\/event\/(0-9)*/).respond(function (method, url, tempEvent) {
                 var events = fakeDataSource.updateEvent(tempEvent);
                 if (events) {

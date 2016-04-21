@@ -8,7 +8,8 @@
             <div class="togglebutton">
                 Table
                 <label>
-                    <input type="checkbox" ng-model="toggleViews" ng-checked="showMap" ng-change="selectedPage(toggleViews)">
+                    <input type="checkbox" ng-model="toggleViews" ng-checked="showMap"
+                           ng-change="selectedPage(toggleViews)">
                 </label>
                 Map
             </div>
@@ -51,16 +52,18 @@
     </div>
 
     <!--map-->
-    <div ng-show="showMap" class="map-container">
-        <div class="map">
-            <logicify-gmap center="gmOpts.center"
-                           gm-options="gmOpts"
-                           gm-ready="ready"
-                           css-options="cssOpts">
-            </logicify-gmap>
+    <div ng-show="showMap">
+        <a class="btn btn-raised btn-success" ng-click="saveMarkers()">Save</a>
+        <div class="map-container">
+            <div class="map">
+                <logicify-gmap center="gmOpts.center"
+                               gm-options="gmOpts"
+                               gm-ready="ready"
+                               css-options="cssOpts">
+                </logicify-gmap>
+            </div>
         </div>
     </div>
-
 </div>
 
 

@@ -33,6 +33,15 @@ define(['../module'], function (module) {
                         return $q.reject(err);
                     })
             };
+            service.updateEventList = function (events) {
+                return $http(Endpoint.events.updateList(events))
+                    .then(function (data) {
+                        return data.data;
+                    })
+                    .catch(function (err) {
+                        return $q.reject(err);
+                    });
+            };
             return service;
         }]);
 });

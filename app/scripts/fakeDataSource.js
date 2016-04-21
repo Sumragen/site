@@ -1466,6 +1466,13 @@ define(['lodash'], function (_) {
         load();
         return data.event.objects;
     };
+    dataSource.updateEventList = function (dataEvents) {
+        load();
+        var tempEvents = angular.fromJson(dataEvents);
+        data.event.objects = tempEvents;
+        commit();
+        return data.event.objects;
+    };
     dataSource.updateEvent = function (dataEvent) {
         load();
         var tempEvent = angular.fromJson(dataEvent);

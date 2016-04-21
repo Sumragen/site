@@ -81,6 +81,14 @@ define(['../module', 'lodash', 'jquery'], function (module, _) {
                 }
             };
 
+            $scope.saveMarkers = function () {
+                _.each($scope.markers, function (marker,index) {
+                    $scope.eventList[index].location.latitude = marker.position.lat();
+                    $scope.eventList[index].location.longitude = marker.position.lng();
+                });
+                eventService.updateEventList($scope.eventList);
+            };
+
             //Map version
             $scope.markers = [];
             $scope.cssOpts = {width: '100%', height: '70%', position: 'absolute'};

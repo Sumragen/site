@@ -1049,6 +1049,14 @@ define(['lodash'], function (_) {
             return 0;
     }
 
+    dataSource.getSubjectNames = function () {
+        load();
+        var tempSubject = [];
+        _.each(data.subject.objects, function (subject) {
+            tempSubject.push({id: subject.id, name: subject.name});
+        });
+        return tempSubject;
+    };
     dataSource.getNames = function (tempData) {
         load();
         var selectedLesson = angular.fromJson(tempData);

@@ -43,10 +43,10 @@ define(['../module', 'lodash'], function (module, _) {
                         $scope.user.model = {};
                     }
 
-                    lessonService.getNames()
+                    lessonService.getSubjectsNames()
                         .then(function (data) {
                             _.each($scope.user.model.subjects, function (subject, index) {
-                                _.find(data.names.subject, function (subjectName) {
+                                _.find(data.names, function (subjectName) {
                                     if (subject.id === subjectName.id) {
                                         $scope.user.model.subjects[index] = subjectName;
                                     }
@@ -85,7 +85,7 @@ define(['../module', 'lodash'], function (module, _) {
                                     show: ($scope.user.model.roles)
                                         ? $scope.user.model.roles[0].permissions[0] === 1 || $scope.user.model.roles[0].permissions[0] === 2
                                         : false,
-                                    items: data.names.subject
+                                    items: data.names
                                 }
                             ];
                         });

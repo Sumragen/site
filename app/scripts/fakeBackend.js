@@ -265,7 +265,14 @@ define(
                     return [400, {errorCode: 3, message: 'Teachers or subjects not found'}];
                 }
             });
-
+            $httpBackend.whenGET(prefix + '/subjectName').respond(function (method, url) {
+                var names = fakeDataSource.getSubjectNames();
+                if (names) {
+                    return [200, {names: names}, {}];
+                } else {
+                    return [400, {errorCode: 3, message: 'Teachers or subjects not found'}];
+                }
+            });
             $httpBackend.whenGET(/\/stage\/[0-9]*/).respond(function (method, url, stageId) {
                 var stage = fakeDataSource.getStageBySuffix(stageId);
                 if (stage) {

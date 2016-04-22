@@ -270,6 +270,12 @@ define(['./module', 'lodash'], function (module, _) {
                             url: '/names',
                             data: data
                         })
+                    },
+                    subject: function () {
+                        return new API({
+                            method: METHODS.GET,
+                            url: '/subjectName'
+                        })
                     }
                 }
             };

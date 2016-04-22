@@ -2,11 +2,18 @@
  * Created by trainee on 4/1/16.
  */
 define(['../module'], function (module) {
-    module.directive('sLoadingFromServer', [
-        function () {
+    module.directive('sHttpLoadingIndicator', [
+        '$http',
+        function ($http) {
             return {
                 restrict: 'A',
-                templateUrl: 'views/Common/httpLoadingIndicator.html'
+                templateUrl: 'views/Common/httpLoadingIndicator.html',
+                link: function (scope) {
+                    scope.isLoading = function () {
+                        return $http.pendingRequests.length !== 0;
+                    };
+                }
+
             }
         }
     ]);

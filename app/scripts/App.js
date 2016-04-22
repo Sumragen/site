@@ -75,14 +75,6 @@ define([
                         $rootScope.contextUser = user;
                     });
 
-                    $rootScope.loadingFromServer = false;
-                    $rootScope.$on('loadingFromServer:init', function () {
-                        $rootScope.loadingFromServer = true;
-                    });
-                    $rootScope.$on('loadingFromServer:done', function () {
-                        $rootScope.loadingFromServer = false;
-                    });
-
                     $rootScope.getSchoolName = function () {
                         return 'School ' + '24';//+ user.school;
                     };
@@ -163,7 +155,7 @@ define([
                                     _argumenrs = arguments;
                                 setTimeout(function () {
                                     callback.apply(_this, _argumenrs);
-                                }, 0);
+                                }, 100);
                             };
                             return $delegate.call(this, method, url, data, interceptor, headers);
                         };

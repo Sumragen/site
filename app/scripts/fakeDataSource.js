@@ -1031,11 +1031,13 @@ define(['lodash'], function (_) {
     dataSource.deleteRole = function (dataRole) {
         load();
         var tempRole = angular.fromJson(dataRole);
-        _.find(data.role.objects, function (role, index) {
+        _.every(data.role.objects, function (role, index) {
             if (tempRole.id === role.id) {
                 data.role.objects.splice(index, 1);
                 commit();
+                return false;
             }
+            return true;
         });
         return data.role.objects;
     };

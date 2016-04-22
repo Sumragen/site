@@ -43,27 +43,10 @@ define(['../module', 'lodash'], function (module, _) {
                 }
             ];
 
-            scheduleService.getStages()
+            scheduleDataService.getStages()
                 .then(function (data) {
-                    $scope.stages = [];
-
-                    var amount = 0;
-                    var maxAmount = 0;
-                    _.each(data, function (stage) {
-                        if (maxAmount < stage.stage) {
-                            maxAmount = stage.stage;
-                        }
-                    });
-
-                    _.each(data, function (stage) {
-                        _.each(_.range(maxAmount), function (index) {
-                            if (stage.stage === index + 1) {
-                                $scope.stages.push(stage);
-                            }
-                        });
-                    });
+                    $scope.stages = data;
                 });
-
 
             $scope.selectStage = function (id) {
                 scheduleService.getStageBySuffix(id)

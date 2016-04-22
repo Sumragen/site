@@ -253,60 +253,7 @@ define(['lodash'], function (_) {
             formMaster: {
                 id: 19,
                 name: 'Lisa Kuddrow'
-            },
-            schedule: [
-                {
-                    name: 'Monday',
-                    lessons: [
-                        {
-                            lesson: 'History',
-                            teacher: 'Victor Kotov',
-                            classroom: 32,
-                            order: [1, 4]
-                        }
-                    ]
-                }, {
-                    name: 'Tuesday',
-                    lessons: [
-                        {
-                            lesson: 'OOP',
-                            teacher: 'Alan Moor',
-                            classroom: 32,
-                            order: [0, 3]
-                        }
-                    ]
-                }, {
-                    name: 'Wednesday',
-                    lessons: [
-                        {
-                            lesson: 'Litrature',
-                            teacher: 'Alan Moor',
-                            classroom: 32,
-                            order: [2, 4]
-                        }
-                    ]
-                }, {
-                    name: 'Thursday',
-                    lessons: [
-                        {
-                            lesson: 'Litrature',
-                            teacher: 'Alan Moor',
-                            classroom: 32,
-                            order: [1, 3]
-                        }
-                    ]
-                }, {
-                    name: 'Friday',
-                    lessons: [
-                        {
-                            lesson: 'Biology',
-                            teacher: 'Alan Moor',
-                            classroom: 32,
-                            order: [1, 3]
-                        }
-                    ]
-                }
-            ]
+            }
         },
         {
             id: 3,
@@ -315,66 +262,7 @@ define(['lodash'], function (_) {
             formMaster: {
                 id: 19,
                 name: 'Lisa Kuddrow'
-            },
-            schedule: [
-                {
-                    name: 'Monday',
-                    lessons: [
-                        {
-                            lesson: 'Math',
-                            teacher: 'Demi Moor',
-                            classroom: 12,
-                            order: [3]
-                        }
-                    ]
-                }, {
-                    name: 'Tuesday',
-                    lessons: [
-                        {
-                            lesson: 'OOP',
-                            teacher: 'Alan Moor',
-                            classroom: 32,
-                            order: [0, 3]
-                        },
-                        {
-                            lesson: 'Math',
-                            teacher: 'Demi Moor',
-                            classroom: 12,
-                            order: [1]
-                        }
-                    ]
-                }, {
-                    name: 'Wednesday',
-                    lessons: [
-                        {
-                            lesson: 'Math',
-                            teacher: 'Demi Moor',
-                            classroom: 12,
-                            order: [3]
-                        }
-                    ]
-                }, {
-                    name: 'Thursday',
-                    lessons: [
-                        {
-                            lesson: 'Litrature',
-                            teacher: 'Alan Moor',
-                            classroom: 32,
-                            order: [2, 4]
-                        }
-                    ]
-                }, {
-                    name: 'Friday',
-                    lessons: [
-                        {
-                            lesson: 'Biology',
-                            teacher: 'Alan Moor',
-                            classroom: 32,
-                            order: [5, 6]
-                        }
-                    ]
-                }
-            ]
+            }
         },
         {
             id: 4,
@@ -383,84 +271,7 @@ define(['lodash'], function (_) {
             formMaster: {
                 id: 19,
                 name: 'Lisa Kuddrow'
-            },
-            schedule: [
-                {
-                    name: 'Monday',
-                    lessons: [
-                        {
-                            lesson: 'History',
-                            teacher: 'Victor Kotov',
-                            classroom: 32,
-                            order: [0, 2]
-                        }
-                    ]
-                }, {
-                    name: 'Tuesday',
-                    lessons: [
-                        {
-                            lesson: 'OOP',
-                            teacher: 'Alan Moor',
-                            classroom: 32,
-                            order: [0, 3]
-                        },
-                        {
-                            lesson: 'Math',
-                            teacher: 'Demi Moor',
-                            classroom: 12,
-                            order: [1, 2]
-                        },
-                        {
-                            lesson: 'Math',
-                            teacher: 'Demi Moor',
-                            classroom: 12,
-                            order: [4]
-                        }
-                    ]
-                }, {
-                    name: 'Wednesday',
-                    lessons: [
-                        {
-                            lesson: 'Math',
-                            teacher: 'Demi Moor',
-                            classroom: 12,
-                            order: [3]
-                        }
-                    ]
-                }, {
-                    name: 'Thursday',
-                    lessons: [
-                        {
-                            lesson: 'Litrature',
-                            teacher: 'Alan Moor',
-                            classroom: 32,
-                            order: [2, 3]
-                        },
-                        {
-                            lesson: 'Math',
-                            teacher: 'Demi Moor',
-                            classroom: 12,
-                            order: [0, 1]
-                        }
-                    ]
-                }, {
-                    name: 'Friday',
-                    lessons: [
-                        {
-                            lesson: 'Biology',
-                            teacher: 'Alan Moor',
-                            classroom: 32,
-                            order: [1, 3]
-                        },
-                        {
-                            lesson: 'Math',
-                            teacher: 'Demi Moor',
-                            classroom: 12,
-                            order: [4, 2]
-                        }
-                    ]
-                }
-            ]
+            }
         },
         {
             id: 5,
@@ -469,66 +280,7 @@ define(['lodash'], function (_) {
             formMaster: {
                 id: 19,
                 name: 'Lisa Kuddrow'
-            },
-            schedule: [
-                {
-                    name: 'Monday',
-                    lessons: [
-                        {
-                            lesson: 'Math',
-                            teacher: 'Demi Moor',
-                            classroom: 12,
-                            order: [3]
-                        }
-                    ]
-                }, {
-                    name: 'Tuesday',
-                    lessons: [
-                        {
-                            lesson: 'Math',
-                            teacher: 'Demi Moor',
-                            classroom: 12,
-                            order: [2]
-                        },
-                        {
-                            lesson: 'Math',
-                            teacher: 'Demi Moor',
-                            classroom: 12,
-                            order: [1]
-                        }
-                    ]
-                }, {
-                    name: 'Wednesday',
-                    lessons: [
-                        {
-                            lesson: 'Math',
-                            teacher: 'Demi Moor',
-                            classroom: 12,
-                            order: [3]
-                        }
-                    ]
-                }, {
-                    name: 'Thursday',
-                    lessons: [
-                        {
-                            lesson: 'Litrature',
-                            teacher: 'Alan Moor',
-                            classroom: 32,
-                            order: [1, 3]
-                        }
-                    ]
-                }, {
-                    name: 'Friday',
-                    lessons: [
-                        {
-                            lesson: 'Biology',
-                            teacher: 'Alan Moor',
-                            classroom: 32,
-                            order: [1, 3]
-                        }
-                    ]
-                }
-            ]
+            }
         },
         {
             id: 6,
@@ -537,66 +289,7 @@ define(['lodash'], function (_) {
             formMaster: {
                 id: 19,
                 name: 'Lisa Kuddrow'
-            },
-            schedule: [
-                {
-                    name: 'Monday',
-                    lessons: [
-                        {
-                            lesson: 'History',
-                            teacher: 'Victor Kotov',
-                            classroom: 32,
-                            order: [1, 4]
-                        }
-                    ]
-                }, {
-                    name: 'Tuesday',
-                    lessons: [
-                        {
-                            lesson: 'OOP',
-                            teacher: 'Alan Moor',
-                            classroom: 32,
-                            order: [0, 3]
-                        },
-                        {
-                            lesson: 'Math',
-                            teacher: 'Demi Moor',
-                            classroom: 12,
-                            order: [1]
-                        }
-                    ]
-                }, {
-                    name: 'Wednesday',
-                    lessons: [
-                        {
-                            lesson: 'Litrature',
-                            teacher: 'Alan Moor',
-                            classroom: 32,
-                            order: [2, 4]
-                        }
-                    ]
-                }, {
-                    name: 'Thursday',
-                    lessons: [
-                        {
-                            lesson: 'Litrature',
-                            teacher: 'Alan Moor',
-                            classroom: 32,
-                            order: [1, 3]
-                        }
-                    ]
-                }, {
-                    name: 'Friday',
-                    lessons: [
-                        {
-                            lesson: 'Biology',
-                            teacher: 'Alan Moor',
-                            classroom: 32,
-                            order: [1, 3]
-                        }
-                    ]
-                }
-            ]
+            }
         },
         {
             id: 7,
@@ -605,66 +298,7 @@ define(['lodash'], function (_) {
             formMaster: {
                 id: 19,
                 name: 'Lisa Kuddrow'
-            },
-            schedule: [
-                {
-                    name: 'Monday',
-                    lessons: [
-                        {
-                            lesson: 'Math',
-                            teacher: 'Demi Moor',
-                            classroom: 12,
-                            order: [3]
-                        }
-                    ]
-                }, {
-                    name: 'Tuesday',
-                    lessons: [
-                        {
-                            lesson: 'OOP',
-                            teacher: 'Alan Moor',
-                            classroom: 32,
-                            order: [0, 3]
-                        },
-                        {
-                            lesson: 'Math',
-                            teacher: 'Demi Moor',
-                            classroom: 12,
-                            order: [1]
-                        }
-                    ]
-                }, {
-                    name: 'Wednesday',
-                    lessons: [
-                        {
-                            lesson: 'Math',
-                            teacher: 'Demi Moor',
-                            classroom: 12,
-                            order: [3]
-                        }
-                    ]
-                }, {
-                    name: 'Thursday',
-                    lessons: [
-                        {
-                            lesson: 'Litrature',
-                            teacher: 'Alan Moor',
-                            classroom: 32,
-                            order: [1, 3]
-                        }
-                    ]
-                }, {
-                    name: 'Friday',
-                    lessons: [
-                        {
-                            lesson: 'Math',
-                            teacher: 'Demi Moor',
-                            classroom: 12,
-                            order: [2]
-                        }
-                    ]
-                }
-            ]
+            }
         },
         {
             id: 8,
@@ -673,66 +307,7 @@ define(['lodash'], function (_) {
             formMaster: {
                 id: 19,
                 name: 'Lisa Kuddrow'
-            },
-            schedule: [
-                {
-                    name: 'Monday',
-                    lessons: [
-                        {
-                            lesson: 'History',
-                            teacher: 'Victor Kotov',
-                            classroom: 32,
-                            order: [1, 4]
-                        }
-                    ]
-                }, {
-                    name: 'Tuesday',
-                    lessons: [
-                        {
-                            lesson: 'Math',
-                            teacher: 'Demi Moor',
-                            classroom: 12,
-                            order: [2]
-                        },
-                        {
-                            lesson: 'Math',
-                            teacher: 'Demi Moor',
-                            classroom: 12,
-                            order: [1]
-                        }
-                    ]
-                }, {
-                    name: 'Wednesday',
-                    lessons: [
-                        {
-                            lesson: 'Math',
-                            teacher: 'Demi Moor',
-                            classroom: 12,
-                            order: [3]
-                        }
-                    ]
-                }, {
-                    name: 'Thursday',
-                    lessons: [
-                        {
-                            lesson: 'Litrature',
-                            teacher: 'Alan Moor',
-                            classroom: 32,
-                            order: [1, 3]
-                        }
-                    ]
-                }, {
-                    name: 'Friday',
-                    lessons: [
-                        {
-                            lesson: 'Math',
-                            teacher: 'Demi Moor',
-                            classroom: 12,
-                            order: [2]
-                        }
-                    ]
-                }
-            ]
+            }
         },
         {
             id: 9,
@@ -741,96 +316,7 @@ define(['lodash'], function (_) {
             formMaster: {
                 id: 19,
                 name: 'Lisa Kuddrow'
-            },
-            schedule: [
-                {
-                    name: 'Monday',
-                    lessons: [
-                        {
-                            lesson: 'History',
-                            teacher: 'Victor Kotov',
-                            classroom: 32,
-                            order: [1, 4]
-                        },
-                        {
-                            lesson: 'Math',
-                            teacher: 'Demi Moor',
-                            classroom: 12,
-                            order: [3]
-                        }
-                    ]
-                }, {
-                    name: 'Tuesday',
-                    lessons: [
-                        {
-                            lesson: 'OOP',
-                            teacher: 'Alan Moor',
-                            classroom: 32,
-                            order: [0, 3]
-                        },
-                        {
-                            lesson: 'Math',
-                            teacher: 'Demi Moor',
-                            classroom: 12,
-                            order: [2]
-                        },
-                        {
-                            lesson: 'Math',
-                            teacher: 'Demi Moor',
-                            classroom: 12,
-                            order: [1]
-                        }
-                    ]
-                }, {
-                    name: 'Wednesday',
-                    lessons: [
-                        {
-                            lesson: 'Litrature',
-                            teacher: 'Alan Moor',
-                            classroom: 32,
-                            order: [2, 4]
-                        },
-                        {
-                            lesson: 'Math',
-                            teacher: 'Demi Moor',
-                            classroom: 12,
-                            order: [3]
-                        }
-                    ]
-                }, {
-                    name: 'Thursday',
-                    lessons: [
-                        {
-                            lesson: 'Litrature',
-                            teacher: 'Alan Moor',
-                            classroom: 32,
-                            order: [1, 3]
-                        },
-                        {
-                            lesson: 'Math',
-                            teacher: 'Demi Moor',
-                            classroom: 12,
-                            order: [2]
-                        }
-                    ]
-                }, {
-                    name: 'Friday',
-                    lessons: [
-                        {
-                            lesson: 'Biology',
-                            teacher: 'Alan Moor',
-                            classroom: 32,
-                            order: [1, 3]
-                        },
-                        {
-                            lesson: 'Math',
-                            teacher: 'Demi Moor',
-                            classroom: 12,
-                            order: [2]
-                        }
-                    ]
-                }
-            ]
+            }
         },
         {
             id: 10,
@@ -839,78 +325,7 @@ define(['lodash'], function (_) {
             formMaster: {
                 id: 19,
                 name: 'Lisa Kuddrow'
-            },
-            schedule: [
-                {
-                    name: 'Monday',
-                    lessons: [
-                        {
-                            lesson: 'History',
-                            teacher: 'Victor Kotov',
-                            classroom: 32,
-                            order: [1, 4]
-                        }
-                    ]
-                }, {
-                    name: 'Tuesday',
-                    lessons: [
-                        {
-                            lesson: 'OOP',
-                            teacher: 'Alan Moor',
-                            classroom: 32,
-                            order: [0, 3]
-                        },
-                        {
-                            lesson: 'Math',
-                            teacher: 'Demi Moor',
-                            classroom: 12,
-                            order: [1]
-                        }
-                    ]
-                }, {
-                    name: 'Wednesday',
-                    lessons: [
-                        {
-                            lesson: 'Litrature',
-                            teacher: 'Alan Moor',
-                            classroom: 32,
-                            order: [2, 4]
-                        },
-                        {
-                            lesson: 'Math',
-                            teacher: 'Demi Moor',
-                            classroom: 12,
-                            order: [3]
-                        }
-                    ]
-                }, {
-                    name: 'Thursday',
-                    lessons: [
-                        {
-                            lesson: 'Litrature',
-                            teacher: 'Alan Moor',
-                            classroom: 32,
-                            order: [1, 3]
-                        }
-                    ]
-                }, {
-                    name: 'Friday',
-                    lessons: [
-                        {
-                            lesson: 'Biology',
-                            teacher: 'Alan Moor',
-                            classroom: 32,
-                            order: [1, 3]
-                        },
-                        {
-                            lesson: 'Math',
-                            teacher: 'Demi Moor',
-                            classroom: 12,
-                            order: [2]
-                        }
-                    ]
-                }
-            ]
+            }
         },
         {
             id: 11,
@@ -919,96 +334,7 @@ define(['lodash'], function (_) {
             formMaster: {
                 id: 19,
                 name: 'Lisa Kuddrow'
-            },
-            schedule: [
-                {
-                    name: 'Monday',
-                    lessons: [
-                        {
-                            lesson: 'History',
-                            teacher: 'Victor Kotov',
-                            classroom: 32,
-                            order: [1, 4]
-                        },
-                        {
-                            lesson: 'Math',
-                            teacher: 'Demi Moor',
-                            classroom: 12,
-                            order: [3]
-                        }
-                    ]
-                }, {
-                    name: 'Tuesday',
-                    lessons: [
-                        {
-                            lesson: 'OOP',
-                            teacher: 'Alan Moor',
-                            classroom: 32,
-                            order: [0, 3]
-                        },
-                        {
-                            lesson: 'Math',
-                            teacher: 'Demi Moor',
-                            classroom: 12,
-                            order: [2]
-                        },
-                        {
-                            lesson: 'Math',
-                            teacher: 'Demi Moor',
-                            classroom: 12,
-                            order: [1]
-                        }
-                    ]
-                }, {
-                    name: 'Wednesday',
-                    lessons: [
-                        {
-                            lesson: 'Litrature',
-                            teacher: 'Alan Moor',
-                            classroom: 32,
-                            order: [2, 4]
-                        },
-                        {
-                            lesson: 'Math',
-                            teacher: 'Demi Moor',
-                            classroom: 12,
-                            order: [3]
-                        }
-                    ]
-                }, {
-                    name: 'Thursday',
-                    lessons: [
-                        {
-                            lesson: 'Litrature',
-                            teacher: 'Alan Moor',
-                            classroom: 32,
-                            order: [1, 3]
-                        },
-                        {
-                            lesson: 'Math',
-                            teacher: 'Demi Moor',
-                            classroom: 12,
-                            order: [2]
-                        }
-                    ]
-                }, {
-                    name: 'Friday',
-                    lessons: [
-                        {
-                            lesson: 'Biology',
-                            teacher: 'Alan Moor',
-                            classroom: 32,
-                            order: [1, 3]
-                        },
-                        {
-                            lesson: 'Math',
-                            teacher: 'Demi Moor',
-                            classroom: 12,
-                            order: [2]
-                        }
-                    ]
-                }
-            ]
+            }
         },
         {
             id: 12,
@@ -1017,96 +343,7 @@ define(['lodash'], function (_) {
             formMaster: {
                 id: 19,
                 name: 'Lisa Kuddrow'
-            },
-            schedule: [
-                {
-                    name: 'Monday',
-                    lessons: [
-                        {
-                            lesson: 'History',
-                            teacher: 'Victor Kotov',
-                            classroom: 32,
-                            order: [1, 4]
-                        },
-                        {
-                            lesson: 'Math',
-                            teacher: 'Demi Moor',
-                            classroom: 12,
-                            order: [3]
-                        }
-                    ]
-                }, {
-                    name: 'Tuesday',
-                    lessons: [
-                        {
-                            lesson: 'OOP',
-                            teacher: 'Alan Moor',
-                            classroom: 32,
-                            order: [0, 3]
-                        },
-                        {
-                            lesson: 'Math',
-                            teacher: 'Demi Moor',
-                            classroom: 12,
-                            order: [2]
-                        },
-                        {
-                            lesson: 'Math',
-                            teacher: 'Demi Moor',
-                            classroom: 12,
-                            order: [1]
-                        }
-                    ]
-                }, {
-                    name: 'Wednesday',
-                    lessons: [
-                        {
-                            lesson: 'Litrature',
-                            teacher: 'Alan Moor',
-                            classroom: 32,
-                            order: [2, 4]
-                        },
-                        {
-                            lesson: 'Math',
-                            teacher: 'Demi Moor',
-                            classroom: 12,
-                            order: [3]
-                        }
-                    ]
-                }, {
-                    name: 'Thursday',
-                    lessons: [
-                        {
-                            lesson: 'Litrature',
-                            teacher: 'Alan Moor',
-                            classroom: 32,
-                            order: [1, 3]
-                        },
-                        {
-                            lesson: 'Math',
-                            teacher: 'Demi Moor',
-                            classroom: 12,
-                            order: [2]
-                        }
-                    ]
-                }, {
-                    name: 'Friday',
-                    lessons: [
-                        {
-                            lesson: 'Biology',
-                            teacher: 'Alan Moor',
-                            classroom: 32,
-                            order: [1, 3]
-                        },
-                        {
-                            lesson: 'Math',
-                            teacher: 'Demi Moor',
-                            classroom: 12,
-                            order: [2]
-                        }
-                    ]
-                }
-            ]
+            }
         },
         {
             id: 13,
@@ -1115,84 +352,7 @@ define(['lodash'], function (_) {
             formMaster: {
                 id: 19,
                 name: 'Lisa Kuddrow'
-            },
-            schedule: [
-                {
-                    name: 'Monday',
-                    lessons: [
-                        {
-                            lesson: 'History',
-                            teacher: 'Victor Kotov',
-                            classroom: 32,
-                            order: [1, 4]
-                        },
-                        {
-                            lesson: 'Math',
-                            teacher: 'Demi Moor',
-                            classroom: 12,
-                            order: [3]
-                        }
-                    ]
-                }, {
-                    name: 'Tuesday',
-                    lessons: [
-                        {
-                            lesson: 'OOP',
-                            teacher: 'Alan Moor',
-                            classroom: 32,
-                            order: [0, 3]
-                        },
-                        {
-                            lesson: 'Math',
-                            teacher: 'Demi Moor',
-                            classroom: 12,
-                            order: [2]
-                        }
-                    ]
-                }, {
-                    name: 'Wednesday',
-                    lessons: [
-                        {
-                            lesson: 'Litrature',
-                            teacher: 'Alan Moor',
-                            classroom: 32,
-                            order: [2, 4]
-                        },
-                        {
-                            lesson: 'Math',
-                            teacher: 'Demi Moor',
-                            classroom: 12,
-                            order: [3]
-                        }
-                    ]
-                }, {
-                    name: 'Thursday',
-                    lessons: [
-                        {
-                            lesson: 'Litrature',
-                            teacher: 'Alan Moor',
-                            classroom: 32,
-                            order: [1, 3]
-                        }
-                    ]
-                }, {
-                    name: 'Friday',
-                    lessons: [
-                        {
-                            lesson: 'Biology',
-                            teacher: 'Alan Moor',
-                            classroom: 32,
-                            order: [1, 3]
-                        },
-                        {
-                            lesson: 'Math',
-                            teacher: 'Demi Moor',
-                            classroom: 12,
-                            order: [2]
-                        }
-                    ]
-                }
-            ]
+            }
         }
     ];
 

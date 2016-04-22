@@ -4,8 +4,33 @@
 define(['../module', 'lodash'], function (module, _) {
     module.service('Dashboard.Schedule.ScheduleDataService', [
         'Common.SchedulingUtil',
-        function (schedulingUtil) {
+        'Dashboard.Schedule.ScheduleService',
+        function (schedulingUtil,scheduleService) {
             var service = {};
+
+            service.getStages = function () {
+                return scheduleService.getStages()
+                    .then(function (data) {
+                        var stages = [];
+
+                        var maxAmount = 0;
+                        _.each(data, function (stage) {
+                            if (maxAmount < stage.stage) {
+                                maxAmount = stage.stage;
+                            }
+                        });
+
+                        _.each(data, function (stage) {
+                            _.each(_.range(maxAmount), function (index) {
+                                if (stage.stage === index + 1) {
+                                    stages.push(stage);
+                                }
+                            });
+                        });
+                        return stages;
+                    });
+            };
+
             service.parseLessons = function (schedule) {
                 var step = 0;
                 var events = [];

@@ -257,8 +257,8 @@ define(
                 }
             });
 
-            $httpBackend.whenGET(prefix + '/names').respond(function (method, url) {
-                var names = fakeDataSource.getNames();
+            $httpBackend.whenGET(prefix + '/names').respond(function (method, url,tempData) {
+                var names = fakeDataSource.getNames(tempData);
                 if (names) {
                     return [200, {names: names}, {}];
                 } else {

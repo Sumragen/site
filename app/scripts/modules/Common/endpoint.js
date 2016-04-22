@@ -264,10 +264,11 @@ define(['./module', 'lodash'], function (module, _) {
                     }
                 },
                 name: {
-                    get: function () {
+                    get: function (data) {
                         return new API({
                             method: METHODS.GET,
-                            url: '/names'
+                            url: '/names',
+                            data: data
                         })
                     }
                 }

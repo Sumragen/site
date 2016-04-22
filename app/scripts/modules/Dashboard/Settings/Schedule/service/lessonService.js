@@ -17,8 +17,8 @@ define(['../module', 'lodash'], function (module, _) {
                         $q.reject(err);
                     });
             };
-            service.getNames = function () {
-                return $http(Endpoint.name.get())
+            service.getNames = function (data) {
+                return $http(Endpoint.name.get(data))
                     .then(function (data) {
                         return data.data;
                     })

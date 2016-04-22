@@ -426,7 +426,7 @@ define(['lodash'], function (_) {
             },
             teacher: {
                 id: 1,
-                name: 'Kotov Viktor'
+                name: defaultUsers[0].first_name + ' ' + defaultUsers[0].last_name
             },
             stage: '1',
             suffix: 'A',
@@ -442,7 +442,7 @@ define(['lodash'], function (_) {
             },
             teacher: {
                 id: 2,
-                name: 'Artur Krenev'
+                name: defaultUsers[1].first_name + ' ' + defaultUsers[1].last_name
             },
             stage: '4',
             suffix: 'A',
@@ -457,8 +457,8 @@ define(['lodash'], function (_) {
                 name: 'Literature'
             },
             teacher: {
-                id: 4,
-                name: 'Leonid Kruglev'
+                id: 2,
+                name: defaultUsers[1].first_name + ' ' + defaultUsers[1].last_name
             },
             stage: '2',
             suffix: 'A',
@@ -473,8 +473,8 @@ define(['lodash'], function (_) {
                 name: 'History'
             },
             teacher: {
-                id: 5,
-                name: 'Elena Osipova'
+                id: 3,
+                name: defaultUsers[2].first_name + ' ' + defaultUsers[2].last_name
             },
             stage: '11',
             suffix: 'A',
@@ -490,7 +490,7 @@ define(['lodash'], function (_) {
             },
             teacher: {
                 id: 3,
-                name: 'Margarita Vishnevskaya'
+                name: defaultUsers[2].first_name + ' ' + defaultUsers[2].last_name
             },
             stage: '8',
             suffix: 'A',
@@ -506,7 +506,7 @@ define(['lodash'], function (_) {
             },
             teacher: {
                 id: 2,
-                name: 'Artur Krenev'
+                name: defaultUsers[1].first_name + ' ' + defaultUsers[1].last_name
             },
             stage: '2',
             suffix: 'A',
@@ -522,7 +522,7 @@ define(['lodash'], function (_) {
             },
             teacher: {
                 id: 1,
-                name: defaultUsers[1].first_name
+                name: defaultUsers[0].first_name + ' ' + defaultUsers[0].last_name
             },
             stage: '5',
             suffix: 'B',
@@ -1040,23 +1040,56 @@ define(['lodash'], function (_) {
         return data.role.objects;
     };
 
-    dataSource.getNames = function () {
+    function compare(a,b) {
+        if (a.name < b.name)
+            return -1;
+        else if (a.name > b.name)
+            return 1;
+        else
+            return 0;
+    }
+
+    dataSource.getNames = function (tempData) {
         load();
+        var selectedLesson = angular.fromJson(tempData);
         var tempTeacher = [];
         var tempSubject = [];
         _.each(data.teacher.objects, function (teacher) {
-            var name = '';
-            _.find(data.user.objects, function (user) {
+            _.every(data.user.objects, function (user) {
                 if (user.id === teacher.user) {
-                    name = user.first_name + ' ' + user.last_name;
+                    if (_.every(data.lesson.objects, function (lesson) {
+                            if (lesson.day === selectedLesson.day && !_.every(lesson.order, function (order) {
+                                    return !(order === selectedLesson.order);
+                                })) {
+                                return !(lesson.teacher.id === teacher.user)
+                            }
+                            return true;
+                        })) {
+                        tempTeacher.push({id: teacher.user, name: user.first_name + ' ' + user.last_name});
+                        return false;
+                    }
                 }
+                return true;
             });
-            tempTeacher.push({id: teacher.id, name: name});
         });
+        if(selectedLesson.lesson){
+            _.every(data.lesson.objects, function (lesson) {
+                if(Number(lesson.stage) === Number(selectedLesson.lesson.stage)
+                && lesson.suffix === selectedLesson.lesson.suffix
+                && lesson.day === selectedLesson.day
+                && !_.every(lesson.order, function (order) {
+                        return !(order === selectedLesson.order);
+                    })){
+                    tempTeacher.push({id: lesson.teacher.id, name: lesson.teacher.name});
+                    return false;
+                }
+                return true;
+            })
+        }
         _.each(data.subject.objects, function (subject) {
             tempSubject.push({id: subject.id, name: subject.name});
         });
-        return {teacher: tempTeacher, subject: tempSubject};
+        return {teacher: tempTeacher.sort(compare), subject: tempSubject.sort(compare)};
     };
 
     return dataSource;

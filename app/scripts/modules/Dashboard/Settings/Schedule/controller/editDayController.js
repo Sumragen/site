@@ -17,7 +17,7 @@ define(['../module', 'lodash'], function (module, _) {
             $scope.lesson = {};
             $scope.toggleShowEditForm = function (stage, suffix, index) {
                 if ($scope.lessons.every(function (lesson) {
-                        if (lesson.stage === stage && lesson.suffix === suffix) {
+                        if (Number(lesson.stage) === stage && lesson.suffix === suffix) {
                             return lesson.order.every(function (order) {
                                 if (order === index) {
                                     $scope.lesson.model = angular.copy(lesson);
@@ -35,6 +35,11 @@ define(['../module', 'lodash'], function (module, _) {
                 }
                 $scope.showEditForm = !$scope.showEditForm;
             };
+
+            scheduleDataService.getStages()
+                .then(function (data) {
+                    $scope.stages = data;
+                });
 
             $scope.createLesson = function (form) {
                 $scope.busy = true;
@@ -54,10 +59,25 @@ define(['../module', 'lodash'], function (module, _) {
             lessonService.getLessonsByDay($scope.selectedDay)
                 .then(function (data) {
                     $scope.lessons = data.lessons;
+                    $scope.getLessonNameByOrder = function (stage, suffix, index) {
+                        var result = null;
+                        $scope.lessons.every(function (lesson) {
+                            if (Number(lesson.stage) === stage && lesson.suffix === suffix) {
+                                return lesson.order.every(function (order) {
+                                    if (order === index) {
+                                        result = lesson.subject.name;
+                                        return false;
+                                    }
+                                    return true;
+                                })
+                            }
+                            return true;
+                        });
+                        return result;
+                    };
                 });
 
-
-            $scope.listOfLessons = function () {
+            /*$scope.listOfLessons = function () {
                 var _lessons = [];
                 _.each($scope.lessons, function (lesson) {
                     var _checkResult = true;
@@ -85,24 +105,9 @@ define(['../module', 'lodash'], function (module, _) {
                     }
                 });
                 return _lessons;
-            };
+            };*/
 
-            $scope.getLessonNameByOrder = function (stage, suffix, index) {
-                var result = null;
-                $scope.lessons.every(function (lesson) {
-                    if (lesson.stage === stage && lesson.suffix === suffix) {
-                        return lesson.order.every(function (order) {
-                            if (order === index) {
-                                result = lesson.subject.name;
-                                return false;
-                            }
-                            return true;
-                        })
-                    }
-                    return true;
-                });
-                return result;
-            };
+
 
             $scope.updateLesson = function (form) {
                 $scope.busy = false;

@@ -12,12 +12,13 @@ define(['../module', 'lodash'], function (module, _) {
 
             $scope.stage = {};
             $scope.showEditForm = false;
+            var tempFormMaster = null;
             $scope.toggleShowEditForm = function (stage) {
                 $timeout(function () {
                     stageService.getTeachersName(stage)
                         .then(function (names) {
                             if (stage) {
-                                $scope.stage.model = stage;
+                                $scope.stage.model = angular.copy(stage);
                                 $scope.stage.model.formMaster = $scope.stage.model.formMaster.id;
                                 $scope.stage.form = [
                                     {

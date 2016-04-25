@@ -970,30 +970,34 @@ define(['lodash'], function (_) {
         var result = {};
         _.every(data.user.objects, function (user, index) {
             if (tempUser.id === user.id) {
-                _.every(data.teacher.objects, function (teacher, index) {
-                    if (teacher.user === tempUser.id) {
-                        _.each(tempUser.subjects, function (subject) {
-                            subjects.push(subject.id);
-                        });
-                        var tempRole = {};
-                        _.every(data.role.objects, function (role) {
-                            if(role.id === tempUser.role){
-                                tempRole = role;
-                                return false;
+                _.every(data.role.objects, function (role) {
+                    if (tempUser.role === role.id) {
+                        tempUser.roles[0] = role;
+                        if (role.name === 'teacher') {
+                            if (_.every(data.teacher.objects, function (teacher, ind) {
+                                    if (teacher.user === tempUser.id) {
+                                        data.teacher.objects[ind] = _.merge(teacher, {subjects: _.map(tempUser.subjects, 'id')});
+                                        return false;
+                                    }
+                                    return true;
+                                })) {
+                                data.teacher.objects.push({
+                                    id: ++data.teacher.lastIndex,
+                                    user: tempUser.id,
+                                    subjects: _.map(tempUser.subjects, 'id')
+                                })
                             }
-                            return true;
-                        });
-                        tempUser.roles[0] = tempRole;
-                        data.teacher.objects[index].subjects = subjects;
+                        }
                         return false;
                     }
                     return true;
                 });
-
+                delete tempUser.subjects;
+                delete tempUser.role;
                 data.user.objects[index] = tempUser;
                 commit();
                 data.user.objects.splice(10);
-                result = {user: tempUser, users : data.user.objects};
+                result = {user: tempUser, users: data.user.objects};
                 return false;
             }
             return true;
@@ -1150,7 +1154,7 @@ define(['lodash'], function (_) {
         load();
         var tempRole = [];
         _.each(data.role.objects, function (role) {
-            tempRole.push({id: role.id, name :role.name});
+            tempRole.push({id: role.id, name: role.name});
         });
         return tempRole;
     };
@@ -1160,12 +1164,12 @@ define(['lodash'], function (_) {
         var tempTeachers = [];
         _.each(data.teacher.objects, function (teacher) {
             if (_.every(data.stage.objects, function (stage) {
-                    return !(stage.formMaster.id === teacher.id);
+                    return !(stage.formMaster.id === teacher.user);
                 })) {
-                tempTeachers.push({id: teacher.id, name: getTeacherNameByUserId(teacher.user)});
+                tempTeachers.push({id: teacher.user, name: getTeacherNameByUserId(teacher.user)});
             }
         });
-        if(selectedStage){
+        if (selectedStage) {
             tempTeachers.push(selectedStage.formMaster);
         }
         return tempTeachers;

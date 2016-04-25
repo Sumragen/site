@@ -5,7 +5,8 @@ define([
     './controller/masterController',
     './ManageRoles/index',
     './Schedule/index',
-    './Users/index'
+    './Users/index',
+    './Stages/index'
 ], function () {
 
 });

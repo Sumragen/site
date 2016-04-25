@@ -152,7 +152,7 @@ define(['lodash'], function (_) {
             stage: 5,
             suffix: 'A',
             formMaster: {
-                id: 19,
+                id: 1,
                 name: 'Lisa Kuddrow'
             },
             schedule: [
@@ -251,7 +251,7 @@ define(['lodash'], function (_) {
             stage: 11,
             suffix: 'A',
             formMaster: {
-                id: 19,
+                id: 2,
                 name: 'Lisa Kuddrow'
             }
         },
@@ -260,7 +260,7 @@ define(['lodash'], function (_) {
             stage: 11,
             suffix: 'B',
             formMaster: {
-                id: 19,
+                id: 3,
                 name: 'Lisa Kuddrow'
             }
         },
@@ -269,7 +269,7 @@ define(['lodash'], function (_) {
             stage: 1,
             suffix: 'A',
             formMaster: {
-                id: 19,
+                id: 4,
                 name: 'Lisa Kuddrow'
             }
         },
@@ -278,7 +278,7 @@ define(['lodash'], function (_) {
             stage: 2,
             suffix: 'A',
             formMaster: {
-                id: 19,
+                id: 2,
                 name: 'Lisa Kuddrow'
             }
         },
@@ -287,7 +287,7 @@ define(['lodash'], function (_) {
             stage: 3,
             suffix: 'A',
             formMaster: {
-                id: 19,
+                id: 1,
                 name: 'Lisa Kuddrow'
             }
         },
@@ -296,7 +296,7 @@ define(['lodash'], function (_) {
             stage: 4,
             suffix: 'A',
             formMaster: {
-                id: 19,
+                id: 5,
                 name: 'Lisa Kuddrow'
             }
         },
@@ -305,7 +305,7 @@ define(['lodash'], function (_) {
             stage: 5,
             suffix: 'B',
             formMaster: {
-                id: 19,
+                id: 1,
                 name: 'Lisa Kuddrow'
             }
         },
@@ -314,7 +314,7 @@ define(['lodash'], function (_) {
             stage: 6,
             suffix: 'A',
             formMaster: {
-                id: 19,
+                id: 5,
                 name: 'Lisa Kuddrow'
             }
         },
@@ -323,7 +323,7 @@ define(['lodash'], function (_) {
             stage: 7,
             suffix: 'A',
             formMaster: {
-                id: 19,
+                id: 3,
                 name: 'Lisa Kuddrow'
             }
         },
@@ -332,7 +332,7 @@ define(['lodash'], function (_) {
             stage: 8,
             suffix: 'A',
             formMaster: {
-                id: 19,
+                id: 2,
                 name: 'Lisa Kuddrow'
             }
         },
@@ -341,7 +341,7 @@ define(['lodash'], function (_) {
             stage: 9,
             suffix: 'A',
             formMaster: {
-                id: 19,
+                id: 4,
                 name: 'Lisa Kuddrow'
             }
         },
@@ -350,7 +350,7 @@ define(['lodash'], function (_) {
             stage: 10,
             suffix: 'A',
             formMaster: {
-                id: 19,
+                id: 2,
                 name: 'Lisa Kuddrow'
             }
         }
@@ -414,6 +414,11 @@ define(['lodash'], function (_) {
             id: 5,
             user: 5,
             subjects: [1, 5]
+        },
+        {
+            id: 6,
+            user: 6,
+            subjects: [1, 2, 4, 5]
         }
     ];
 
@@ -576,7 +581,7 @@ define(['lodash'], function (_) {
                 objects: defaultEvents,
                 lastIndex: 3
             },
-            stages: {
+            stage: {
                 objects: defaultStages,
                 lastIndex: 13
             },
@@ -590,7 +595,7 @@ define(['lodash'], function (_) {
             },
             teacher: {
                 objects: teachers,
-                lastIndex: 5
+                lastIndex: 6
             },
             lesson: {
                 objects: lessons,
@@ -618,7 +623,7 @@ define(['lodash'], function (_) {
     dataSource.getSchedule = function () {
         load();
         //temp
-        return data.stages.objects[0];
+        return data.stage.objects[0];
     };
 
     //Event
@@ -661,7 +666,7 @@ define(['lodash'], function (_) {
     dataSource.getStageBySuffix = function (tempData) {
         load();
         var stageId = angular.fromJson(tempData);
-        return _.find(data.stages.objects, function (stage) {
+        return _.find(data.stage.objects, function (stage) {
             if (stageId === stage.id) {
                 return stage;
             }
@@ -669,7 +674,7 @@ define(['lodash'], function (_) {
     };
     dataSource.getStages = function () {
         load();
-        return data.stages.objects;
+        return data.stage.objects;
     };
 
     //Lesson
@@ -1042,7 +1047,61 @@ define(['lodash'], function (_) {
         return data.role.objects;
     };
 
-    function compare(a,b) {
+
+    //Stage
+    function getFormMasterName(id) {
+        load();
+        var formMaster = {};
+        _.every(data.user.objects, function (user) {
+            if (user.id === id) {
+                formMaster = {id: user.id, name: user.first_name + ' ' + user.last_name};
+                return false;
+            }
+            return true;
+        });
+        return formMaster;
+    }
+
+    dataSource.getStages = function () {
+        load();
+        return data.stage.objects;
+    };
+    dataSource.updateStagesList = function (dataStages) {
+        load();
+        var tempStages = angular.fromJson(dataStages);
+        data.stage.objects = tempStages;
+        commit();
+        return data.stage.objects;
+    };
+    dataSource.updateStage = function (dataStage) {
+        load();
+        var formMaster = null;
+        var tempStage = angular.fromJson(dataStage);
+        _.find(data.stage.objects, function (stage, index) {
+            if (tempStage.id === stage.id) {
+                tempStage.formMaster = getFormMasterName(tempStage.formMaster);
+                data.stage.objects[index] = tempStage;
+                commit();
+            }
+        });
+        return data.stage.objects;
+    };
+    dataSource.addStage = function (tempStage) {
+        load();
+        var stage = angular.fromJson(tempStage);
+        stage.id = ++data.stage.lastIndex;
+        stage.formMaster = getFormMasterName(stage.formMaster);
+        if (_.every(data.stage.objects, function (checkStage) {
+                return !(checkStage.stage === stage.stage && checkStage.suffix === stage.suffix)
+            })
+        ) {
+            data.stage.objects.push(stage);
+        }
+        commit();
+        return data.stage.objects;
+    };
+
+    function compare(a, b) {
         if (a.name < b.name)
             return -1;
         else if (a.name > b.name)
@@ -1058,6 +1117,35 @@ define(['lodash'], function (_) {
             tempSubject.push({id: subject.id, name: subject.name});
         });
         return tempSubject;
+    };
+    function getTeacherNameByUserId(id) {
+        load();
+        var teacherName = null;
+        _.every(data.user.objects, function (user) {
+            if (user.id === id) {
+                teacherName = user.first_name + ' ' + user.last_name;
+                return false;
+            }
+            return true;
+        });
+        return teacherName;
+    }
+
+    dataSource.getTeacherNames = function (dataStage) {
+        load();
+        var selectedStage = angular.fromJson(dataStage);
+        var tempTeachers = [];
+        _.each(data.teacher.objects, function (teacher) {
+            if (_.every(data.stage.objects, function (stage) {
+                    return !(stage.formMaster.id === teacher.id);
+                })) {
+                tempTeachers.push({id: teacher.id, name: getTeacherNameByUserId(teacher.user)});
+            }
+        });
+        if(selectedStage){
+            tempTeachers.push(selectedStage.formMaster);
+        }
+        return tempTeachers;
     };
     dataSource.getNames = function (tempData) {
         load();
@@ -1082,14 +1170,14 @@ define(['lodash'], function (_) {
                 return true;
             });
         });
-        if(selectedLesson.lesson){
+        if (selectedLesson.lesson) {
             _.every(data.lesson.objects, function (lesson) {
-                if(Number(lesson.stage) === Number(selectedLesson.lesson.stage)
-                && lesson.suffix === selectedLesson.lesson.suffix
-                && lesson.day === selectedLesson.day
-                && !_.every(lesson.order, function (order) {
+                if (Number(lesson.stage) === Number(selectedLesson.lesson.stage)
+                    && lesson.suffix === selectedLesson.lesson.suffix
+                    && lesson.day === selectedLesson.day
+                    && !_.every(lesson.order, function (order) {
                         return !(order === selectedLesson.order);
-                    })){
+                    })) {
                     tempTeacher.push({id: lesson.teacher.id, name: lesson.teacher.name});
                     return false;
                 }

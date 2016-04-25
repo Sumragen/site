@@ -22,7 +22,9 @@ define(['../module', 'lodash'], function (module, _) {
                         lesson: {
                             stage: stage,
                             suffix: suffix
-                        }
+                        },
+                        subject: ($scope.lesson.model) ? $scope.lesson.model.subject || null : null,
+                        teacher: ($scope.lesson.model) ? $scope.lesson.model.teacher || null : null
                     })
                     .then(function (data) {
                         if ($scope.lessons.every(function (lesson) {

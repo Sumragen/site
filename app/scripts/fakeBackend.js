@@ -270,9 +270,53 @@ define(
                 if (names) {
                     return [200, {names: names}, {}];
                 } else {
-                    return [400, {errorCode: 3, message: 'Teachers or subjects not found'}];
+                    return [400, {errorCode: 3, message: 'Subjects not found'}];
                 }
             });
+            $httpBackend.whenGET(prefix + '/teacherName').respond(function (method, url, data) {
+                var names = fakeDataSource.getTeacherNames(data);
+                if (names) {
+                    return [200, {names: names}, {}];
+                } else {
+                    return [400, {errorCode: 3, message: 'Teachers not found'}];
+                }
+            });
+
+        //Stage
+            $httpBackend.whenGET(prefix + '/stages').respond(function (method, url) {
+                var stages = fakeDataSource.getStages();
+                if (stages) {
+                    return [200, {stages: stages}, {}];
+                } else {
+                    return [400, {errorCode: 2, message: 'Stages not found'}];
+                }
+            });
+            $httpBackend.whenPUT(prefix + '/stages').respond(function (method, url, tempStages) {
+                var stages = fakeDataSource.updateStagesList(tempStages);
+                if (stages) {
+                    return [200, stages, {}];
+                } else {
+                    return [400, {errorCode: 4, message: 'wrong update'}];
+                }
+            });
+            $httpBackend.whenPUT(/\/stage\/(0-9)*/).respond(function (method, url, tempStage) {
+                var stages = fakeDataSource.updateStage(tempStage);
+                if (stages) {
+                    return [200, stages, {}];
+                } else {
+                    return [400, {errorCode: 4, message: 'wrong update'}];
+                }
+            });
+            $httpBackend.whenPOST(prefix + '/stage').respond(function (method, url, data) {
+                var stage = fakeDataSource.addStage(data);
+                if (stage) {
+                    return [200, stage, {}];
+                } else {
+                    return [400, {errorCode: 7, message: 'wrong add event'}];
+                }
+            });
+
+
             $httpBackend.whenGET(/\/stage\/[0-9]*/).respond(function (method, url, stageId) {
                 var stage = fakeDataSource.getStageBySuffix(stageId);
                 if (stage) {

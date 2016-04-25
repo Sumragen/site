@@ -104,6 +104,27 @@ define(['./module', 'lodash'], function (module, _) {
                     }
                 },
                 stage: {
+                    updateList: function (stages) {
+                        return new API({
+                            method: METHODS.PUT,
+                            url: '/stages',
+                            data: stages
+                        })
+                    },
+                    post: function (data) {
+                        return new API({
+                            method: METHODS.POST,
+                            url: '/stage',
+                            data: data
+                        })
+                    },
+                    update: function (stage) {
+                        return new API({
+                            method: METHODS.PUT,
+                            url: '/stage/' + stage.id,
+                            data: stage
+                        })
+                    },
                     get: function (id) {
                         return new API({
                             method: METHODS.GET,
@@ -175,11 +196,11 @@ define(['./module', 'lodash'], function (module, _) {
                             data: teacher
                         })
                     },
-                    getSubjects : function (id) {
+                    getSubjects: function (id) {
                         return new API({
                             method: METHODS.GET,
                             url: '/teacher',
-                            data : id
+                            data: id
                         })
                     }
                 },
@@ -275,6 +296,13 @@ define(['./module', 'lodash'], function (module, _) {
                         return new API({
                             method: METHODS.GET,
                             url: '/subjectName'
+                        })
+                    },
+                    teacher: function (data) {
+                        return new API({
+                            method: METHODS.GET,
+                            url: '/teacherName',
+                            data: data
                         })
                     }
                 }

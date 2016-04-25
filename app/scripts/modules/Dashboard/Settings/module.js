@@ -5,7 +5,8 @@ define(['angular', 'angular-animate'], function (module) {
     return module.module('Dashboard.Settings', [
             'Dashboard.Settings.Users',
             'Dashboard.Settings.ManageRoles',
-            'Dashboard.Settings.Schedule'
+            'Dashboard.Settings.Schedule',
+            'Dashboard.Settings.Stages'
         ])
         .config(function ($stateProvider) {
             $stateProvider
@@ -17,6 +18,7 @@ define(['angular', 'angular-animate'], function (module) {
                     data: {
                         buttons: [
                             {name: 'Users', state: 'dashboard.settings.users'},
+                            {name: 'Stages', state: 'dashboard.settings.stages'},
                             {name: 'Events', state: 'dashboard.settings.events'},
                             {name: 'Schedule', state: 'dashboard.settings.schedule.selector'},
                             {name: 'Manage roles', state: 'dashboard.settings.manageRoles'}

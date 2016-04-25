@@ -1,0 +1,23 @@
+<div class="schedule-settings-selector-module-wrapper">
+    <div ng-if="!busy && !showEditForm">
+        <a class="btn btn-success btn-raised" ng-click="toggleShowEditForm()">Create</a>
+        <input class="form-control" type="text" ng-model="searchText" placeholder="Filter">
+        <div ng-repeat="stage in stages | deepFilter: {formMaster: {name: searchText}, stage: searchText, suffix: searchText} | orderBy:['stage', 'suffix'] track by $index"
+             class="well card-well" ng-click="toggleShowEditForm(stage)">
+            <h3><strong>{{stage.stage}}-{{stage.suffix}}</strong></h3>
+            <div>{{stage.formMaster.name}}</div>
+        </div>
+    </div>
+
+    <div ng-show="showEditForm">
+        <form name="editForm"
+              sf-schema="stage.schema"
+              sf-form="stage.form"
+              sf-model="stage.model">
+        </form>
+        <a class="btn btn-default btn-raised" ng-click="toggleShowEditForm()">Cancel</a>
+        <a class="btn btn-success btn-raised" ng-click="(stage.model.id)?updateStage(editForm): createStage(editForm)">{{(stage.model.id)?'Update':'Create'}}</a>
+
+    </div>
+</div>
+<div s-loading-indicator="" ng-show="busy"></div>

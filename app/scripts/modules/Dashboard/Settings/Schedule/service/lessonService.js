@@ -26,6 +26,15 @@ define(['../module', 'lodash'], function (module, _) {
                         return $q.reject(err);
                     });
             };
+            service.getRoleNames = function () {
+                return $http(Endpoint.name.role())
+                    .then(function (data) {
+                        return data.data.names;
+                    })
+                    .catch(function (err) {
+                        return $q.reject(err);
+                    });
+            };
             service.getSubjectsNames = function () {
                 return $http(Endpoint.name.subject())
                     .then(function (data) {

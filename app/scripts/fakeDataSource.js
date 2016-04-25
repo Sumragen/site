@@ -967,23 +967,38 @@ define(['lodash'], function (_) {
         load();
         var subjects = [];
         var tempUser = angular.fromJson(dataUser);
-        return _.find(data.user.objects, function (user, index) {
+        var result = {};
+        _.every(data.user.objects, function (user, index) {
             if (tempUser.id === user.id) {
-
-                _.find(data.teacher.objects, function (teacher, index) {
+                _.every(data.teacher.objects, function (teacher, index) {
                     if (teacher.user === tempUser.id) {
                         _.each(tempUser.subjects, function (subject) {
                             subjects.push(subject.id);
                         });
+                        var tempRole = {};
+                        _.every(data.role.objects, function (role) {
+                            if(role.id === tempUser.role){
+                                tempRole = role;
+                                return false;
+                            }
+                            return true;
+                        });
+                        tempUser.roles[0] = tempRole;
                         data.teacher.objects[index].subjects = subjects;
+                        return false;
                     }
+                    return true;
                 });
 
                 data.user.objects[index] = tempUser;
                 commit();
-                return user;
+                data.user.objects.splice(10);
+                result = {user: tempUser, users : data.user.objects};
+                return false;
             }
+            return true;
         });
+        return result;
     };
     dataSource.getUsers = function (tempAmount) {
         load();
@@ -1131,6 +1146,14 @@ define(['lodash'], function (_) {
         return teacherName;
     }
 
+    dataSource.getRoleNames = function () {
+        load();
+        var tempRole = [];
+        _.each(data.role.objects, function (role) {
+            tempRole.push({id: role.id, name :role.name});
+        });
+        return tempRole;
+    };
     dataSource.getTeacherNames = function (dataStage) {
         load();
         var selectedStage = angular.fromJson(dataStage);

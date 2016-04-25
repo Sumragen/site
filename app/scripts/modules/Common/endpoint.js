@@ -298,6 +298,12 @@ define(['./module', 'lodash'], function (module, _) {
                             url: '/subjectName'
                         })
                     },
+                    role: function () {
+                        return new API({
+                            method: METHODS.GET,
+                            url: '/roleName'
+                        })
+                    },
                     teacher: function (data) {
                         return new API({
                             method: METHODS.GET,

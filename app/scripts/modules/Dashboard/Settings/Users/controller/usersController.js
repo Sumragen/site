@@ -30,64 +30,78 @@ define(['../module', 'lodash'], function (module, _) {
                     });
             };
 
+            function reformatObject(item) {
+                return {value: item.id, name: item.name}
+            }
+
             $scope.showEditForm = false;
             $scope.toggleShowEditForm = function (user) {
                 $timeout(function () {
-                    if (user) {
-                        $scope.user.model = user;
-                        lessonService.getSubjectsForTeacher($scope.user.model.id)
-                            .then(function (data) {
-                                $scope.user.model.subjects = data;
-                            });
-                    } else {
-                        $scope.user.model = {};
-                    }
-
                     lessonService.getSubjectsNames()
                         .then(function (data) {
-                            _.each($scope.user.model.subjects, function (subject, index) {
-                                _.find(data.names, function (subjectName) {
-                                    if (subject.id === subjectName.id) {
-                                        $scope.user.model.subjects[index] = subjectName;
-                                    }
-                                });
-                            });
-                            $scope.user.form = [
-                                {
-                                    key: 'avatar',
-                                    title: 'Upload avatar',
-                                    type: 'fileinput',
-                                    fileType: 'dataUrl',
-                                    previewType: 'image',
-                                    accept: 'image/png,image/jpeg',
-                                    onFileSelect: null
-                                },
-                                {
-                                    "key": "first_name",
-                                    "placeholder": "First name"
+                            lessonService.getRoleNames()
+                                .then(function (names) {
+                                    if (user) {
+                                        lessonService.getSubjectsForTeacher(user.id)
+                                            .then(function (subjectsData) {
+                                                $scope.user.model = user;
+                                                $scope.user.model.subjects = subjectsData;
+                                                $scope.user.model.role = $scope.user.model.roles[0].id;
+                                                _.each($scope.user.model.subjects, function (subject, index) {
+                                                    _.find(data.names, function (subjectName) {
+                                                        if (subject.id === subjectName.id) {
+                                                            $scope.user.model.subjects[index] = subjectName;
+                                                        }
+                                                    });
+                                                });
 
-                                },
-                                {
-                                    "key": "last_name",
-                                    "placeholder": "Last name"
-                                },
-                                {
-                                    "key": "username",
-                                    "placeholder": "username"
-                                },
-                                {
-                                    "key": "email",
-                                    "placeholder": "email"
-                                },
-                                {
-                                    "key": "subjects",
-                                    "type": "multiselect",
-                                    show: ($scope.user.model.roles)
-                                        ? $scope.user.model.roles[0].permissions[0] === 1 || $scope.user.model.roles[0].permissions[0] === 2
-                                        : false,
-                                    items: data.names
-                                }
-                            ];
+                                                $scope.user.form = [
+                                                    {
+                                                        key: 'avatar',
+                                                        title: 'Upload avatar',
+                                                        type: 'fileinput',
+                                                        fileType: 'dataUrl',
+                                                        previewType: 'image',
+                                                        accept: 'image/png,image/jpeg',
+                                                        onFileSelect: null
+                                                    },
+                                                    {
+                                                        "key": "first_name",
+                                                        "placeholder": "First name"
+
+                                                    },
+                                                    {
+                                                        "key": "last_name",
+                                                        "placeholder": "Last name"
+                                                    },
+                                                    {
+                                                        "key": "username",
+                                                        "placeholder": "username"
+                                                    },
+                                                    {
+                                                        "key": "email",
+                                                        "placeholder": "email"
+                                                    },
+                                                    {
+                                                        "key": "role",
+                                                        type: "select",
+                                                        titleMap: _.map(names, reformatObject)
+                                                    },
+                                                    {
+                                                        "key": "subjects",
+                                                        "type": "multiselect",
+                                                        show: ($scope.user.model.roles)
+                                                            ? $scope.user.model.roles[0].permissions[0] === 1 || $scope.user.model.roles[0].permissions[0] === 2
+                                                            : false,
+                                                        items: data.names
+                                                    }
+                                                ];
+                                            });
+                                    } else {
+                                        $scope.user.model = {};
+                                    }
+
+                                });
                         });
                     $scope.scrollDisabled = !$scope.scrollDisabled;
                     $scope.showEditForm = !$scope.showEditForm;
@@ -99,7 +113,8 @@ define(['../module', 'lodash'], function (module, _) {
                 $scope.$broadcast('schemaFormValidate');
                 if (form.$valid) {
                     profileService.updateUser($scope.user.model)
-                        .then(function () {
+                        .then(function (users) {
+                            $scope.users = users;
                             $scope.toggleShowEditForm();
                         })
                         .finally(function () {
@@ -133,6 +148,10 @@ define(['../module', 'lodash'], function (module, _) {
                     },
                     avatar: {
                         type: 'file'
+                    },
+                    role: {
+                        type: 'number',
+                        title: 'Role'
                     },
                     subjects: {
                         type: 'Array'

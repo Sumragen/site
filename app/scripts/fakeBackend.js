@@ -224,9 +224,9 @@ define(
 
         //Users
             $httpBackend.whenPUT(/\/user\/(0-9)*/).respond(function (method, url, tempUser) {
-                var user = fakeDataSource.updateUser(tempUser);
-                if (user) {
-                    return [200, user, {}];
+                var users = fakeDataSource.updateUser(tempUser);
+                if (users) {
+                    return [200, users, {}];
                 } else {
                     return [400, {errorCode: 4, message: 'wrong update'}];
                 }
@@ -271,6 +271,14 @@ define(
                     return [200, {names: names}, {}];
                 } else {
                     return [400, {errorCode: 3, message: 'Subjects not found'}];
+                }
+            });
+            $httpBackend.whenGET(prefix + '/roleName').respond(function (method, url) {
+                var names = fakeDataSource.getRoleNames();
+                if (names) {
+                    return [200, {names: names}, {}];
+                } else {
+                    return [400, {errorCode: 3, message: 'Roles not found'}];
                 }
             });
             $httpBackend.whenGET(prefix + '/teacherName').respond(function (method, url, data) {

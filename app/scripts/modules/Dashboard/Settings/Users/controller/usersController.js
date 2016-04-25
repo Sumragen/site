@@ -90,9 +90,7 @@ define(['../module', 'lodash'], function (module, _) {
                                                     {
                                                         "key": "subjects",
                                                         "type": "multiselect",
-                                                        show: ($scope.user.model.roles)
-                                                            ? $scope.user.model.roles[0].permissions[0] === 1 || $scope.user.model.roles[0].permissions[0] === 2
-                                                            : false,
+                                                        condition: "user.model.role === 1 || user.model.role === 2",
                                                         items: data.names
                                                     }
                                                 ];

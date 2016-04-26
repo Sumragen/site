@@ -360,13 +360,13 @@ define(['lodash'], function (_) {
             {
                 id: 1,
                 name: 'History',
-                teachers: [1, 5,6],
+                teachers: [1, 5, 6],
                 classRooms: [202]
             },
             {
                 id: 2,
                 name: 'Mathematics',
-                teachers: [1, 2,6],
+                teachers: [1, 2, 6],
                 classRooms: [202]
             },
             {
@@ -378,13 +378,13 @@ define(['lodash'], function (_) {
             {
                 id: 4,
                 name: 'Astronomy',
-                teachers: [3, 4,6],
+                teachers: [3, 4, 6],
                 classRooms: [202]
             },
             {
                 id: 5,
                 name: 'Literature',
-                teachers: [4, 5,6],
+                teachers: [4, 5, 6],
                 classRooms: [202]
             }
         ];
@@ -1236,6 +1236,15 @@ define(['lodash'], function (_) {
                             tempTeachers.push({id: teacher.user, name: getTeacherNameByUserId(teacher.user)});
                         }
                     });
+                    if(selectedSubject.formMaster){
+                        _.every(data.stage.objects, function (stage) {
+                            if(stage.id === selectedSubject.id){
+                                tempTeachers.push({id: stage.formMaster.id, name: getTeacherNameByUserId(stage.formMaster.id)})
+                                return false;
+                            }
+                            return true;
+                        })
+                    }
                 } else {
                     tempTeachers = _.map(_.filter(data.teacher.objects, function (teacher) {
                             return _.every(data.lesson.objects, function (lesson) {

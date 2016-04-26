@@ -1166,26 +1166,11 @@ define(['lodash'], function (_) {
             return tempRole;
         };
 
-        dataSource.getSubjectNames = function (teacherData) {
+        dataSource.getSubjectNames = function () {
             load();
-            var selectedTeacher = angular.fromJson(teacherData);
-            var tempSubjects = [];
-            if ((selectedTeacher) ? selectedTeacher.teacherId || null : false) {
-                _.each(data.subject.objects, function (subject) {
-                    _.every(subject.teachers, function (teacher) {
-                        if (selectedTeacher.teacherId === teacher) {
-                            tempSubjects.push({id: subject.id, name: subject.name});
-                            return false;
-                        }
-                        return true;
-                    });
-                });
-            } else {
-                tempSubjects = _.map(data.subject.objects, function (subject) {
+            return _.map(data.subject.objects, function (subject) {
                     return {id: subject.id, name: subject.name}
-                });
-            }
-            return tempSubjects.sort(compare);
+                }).sort(compare);
         };
 
         dataSource.getTeacherNames = function (subjectData) {
@@ -1263,51 +1248,6 @@ define(['lodash'], function (_) {
                 }
             }
             return tempTeachers.sort(compare);
-        }
-        ;
-
-
-        dataSource.getNames = function (tempData) {
-            /*load();
-             var selectedLesson = angular.fromJson(tempData);
-             var tempTeacher = [];
-             var tempSubject = [];
-             _.each(data.teacher.objects, function (teacher) {
-             _.every(data.user.objects, function (user) {
-             if (user.id === teacher.user) {
-             if (_.every(data.lesson.objects, function (lesson) {
-             if (lesson.day === selectedLesson.day && !_.every(lesson.order, function (order) {
-             return !(order === selectedLesson.order);
-             })) {
-             return !(lesson.teacher.id === teacher.user)
-             }
-             return true;
-             })) {
-             tempTeacher.push({id: teacher.user, name: user.first_name + ' ' + user.last_name});
-             return false;
-             }
-             }
-             return true;
-             });
-             });
-             if (selectedLesson.lesson) {
-             _.every(data.lesson.objects, function (lesson) {
-             if (Number(lesson.stage) === Number(selectedLesson.lesson.stage)
-             && lesson.suffix === selectedLesson.lesson.suffix
-             && lesson.day === selectedLesson.day
-             && !_.every(lesson.order, function (order) {
-             return !(order === selectedLesson.order);
-             })) {
-             tempTeacher.push({id: lesson.teacher.id, name: lesson.teacher.name});
-             return false;
-             }
-             return true;
-             })
-             }
-             _.each(data.subject.objects, function (subject) {
-             tempSubject.push({id: subject.id, name: subject.name});
-             });
-             return {teacher: tempTeacher.sort(compare), subject: tempSubject.sort(compare)};*/
         };
 
         return dataSource;

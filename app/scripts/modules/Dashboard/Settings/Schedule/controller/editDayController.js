@@ -16,17 +16,8 @@ define(['../module', 'lodash'], function (module, _) {
             $scope.showEditForm = false;
             $scope.lesson = {};
 
-            $scope.getSubjectsNames = function (stage, suffix) {
-                lessonService.getSubjectsNames(
-                    {
-                        day: $scope.selectedDay.title,
-                        order: $scope.lesson.order,
-                        teacherId: $scope.lesson.model.teacher,
-                        lesson: {
-                            stage: stage || $scope.lesson.stage,
-                            suffix: suffix || $scope.lesson.suffix
-                        }
-                    })
+            $scope.getSubjectsNames = function () {
+                lessonService.getSubjectsNames()
                     .then(function (data) {
                         $scope.lesson.form[0].titleMap = _.map(data.names, reformatObject);
                         $scope.$broadcast('schemaFormRedraw');
@@ -34,8 +25,7 @@ define(['../module', 'lodash'], function (module, _) {
             };
 
             $scope.getTeachersNames = function (stage, suffix) {
-                lessonService.getTeachersNames(
-                    {
+                lessonService.getTeachersNames({
                         day: $scope.selectedDay.title,
                         order: $scope.lesson.order,
                         subjectId: $scope.lesson.model.subject,
@@ -46,15 +36,13 @@ define(['../module', 'lodash'], function (module, _) {
                     })
                     .then(function (data) {
                         $scope.lesson.form[1].titleMap = _.map(data.names, reformatObject);
+                        if (_.every(data.names, function (name) {
+                                return !(name.id === $scope.lesson.model.teacher);
+                            })) {
+                            delete $scope.lesson.model.teacher;
+                        }
                         $scope.$broadcast('schemaFormRedraw');
                     });
-            };
-            $scope.resetData = function () {
-                delete $scope.lesson.model.teacher;
-                delete $scope.lesson.model.subject;
-                delete $scope.lesson.model.classroom;
-                $scope.getSubjectsNames();
-                $scope.getTeachersNames();
             };
 
             $scope.toggleShowEditForm = function (stage, suffix, index) {
@@ -85,8 +73,6 @@ define(['../module', 'lodash'], function (module, _) {
                         day: $scope.selectedDay.title
                     };
                 }
-                $scope.getSubjectsNames();
-                $scope.getTeachersNames();
                 $scope.lesson.form = [
                     {
                         "key": "subject",
@@ -113,21 +99,6 @@ define(['../module', 'lodash'], function (module, _) {
                 .then(function (data) {
                     $scope.stages = data;
                 });
-
-            $scope.createLesson = function (form) {
-                $scope.busy = true;
-                $scope.$broadcast('schemaFormValidate');
-                if (form.$valid) {
-                    lessonService.createLesson($scope.lesson.model)
-                        .then(function (data) {
-                            $scope.lessons = data;
-                            $scope.toggleShowEditForm();
-                        })
-                        .finally(function () {
-                            $scope.busy = false;
-                        });
-                }
-            };
 
             lessonService.getLessonsByDay($scope.selectedDay)
                 .then(function (data) {
@@ -162,9 +133,27 @@ define(['../module', 'lodash'], function (module, _) {
                         .finally(function () {
                             $scope.busy = false;
                         });
+                }else{
+                    $scope.busy = false;
                 }
             };
 
+            $scope.createLesson = function (form) {
+                $scope.busy = true;
+                $scope.$broadcast('schemaFormValidate');
+                if (form.$valid) {
+                    lessonService.createLesson($scope.lesson.model)
+                        .then(function (data) {
+                            $scope.lessons = data;
+                            $scope.toggleShowEditForm();
+                        })
+                        .finally(function () {
+                            $scope.busy = false;
+                        });
+                }else{
+                    $scope.busy = false;
+                }
+            };
             $scope.lesson.schema = {
                 "type": "object",
                 "properties": {

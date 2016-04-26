@@ -1175,7 +1175,7 @@ define(['lodash'], function (_) {
         load();
         var selectedTeacher = angular.fromJson(teacherData);
         var tempSubjects = [];
-        if (selectedTeacher) {
+        if (selectedTeacher.teacherId) {
             _.each(data.subject.objects, function (subject) {
                 _.every(subject.teachers, function (teacher) {
                     if (selectedTeacher.teacherId === teacher) {
@@ -1190,14 +1190,14 @@ define(['lodash'], function (_) {
                 return {id: subject.id, name: subject.name}
             });
         }
-        return tempSubjects;
+        return tempSubjects.sort(compare);
     };
 
     dataSource.getTeacherNames = function (subjectData) {
         load();
         var selectedSubject = angular.fromJson(subjectData);
         var tempTeachers = [];
-        if (selectedSubject) {
+        if (selectedSubject.subjectId) {
             _.each(data.teacher.objects, function (teacher) {
                 _.every(teacher.subjects, function (subject) {
                     if (subject === selectedSubject.subjectId) {
@@ -1233,11 +1233,22 @@ define(['lodash'], function (_) {
                 })
             }
         } else {
-            tempTeachers = _.map(data.teacher.objects, function (teacher) {
-                return {id: teacher.user, name: getTeacherNameByUserId(teacher.user)}
+            tempTeachers = _.filter(data.teacher.objects, function (teacher) {
+                return _.every(data.lesson.objects, function (lesson) {
+                    if (lesson.day === selectedSubject.day
+                        && !_.every(lesson.order, function (order) {
+                            return !(order === selectedSubject.order);
+                        })) {
+                        return !(lesson.teacher.id === teacher.user)
+                    }
+                    return true;
+                })
             });
+            tempTeachers = _.map(tempTeachers, function (teacher) {
+                return {id: teacher.user, name: getTeacherNameByUserId(teacher.user)}
+            })
         }
-        return tempTeachers;
+        return tempTeachers.sort(compare);
     };
 
 

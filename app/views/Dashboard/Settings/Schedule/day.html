@@ -36,6 +36,7 @@
               sf-model="lesson.model">
         </form>
         <a class="btn btn-default" ng-click="toggleShowEditForm()">Cancel</a>
-        <a class="btn btn-info" ng-click="(lesson.model.id)?updateLesson(editForm): createLesson(editForm)">{{(lesson.model.id)?'Update':'Create'}}</a>
+        <a class="btn btn-info" ng-click="resetData()">Reset</a>
+        <a class="btn btn-success" ng-click="(lesson.model.id)?updateLesson(editForm): createLesson(editForm)">{{(lesson.model.id)?'Update':'Create'}}</a>
     </div>
 </div>

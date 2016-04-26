@@ -26,8 +26,7 @@ define(['../module', 'lodash'], function (module, _) {
                             stage: stage || $scope.lesson.stage,
                             suffix: suffix || $scope.lesson.suffix
                         }
-                    }
-                )
+                    })
                     .then(function (data) {
                         $scope.lesson.form[0].titleMap = _.map(data.names, reformatObject);
                         $scope.$broadcast('schemaFormRedraw');
@@ -49,6 +48,11 @@ define(['../module', 'lodash'], function (module, _) {
                         $scope.lesson.form[1].titleMap = _.map(data.names, reformatObject);
                         $scope.$broadcast('schemaFormRedraw');
                     });
+            };
+            $scope.resetData = function () {
+                $scope.lesson.model = {};
+                $scope.getSubjectsNames(null);
+                $scope.getTeachersNames(null);
             };
 
             $scope.toggleShowEditForm = function (stage, suffix, index) {

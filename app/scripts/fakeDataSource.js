@@ -816,7 +816,7 @@ define(['lodash'], function (_) {
             return true;
         });
         data.teacher.objects.every(function (teacher) {
-            if (teacher.id === lesson.teacher) {
+            if (teacher.user === lesson.teacher) {
                 return data.user.objects.every(function (user) {
                     if (user.id === teacher.user) {
                         lesson.teacher = {id: user.id, name: user.first_name + ' ' + user.last_name};
@@ -1175,7 +1175,7 @@ define(['lodash'], function (_) {
         load();
         var selectedTeacher = angular.fromJson(teacherData);
         var tempSubjects = [];
-        if (selectedTeacher.teacherId) {
+        if ((selectedTeacher) ? selectedTeacher.teacherId || null: false) {
             _.each(data.subject.objects, function (subject) {
                 _.every(subject.teachers, function (teacher) {
                     if (selectedTeacher.teacherId === teacher) {
@@ -1197,7 +1197,7 @@ define(['lodash'], function (_) {
         load();
         var selectedSubject = angular.fromJson(subjectData);
         var tempTeachers = [];
-        if (selectedSubject.subjectId) {
+        if ((selectedSubject) ? selectedSubject.subjectId || null : false) {
             _.each(data.teacher.objects, function (teacher) {
                 _.every(teacher.subjects, function (subject) {
                     if (subject === selectedSubject.subjectId) {

@@ -265,8 +265,8 @@ define(
                     return [400, {errorCode: 3, message: 'Teachers or subjects not found'}];
                 }
             });
-            $httpBackend.whenGET(prefix + '/subjectName').respond(function (method, url) {
-                var names = fakeDataSource.getSubjectNames();
+            $httpBackend.whenGET(prefix + '/subjectName').respond(function (method, url, data) {
+                var names = fakeDataSource.getSubjectNames(data);
                 if (names) {
                     return [200, {names: names}, {}];
                 } else {

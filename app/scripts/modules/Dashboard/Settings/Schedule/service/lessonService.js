@@ -35,8 +35,17 @@ define(['../module', 'lodash'], function (module, _) {
                         return $q.reject(err);
                     });
             };
-            service.getSubjectsNames = function () {
-                return $http(Endpoint.name.subject())
+            service.getSubjectsNames = function (teacher) {
+                return $http(Endpoint.name.subject(teacher))
+                    .then(function (data) {
+                        return data.data;
+                    })
+                    .catch(function (err) {
+                        return $q.reject(err);
+                    });
+            };
+            service.getTeachersNames = function (subject) {
+                return $http(Endpoint.name.teacher(subject))
                     .then(function (data) {
                         return data.data;
                     })

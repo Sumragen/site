@@ -1128,15 +1128,6 @@ define(['lodash'], function (_) {
         else
             return 0;
     }
-
-    dataSource.getSubjectNames = function () {
-        load();
-        var tempSubject = [];
-        _.each(data.subject.objects, function (subject) {
-            tempSubject.push({id: subject.id, name: subject.name});
-        });
-        return tempSubject;
-    };
     function getTeacherNameByUserId(id) {
         load();
         var teacherName = null;
@@ -1158,6 +1149,27 @@ define(['lodash'], function (_) {
         });
         return tempRole;
     };
+
+    dataSource.getSubjectNames = function (teacherData) {
+        load();
+        var tempTeacher = angular.fromJson(teacherData);
+        var tempSubject = [];
+        _.each(data.subject.objects, function (subject) {
+            if (tempTeacher) {
+                _.every(subject.teachers, function (teacher) {
+                    if(tempTeacher === teacher){
+                        tempSubject.push({id: subject.id, name: subject.name});
+                        return false;
+                    }
+                    return true;
+                });
+            } else {
+                tempSubject.push({id: subject.id, name: subject.name});
+            }
+        });
+        return tempSubject;
+    };
+
     dataSource.getTeacherNames = function (dataStage) {
         load();
         var selectedStage = angular.fromJson(dataStage);

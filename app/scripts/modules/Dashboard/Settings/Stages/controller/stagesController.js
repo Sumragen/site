@@ -81,6 +81,8 @@ define(['../module', 'lodash'], function (module, _) {
                         .finally(function () {
                             $scope.busy = false;
                         });
+                }else{
+                    $scope.busy = false;
                 }
             };
 

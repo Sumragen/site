@@ -15,6 +15,23 @@ define(['../module', 'lodash'], function (module, _) {
 
             $scope.showEditForm = false;
             $scope.lesson = {};
+
+            $scope.getSubjectsNames = function() {
+                lessonService.getSubjectsNames($scope.lesson.model.teacher)
+                    .then(function (data) {
+                        $scope.subjectNames = data.names;
+                        $scope.$broadcast('schemaFormRedraw');
+                    });
+            };
+
+            $scope.getTeachersNames = function() {
+                lessonService.getTeachersNames($scope.lesson.model.subject)
+                    .then(function (data) {
+                        $scope.teacherNames = data.names;
+                        $scope.$broadcast('schemaFormRedraw');
+                    });
+            };
+
             $scope.toggleShowEditForm = function (stage, suffix, index) {
                 lessonService.getNames({
                         day: $scope.selectedDay.title,
@@ -27,6 +44,7 @@ define(['../module', 'lodash'], function (module, _) {
                         teacher: ($scope.lesson.model) ? $scope.lesson.model.teacher || null : null
                     })
                     .then(function (data) {
+
                         if ($scope.lessons.every(function (lesson) {
                                 if (Number(lesson.stage) === stage && lesson.suffix === suffix) {
                                     return lesson.order.every(function (order) {
@@ -35,6 +53,8 @@ define(['../module', 'lodash'], function (module, _) {
                                             $scope.lesson.model.teacher = $scope.lesson.model.teacher.id;
                                             $scope.lesson.model.subject = $scope.lesson.model.subject.id;
                                             $scope.lesson.model.order = index;
+                                            $scope.getSubjectsNames();
+                                            $scope.getTeachersNames();
                                             return false;
                                         }
                                         return true;
@@ -53,12 +73,14 @@ define(['../module', 'lodash'], function (module, _) {
                             {
                                 "key": "subject",
                                 type: "select",
-                                titleMap: _.map(data.names.subject, reformatObject)
+                                onChange: "getTeachersNames()",
+                                titleMap: _.map($scope.subjectNames || data.names.subject, reformatObject)
                             },
                             {
                                 "key": "teacher",
                                 type: "select",
-                                titleMap: _.map(data.names.teacher, reformatObject)
+                                onChange: "getSubjectsNames()",
+                                titleMap: _.map($scope.teacherNames || data.names.teacher, reformatObject)
                             },
                             {
                                 "key": "classroom",
@@ -111,7 +133,7 @@ define(['../module', 'lodash'], function (module, _) {
                 });
 
             $scope.updateLesson = function (form) {
-                $scope.busy = false;
+                $scope.busy = true;
                 $scope.$broadcast('schemaFormValidate');
                 if (form.$valid) {
                     lessonService.updateLesson($scope.lesson.model)

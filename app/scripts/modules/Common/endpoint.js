@@ -292,10 +292,11 @@ define(['./module', 'lodash'], function (module, _) {
                             data: data
                         })
                     },
-                    subject: function () {
+                    subject: function (teacher) {
                         return new API({
                             method: METHODS.GET,
-                            url: '/subjectName'
+                            url: '/subjectName',
+                            data : teacher
                         })
                     },
                     role: function () {
@@ -304,11 +305,11 @@ define(['./module', 'lodash'], function (module, _) {
                             url: '/roleName'
                         })
                     },
-                    teacher: function (data) {
+                    teacher: function (subject) {
                         return new API({
                             method: METHODS.GET,
                             url: '/teacherName',
-                            data: data
+                            data: subject
                         })
                     }
                 }

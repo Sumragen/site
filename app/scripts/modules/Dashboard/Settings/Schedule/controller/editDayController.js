@@ -16,18 +16,37 @@ define(['../module', 'lodash'], function (module, _) {
             $scope.showEditForm = false;
             $scope.lesson = {};
 
-            $scope.getSubjectsNames = function() {
-                lessonService.getSubjectsNames($scope.lesson.model.teacher)
+            $scope.getSubjectsNames = function (stage, suffix) {
+                lessonService.getSubjectsNames(
+                    {
+                        day: $scope.selectedDay.title,
+                        order: $scope.lesson.order,
+                        teacherId: $scope.lesson.model.teacher,
+                        lesson: {
+                            stage: stage || $scope.lesson.stage,
+                            suffix: suffix || $scope.lesson.suffix
+                        }
+                    }
+                )
                     .then(function (data) {
-                        $scope.subjectNames = data.names;
+                        $scope.lesson.form[0].titleMap = _.map(data.names, reformatObject);
                         $scope.$broadcast('schemaFormRedraw');
                     });
             };
 
-            $scope.getTeachersNames = function() {
-                lessonService.getTeachersNames($scope.lesson.model.subject)
+            $scope.getTeachersNames = function (stage, suffix) {
+                lessonService.getTeachersNames(
+                    {
+                        day: $scope.selectedDay.title,
+                        order: $scope.lesson.order,
+                        subjectId: $scope.lesson.model.subject,
+                        lesson: {
+                            stage: stage || $scope.lesson.stage,
+                            suffix: suffix || $scope.lesson.suffix
+                        }
+                    })
                     .then(function (data) {
-                        $scope.teacherNames = data.names;
+                        $scope.lesson.form[1].titleMap = _.map(data.names, reformatObject);
                         $scope.$broadcast('schemaFormRedraw');
                     });
             };
@@ -35,13 +54,11 @@ define(['../module', 'lodash'], function (module, _) {
             $scope.toggleShowEditForm = function (stage, suffix, index) {
                 lessonService.getNames({
                         day: $scope.selectedDay.title,
-                        order: index,
+                        order: $scope.lesson.order = index,
                         lesson: {
-                            stage: stage,
-                            suffix: suffix
-                        },
-                        subject: ($scope.lesson.model) ? $scope.lesson.model.subject || null : null,
-                        teacher: ($scope.lesson.model) ? $scope.lesson.model.teacher || null : null
+                            stage: $scope.lesson.stage = stage,
+                            suffix: $scope.lesson.suffix = suffix
+                        }
                     })
                     .then(function (data) {
 
@@ -74,13 +91,13 @@ define(['../module', 'lodash'], function (module, _) {
                                 "key": "subject",
                                 type: "select",
                                 onChange: "getTeachersNames()",
-                                titleMap: _.map($scope.subjectNames || data.names.subject, reformatObject)
+                                titleMap: _.map(data.names.subject, reformatObject)
                             },
                             {
                                 "key": "teacher",
                                 type: "select",
                                 onChange: "getSubjectsNames()",
-                                titleMap: _.map($scope.teacherNames || data.names.teacher, reformatObject)
+                                titleMap: _.map(data.names.teacher, reformatObject)
                             },
                             {
                                 "key": "classroom",

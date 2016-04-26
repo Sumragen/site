@@ -50,7 +50,9 @@ define(['../module', 'lodash'], function (module, _) {
                     });
             };
             $scope.resetData = function () {
-                $scope.lesson.model = {};
+                delete $scope.lesson.model.teacher;
+                delete $scope.lesson.model.subject;
+                delete $scope.lesson.model.classroom;
                 $scope.getSubjectsNames();
                 $scope.getTeachersNames();
             };

@@ -12,10 +12,9 @@ define(['../module', 'lodash'], function (module, _) {
 
             $scope.stage = {};
             $scope.showEditForm = false;
-            var tempFormMaster = null;
             $scope.toggleShowEditForm = function (stage) {
                 $timeout(function () {
-                    stageService.getTeachersName(stage)
+                    stageService.getTeachersName(_.merge(stage,{isFormMasterData : true}))
                         .then(function (names) {
                             if (stage) {
                                 $scope.stage.model = angular.copy(stage);

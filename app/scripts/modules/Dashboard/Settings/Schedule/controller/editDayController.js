@@ -51,11 +51,63 @@ define(['../module', 'lodash'], function (module, _) {
             };
             $scope.resetData = function () {
                 $scope.lesson.model = {};
-                $scope.getSubjectsNames(null);
-                $scope.getTeachersNames(null);
+                $scope.getSubjectsNames();
+                $scope.getTeachersNames();
             };
 
-            $scope.toggleShowEditForm = function (stage, suffix, index) {
+            $scope.toggleShowEditForm2 = function (stage, suffix, index) {
+                $scope.lesson.stage = stage;
+                $scope.lesson.suffix = suffix;
+                $scope.lesson.order = index;
+
+                if ($scope.lessons.every(function (lesson) {
+                        if (Number(lesson.stage) === stage && lesson.suffix === suffix) {
+                            return lesson.order.every(function (order) {
+                                if (order === index) {
+                                    $scope.lesson.model = angular.copy(lesson);
+                                    $scope.lesson.model.teacher = $scope.lesson.model.teacher.id;
+                                    $scope.lesson.model.subject = $scope.lesson.model.subject.id;
+                                    $scope.lesson.model.order = index;
+
+                                    return false;
+                                }
+                                return true;
+                            })
+                        }
+                        return true;
+                    })) {
+                    $scope.lesson.model = {
+                        stage: stage,
+                        suffix: suffix,
+                        order: index,
+                        day: $scope.selectedDay.title
+                    };
+                }
+                $scope.getSubjectsNames();
+                $scope.getTeachersNames();
+                $scope.lesson.form = [
+                    {
+                        "key": "subject",
+                        type: "select",
+                        onChange: "getTeachersNames()",
+                        titleMap: []
+                    },
+                    {
+                        "key": "teacher",
+                        type: "select",
+                        onChange: "getSubjectsNames()",
+                        titleMap: []
+                    },
+                    {
+                        "key": "classroom",
+                        "placeholder": "Classroom"
+                    }
+                ];
+                $scope.getSubjectsNames();
+                $scope.getTeachersNames();
+                $scope.showEditForm = !$scope.showEditForm;
+            };
+            /*$scope.toggleShowEditForm = function (stage, suffix, index) {
                 lessonService.getNames({
                         day: $scope.selectedDay.title,
                         order: $scope.lesson.order = index,
@@ -111,7 +163,7 @@ define(['../module', 'lodash'], function (module, _) {
                         $scope.showEditForm = !$scope.showEditForm;
                     });
             };
-
+*/
             scheduleDataService.getStages()
                 .then(function (data) {
                     $scope.stages = data;
@@ -124,7 +176,7 @@ define(['../module', 'lodash'], function (module, _) {
                     lessonService.createLesson($scope.lesson.model)
                         .then(function (data) {
                             $scope.lessons = data;
-                            $scope.toggleShowEditForm();
+                            $scope.toggleShowEditForm2();
                         })
                         .finally(function () {
                             $scope.busy = false;
@@ -160,7 +212,7 @@ define(['../module', 'lodash'], function (module, _) {
                     lessonService.updateLesson($scope.lesson.model)
                         .then(function (data) {
                             $scope.lessons = data;
-                            $scope.toggleShowEditForm();
+                            $scope.toggleShowEditForm2();
                         })
                         .finally(function () {
                             $scope.busy = false;

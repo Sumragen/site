@@ -53,7 +53,7 @@
 
     <!--map-->
     <div ng-show="showMap">
-        <a class="btn btn-raised btn-success" ng-click="saveMarkers()">Save</a>
+        <a class="btn btn-raised btn-success" ng-click="saveMarkers()" ng-if="isSettingPage">Save</a>
         <div class="map-container">
             <div class="map">
                 <logicify-gmap center="gmOpts.center"

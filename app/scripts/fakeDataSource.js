@@ -1214,7 +1214,7 @@ define(['lodash'], function (_) {
                     });
                     if (selectedSubject.formMaster) {
                         _.every(data.stage.objects, function (stage) {
-                            if (stage.id === selectedSubject.id) {
+                            if (stage.formMaster.id === selectedSubject.formMaster.id) {
                                 tempTeachers.push({
                                     id: stage.formMaster.id,
                                     name: getTeacherNameByUserId(stage.formMaster.id)

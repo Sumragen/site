@@ -256,23 +256,6 @@ define(
                     return [400, {errorCode: 3, message: 'Schedule not found'}];
                 }
             });
-
-            $httpBackend.whenGET(prefix + '/names').respond(function (method, url,tempData) {
-                var names = fakeDataSource.getNames(tempData);
-                if (names) {
-                    return [200, {names: names}, {}];
-                } else {
-                    return [400, {errorCode: 3, message: 'Teachers or subjects not found'}];
-                }
-            });
-            $httpBackend.whenGET(prefix + '/subjectName').respond(function (method, url, data) {
-                var names = fakeDataSource.getSubjectNames(data);
-                if (names) {
-                    return [200, {names: names}, {}];
-                } else {
-                    return [400, {errorCode: 3, message: 'Subjects not found'}];
-                }
-            });
             $httpBackend.whenGET(prefix + '/teacherName').respond(function (method, url, data) {
                 var names = fakeDataSource.getTeacherNames(data);
                 if (names) {
@@ -323,14 +306,6 @@ define(
                     return [200, {stage: stage}, {}];
                 } else {
                     return [400, {errorCode: 3, message: 'Stage not found'}];
-                }
-            });
-            $httpBackend.whenGET(prefix + '/stages').respond(function (method, url) {
-                var stages = fakeDataSource.getStages();
-                if (stages) {
-                    return [200, {stages: stages}, {}];
-                } else {
-                    return [400, {errorCode: 3, message: 'Stages not found'}];
                 }
             });
 

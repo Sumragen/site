@@ -77,14 +77,12 @@ define(['../module', 'lodash'], function (module, _) {
                     {
                         "key": "subject",
                         type: "select",
-                        onChange: "getTeachersNames()",
-                        titleMap: []
+                        onChange: "getTeachersNames()"
                     },
                     {
                         "key": "teacher",
                         type: "select",
-                        onChange: "getSubjectsNames()",
-                        titleMap: []
+                        onChange: "getSubjectsNames()"
                     },
                     {
                         "key": "classroom",
@@ -163,7 +161,7 @@ define(['../module', 'lodash'], function (module, _) {
                     },
                     classroom: {
                         type: "number",
-                        minLength: 3,
+                        minimum : 0,
                         title: "Classroom"
                     }
                 },

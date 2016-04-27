@@ -86,11 +86,14 @@ define(['../module', 'lodash'], function (module, _) {
                 "properties": {
                     stage: {
                         type: "number",
+                        minimum: 1,
+                        maximum: 11,
                         title: "Stage"
                     },
                     suffix: {
                         type: "string",
                         maxLength: 1,
+                        pattern: /[a-z,A-Z]/,
                         title: "Suffix"
                     },
                     formMaster: {

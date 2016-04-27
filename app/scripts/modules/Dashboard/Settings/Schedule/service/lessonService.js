@@ -20,7 +20,9 @@ define(['../module', 'lodash'], function (module, _) {
             service.getRoleNames = function () {
                 return $http(Endpoint.role.list())
                     .then(function (data) {
-                        return data.data.roles;
+                        return _.map(data.data.roles, function (role) {
+                            return {value: role.id, name: role.name}
+                        });
                     })
                     .catch(function (err) {
                         return $q.reject(err);

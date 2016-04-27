@@ -31,10 +31,6 @@ define(['../module', 'lodash'], function (module, _) {
                     });
             };
 
-            function reformatObject(item) {
-                return {value: item.id, name: item.name}
-            }
-
             $scope.showEditForm = false;
             $scope.toggleShowEditForm = function (user) {
                 if (user) {
@@ -48,9 +44,7 @@ define(['../module', 'lodash'], function (module, _) {
                                 }),
                             lessonService.getRoleNames()
                                 .then(function (data) {
-                                    return _.map(data, function (role) {
-                                            return {id: role.id, name: role.name}
-                                        });
+                                    return data;
                                 })
                                 .catch(function (err) {
                                     $q.reject(err);
@@ -108,7 +102,7 @@ define(['../module', 'lodash'], function (module, _) {
                                 {
                                     "key": "role",
                                     type: "select",
-                                    titleMap: _.map(roles, reformatObject)
+                                    titleMap: roles
                                 },
                                 {
                                     "key": "subjects",

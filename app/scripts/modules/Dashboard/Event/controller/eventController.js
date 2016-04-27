@@ -13,10 +13,11 @@ define(['../module', 'lodash', 'jquery'], function (module, _) {
         'Dashboard.Event.EventService',
         'eventsData',
         function ($q, $scope, $state, $timeout, $window, InfoWindow, statePreference, eventService, eventsData) {
+            var center = {lat: 46.6718272, lng: 32.6118258};
             function initMap(map) {
                 $timeout(function () {
                     google.maps.event.trigger(map, 'resize');
-                    map.setCenter(new google.maps.LatLng(46.6718272, 32.6118258));
+                    map.setCenter(new google.maps.LatLng(center.lat, center.lng));
                 });
             }
 
@@ -56,14 +57,43 @@ define(['../module', 'lodash', 'jquery'], function (module, _) {
                 $scope.$broadcast('schemaFormValidate');
                 if (form.$valid) {
                     eventService.addEvent($scope.event.model)
-                        .then(function (data) {
-                            $scope.eventList = data;
+                        .then(function (event) {
+                            $scope.eventList.push(event);
+                            var marker = new google.maps.Marker({
+                                id: event.id,
+                                name: event.name,
+                                position: new google.maps.LatLng(event.location.latitude, event.location.longitude),
+                                map: $scope.map,
+                                title: event.description
+                            });
+                            marker.setDraggable($scope.isSettingPage);
+                            $scope.markers.push(marker);
+                            attach(marker);
                             $scope.toggleShowEditForm();
                         })
                         .finally(function () {
                             $scope.busy = false;
                         });
                 }
+            };
+            $scope.removeEvent = function (event) {
+                $scope.busy = true;
+                eventService.removeEvent(event)
+                    .then(function (data) {
+                        _.every($scope.eventList, function (oldEvent, index) {
+                            if((data[index]) ? data[index].id !== oldEvent.id : true){
+                                $scope.markers[index].setMap(null);
+                                $scope.markers.splice(index,1);
+                                return false;
+                            }
+                            return true;
+                        });
+                        $scope.eventList = data;
+                    })
+                    .finally(function () {
+                        $scope.toggleShowEditForm();
+                        $scope.busy = false;
+                    });
             };
 
 
@@ -119,20 +149,19 @@ define(['../module', 'lodash', 'jquery'], function (module, _) {
                 });
                 return defer.promise;
             };
+            var infowindow = new InfoWindow({templateUrl: 'views/Dashboard/nonauth/marker.html'}); //it's not infowindow now. (object like "javascript promise", but not a promise)
+            function attach(marker) {
+                google.maps.event.addListener(marker, 'click', function () { //on marker click
+                    $scope.checkIsStreetViewPossible($scope.map, marker).then(function (result) {
+                        marker.hasStreetView = result;
+                    });
+                    infowindow.$ready(function (wnd) { // pass infowindow object
+                        wnd.open($scope.map, marker); //open infowindow
+                    });
+                });
+            }
             $scope.ready = function (map) {
                 $scope.map = map;
-
-                var infowindow = new InfoWindow({templateUrl: 'views/Dashboard/nonauth/marker.html'}); //it's not infowindow now. (object like "javascript promise", but not a promise)
-                function attach(marker) {
-                    google.maps.event.addListener(marker, 'click', function () { //on marker click
-                        $scope.checkIsStreetViewPossible($scope.map, marker).then(function (result) {
-                            marker.hasStreetView = result;
-                        });
-                        infowindow.$ready(function (wnd) { // pass infowindow object
-                            wnd.open(map, marker); //open infowindow
-                        });
-                    });
-                }
 
                 var panorama = map.getStreetView();
 

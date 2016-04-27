@@ -87,6 +87,13 @@ define(['./module', 'lodash'], function (module, _) {
                             data: event
                         })
                     },
+                    remove: function (event) {
+                        return new API({
+                            method: METHODS.DELETE,
+                            url: '/event/' + event.id,
+                            data: event
+                        })
+                    },
                     post: function (data) {
                         return new API({
                             method: METHODS.POST,

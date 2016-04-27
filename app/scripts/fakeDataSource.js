@@ -78,8 +78,8 @@ define(['lodash'], function (_) {
                 Math.floor(Math.random() * 2000 + 20) + ' ' + Math.floor(Math.random() * 12) + ':' + Math.floor(Math.random() * 59) + +' ' + dayTime[Math.floor(Math.random() * 2)],
                 description: randomWord(20),
                 location: {
-                    latitude: Math.random() * 100,
-                    longitude: Math.random() * 100
+                    latitude: Math.random() * 5 + 44,
+                    longitude: Math.random() * 5 + 29
                 }
             }
         }
@@ -654,6 +654,19 @@ define(['lodash'], function (_) {
             };
             data.event.objects.push(event);
             commit();
+            return event;
+        };
+        dataSource.deleteEvent = function (dataEvent) {
+            load();
+            var tempEvent = angular.fromJson(dataEvent);
+            _.every(data.event.objects, function (event, index) {
+                if (tempEvent.id === event.id) {
+                    data.event.objects.splice(index, 1);
+                    commit();
+                    return false;
+                }
+                return true;
+            });
             return data.event.objects;
         };
 

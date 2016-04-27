@@ -53,6 +53,14 @@ define(
                     return [400, {errorCode: 7, message: 'wrong add event'}];
                 }
             });
+            $httpBackend.whenDELETE(/\/event\/(0-9)*/).respond(function (method, url, tempEvent) {
+                var events = fakeDataSource.deleteEvent(tempEvent);
+                if (events) {
+                    return [200, events, {}];
+                } else {
+                    return [400, {errorCode: 6, message: 'wrong delete'}];
+                }
+            });
 
         //Role
             $httpBackend.whenGET(prefix + '/roles').respond(function (method, url) {

@@ -224,9 +224,9 @@ define(
 
         //Users
             $httpBackend.whenPUT(/\/user\/(0-9)*/).respond(function (method, url, tempUser) {
-                var users = fakeDataSource.updateUser(tempUser);
-                if (users) {
-                    return [200, users, {}];
+                var user = fakeDataSource.updateUser(tempUser);
+                if (user) {
+                    return [200, user, {}];
                 } else {
                     return [400, {errorCode: 4, message: 'wrong update'}];
                 }

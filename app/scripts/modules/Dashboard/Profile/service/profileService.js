@@ -20,8 +20,8 @@ define(['../module'], function (module) {
             service.updateUser = function (user) {
                 return $http(Endpoint.user.update(user))
                     .then(function (data) {
-                        if (securityContext.getPrincipal().id === data.data.user.id) securityContext.setPrincipal(data.data.user);
-                        return data.data.users;
+                        if (securityContext.getPrincipal().id === data.data.id) securityContext.setPrincipal(data.data);
+                        return data.data;
                     }, function (err) {
                         return $q.reject(err);
                     });

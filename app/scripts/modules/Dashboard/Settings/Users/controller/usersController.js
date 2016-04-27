@@ -122,8 +122,13 @@ define(['../module', 'lodash'], function (module, _) {
                 $scope.$broadcast('schemaFormValidate');
                 if (form.$valid) {
                     profileService.updateUser($scope.user.model)
-                        .then(function (users) {
-                            $scope.users = users;
+                        .then(function (tempUser) {
+                            _.every($scope.users, function (user, index) {
+                                if (user.id === tempUser.id) {
+                                    $scope.users[index] = tempUser;
+                                }
+                                return true;
+                            });
                             $scope.toggleShowEditForm();
                         })
                         .finally(function () {

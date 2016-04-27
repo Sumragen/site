@@ -1011,8 +1011,7 @@ define(['lodash'], function (_) {
                     delete tempUser.role;
                     data.user.objects[index] = tempUser;
                     commit();
-                    data.user.objects.splice(10);
-                    result = {user: tempUser, users: data.user.objects};
+                    result = tempUser;
                     return false;
                 }
                 return true;

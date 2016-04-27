@@ -41,48 +41,32 @@ define(['../module', 'lodash'], function (module, _) {
                     $q.all([
                             lessonService.getSubjectsNames()
                                 .then(function (data) {
-                                    return {
-                                        name: 'subjects',
-                                        data: data
-                                    };
+                                    return data;
                                 })
                                 .catch(function (err) {
                                     $q.reject(err);
                                 }),
                             lessonService.getRoleNames()
                                 .then(function (data) {
-                                    return {
-                                        name: 'roles',
-                                        data: _.map(data, function (role) {
+                                    return _.map(data, function (role) {
                                             return {id: role.id, name: role.name}
-                                        })
-                                    };
+                                        });
                                 })
                                 .catch(function (err) {
                                     $q.reject(err);
                                 }),
                             lessonService.getSubjectsForTeacher(user.id)
                                 .then(function (data) {
-                                    return {
-                                        name: 'subjectsForTeacher',
-                                        data: data
-                                    };
+                                    return data;
                                 })
                                 .catch(function (err) {
                                     $q.reject(err);
                                 })
                         ])
                         .then(function (responses) {
-                            function findDataInResponse(name){
-                                return _.find(responses, function (response) {
-                                    if(response.name === name){
-                                        return response;
-                                    }
-                                })
-                            }
-                            var subjects = findDataInResponse('subjects').data;
-                            var roles = findDataInResponse('roles').data;
-                            var subjectsOfTeacher = findDataInResponse('subjectsForTeacher').data;
+                            var subjects = responses[0];
+                            var roles = responses[1];
+                            var subjectsOfTeacher = responses[2];
                             $scope.user.model = user;
                             $scope.user.model.subjects = subjectsOfTeacher;
                             $scope.user.model.role = $scope.user.model.roles[0].id;

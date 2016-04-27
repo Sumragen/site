@@ -967,7 +967,7 @@ define(['lodash'], function (_) {
                     _.every(data.role.objects, function (role) {
                         if (tempUser.role === role.id) {
                             tempUser.roles[0] = role;
-                            if (role.name === 'teacher') {
+                            if (role.name === 'teacher' || role.name === 'admin') {
                                 if (_.every(data.teacher.objects, function (teacher, ind) {
                                         if (teacher.user === tempUser.id) {
                                             data.teacher.objects[ind] = _.merge(teacher, {subjects: _.map(tempUser.subjects, 'id')});

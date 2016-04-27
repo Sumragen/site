@@ -1169,8 +1169,8 @@ define(['lodash'], function (_) {
         dataSource.getSubjectNames = function () {
             load();
             return _.map(data.subject.objects, function (subject) {
-                    return {id: subject.id, name: subject.name}
-                }).sort(compare);
+                return {id: subject.id, name: subject.name}
+            }).sort(compare);
         };
 
         dataSource.getTeacherNames = function (subjectData) {
@@ -1205,7 +1205,8 @@ define(['lodash'], function (_) {
                             && lesson.day === selectedSubject.day
                             && !_.every(lesson.order, function (order) {
                                 return !(order === selectedSubject.order);
-                            })) {
+                            })
+                            && selectedSubject.subjectId === lesson.subject.id) {
                             tempTeachers.push({id: lesson.teacher.id, name: lesson.teacher.name});
                             return false;
                         }
@@ -1221,10 +1222,13 @@ define(['lodash'], function (_) {
                             tempTeachers.push({id: teacher.user, name: getTeacherNameByUserId(teacher.user)});
                         }
                     });
-                    if(selectedSubject.formMaster){
+                    if (selectedSubject.formMaster) {
                         _.every(data.stage.objects, function (stage) {
-                            if(stage.id === selectedSubject.id){
-                                tempTeachers.push({id: stage.formMaster.id, name: getTeacherNameByUserId(stage.formMaster.id)})
+                            if (stage.id === selectedSubject.id) {
+                                tempTeachers.push({
+                                    id: stage.formMaster.id,
+                                    name: getTeacherNameByUserId(stage.formMaster.id)
+                                })
                                 return false;
                             }
                             return true;

@@ -13,41 +13,39 @@ define(['../module', 'lodash'], function (module, _) {
             $scope.stage = {};
             $scope.showEditForm = false;
             $scope.toggleShowEditForm = function (stage) {
-                $timeout(function () {
-                    stageService.getTeachersName(_.merge(stage,{isFormMasterData : true}))
-                        .then(function (names) {
-                            if (stage) {
-                                $scope.stage.model = angular.copy(stage);
-                                $scope.stage.model.formMaster = $scope.stage.model.formMaster.id;
-                                $scope.stage.form = [
-                                    {
-                                        "key": "formMaster",
-                                        type: 'select',
-                                        titleMap: _.map(names, reformatObject)
-                                    }
-                                ];
-                            } else {
-                                $scope.stage.model = {};
-                                $scope.stage.form = [
-                                    {
-                                        "key": "stage",
-                                        "placeholder": "Stage"
+                stageService.getTeachersName(_.merge(stage, {isFormMasterData: true}))
+                    .then(function (names) {
+                        if (stage) {
+                            $scope.stage.model = angular.copy(stage);
+                            $scope.stage.model.formMaster = $scope.stage.model.formMaster.id;
+                            $scope.stage.form = [
+                                {
+                                    "key": "formMaster",
+                                    type: 'select',
+                                    titleMap: _.map(names, reformatObject)
+                                }
+                            ];
+                        } else {
+                            $scope.stage.model = {};
+                            $scope.stage.form = [
+                                {
+                                    "key": "stage",
+                                    "placeholder": "Stage"
 
-                                    },
-                                    {
-                                        "key": "suffix",
-                                        "placeholder": "Suffix"
-                                    },
-                                    {
-                                        "key": "formMaster",
-                                        type: 'select',
-                                        titleMap: _.map(names, reformatObject)
-                                    }
-                                ];
-                            }
-                            $scope.showEditForm = !$scope.showEditForm;
-                        });
-                });
+                                },
+                                {
+                                    "key": "suffix",
+                                    "placeholder": "Suffix"
+                                },
+                                {
+                                    "key": "formMaster",
+                                    type: 'select',
+                                    titleMap: _.map(names, reformatObject)
+                                }
+                            ];
+                        }
+                        $scope.showEditForm = !$scope.showEditForm;
+                    });
             };
 
             function reformatObject(item) {

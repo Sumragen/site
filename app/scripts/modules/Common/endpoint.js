@@ -299,12 +299,6 @@ define(['./module', 'lodash'], function (module, _) {
                             data : teacher
                         })
                     },
-                    role: function () {
-                        return new API({
-                            method: METHODS.GET,
-                            url: '/roleName'
-                        })
-                    },
                     teacher: function (subject) {
                         return new API({
                             method: METHODS.GET,

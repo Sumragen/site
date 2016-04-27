@@ -273,14 +273,6 @@ define(
                     return [400, {errorCode: 3, message: 'Subjects not found'}];
                 }
             });
-            $httpBackend.whenGET(prefix + '/roleName').respond(function (method, url) {
-                var names = fakeDataSource.getRoleNames();
-                if (names) {
-                    return [200, {names: names}, {}];
-                } else {
-                    return [400, {errorCode: 3, message: 'Roles not found'}];
-                }
-            });
             $httpBackend.whenGET(prefix + '/teacherName').respond(function (method, url, data) {
                 var names = fakeDataSource.getTeacherNames(data);
                 if (names) {

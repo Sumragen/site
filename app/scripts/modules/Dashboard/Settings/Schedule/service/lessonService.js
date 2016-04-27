@@ -27,9 +27,9 @@ define(['../module', 'lodash'], function (module, _) {
                     });
             };
             service.getRoleNames = function () {
-                return $http(Endpoint.name.role())
+                return $http(Endpoint.role.list())
                     .then(function (data) {
-                        return data.data.names;
+                        return data.data.roles;
                     })
                     .catch(function (err) {
                         return $q.reject(err);

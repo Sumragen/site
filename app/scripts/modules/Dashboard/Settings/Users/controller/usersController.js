@@ -9,7 +9,7 @@ define(['../module', 'lodash'], function (module, _) {
         'Dashboard.Profile.ProfileService',
         'Dashboard.Settings.Schedule.LessonService',
         'usersData',
-        function ($scope, $timeout , $q, profileService, lessonService, usersData) {
+        function ($scope, $timeout, $q, profileService, lessonService, usersData) {
             $scope.users = usersData;
             $scope.user = {};
 
@@ -37,7 +37,7 @@ define(['../module', 'lodash'], function (module, _) {
 
             $scope.showEditForm = false;
             $scope.toggleShowEditForm = function (user) {
-                if(user){
+                if (user) {
                     $q.all([
                             lessonService.getSubjectsNames()
                                 .then(function (data) {
@@ -45,7 +45,9 @@ define(['../module', 'lodash'], function (module, _) {
                                 }),
                             lessonService.getRoleNames()
                                 .then(function (data) {
-                                    return data;
+                                    return _.map(data, function (role) {
+                                        return {id: role.id, name: role.name}
+                                    });
                                 }),
                             lessonService.getSubjectsForTeacher(user.id)
                                 .then(function (data) {

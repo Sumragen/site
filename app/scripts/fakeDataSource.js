@@ -1157,15 +1157,6 @@ define(['lodash'], function (_) {
             return teacherName;
         }
 
-        dataSource.getRoleNames = function () {
-            load();
-            var tempRole = [];
-            _.each(data.role.objects, function (role) {
-                tempRole.push({id: role.id, name: role.name});
-            });
-            return tempRole;
-        };
-
         dataSource.getSubjectNames = function () {
             load();
             return _.map(data.subject.objects, function (subject) {

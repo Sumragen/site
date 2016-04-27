@@ -5,10 +5,11 @@ define(['../module', 'lodash'], function (module, _) {
     module.controller('Dashboard.Settings.Users.UsersController', [
         '$scope',
         '$timeout',
+        '$q',
         'Dashboard.Profile.ProfileService',
         'Dashboard.Settings.Schedule.LessonService',
         'usersData',
-        function ($scope, $timeout, profileService, lessonService, usersData) {
+        function ($scope, $timeout , $q, profileService, lessonService, usersData) {
             $scope.users = usersData;
             $scope.user = {};
 
@@ -36,74 +37,82 @@ define(['../module', 'lodash'], function (module, _) {
 
             $scope.showEditForm = false;
             $scope.toggleShowEditForm = function (user) {
-                $timeout(function () {
-                    lessonService.getSubjectsNames()
-                        .then(function (data) {
+                if(user){
+                    $q.all([
+                            lessonService.getSubjectsNames()
+                                .then(function (data) {
+                                    return data.names;
+                                }),
                             lessonService.getRoleNames()
-                                .then(function (names) {
-                                    if (user) {
-                                        lessonService.getSubjectsForTeacher(user.id)
-                                            .then(function (subjectsData) {
-                                                $scope.user.model = user;
-                                                $scope.user.model.subjects = subjectsData;
-                                                $scope.user.model.role = $scope.user.model.roles[0].id;
-                                                _.each($scope.user.model.subjects, function (subject, index) {
-                                                    _.find(data.names, function (subjectName) {
-                                                        if (subject.id === subjectName.id) {
-                                                            $scope.user.model.subjects[index] = subjectName;
-                                                        }
-                                                    });
-                                                });
-
-                                                $scope.user.form = [
-                                                    {
-                                                        key: 'avatar',
-                                                        title: 'Upload avatar',
-                                                        type: 'fileinput',
-                                                        fileType: 'dataUrl',
-                                                        previewType: 'image',
-                                                        accept: 'image/png,image/jpeg',
-                                                        onFileSelect: null
-                                                    },
-                                                    {
-                                                        "key": "first_name",
-                                                        "placeholder": "First name"
-
-                                                    },
-                                                    {
-                                                        "key": "last_name",
-                                                        "placeholder": "Last name"
-                                                    },
-                                                    {
-                                                        "key": "username",
-                                                        "placeholder": "username"
-                                                    },
-                                                    {
-                                                        "key": "email",
-                                                        "placeholder": "email"
-                                                    },
-                                                    {
-                                                        "key": "role",
-                                                        type: "select",
-                                                        titleMap: _.map(names, reformatObject)
-                                                    },
-                                                    {
-                                                        "key": "subjects",
-                                                        "type": "multiselect",
-                                                        condition: "user.model.role === 1 || user.model.role === 2",
-                                                        items: data.names
-                                                    }
-                                                ];
-                                            });
-                                    } else {
-                                        $scope.user.model = {};
+                                .then(function (data) {
+                                    return data;
+                                }),
+                            lessonService.getSubjectsForTeacher(user.id)
+                                .then(function (data) {
+                                    return data;
+                                })
+                        ])
+                        .then(function (responses) {
+                            var subjects = responses[0];
+                            var roles = responses[1];
+                            var subjectsOfTeacher = responses[2];
+                            $scope.user.model = user;
+                            $scope.user.model.subjects = subjectsOfTeacher;
+                            $scope.user.model.role = $scope.user.model.roles[0].id;
+                            _.each($scope.user.model.subjects, function (subject, index) {
+                                _.find(subjects, function (subjectName) {
+                                    if (subject.id === subjectName.id) {
+                                        $scope.user.model.subjects[index] = subjectName;
                                     }
-
                                 });
+                            });
+
+                            $scope.user.form = [
+                                {
+                                    key: 'avatar',
+                                    title: 'Upload avatar',
+                                    type: 'fileinput',
+                                    fileType: 'dataUrl',
+                                    previewType: 'image',
+                                    accept: 'image/png,image/jpeg',
+                                    onFileSelect: null
+                                },
+                                {
+                                    "key": "first_name",
+                                    "placeholder": "First name"
+
+                                },
+                                {
+                                    "key": "last_name",
+                                    "placeholder": "Last name"
+                                },
+                                {
+                                    "key": "username",
+                                    "placeholder": "username"
+                                },
+                                {
+                                    "key": "email",
+                                    "placeholder": "email"
+                                },
+                                {
+                                    "key": "role",
+                                    type: "select",
+                                    titleMap: _.map(roles, reformatObject)
+                                },
+                                {
+                                    "key": "subjects",
+                                    "type": "multiselect",
+                                    condition: "user.model.role === 1 || user.model.role === 2",
+                                    items: subjects
+                                }
+                            ];
                         });
-                    $scope.scrollDisabled = !$scope.scrollDisabled;
-                    $scope.showEditForm = !$scope.showEditForm;
-                });
+                } else {
+                    $scope.user.model = {};
+                }
+                $scope.scrollDisabled = !$scope.scrollDisabled;
+                $scope.showEditForm = !$scope.showEditForm;
+
             };
 
             $scope.editProfile = function (form) {

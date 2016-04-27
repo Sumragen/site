@@ -53,7 +53,7 @@ define(['../module', 'lodash'], function (module, _) {
                         return $q.reject(err);
                     });
             };
-            service.createLesson = function (lesson){
+            service.createLesson = function (lesson) {
                 return $http(Endpoint.lesson.post(lesson))
                     .then(function (data) {
                         return data.data;

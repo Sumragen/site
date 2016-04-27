@@ -122,9 +122,9 @@ define(['../module', 'lodash'], function (module, _) {
                 });
 
             $scope.updateLesson = function (form) {
-                $scope.busy = true;
                 $scope.$broadcast('schemaFormValidate');
                 if (form.$valid) {
+                    $scope.busy = true;
                     lessonService.updateLesson($scope.lesson.model)
                         .then(function (data) {
                             $scope.lessons = data;
@@ -133,15 +133,13 @@ define(['../module', 'lodash'], function (module, _) {
                         .finally(function () {
                             $scope.busy = false;
                         });
-                }else{
-                    $scope.busy = false;
                 }
             };
 
             $scope.createLesson = function (form) {
-                $scope.busy = true;
                 $scope.$broadcast('schemaFormValidate');
                 if (form.$valid) {
+                    $scope.busy = true;
                     lessonService.createLesson($scope.lesson.model)
                         .then(function (data) {
                             $scope.lessons = data;
@@ -150,8 +148,6 @@ define(['../module', 'lodash'], function (module, _) {
                         .finally(function () {
                             $scope.busy = false;
                         });
-                }else{
-                    $scope.busy = false;
                 }
             };
             $scope.lesson.schema = {

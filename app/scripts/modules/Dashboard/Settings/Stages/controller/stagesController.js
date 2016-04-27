@@ -55,9 +55,9 @@ define(['../module', 'lodash'], function (module, _) {
             }
 
             $scope.updateStage = function (form) {
-                $scope.busy = true;
                 $scope.$broadcast('schemaFormValidate');
                 if (form.$valid) {
+                    $scope.busy = true;
                     stageService.updateStage($scope.stage.model)
                         .then(function (stages) {
                             $scope.stages = stages.data;
@@ -69,9 +69,9 @@ define(['../module', 'lodash'], function (module, _) {
                 }
             };
             $scope.createStage = function (form) {
-                $scope.busy = true;
                 $scope.$broadcast('schemaFormValidate');
                 if (form.$valid) {
+                    $scope.busy = true;
                     stageService.createStage($scope.stage.model)
                         .then(function (stages) {
                             $scope.stages = stages.data;
@@ -80,8 +80,6 @@ define(['../module', 'lodash'], function (module, _) {
                         .finally(function () {
                             $scope.busy = false;
                         });
-                }else{
-                    $scope.busy = false;
                 }
             };
 

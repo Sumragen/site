@@ -19,7 +19,7 @@ define(['../module', 'lodash'], function (module, _) {
             $scope.getSubjectsNames = function () {
                 lessonService.getSubjectsNames()
                     .then(function (data) {
-                        $scope.lesson.form[0].titleMap = _.map(data.names, reformatObject);
+                        $scope.lesson.form[0].titleMap = _.map(data, reformatObject);
                         $scope.$broadcast('schemaFormRedraw');
                     });
             };

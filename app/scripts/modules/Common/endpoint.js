@@ -285,20 +285,6 @@ define(['./module', 'lodash'], function (module, _) {
                     }
                 },
                 name: {
-                    get: function (data) {
-                        return new API({
-                            method: METHODS.GET,
-                            url: '/names',
-                            data: data
-                        })
-                    },
-                    subject: function (teacher) {
-                        return new API({
-                            method: METHODS.GET,
-                            url: '/subjectName',
-                            data : teacher
-                        })
-                    },
                     teacher: function (subject) {
                         return new API({
                             method: METHODS.GET,

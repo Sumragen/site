@@ -41,7 +41,7 @@ define(['../module', 'lodash'], function (module, _) {
                     $q.all([
                             lessonService.getSubjectsNames()
                                 .then(function (data) {
-                                    return data.names;
+                                    return data;
                                 }),
                             lessonService.getRoleNames()
                                 .then(function (data) {

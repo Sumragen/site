@@ -1219,7 +1219,7 @@ define(['lodash'], function (_) {
                                 tempTeachers.push({
                                     id: stage.formMaster.id,
                                     name: getTeacherNameByUserId(stage.formMaster.id)
-                                })
+                                });
                                 return false;
                             }
                             return true;

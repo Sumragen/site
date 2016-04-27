@@ -17,15 +17,6 @@ define(['../module', 'lodash'], function (module, _) {
                         $q.reject(err);
                     });
             };
-            service.getNames = function (data) {
-                return $http(Endpoint.name.get(data))
-                    .then(function (data) {
-                        return data.data;
-                    })
-                    .catch(function (err) {
-                        return $q.reject(err);
-                    });
-            };
             service.getRoleNames = function () {
                 return $http(Endpoint.role.list())
                     .then(function (data) {
@@ -35,10 +26,12 @@ define(['../module', 'lodash'], function (module, _) {
                         return $q.reject(err);
                     });
             };
-            service.getSubjectsNames = function (teacher) {
-                return $http(Endpoint.name.subject(teacher))
+            service.getSubjectsNames = function () {
+                return $http(Endpoint.subject.list())
                     .then(function (data) {
-                        return data.data;
+                        return _.map(data.data.subjects, function (subject) {
+                            return {id: subject.id, name: subject.name}
+                        });
                     })
                     .catch(function (err) {
                         return $q.reject(err);

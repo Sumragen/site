@@ -970,7 +970,7 @@ define(['lodash'], function (_) {
                             if (role.name === 'teacher' || role.name === 'admin') {
                                 if (_.every(data.teacher.objects, function (teacher, ind) {
                                         if (teacher.user === tempUser.id) {
-                                            data.teacher.objects[ind] = _.merge(teacher, {subjects: _.map(tempUser.subjects, 'id')});
+                                            data.teacher.objects[ind].subjects = _.map(tempUser.subjects, 'id');
                                             return false;
                                         }
                                         return true;
@@ -982,12 +982,12 @@ define(['lodash'], function (_) {
                                     })
                                 }
                                 _.each(data.subject.objects, function (subject, i) {
-                                    _.every(subject.teachers, function (teacher) {
+                                    _.every(subject.teachers, function (teacher, index) {
                                         if (teacher === tempUser.id) {
                                             if (_.every(tempUser.subjects, function (userSubject) {
                                                     return !(userSubject.id === subject.id);
                                                 })) {
-                                                data.subject.objects.splice(i, 1);
+                                                data.subject.objects[i].teachers.splice(index, 1);
                                                 return false;
                                             }
                                             return false;

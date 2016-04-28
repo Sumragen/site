@@ -289,6 +289,9 @@ define(['../module', 'lodash', 'jquery'], function (module, _) {
                 return searchResults[0].formatted_address.split(',').splice(0, 1).join(',');
             };
             $scope.onPlaceChanged = function (map, place, inputValue) {
+                if (!$scope.placesInfoWindow) {
+                    $scope.placesInfoWindow = new InfoWindow(null);
+                }
                 if (!$scope.placeMarker) {
                     $scope.placeMarker = new google.maps.Marker({
                         id: 'places_marker',

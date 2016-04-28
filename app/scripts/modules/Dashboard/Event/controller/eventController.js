@@ -281,7 +281,56 @@ define(['../module', 'lodash', 'jquery'], function (module, _) {
                     },
                     "placeholder": "Date"
                 }
-            ]
+            ];
+            $scope.autoCompleteControlPosition = google.maps.ControlPosition.TOP_CENTER;
+            $scope.placeHolder = 'Enter location';
+            $scope.enableDefaultMarker = false;
+            $scope.onReverseAddressComplete = function (searchResults) {
+                return searchResults[0].formatted_address.split(',').splice(0, 1).join(',');
+            };
+            $scope.onPlaceChanged = function (map, place, inputValue) {
+                if (!$scope.placeMarker) {
+                    $scope.placeMarker = new google.maps.Marker({
+                        id: 'places_marker',
+                        map: null
+                    });
+                    $scope.placeMarker.setDraggable(true);
+                    google.maps.event.addListener($scope.placeMarker, 'dragend', function () {
+                        $scope.$broadcast('gmap-auto-complete:reverse', this.position);
+                    });
+                }
+                var position = null;
+                if (!place.geometry) {
+                    var searchFor = inputValue;
+                    if (typeof searchFor === 'string' && searchFor.length > 0) {
+                        var splitLatLon = searchFor.split(','),
+                            latitude = splitLatLon[0] * 1,
+                            longitude = splitLatLon[1] * 1;
+                        if (splitLatLon.length == 2 &&
+                            angular.isNumber(latitude) &&
+                            !angular.isNumber(longitude) &&
+                            !isNaN(latitude) && !isNaN(longitude)) {
+                            position = {lat: latitude, lng: longitude};
+                            map.setCenter(position);
+                        }
+                    }
+                    if (!position) {
+                        $scope.placeMarker.setVisible(false);
+                        $scope.placesInfoWindow.$ready(function (wnd) {
+                            wnd.close();
+                        });
+                        return;
+                    }
+                } else {
+                    position = place.geometry.location;
+                }
+                $scope.placeMarker.setPosition(position);
+                $scope.placeMarker.setVisible(true);
+                $scope.placesInfoWindow.$ready(function (wnd) {
+                    wnd.place = place;
+                    wnd.open(map, $scope.placeMarker);
+                });
+            };
         }
     ]);
 });

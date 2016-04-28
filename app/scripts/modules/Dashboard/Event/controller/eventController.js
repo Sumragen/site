@@ -44,6 +44,7 @@ define(['../module', 'lodash', 'jquery'], function (module, _) {
                     $scope.deleteMarker = function () {
                         $scope.markers[0].setMap(null);
                         $scope.markers[0].position = null;
+                        $scope.event.copyModel.location = null;
                     };
                     clickMapListener = $scope.map.addListener('click', function (event) {
                         $scope.markers[0].setMap($scope.map);

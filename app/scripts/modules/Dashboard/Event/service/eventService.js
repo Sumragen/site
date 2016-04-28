@@ -24,7 +24,7 @@ define(['../module'], function (module) {
                         return $q.reject(err);
                     });
             };
-            service.addEvent = function (event) {
+            service.createEvent = function (event) {
                 return $http(Endpoint.events.post(event))
                     .then(function (data) {
                         return data.data;

@@ -14,6 +14,7 @@ define(['../module', 'lodash', 'jquery'], function (module, _) {
         'eventsData',
         function ($q, $scope, $state, $timeout, $window, InfoWindow, statePreference, eventService, eventsData) {
             var center = {lat: 46.6718272, lng: 32.6118258};
+
             function initMap(map) {
                 $timeout(function () {
                     google.maps.event.trigger(map, 'resize');
@@ -26,6 +27,9 @@ define(['../module', 'lodash', 'jquery'], function (module, _) {
             $scope.event = {};
             $scope.isSettingPage = $state.current.name.indexOf('settings') > -1;
             $scope.showEditForm = false;
+            $scope.showSetMarkerForm = false;
+            var clickMapListener = null;
+
             if ($scope.isSettingPage) {
                 $scope.toggleShowEditForm = function (event) {
                     initMap($scope.map);
@@ -36,6 +40,30 @@ define(['../module', 'lodash', 'jquery'], function (module, _) {
                     }
                     $scope.showEditForm = !$scope.showEditForm;
                 };
+                $scope.toggleShowSetMarkerForm = function (marker) {
+                    $scope.deleteMarker = function () {
+                        $scope.markers[0].setMap(null);
+                        $scope.markers[0].position = null;
+                    };
+                    clickMapListener = $scope.map.addListener('click', function (event) {
+                        $scope.markers[0].setMap($scope.map);
+                        $scope.markers[0].position = event.latLng;
+                        $scope.event.copyModel.location = event ? {
+                            latitude: event.latLng.lat(),
+                            longitude: event.latLng.lng()
+                        } : null
+                    });
+
+                    if (marker) {
+                        _.each($scope.markers, function (item, index) {
+                            $scope.markers[index].setMap(null);
+                        });
+                        marker.setDraggable($scope.isSettingPage);
+                        $scope.markers = [marker];
+                        attach(marker);
+                    }
+                    $scope.showSetMarkerForm = !$scope.showSetMarkerForm;
+                }
             }
 
             $scope.editEvent = function (form) {
@@ -52,24 +80,23 @@ define(['../module', 'lodash', 'jquery'], function (module, _) {
                         });
                 }
             };
-            $scope.addEvent = function (form) {
+            $scope.createEvent = function (form) {
                 $scope.busy = false;
                 $scope.$broadcast('schemaFormValidate');
                 if (form.$valid) {
-                    eventService.addEvent($scope.event.model)
+                    eventService.createEvent($scope.event.model)
                         .then(function (event) {
+                            $scope.event.copyModel = event;
                             $scope.eventList.push(event);
                             var marker = new google.maps.Marker({
                                 id: event.id,
                                 name: event.name,
-                                position: new google.maps.LatLng(event.location.latitude, event.location.longitude),
-                                map: $scope.map,
+                                position: null,
+                                map: null,
                                 title: event.description
                             });
-                            marker.setDraggable($scope.isSettingPage);
-                            $scope.markers.push(marker);
-                            attach(marker);
                             $scope.toggleShowEditForm();
+                            $scope.toggleShowSetMarkerForm(marker);
                         })
                         .finally(function () {
                             $scope.busy = false;
@@ -81,9 +108,9 @@ define(['../module', 'lodash', 'jquery'], function (module, _) {
                 eventService.removeEvent(event)
                     .then(function (data) {
                         _.every($scope.eventList, function (oldEvent, index) {
-                            if((data[index]) ? data[index].id !== oldEvent.id : true){
+                            if ((data[index]) ? data[index].id !== oldEvent.id : true) {
                                 $scope.markers[index].setMap(null);
-                                $scope.markers.splice(index,1);
+                                $scope.markers.splice(index, 1);
                                 return false;
                             }
                             return true;
@@ -113,17 +140,34 @@ define(['../module', 'lodash', 'jquery'], function (module, _) {
             };
 
             $scope.saveMarkers = function () {
-                _.each($scope.markers, function (marker, index) {
-                    $scope.eventList[index].location.latitude = marker.position.lat();
-                    $scope.eventList[index].location.longitude = marker.position.lng();
-                });
-                eventService.updateEventList($scope.eventList)
-                    .then(function () {
-                        $window.alert('Done!');
-                    })
-                    .catch(function (err) {
-                        $window.alert(err);
+                if (!$scope.showSetMarkerForm) {
+                    _.each($scope.markers, function (marker, index) {
+                        $scope.eventList[index].location = (marker.position) ? {
+                            latitude: marker.position.lat(),
+                            longitude: marker.position.lng()
+                        } : null;
                     });
+                    eventService.updateEventList($scope.eventList)
+                        .then(function () {
+                            //$window.alert('Done!');
+                        })
+                        .catch(function (err) {
+                            $window.alert(err);
+                        });
+                } else {
+                    $scope.busy = true;
+                    eventService.updateEvent($scope.event.copyModel)
+                        .then(function (data) {
+                            google.maps.event.clearListeners($scope.map, 'click');
+                            $scope.eventList = data;
+                            $scope.markers[0].setMap(null);
+                            createMarkerList()
+                        })
+                        .finally(function () {
+                            $scope.busy = false;
+                        });
+                    $scope.toggleShowSetMarkerForm();
+                }
             };
 
             //Map version
@@ -160,6 +204,23 @@ define(['../module', 'lodash', 'jquery'], function (module, _) {
                     });
                 });
             }
+
+            function createMarkerList() {
+                $scope.markers = [];
+                _.each($scope.eventList, function (event) {
+                    var marker = new google.maps.Marker({
+                        id: event.id,
+                        name: event.name,
+                        position: event.location ? new google.maps.LatLng(event.location.latitude, event.location.longitude) : null,
+                        map: event.location ? $scope.map : null,
+                        title: event.description
+                    });
+                    $scope.markers.push(marker);
+                    marker.setDraggable($scope.isSettingPage);
+                    attach(marker);
+                });
+            }
+
             $scope.ready = function (map) {
                 $scope.map = map;
 
@@ -176,18 +237,7 @@ define(['../module', 'lodash', 'jquery'], function (module, _) {
                         panorama.setVisible(false);
                     }
                 };
-                _.each($scope.eventList, function (event) {
-                    var marker = new google.maps.Marker({
-                        id: event.id,
-                        name: event.name,
-                        position: new google.maps.LatLng(event.location.latitude, event.location.longitude),
-                        map: map,
-                        title: event.description
-                    });
-                    $scope.markers.push(marker);
-                    marker.setDraggable($scope.isSettingPage);
-                    attach(marker);
-                });
+                createMarkerList();
             };
             $scope.event.schema = {
                 "type": "object",

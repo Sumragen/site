@@ -599,7 +599,7 @@ define(['lodash'], function (_) {
             }));
             //init random data
             load();
-            _.each(_.range(20), function () {
+            _.each(_.range(5), function () {
                 data.user.objects.push(generateRandomUser(student));
                 data.event.objects.push(generateRandomEvent())
             });
@@ -648,10 +648,7 @@ define(['lodash'], function (_) {
             load();
             var event = angular.fromJson(tempEvent);
             event.id = ++data.event.lastIndex;
-            event.location = {
-                latitude: 46.6699334,
-                longitude: 32.6169105
-            };
+            event.location = null;
             data.event.objects.push(event);
             commit();
             return event;

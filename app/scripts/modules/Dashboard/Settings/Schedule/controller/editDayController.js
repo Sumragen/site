@@ -6,12 +6,12 @@ define(['../module', 'lodash'], function (module, _) {
         '$scope',
         '$stateParams',
         '$uibModal',
+        '$uibModalStack',
         '$state',
         'Dashboard.Settings.Schedule.LessonService',
         'Dashboard.Schedule.ScheduleService',
         'Dashboard.Schedule.ScheduleDataService',
-        function ($scope, $stateParams, $uibModal, $state, lessonService, scheduleService, scheduleDataService) {
-            $stateParams.day ? $scope.selectedDay = $stateParams.day : $state.go('dashboard.settings.schedule.selector');
+        function ($scope, $stateParams, $uibModal, $uibModalStack, $state, lessonService, scheduleService, scheduleDataService) {
 
             $scope.showEditForm = false;
             $scope.lesson = {};
@@ -44,12 +44,14 @@ define(['../module', 'lodash'], function (module, _) {
                         $scope.$broadcast('schemaFormRedraw');
                     });
             };
-
+            $scope.cancel = function () {
+                checkIsStageEdit();
+                $scope.toggleShowEditForm();
+            };
             $scope.toggleShowEditForm = function (stage, suffix, index) {
                 $scope.lesson.stage = stage;
                 $scope.lesson.suffix = suffix;
                 $scope.lesson.order = index;
-
                 if ($scope.lessons.every(function (lesson) {
                         if (Number(lesson.stage) === stage && lesson.suffix === suffix) {
                             return lesson.order.every(function (order) {
@@ -93,31 +95,45 @@ define(['../module', 'lodash'], function (module, _) {
                 $scope.getTeachersNames();
                 $scope.showEditForm = !$scope.showEditForm;
             };
+
+            if ($stateParams.day) {
+                $scope.selectedDay = $stateParams.day;
+                lessonService.getLessonsByDay($scope.selectedDay)
+                    .then(function (data) {
+                        $scope.lessons = data.lessons;
+                        $scope.getLessonNameByOrder = function (stage, suffix, index) {
+                            var result = null;
+                            $scope.lessons.every(function (lesson) {
+                                if (Number(lesson.stage) === stage && lesson.suffix === suffix) {
+                                    return lesson.order.every(function (order) {
+                                        if (order === index) {
+                                            result = lesson.subject.name;
+                                            return false;
+                                        }
+                                        return true;
+                                    })
+                                }
+                                return true;
+                            });
+                            return result;
+                        };
+                        if ($stateParams.day.stage) {
+                            $scope.lesson.stage = $stateParams.day.stage.stage;
+                            $scope.lesson.suffix = $stateParams.day.stage.suffix;
+                            $scope.toggleShowEditForm($stateParams.day.stage.stage, $stateParams.day.stage.suffix, $stateParams.day.stage.order)
+                        }
+                    });
+
+            } else {
+                $state.go('dashboard.settings.schedule.selector');
+            }
+
+
             scheduleDataService.getStages()
                 .then(function (data) {
                     $scope.stages = data;
                 });
 
-            lessonService.getLessonsByDay($scope.selectedDay)
-                .then(function (data) {
-                    $scope.lessons = data.lessons;
-                    $scope.getLessonNameByOrder = function (stage, suffix, index) {
-                        var result = null;
-                        $scope.lessons.every(function (lesson) {
-                            if (Number(lesson.stage) === stage && lesson.suffix === suffix) {
-                                return lesson.order.every(function (order) {
-                                    if (order === index) {
-                                        result = lesson.subject.name;
-                                        return false;
-                                    }
-                                    return true;
-                                })
-                            }
-                            return true;
-                        });
-                        return result;
-                    };
-                });
 
             $scope.updateLesson = function (form) {
                 $scope.$broadcast('schemaFormValidate');
@@ -125,6 +141,7 @@ define(['../module', 'lodash'], function (module, _) {
                     $scope.busy = true;
                     lessonService.updateLesson($scope.lesson.model)
                         .then(function (data) {
+                            checkIsStageEdit();
                             $scope.lessons = data;
                             $scope.toggleShowEditForm();
                         })
@@ -140,14 +157,27 @@ define(['../module', 'lodash'], function (module, _) {
                     $scope.busy = true;
                     lessonService.createLesson($scope.lesson.model)
                         .then(function (data) {
-                            $scope.lessons = data;
-                            $scope.toggleShowEditForm();
+                            if ($stateParams.day.stage) {
+                                checkIsStageEdit();
+                            } else {
+                                $scope.lessons = data;
+                                $scope.toggleShowEditForm();
+                            }
                         })
                         .finally(function () {
                             $scope.busy = false;
                         });
                 }
             };
+            function checkIsStageEdit() {
+                if ($stateParams.day.stage) {
+                    scheduleService.getStageBySuffix($stateParams.day.stage.id)
+                        .then(function (data) {
+                            $state.go('dashboard.settings.schedule.edit.stage', {stage: data.data.stage});
+                        });
+                }
+            }
+
             $scope.lesson.schema = {
                 "type": "object",
                 "properties": {
@@ -161,7 +191,7 @@ define(['../module', 'lodash'], function (module, _) {
                     },
                     classroom: {
                         type: "number",
-                        minimum : 0,
+                        minimum: 0,
                         title: "Classroom"
                     }
                 },

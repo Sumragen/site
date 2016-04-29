@@ -18,16 +18,14 @@ define(['../module', 'lodash'], function (module, _) {
         function ($scope, $state, moment, $filter, $uibModal, $timeout, $stateParams, scheduleService, scheduleDataService, scheduleConst, schedulingUtil, scheduleData) {
             var self = this;
             $scope.busy = false;
-            var _templateUrl = "views/Dashboard/Schedule/day.html";
+            var templateUrl = "views/Dashboard/Schedule/day.html";
+            var controller = 'Dashboard.Schedule.DayController';
 
             var isSettingsPage = $state.current.name.indexOf('settings') > -1;
-            if (isSettingsPage) {
-                _templateUrl = "views/Dashboard/Schedule/daySettings.html";
-            }
-
-            function showEditPanel() {
-
-            }
+            //if (isSettingsPage) {
+            //    templateUrl = "views/Dashboard/Settings/Schedule/day.html";
+            //    controller = 'Dashboard.Schedule.ScheduleController';
+            //}
 
             function saveOnEventDrop(event, delta) {
                 scheduleService.updateLessonById({
@@ -40,14 +38,15 @@ define(['../module', 'lodash'], function (module, _) {
             function showDayModal(date) {
                 var modalInstance = $uibModal.open({
                     animation: true,
-                    templateUrl: _templateUrl,
-                    controller: "Dashboard.Schedule.DayController as controller",
+                    templateUrl: templateUrl,
+                    controller: controller + " as controller",
                     size: 'lg',
                     windowClass: 'custom-modal-day',
                     resolve: {
                         currentSchedule: function () {
                             return scheduleData || {};
                         },
+                        currentStage : $scope.stage,
                         date: date
                     }
                 });
@@ -57,6 +56,10 @@ define(['../module', 'lodash'], function (module, _) {
                 }, function () {
 
                 });
+            }
+
+            function editLesson(date, jsEvent, view) {
+                showDayModal(date);
             }
 
             $scope.eventSource = {
@@ -77,7 +80,7 @@ define(['../module', 'lodash'], function (module, _) {
             } else {
                 if (isSettingsPage) {
                     $state.go('dashboard.settings.schedule.selector');
-                }else{
+                } else {
                     $scope.events = scheduleDataService.parseLessons(($stateParams.stage) ? $stateParams.stage.schedule : null || scheduleData.schedule);
                     $scope.eventSources = [$scope.events, $scope.eventSource];
                 }
@@ -94,7 +97,7 @@ define(['../module', 'lodash'], function (module, _) {
                         right: 'today prev,next'
                     },
                     eventDrop: saveOnEventDrop,
-                    dayClick: showDayModal
+                    dayClick: editLesson
                 }
             };
         }]);

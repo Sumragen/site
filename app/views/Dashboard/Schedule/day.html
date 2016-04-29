@@ -12,11 +12,13 @@
         </tr>
         </thead>
         <tbody>
-        <tr ng-repeat="lesson in currentDay track by $index" ng-if="$index !== 0 || (lesson != null || lesson.name != null)" class="info">
+        <tr ng-repeat="lesson in currentDay track by $index" ng-if="$index !== 0 || (lesson != null || lesson.name != null)" class="info"
+        ng-style="isSettingsPage ? {'cursor':'pointer'} : {'cursor':'default'}"
+        ng-click="isSettingsPage ? openLessonEditForm(lesson, $index) : none">
             <td>{{$index}}</td>
-            <td>{{lesson.lesson}}</td>
+            <td>{{lesson.subject.name}}</td>
             <td>{{lesson.classroom}}</td>
-            <td>{{lesson.teacher}}</td>
+            <td>{{lesson.teacher.name}}</td>
         </tr>
         </tbody>
     </table>

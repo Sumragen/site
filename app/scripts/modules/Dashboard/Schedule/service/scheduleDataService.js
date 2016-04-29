@@ -86,13 +86,20 @@ define(['../module', 'lodash'], function (module, _) {
                 return events;
             };
             service.parse = function (day){
-                var schedule = [null, null, null, null, null, null, null, null, null];
-                _.each(day.lessons, function (lesson) {
-                    _.each(lesson.order, function (order) {
-                        schedule[order] = angular.copy(lesson);
-                        schedule[order].num = order;
-                        schedule[order].day = day.name;
-                    });
+                var schedule = [];
+                _.each(_.range(9), function (index) {
+                    if(_.every(day, function (lesson) {
+                        return _.every(lesson.order, function (order) {
+                            if(order === index){
+                                schedule.push(angular.copy(lesson));
+                                schedule[index].order = order;
+                                return false;
+                            }
+                            return true;
+                        })
+                    })){
+                        schedule.push(null);
+                    }
                 });
                 return schedule;
             };

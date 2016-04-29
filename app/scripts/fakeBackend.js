@@ -121,6 +121,14 @@ define(
                     return [400, {errorCode: 5, message: 'Lessons not found'}];
                 }
             });
+            $httpBackend.whenPUT(prefix + '/lessons').respond(function (method, url, tempLessons) {
+                var lessons = fakeDataSource.updateLessons(tempLessons);
+                if (lessons) {
+                    return [200, lessons, {}];
+                } else {
+                    return [400, {errorCode: 4, message: 'wrong update'}];
+                }
+            });
             $httpBackend.whenPUT(prefix + '/lesson').respond(function (method, url, tempLesson) {
                 var lesson = fakeDataSource.updateLessonById(tempLesson);
                 if (lesson) {

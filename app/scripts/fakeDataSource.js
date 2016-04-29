@@ -716,18 +716,19 @@ define(['lodash'], function (_) {
             );
             return lessons;
         };
+    var days = {
+        1: 'Monday',
+        2: 'Tuesday',
+        3: 'Wednesday',
+        4: 'Thursday',
+        5: 'Friday',
+        6: 'Sunday',
+        7: 'Saturday'
+    };
         dataSource.updateLessonById = function (dataLesson) {
             load();
             var tempLesson = angular.fromJson(dataLesson);
-            var days = {
-                1: 'Monday',
-                2: 'Tuesday',
-                3: 'Wednesday',
-                4: 'Thursday',
-                5: 'Friday',
-                6: 'Sunday',
-                7: 'Saturday'
-            };
+            var newLesson = {};
             _.every(data.lesson.objects, function (lesson, index) {
                 if (tempLesson.id === lesson.id) {
                     if (lesson.order.length > 1) {
@@ -738,17 +739,34 @@ define(['lodash'], function (_) {
                             }
                             return true;
                         });
-                        var newLesson = angular.copy(data.lesson.objects[index]);
+                        newLesson = angular.copy(data.lesson.objects[index]);
                         newLesson.id = ++data.lesson.lastIndex;
                         newLesson.order = [tempLesson.order];
                         newLesson.day = days[Math.abs(tempLesson.dow)];
                         data.lesson.objects.push(newLesson)
                     } else {
                         data.lesson.objects[index].day = days[Math.abs(tempLesson.dow)];
+                        newLesson = data.lesson.objects[index];
                     }
                     return false;
                 }
                 return true;
+            });
+            commit();
+            return newLesson;
+        };
+        dataSource.updateLessons = function (dataLessons) {
+            load();
+            var tempLessons = angular.fromJson(dataLessons);
+            //_.each(tempLessons, function (changedLesson) {
+            //    _.every(data.lesson.objects, function (lesson) {
+            //        if(lesson.id === changedLesson.id){
+            //
+            //        }
+            //    })
+            //});
+            _.each(tempLessons, function (lesson) {
+                dataSource.updateLessonById(lesson);
             });
             commit();
             return data.lesson.objects;

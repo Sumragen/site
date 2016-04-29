@@ -17,6 +17,15 @@ define(['../module', 'lodash'], function (module, _) {
                         return $q.reject(err);
                     })
             };
+            service.updateLessonList = function (lessons) {
+                return $http(Endpoint.lesson.updateList(lessons))
+                    .then(function (data) {
+                        return data.data;
+                    })
+                    .catch(function (err) {
+                        return $q.reject(err);
+                    })
+            };
             service.getLessonsByStage = function (stage) {
                 return $http(Endpoint.lesson.listByStage(stage))
                     .then(function (data) {

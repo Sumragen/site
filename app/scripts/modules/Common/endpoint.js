@@ -283,6 +283,13 @@ define(['./module', 'lodash'], function (module, _) {
                             data: data
                         })
                     },
+                    updateList: function (lessons) {
+                        return new API({
+                            method: METHODS.PUT,
+                            url: '/lessons',
+                            data: lessons
+                        })
+                    },
                     update: function (lesson) {
                         return new API({
                             method: METHODS.PUT,

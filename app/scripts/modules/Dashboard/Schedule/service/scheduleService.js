@@ -23,7 +23,7 @@ define(['../module', 'lodash'], function (module, _) {
                         return data.data;
                     })
                     .catch(function (err) {
-                        return $q.reject(err);
+                        return $q.reject(err.data);
                     })
             };
             service.getLessonsByStage = function (stage) {

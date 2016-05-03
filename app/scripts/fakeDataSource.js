@@ -716,15 +716,15 @@ define(['lodash'], function (_) {
             );
             return lessons;
         };
-    var days = {
-        1: 'Monday',
-        2: 'Tuesday',
-        3: 'Wednesday',
-        4: 'Thursday',
-        5: 'Friday',
-        6: 'Sunday',
-        7: 'Saturday'
-    };
+        var days = {
+            1: 'Monday',
+            2: 'Tuesday',
+            3: 'Wednesday',
+            4: 'Thursday',
+            5: 'Friday',
+            6: 'Sunday',
+            7: 'Saturday'
+        };
         dataSource.updateLessonById = function (dataLesson) {
             load();
             var tempLesson = angular.fromJson(dataLesson);
@@ -765,11 +765,37 @@ define(['lodash'], function (_) {
             //        }
             //    })
             //});
-            _.each(tempLessons, function (lesson) {
-                dataSource.updateLessonById(lesson);
+            var result = {isError: false, objects: []};
+            _.each(data.lesson.objects, function (toCheckLesson) {
+                if (Number(toCheckLesson.stage) === tempLessons.stage.stage
+                    && toCheckLesson.suffix === tempLessons.stage.suffix) {
+                    _.every(data.lesson.objects, function (checkLesson) {
+                        if (checkLesson.id !== toCheckLesson.id
+                            && checkLesson.day === toCheckLesson.day
+                            && toCheckLesson.teacher.id === checkLesson.teacher.id
+                            && !_.every(checkLesson.order, function (checkOrder) {
+                                return _.every(toCheckLesson.order, function (toCheckOrder) {
+                                    return !(checkOrder === toCheckOrder);
+                                })
+                            })) {
+                            result.isError = true;
+                            result.objects.push(toCheckLesson.id);
+                            return false;
+                        }
+                        return true;
+                    })
+                }
             });
+            if (!result.isError) {
+                _.each(tempLessons.objects, function (lesson) {
+                    dataSource.updateLessonById(lesson);
+                });
+                result.objects = _.filter(data.lesson.objects, function (lesson) {
+                    return Number(lesson.stage) === tempLessons.stage.stage && lesson.suffix === tempLessons.stage.suffix;
+                });
+            }
             commit();
-            return data.lesson.objects;
+            return result;
         };
         dataSource.updateLesson = function (dataLesson) {
             load();

@@ -173,7 +173,16 @@ define(['../module', 'lodash'], function (module, _) {
                 if ($stateParams.day.stage) {
                     scheduleService.getStageBySuffix($stateParams.day.stage.id)
                         .then(function (data) {
-                            $state.go('dashboard.settings.schedule.edit.stage', {stage: data.data.stage});
+                            scheduleService.getLessonsByStage(data.data.stage)
+                                .then(function (stage) {
+                                    $state.go('dashboard.settings.schedule.edit.stage',
+                                        {
+                                            stage : {
+                                                stage : data.data.stage,
+                                                events: scheduleDataService.parseNewLessons(stage)
+                                            }
+                                        });
+                                });
                         });
                 }
             }

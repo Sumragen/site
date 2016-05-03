@@ -65,22 +65,24 @@ define(['../module', 'lodash'], function (module, _) {
                 };
                 var parsedSchedule = [];
                 var events = [];
+                var _id = 0;
                 _.each(schedule, function (lesson) {
                     _.each(lesson.order, function (order) {
                         lesson.num = order;
-                        parsedSchedule.push(lesson);
+                        parsedSchedule.push(angular.copy(lesson));
                     })
                 });
                 parsedSchedule.forEach(function (lesson) {
                     var lessonTime = schedulingUtil.getLesson(lesson.num);
                     events.push({
-                        lessonId: lesson.id,
+                        id: _id++,
                         allDay: false,
                         dow : [days[lesson.day]],
                         start : lessonTime.from.hours() + ':' + lessonTime.from.minutes(),
                         end : lessonTime.to.hours() + ':' + lessonTime.to.minutes(),
                         num : lesson.num,
-                        title : lesson.subject.name
+                        title : lesson.subject.name,
+                        lessonId: lesson.id
                     })
                 });
                 return events;

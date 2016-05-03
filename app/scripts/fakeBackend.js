@@ -123,10 +123,10 @@ define(
             });
             $httpBackend.whenPUT(prefix + '/lessons').respond(function (method, url, tempLessons) {
                 var lessons = fakeDataSource.updateLessons(tempLessons);
-                if (lessons) {
-                    return [200, lessons, {}];
+                if (!lessons.isError) {
+                    return [200, lessons.objects, {}];
                 } else {
-                    return [400, {errorCode: 4, message: 'wrong update'}];
+                    return [400, {errorCode: 4, errorEvents : lessons.objects, message: 'Some teacher actually are busy'}];
                 }
             });
             $httpBackend.whenPUT(prefix + '/lesson').respond(function (method, url, tempLesson) {

@@ -1,8 +1,6 @@
 <a class="btn btn-raised btn-default" ui-sref="dashboard.settings.schedule.selector">Back</a>
 <a class="btn btn-raised btn-success" ng-click="saveSchedule()">Save</a>
-
-<h3 ng-show="stage">{{stage.stage}} - {{stage.suffix}}</h3>
-<h3 ng-hide="stage">default schedule</h3>
+<b ng-if="errorMsg">{{errorMsg}}</b>
 
 <div s-loading-indicator="" ng-show="busy"></div>
 <div ui-calendar="uiConfig.calendar" ng-model="eventSources" ng-if="!busy"></div>

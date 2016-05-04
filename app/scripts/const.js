@@ -3,6 +3,7 @@
  */
 define(['./modules/Dashboard/Schedule/module'], function (module) {
     module.constant('ScheduleConstants', {
+        'STREETVIEW_MAX_DISTANCE' : 100,
         'TimeSchedule': {
             0: {
                 startH: 8,

@@ -11,8 +11,9 @@ define(['../module', 'lodash', 'jquery'], function (module, _) {
         'InfoWindow',
         'Common.StatePreference',
         'Dashboard.Event.EventService',
+        'ScheduleConstants',
         'eventsData',
-        function ($q, $scope, $state, $timeout, $window, InfoWindow, statePreference, eventService, eventsData) {
+        function ($q, $scope, $state, $timeout, $window, InfoWindow, statePreference, eventService, scheduleConstants, eventsData) {
             var center = {lat: 46.6718272, lng: 32.6118258};
 
             function initMap(map) {
@@ -181,11 +182,9 @@ define(['../module', 'lodash', 'jquery'], function (module, _) {
 
             $scope.checkIsStreetViewPossible = function (map, marker) {
                 var defer = $q.defer();
-
-                var STREETVIEW_MAX_DISTANCE = 100,
-                    streetViewService = new google.maps.StreetViewService();
+                var streetViewService = new google.maps.StreetViewService();
                 //event.stop();
-                streetViewService.getPanoramaByLocation(marker.position, STREETVIEW_MAX_DISTANCE, function (result, status) {
+                streetViewService.getPanoramaByLocation(marker.position, scheduleConstants.STREETVIEW_MAX_DISTANCE, function (result, status) {
                     if (status === google.maps.StreetViewStatus.OK) {
                         defer.resolve(true);
                     } else {
@@ -310,9 +309,7 @@ define(['../module', 'lodash', 'jquery'], function (module, _) {
                             latitude = splitLatLon[0] * 1,
                             longitude = splitLatLon[1] * 1;
                         if (splitLatLon.length == 2 &&
-                            angular.isNumber(latitude) &&
-                            !angular.isNumber(longitude) &&
-                            !isNaN(latitude) && !isNaN(longitude)) {
+                            angular.isNumber(latitude) && !angular.isNumber(longitude) && !isNaN(latitude) && !isNaN(longitude)) {
                             position = {lat: latitude, lng: longitude};
                             map.setCenter(position);
                         }
@@ -334,9 +331,6 @@ define(['../module', 'lodash', 'jquery'], function (module, _) {
                     wnd.open(map, $scope.placeMarker);
                 });
             };
-            $scope.$on('destroy', function () {
-
-            })
         }
     ]);
 });

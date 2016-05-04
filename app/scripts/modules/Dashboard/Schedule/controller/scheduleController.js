@@ -11,8 +11,6 @@ define(['../module', 'lodash'], function (module, _) {
         'scheduleData',
         function ($scope, $state, $stateParams, scheduleService, scheduleDataService, scheduleData) {
             $scope.busy = false;
-            var templateUrl = "views/Dashboard/Schedule/day.html";
-            var controller = 'Dashboard.Schedule.DayController';
 
             var isSettingsPage = $state.current.name.indexOf('settings') > -1;
             var overlappedEvents = [];
@@ -135,7 +133,7 @@ define(['../module', 'lodash'], function (module, _) {
             }
 
             function showDayModal(date) {
-                scheduleDataService.showDayModal(templateUrl, controller, scheduleData, $scope.stage, date);
+                scheduleDataService.showDayModal(scheduleData, $scope.stage, date);
             }
 
             function editLesson(date) {

@@ -106,11 +106,11 @@ define(['../module', 'lodash'], function (module, _) {
                 });
                 return schedule;
             };
-            service.showDayModal = function (templateUrl, controller, scheduleData, stage, date){
+            service.showDayModal = function (scheduleData, stage, date){
                 $uibModal.open({
                     animation: true,
-                    templateUrl: templateUrl,
-                    controller: controller + " as controller",
+                    templateUrl: 'views/Dashboard/Schedule/day.html',
+                    controller: "Dashboard.Schedule.DayController as controller",
                     size: 'lg',
                     windowClass: 'custom-modal-day',
                     resolve: {

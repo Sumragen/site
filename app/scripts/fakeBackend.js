@@ -317,9 +317,9 @@ define(
 
 
             $httpBackend.whenGET(/\/stage\/[0-9]*/).respond(function (method, url, stageId) {
-                var stage = fakeDataSource.getStageBySuffix(stageId);
-                if (stage) {
-                    return [200, {stage: stage}, {}];
+                var lessons = fakeDataSource.getLessonsByStageId(stageId);
+                if (lessons) {
+                    return [200, lessons, {}];
                 } else {
                     return [400, {errorCode: 3, message: 'Stage not found'}];
                 }

@@ -668,14 +668,23 @@ define(['lodash'], function (_) {
         };
 
         //Stage
-        dataSource.getStageBySuffix = function (tempData) {
+        dataSource.getLessonsByStageId = function (tempData) {
             load();
-            var stageId = angular.fromJson(tempData);
-            return _.find(data.stage.objects, function (stage) {
-                if (stageId === stage.id) {
-                    return stage;
+            var tempStage = angular.fromJson(tempData);
+            var result = {stage : null, lessons : []};
+            _.every(data.stage.objects, function (stage) {
+                if(stage.id === tempStage){
+                    result.stage = stage;
+                    _.each(data.lesson.objects, function (lesson) {
+                        if(Number(lesson.stage) === stage.stage && lesson.suffix === stage.suffix) {
+                            result.lessons.push(lesson);
+                        }
+                    });
+                    return false;
                 }
-            })
+                return true;
+            });
+            return result;
         };
         dataSource.getStages = function () {
             load();
@@ -765,8 +774,8 @@ define(['lodash'], function (_) {
                         && Number(toCheckLesson.stage) === tempLessons.stage.stage
                         && toCheckLesson.suffix === tempLessons.stage.suffix) {
                         _.every(data.lesson.objects, function (checkLesson) {
-                            if (tempLesson.id !== toCheckLesson.id
-                                && days[tempLesson.dow] === toCheckLesson.day
+                            if (tempLesson.id !== checkLesson.id
+                                && days[tempLesson.dow] === checkLesson.day
                                 && toCheckLesson.teacher.id === checkLesson.teacher.id
                                 && !_.every(checkLesson.order, function (checkOrder) {
                                     return _.every(toCheckLesson.order, function (toCheckOrder) {

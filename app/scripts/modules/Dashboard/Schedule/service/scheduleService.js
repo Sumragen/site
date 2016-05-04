@@ -49,7 +49,7 @@ define(['../module', 'lodash'], function (module, _) {
                         return data.data.stages;
                     });
             };
-            service.getStageBySuffix = function (id) {
+            service.getLessonsByStageId = function (id) {
                 return $http(Endpoint.stage.get(id))
                     .then(function (data) {
                         return data;

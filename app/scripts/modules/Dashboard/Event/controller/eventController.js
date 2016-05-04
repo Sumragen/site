@@ -334,6 +334,9 @@ define(['../module', 'lodash', 'jquery'], function (module, _) {
                     wnd.open(map, $scope.placeMarker);
                 });
             };
+            $scope.$on('destroy', function () {
+
+            })
         }
     ]);
 });

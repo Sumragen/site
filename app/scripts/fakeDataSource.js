@@ -599,7 +599,7 @@ define(['lodash'], function (_) {
             }));
             //init random data
             load();
-            _.each(_.range(5), function () {
+            _.each(_.range(25), function () {
                 data.user.objects.push(generateRandomUser(student));
                 data.event.objects.push(generateRandomEvent())
             });

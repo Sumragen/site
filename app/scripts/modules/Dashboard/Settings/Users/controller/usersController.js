@@ -71,46 +71,9 @@ define(['../module', 'lodash'], function (module, _) {
                                     }
                                 });
                             });
-
-                            $scope.user.form = [
-                                {
-                                    key: 'avatar',
-                                    title: 'Upload avatar',
-                                    type: 'fileinput',
-                                    fileType: 'dataUrl',
-                                    previewType: 'image',
-                                    accept: 'image/png,image/jpeg',
-                                    onFileSelect: null
-                                },
-                                {
-                                    "key": "first_name",
-                                    "placeholder": "First name"
-
-                                },
-                                {
-                                    "key": "last_name",
-                                    "placeholder": "Last name"
-                                },
-                                {
-                                    "key": "username",
-                                    "placeholder": "username"
-                                },
-                                {
-                                    "key": "email",
-                                    "placeholder": "email"
-                                },
-                                {
-                                    "key": "role",
-                                    type: "select",
-                                    titleMap: roles
-                                },
-                                {
-                                    "key": "subjects",
-                                    "type": "multiselect",
-                                    condition: "user.model.role === 1 || user.model.role === 2",
-                                    items: subjects
-                                }
-                            ];
+                            $scope.user.form[5].titleMap = roles;
+                            $scope.user.form[6].items = subjects;
+                            $scope.$broadcast('schemaFormRedraw');
                         })
                         .catch(function (err) {
                             $scope.errorMsg = err;
@@ -184,7 +147,45 @@ define(['../module', 'lodash'], function (module, _) {
                     "email"
                 ]
             };
+            $scope.user.form = [
+                {
+                    key: 'avatar',
+                    title: 'Upload avatar',
+                    type: 'fileinput',
+                    fileType: 'dataUrl',
+                    previewType: 'image',
+                    accept: 'image/png,image/jpeg',
+                    onFileSelect: null
+                },
+                {
+                    "key": "first_name",
+                    "placeholder": "First name"
 
+                },
+                {
+                    "key": "last_name",
+                    "placeholder": "Last name"
+                },
+                {
+                    "key": "username",
+                    "placeholder": "username"
+                },
+                {
+                    "key": "email",
+                    "placeholder": "email"
+                },
+                {
+                    "key": "role",
+                    type: "select",
+                    titleMap: null
+                },
+                {
+                    "key": "subjects",
+                    "type": "multiselect",
+                    condition: "user.model.role === 1 || user.model.role === 2",
+                    items: null
+                }
+            ];
         }
     ]);
 });

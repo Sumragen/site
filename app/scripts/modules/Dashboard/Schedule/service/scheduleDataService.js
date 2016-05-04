@@ -122,6 +122,50 @@ define(['../module', 'lodash'], function (module, _) {
                     }
                 });
             };
+            service.checkOnOverlap = function(events, id, delta, order, dow) {
+                return !_.every(events, function (exEvent, index) {
+                    if (exEvent.num === order
+                        && !_.every(exEvent.dow, function (exDow) {
+                            return _.every(dow, function (newDow) {
+                                return !(exDow === newDow + delta);
+                            });
+                        })
+                        && exEvent.id !== id) {
+                        events[index] = {
+                            allDay: false,
+                            lessonId: exEvent.lessonId,
+                            num: exEvent.num,
+                            id: exEvent.id,
+                            title: exEvent.title + ' ',
+                            dow: exEvent.dow,
+                            start: exEvent.start,
+                            end: exEvent.end,
+                            backgroundColor: '#FF3F44',
+                            borderColor: '#FF3F44'
+                        };
+                        return false;
+                    }
+                    return true;
+                })
+            };
+            service.addToOverlappedEvents = function(overlappedEvents,event) {
+                if (_.every(overlappedEvents, function (oEvent) {
+                        return !(oEvent === event);
+                    })) {
+                    overlappedEvents.push(event);
+                }
+                return overlappedEvents;
+            };
+            service.removeOverlappedEvent = function(overlappedEvents, id) {
+                _.every(overlappedEvents, function (oEventId, ind) {
+                    if (oEventId === id) {
+                        overlappedEvents.splice(ind, 1);
+                        return false;
+                    }
+                    return true;
+                });
+                return overlappedEvents;
+            };
             return service;
         }]);
 });

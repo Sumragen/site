@@ -16,52 +16,6 @@ define(['../module', 'lodash'], function (module, _) {
             var overlappedEvents = [];
             $scope.eventSources = [];
 
-            function addToOverlappedEvents(event) {
-                if (_.every(overlappedEvents, function (oEvent) {
-                        return !(oEvent === event);
-                    })) {
-                    overlappedEvents.push(event);
-                }
-            }
-
-            function removeOverlappedEvent(id) {
-                _.every(overlappedEvents, function (oEventId, ind) {
-                    if (oEventId === id) {
-                        overlappedEvents.splice(ind, 1);
-                        return false;
-                    }
-                    return true;
-                });
-            }
-
-            function checkOnOverlap(id, delta, order, dow) {
-                return !_.every($scope.events, function (exEvent, index) {
-                    if (exEvent.num === order
-                        && !_.every(exEvent.dow, function (exDow) {
-                            return _.every(dow, function (newDow) {
-                                return !(exDow === newDow + delta);
-                            });
-                        })
-                        && exEvent.id !== id) {
-                        addToOverlappedEvents(exEvent.id);
-                        $scope.events[index] = {
-                            allDay: false,
-                            lessonId: exEvent.lessonId,
-                            num: exEvent.num,
-                            id: exEvent.id,
-                            title: exEvent.title + ' ',
-                            dow: exEvent.dow,
-                            start: exEvent.start,
-                            end: exEvent.end,
-                            backgroundColor: '#FF3F44',
-                            borderColor: '#FF3F44'
-                        };
-                        return false;
-                    }
-                    return true;
-                })
-            }
-
             function addToEventChangedList(event, delta) {
                 var myDelta = event.dow[0] + delta._days % 7;
                 var myDow = myDelta >= 7
@@ -69,10 +23,11 @@ define(['../module', 'lodash'], function (module, _) {
                     : myDelta < 0
                     ? 7 + myDelta
                     : myDelta;
-                if (checkOnOverlap(event.id, delta._days % 7, event.num, event.dow)) {
+                if (scheduleDataService.checkOnOverlap($scope.events, event.id, delta._days % 7, event.num, event.dow)) {
+                    overlappedEvents = scheduleDataService.addToOverlappedEvents(overlappedEvents, event.id);
                     _.every($scope.events, function (exEvent, index) {
                         if (exEvent.id === event.id) {
-                            addToOverlappedEvents(exEvent.id);
+                            overlappedEvents = scheduleDataService.addToOverlappedEvents(overlappedEvents, exEvent.id);
                             $scope.events[index] = {
                                 allDay: false,
                                 lessonId: exEvent.lessonId,
@@ -92,7 +47,7 @@ define(['../module', 'lodash'], function (module, _) {
                 } else {
                     _.every($scope.events, function (exEvent, index) {
                         if (event.id === exEvent.id) {
-                            removeOverlappedEvent(event.lessonId);
+                            overlappedEvents = scheduleDataService.removeOverlappedEvent(overlappedEvents, event.lessonId);
                             $scope.events[index] = {
                                 allDay: event.allDay,
                                 lessonId: event.lessonId,
@@ -112,8 +67,8 @@ define(['../module', 'lodash'], function (module, _) {
                 }
 
                 _.each($scope.events, function (exEvent, index) {
-                    if (!checkOnOverlap(exEvent.id, 0, exEvent.num, exEvent.dow)) {
-                        removeOverlappedEvent(exEvent.id);
+                    if (!scheduleDataService.checkOnOverlap($scope.events, exEvent.id, 0, exEvent.num, exEvent.dow)) {
+                        overlappedEvents = scheduleDataService.removeOverlappedEvent(overlappedEvents, exEvent.id);
                         $scope.events[index] = {
                             allDay: exEvent.allDay,
                             lessonId: exEvent.lessonId,
@@ -137,9 +92,9 @@ define(['../module', 'lodash'], function (module, _) {
             }
 
             function editLesson(date) {
-                if(!$scope.errorMsg){
+                if (!$scope.errorMsg) {
                     showDayModal(date);
-                }else{
+                } else {
                     $scope.errorMsg = 'Please, save your changes'
                 }
             }
@@ -183,9 +138,9 @@ define(['../module', 'lodash'], function (module, _) {
                         .catch(function (error) {
                             _.each(error.errorEvents, function (id) {
                                 $scope.errorMsg = error.message;
-                                addToOverlappedEvents(id);
+                                overlappedEvents = scheduleDataService.addToOverlappedEvents(overlappedEvents, id);
                                 _.every($scope.events, function (event, index) {
-                                    if(event.lessonId === id){
+                                    if (event.lessonId === id) {
                                         $scope.events[index] = {
                                             id: event.id,
                                             allDay: false,

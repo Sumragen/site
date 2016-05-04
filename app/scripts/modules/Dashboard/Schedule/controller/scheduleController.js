@@ -17,74 +17,10 @@ define(['../module', 'lodash'], function (module, _) {
             $scope.eventSources = [];
 
             function addToEventChangedList(event, delta) {
-                var myDelta = event.dow[0] + delta._days % 7;
-                var myDow = myDelta >= 7
-                    ? myDelta % 7
-                    : myDelta < 0
-                    ? 7 + myDelta
-                    : myDelta;
-                if (scheduleDataService.checkOnOverlap($scope.events, event.id, delta._days % 7, event.num, event.dow)) {
-                    overlappedEvents = scheduleDataService.addToOverlappedEvents(overlappedEvents, event.id);
-                    _.every($scope.events, function (exEvent, index) {
-                        if (exEvent.id === event.id) {
-                            overlappedEvents = scheduleDataService.addToOverlappedEvents(overlappedEvents, exEvent.id);
-                            $scope.events[index] = {
-                                allDay: false,
-                                lessonId: exEvent.lessonId,
-                                num: exEvent.num,
-                                id: exEvent.id,
-                                title: exEvent.title + ' ',
-                                dow: [myDow],
-                                start: exEvent.start,
-                                end: exEvent.end,
-                                backgroundColor: '#FF3F44',
-                                borderColor: '#FF3F44'
-                            };
-                            return false;
-                        }
-                        return true;
-                    })
-                } else {
-                    _.every($scope.events, function (exEvent, index) {
-                        if (event.id === exEvent.id) {
-                            overlappedEvents = scheduleDataService.removeOverlappedEvent(overlappedEvents, event.lessonId);
-                            $scope.events[index] = {
-                                allDay: event.allDay,
-                                lessonId: event.lessonId,
-                                num: event.num,
-                                id: event.id,
-                                title: event.title + ' ',
-                                dow: [myDow],
-                                start: event.start,
-                                end: event.end,
-                                backgroundColor: '#55BBAA',
-                                borderColor: '#3A87AD'
-                            };
-                            return false;
-                        }
-                        return true;
-                    });
-                }
-
-                _.each($scope.events, function (exEvent, index) {
-                    if (!scheduleDataService.checkOnOverlap($scope.events, exEvent.id, 0, exEvent.num, exEvent.dow)) {
-                        overlappedEvents = scheduleDataService.removeOverlappedEvent(overlappedEvents, exEvent.id);
-                        $scope.events[index] = {
-                            allDay: exEvent.allDay,
-                            lessonId: exEvent.lessonId,
-                            num: exEvent.num,
-                            id: exEvent.id,
-                            title: exEvent.title + ' ',
-                            dow: exEvent.dow,
-                            start: exEvent.start,
-                            end: exEvent.end,
-                            backgroundColor: '#55BBAA',
-                            borderColor: '#3A87AD'
-                        };
-                    }
-                });
-
-                $scope.errorMsg = 'Changes are not saved';
+                var result = scheduleDataService.addToEventChangedList(event, delta, overlappedEvents, $scope.events);
+                $scope.events = result.events;
+                overlappedEvents = result.overlappedEvents;
+                $scope.notification = 'Changes are not saved';
             }
 
             function showDayModal(date) {
@@ -92,10 +28,10 @@ define(['../module', 'lodash'], function (module, _) {
             }
 
             function editLesson(date) {
-                if (!$scope.errorMsg) {
+                if (!$scope.notification) {
                     showDayModal(date);
                 } else {
-                    $scope.errorMsg = 'Please, save your changes'
+                    $scope.notification = 'Please, save your changes'
                 }
             }
 
@@ -119,7 +55,7 @@ define(['../module', 'lodash'], function (module, _) {
 
             $scope.saveSchedule = function () {
                 if (overlappedEvents.length > 0) {
-                    $scope.errorMsg = 'Please set correct lessons.'
+                    $scope.notification = 'Please set correct lessons.'
                 } else {
                     $scope.busy = true;
                     scheduleService.updateLessonList({
@@ -133,26 +69,15 @@ define(['../module', 'lodash'], function (module, _) {
                             })
                         })
                         .then(function (data) {
-                            $scope.errorMsg = null;
+                            $scope.notification = null;
                         })
                         .catch(function (error) {
                             _.each(error.errorEvents, function (id) {
-                                $scope.errorMsg = error.message;
+                                $scope.notification = error.message;
                                 overlappedEvents = scheduleDataService.addToOverlappedEvents(overlappedEvents, id);
                                 _.every($scope.events, function (event, index) {
                                     if (event.lessonId === id) {
-                                        $scope.events[index] = {
-                                            id: event.id,
-                                            allDay: false,
-                                            num: event.num,
-                                            lessonId: event.lessonId,
-                                            title: event.title + ' ',
-                                            dow: event.dow,
-                                            start: event.start,
-                                            end: event.end,
-                                            backgroundColor: '#FF3F44',
-                                            borderColor: '#FF3F44'
-                                        };
+                                        $scope.events[index] = scheduleDataService.highlight(event, '#FF3F44', '#FF3F44');
                                         return false;
                                     }
                                     return true;

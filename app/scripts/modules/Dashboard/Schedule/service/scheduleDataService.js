@@ -6,7 +6,7 @@ define(['../module', 'lodash'], function (module, _) {
         '$uibModal',
         'Common.SchedulingUtil',
         'Dashboard.Schedule.ScheduleService',
-        function ($uibModal, schedulingUtil,scheduleService) {
+        function ($uibModal, schedulingUtil, scheduleService) {
             var service = {};
 
             service.getStages = function () {
@@ -56,13 +56,13 @@ define(['../module', 'lodash'], function (module, _) {
             };
             service.parseNewLessons = function (schedule) {
                 var days = {
-                    'Monday' : 1,
-                    'Tuesday' : 2,
-                    'Wednesday' : 3,
-                    'Thursday' : 4,
-                    'Friday' : 5,
-                    'Sunday' : 6,
-                    'Saturday' : 7
+                    'Monday': 1,
+                    'Tuesday': 2,
+                    'Wednesday': 3,
+                    'Thursday': 4,
+                    'Friday': 5,
+                    'Sunday': 6,
+                    'Saturday': 7
                 };
                 var parsedSchedule = [];
                 var events = [];
@@ -78,35 +78,35 @@ define(['../module', 'lodash'], function (module, _) {
                     events.push({
                         id: _id++,
                         allDay: false,
-                        dow : [days[lesson.day]],
-                        start : lessonTime.from.hours() + ':' + lessonTime.from.minutes(),
-                        end : lessonTime.to.hours() + ':' + lessonTime.to.minutes(),
-                        num : lesson.num,
-                        title : lesson.subject.name,
+                        dow: [days[lesson.day]],
+                        start: lessonTime.from.hours() + ':' + lessonTime.from.minutes(),
+                        end: lessonTime.to.hours() + ':' + lessonTime.to.minutes(),
+                        num: lesson.num,
+                        title: lesson.subject.name,
                         lessonId: lesson.id
                     })
                 });
                 return events;
             };
-            service.parse = function (day){
+            service.parse = function (day) {
                 var schedule = [];
                 _.each(_.range(9), function (index) {
-                    if(_.every(day, function (lesson) {
-                        return _.every(lesson.order, function (order) {
-                            if(order === index){
-                                schedule.push(angular.copy(lesson));
-                                schedule[index].order = order;
-                                return false;
-                            }
-                            return true;
-                        })
-                    })){
+                    if (_.every(day, function (lesson) {
+                            return _.every(lesson.order, function (order) {
+                                if (order === index) {
+                                    schedule.push(angular.copy(lesson));
+                                    schedule[index].order = order;
+                                    return false;
+                                }
+                                return true;
+                            })
+                        })) {
                         schedule.push(null);
                     }
                 });
                 return schedule;
             };
-            service.showDayModal = function (scheduleData, stage, date){
+            service.showDayModal = function (scheduleData, stage, date) {
                 $uibModal.open({
                     animation: true,
                     templateUrl: 'views/Dashboard/Schedule/day.html',
@@ -122,7 +122,7 @@ define(['../module', 'lodash'], function (module, _) {
                     }
                 });
             };
-            service.checkOnOverlap = function(events, id, delta, order, dow) {
+            service.checkOnOverlap = function (events, id, delta, order, dow) {
                 return !_.every(events, function (exEvent, index) {
                     if (exEvent.num === order
                         && !_.every(exEvent.dow, function (exDow) {
@@ -131,24 +131,13 @@ define(['../module', 'lodash'], function (module, _) {
                             });
                         })
                         && exEvent.id !== id) {
-                        events[index] = {
-                            allDay: false,
-                            lessonId: exEvent.lessonId,
-                            num: exEvent.num,
-                            id: exEvent.id,
-                            title: exEvent.title + ' ',
-                            dow: exEvent.dow,
-                            start: exEvent.start,
-                            end: exEvent.end,
-                            backgroundColor: '#FF3F44',
-                            borderColor: '#FF3F44'
-                        };
+                        events[index] = service.highlight(exEvent, '#FF3F44', '#FF3F44');
                         return false;
                     }
                     return true;
                 })
             };
-            service.addToOverlappedEvents = function(overlappedEvents,event) {
+            service.addToOverlappedEvents = function (overlappedEvents, event) {
                 if (_.every(overlappedEvents, function (oEvent) {
                         return !(oEvent === event);
                     })) {
@@ -156,7 +145,7 @@ define(['../module', 'lodash'], function (module, _) {
                 }
                 return overlappedEvents;
             };
-            service.removeOverlappedEvent = function(overlappedEvents, id) {
+            service.removeOverlappedEvent = function (overlappedEvents, id) {
                 _.every(overlappedEvents, function (oEventId, ind) {
                     if (oEventId === id) {
                         overlappedEvents.splice(ind, 1);
@@ -165,6 +154,56 @@ define(['../module', 'lodash'], function (module, _) {
                     return true;
                 });
                 return overlappedEvents;
+            };
+            service.highlight = function (event, backgroundColor, borderColor, myDow) {
+                return {
+                    allDay: event.allDay,
+                    lessonId: event.lessonId,
+                    num: event.num,
+                    id: event.id,
+                    title: event.title + ' ',
+                    dow: myDow ? [myDow] : event.dow,
+                    start: event.start,
+                    end: event.end,
+                    backgroundColor: backgroundColor,
+                    borderColor: borderColor
+                };
+            };
+            service.addToEventChangedList = function (event, delta, overlappedEvents, events) {
+                var myDelta = event.dow[0] + delta._days % 7;
+                var myDow = myDelta >= 7
+                    ? myDelta % 7
+                    : myDelta < 0
+                    ? 7 + myDelta
+                    : myDelta;
+                if (service.checkOnOverlap(events, event.id, delta._days % 7, event.num, event.dow)) {
+                    overlappedEvents = service.addToOverlappedEvents(overlappedEvents, event.id);
+                    _.every(events, function (exEvent, index) {
+                        if (exEvent.id === event.id) {
+                            overlappedEvents = service.addToOverlappedEvents(overlappedEvents, exEvent.id);
+                            events[index] = service.highlight(exEvent, '#FF3F44', '#FF3F44', myDow);
+                            return false;
+                        }
+                        return true;
+                    })
+                } else {
+                    _.every(events, function (exEvent, index) {
+                        if (event.id === exEvent.id) {
+                            overlappedEvents = service.removeOverlappedEvent(overlappedEvents, event.lessonId);
+                            events[index] = service.highlight(event, '#55BBAA', '#3A87AD', myDow);
+                            return false;
+                        }
+                        return true;
+                    });
+                }
+
+                _.each(events, function (exEvent, index) {
+                    if (!service.checkOnOverlap(events, exEvent.id, 0, exEvent.num, exEvent.dow)) {
+                        overlappedEvents = service.removeOverlappedEvent(overlappedEvents, exEvent.id);
+                        events[index] = service.highlight(exEvent, '#55BBAA', '#3A87AD');
+                    }
+                });
+                return {overlappedEvents: overlappedEvents, events: events};
             };
             return service;
         }]);

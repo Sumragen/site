@@ -12,9 +12,10 @@
         </tr>
         </thead>
         <tbody>
-        <tr ng-repeat="lesson in currentDay track by $index" ng-if="$index !== 0 || (lesson != null || lesson.name != null)" class="info"
-        ng-style="isSettingsPage ? {'cursor':'pointer'} : {'cursor':'default'}"
-        ng-click="isSettingsPage ? openLessonEditForm(lesson, $index) : none">
+        <tr ng-repeat="lesson in currentDay track by $index"
+            ng-if="$index !== 0 || isSettingsPage || (lesson != null || lesson.name != null)" class="info"
+            ng-style="isSettingsPage ? {'cursor':'pointer'} : {'cursor':'default'}"
+            ng-click="isSettingsPage ? openLessonEditForm(lesson, $index) : none">
             <td>{{$index}}</td>
             <td>{{lesson.subject.name}}</td>
             <td>{{lesson.classroom}}</td>
@@ -22,7 +23,6 @@
         </tr>
         </tbody>
     </table>
-    <p>
-    <h3><b>{{currentDay.dayOff}}</b></h3></p>
+    <p><h3><b>{{currentDay.dayOff}}</b></h3></p>
     <button type="reset" class="btn btn-default custom-btn-cancel" ng-click="controller.close()">Close</button>
 </div>

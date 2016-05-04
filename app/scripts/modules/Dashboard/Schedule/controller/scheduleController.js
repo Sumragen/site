@@ -24,7 +24,7 @@ define(['../module', 'lodash'], function (module, _) {
             }
 
             function showDayModal(date) {
-                scheduleDataService.showDayModal(scheduleData, $scope.stage, date);
+                return scheduleDataService.showDayModal(scheduleData, $scope.stage, date);
             }
 
             function editLesson(date) {

@@ -75,22 +75,6 @@ define(['../module', 'lodash'], function (module, _) {
                         day: $scope.selectedDay.title
                     };
                 }
-                $scope.lesson.form = [
-                    {
-                        "key": "subject",
-                        type: "select",
-                        onChange: "getTeachersNames()"
-                    },
-                    {
-                        "key": "teacher",
-                        type: "select",
-                        onChange: "getSubjectsNames()"
-                    },
-                    {
-                        "key": "classroom",
-                        "placeholder": "Classroom"
-                    }
-                ];
                 $scope.getSubjectsNames();
                 $scope.getTeachersNames();
                 $scope.showEditForm = !$scope.showEditForm;
@@ -207,6 +191,22 @@ define(['../module', 'lodash'], function (module, _) {
                     "classroom"
                 ]
             };
+            $scope.lesson.form = [
+                {
+                    "key": "subject",
+                    type: "select",
+                    onChange: "getTeachersNames()"
+                },
+                {
+                    "key": "teacher",
+                    type: "select",
+                    onChange: "getSubjectsNames()"
+                },
+                {
+                    "key": "classroom",
+                    "placeholder": "Classroom"
+                }
+            ];
 
             function reformatObject(item) {
                 return {value: item.id, name: item.name}

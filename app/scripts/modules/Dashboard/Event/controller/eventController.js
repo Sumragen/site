@@ -150,9 +150,6 @@ define(['../module', 'lodash', 'jquery'], function (module, _) {
                         } : null;
                     });
                     eventService.updateEventList($scope.eventList)
-                        .then(function () {
-                            //$window.alert('Done!');
-                        })
                         .catch(function (err) {
                             $window.alert(err);
                         });
@@ -172,7 +169,6 @@ define(['../module', 'lodash', 'jquery'], function (module, _) {
                 }
             };
 
-            //Map version
             $scope.markers = [];
             $scope.cssOpts = {width: '100%', height: '70%', position: 'absolute'};
             $scope.gmOpts = {zoom: 16, mapTypeControlOptions: google.maps.MapTypeControlStyle.HORIZONTAL_BAR};

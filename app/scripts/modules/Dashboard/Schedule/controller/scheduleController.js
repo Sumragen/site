@@ -5,16 +5,11 @@ define(['../module', 'lodash'], function (module, _) {
     module.controller('Dashboard.Schedule.ScheduleController', [
         '$scope',
         '$state',
-        'moment',
-        '$filter',
-        '$uibModal',
-        '$timeout',
         '$stateParams',
-        'uiCalendarConfig',
         'Dashboard.Schedule.ScheduleService',
         'Dashboard.Schedule.ScheduleDataService',
-        'ScheduleConstants',
-        function ($scope, $state, moment, $filter, $uibModal, $timeout, $stateParams, uiCalendarConfig, scheduleService, scheduleDataService, scheduleConst, schedulingUtil, scheduleData) {
+        'scheduleData',
+        function ($scope, $state, $stateParams, scheduleService, scheduleDataService, scheduleData) {
             $scope.busy = false;
             var templateUrl = "views/Dashboard/Schedule/day.html";
             var controller = 'Dashboard.Schedule.DayController';
@@ -140,26 +135,7 @@ define(['../module', 'lodash'], function (module, _) {
             }
 
             function showDayModal(date) {
-                var modalInstance = $uibModal.open({
-                    animation: true,
-                    templateUrl: templateUrl,
-                    controller: controller + " as controller",
-                    size: 'lg',
-                    windowClass: 'custom-modal-day',
-                    resolve: {
-                        currentSchedule: function () {
-                            return scheduleData || {};
-                        },
-                        currentStage: $scope.stage,
-                        date: date
-                    }
-                });
-
-                modalInstance.result.then(function () {
-                    //$state.go('dashboard.profile');
-                }, function () {
-
-                });
+                scheduleDataService.showDayModal(templateUrl, controller, scheduleData, $scope.stage, date);
             }
 
             function editLesson(date) {

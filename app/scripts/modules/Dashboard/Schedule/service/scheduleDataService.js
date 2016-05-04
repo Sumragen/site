@@ -3,9 +3,10 @@
  */
 define(['../module', 'lodash'], function (module, _) {
     module.service('Dashboard.Schedule.ScheduleDataService', [
+        '$uibModal',
         'Common.SchedulingUtil',
         'Dashboard.Schedule.ScheduleService',
-        function (schedulingUtil,scheduleService) {
+        function ($uibModal, schedulingUtil,scheduleService) {
             var service = {};
 
             service.getStages = function () {
@@ -104,6 +105,22 @@ define(['../module', 'lodash'], function (module, _) {
                     }
                 });
                 return schedule;
+            };
+            service.showDayModal = function (templateUrl, controller, scheduleData, stage, date){
+                $uibModal.open({
+                    animation: true,
+                    templateUrl: templateUrl,
+                    controller: controller + " as controller",
+                    size: 'lg',
+                    windowClass: 'custom-modal-day',
+                    resolve: {
+                        currentSchedule: function () {
+                            return scheduleData || {};
+                        },
+                        currentStage: stage,
+                        date: date
+                    }
+                });
             };
             return service;
         }]);

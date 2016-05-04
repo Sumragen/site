@@ -99,7 +99,7 @@ define(['../module', 'lodash'], function (module, _) {
                 } else {
                     _.every($scope.events, function (exEvent, index) {
                         if (event.id === exEvent.id) {
-                            removeOverlappedEvent(event.id);
+                            removeOverlappedEvent(event.lessonId);
                             $scope.events[index] = {
                                 allDay: event.allDay,
                                 lessonId: event.lessonId,

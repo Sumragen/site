@@ -758,33 +758,31 @@ define(['lodash'], function (_) {
         dataSource.updateLessons = function (dataLessons) {
             load();
             var tempLessons = angular.fromJson(dataLessons);
-            //_.each(tempLessons, function (changedLesson) {
-            //    _.every(data.lesson.objects, function (lesson) {
-            //        if(lesson.id === changedLesson.id){
-            //
-            //        }
-            //    })
-            //});
             var result = {isError: false, objects: []};
-            _.each(data.lesson.objects, function (toCheckLesson) {
-                if (Number(toCheckLesson.stage) === tempLessons.stage.stage
-                    && toCheckLesson.suffix === tempLessons.stage.suffix) {
-                    _.every(data.lesson.objects, function (checkLesson) {
-                        if (checkLesson.id !== toCheckLesson.id
-                            && checkLesson.day === toCheckLesson.day
-                            && toCheckLesson.teacher.id === checkLesson.teacher.id
-                            && !_.every(checkLesson.order, function (checkOrder) {
-                                return _.every(toCheckLesson.order, function (toCheckOrder) {
-                                    return !(checkOrder === toCheckOrder);
-                                })
-                            })) {
-                            result.isError = true;
-                            result.objects.push(toCheckLesson.id);
-                            return false;
-                        }
-                        return true;
-                    })
-                }
+            _.each(tempLessons.objects, function (tempLesson) {
+                _.every(data.lesson.objects, function (toCheckLesson) {
+                    if (toCheckLesson.id === tempLesson.id
+                        && Number(toCheckLesson.stage) === tempLessons.stage.stage
+                        && toCheckLesson.suffix === tempLessons.stage.suffix) {
+                        _.every(data.lesson.objects, function (checkLesson) {
+                            if (tempLesson.id !== toCheckLesson.id
+                                && days[tempLesson.dow] === toCheckLesson.day
+                                && toCheckLesson.teacher.id === checkLesson.teacher.id
+                                && !_.every(checkLesson.order, function (checkOrder) {
+                                    return _.every(toCheckLesson.order, function (toCheckOrder) {
+                                        return !(checkOrder === toCheckOrder);
+                                    })
+                                })) {
+                                result.isError = true;
+                                result.objects.push(toCheckLesson.id);
+                                return false;
+                            }
+                            return true;
+                        });
+                        return false;
+                    }
+                    return true;
+                })
             });
             if (!result.isError) {
                 _.each(tempLessons.objects, function (lesson) {

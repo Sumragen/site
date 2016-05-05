@@ -4,7 +4,7 @@
     <div ng-show="error" class="alert alert-danger">{{error}}</div>
 
     <h2>Sign in</h2>
-
+    <a class="btn btn-raised btn-default" ng-click="authenticate('google')">Google</a>
     <form role="form" name="loginForm" class="" ng-submit="controller.signIn(loginForm)">
         <div
                 sf-schema="login.schema"

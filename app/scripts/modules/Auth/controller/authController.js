@@ -4,14 +4,14 @@
 define(['../module'], function (module) {
     module.controller('AuthController', [
         '$scope',
-        //'close',
+        '$auth',
         '$http',
         '$uibModalInstance',
         '$q',
         '$state',
         '$timeout',
         'AuthService',
-        function ($scope, $http, $uibModalInstance, $q, $state, $timeout, authService) {
+        function ($scope,$auth, $http, $uibModalInstance, $q, $state, $timeout, authService) {
             var self = this;
 
             $scope.login = {
@@ -104,6 +104,15 @@ define(['../module'], function (module) {
                             $scope.busy = false;
                         });
                 }
+            };
+            $scope.authenticate = function(provider) {
+                $auth.authenticate(provider)
+                    .then(function(data){
+                        data;
+                    })
+                    .catch(function (err) {
+                        err;
+                    });
             };
         }]);
 });

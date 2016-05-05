@@ -7,6 +7,14 @@ define(
         'use strict';
         module.run(['$httpBackend', '$q', function ($httpBackend) {
             var prefix = '/api';
+            $httpBackend.whenPOST('/auth/google').respond(function (method, url, data) {
+                var result = fakeDataSource.checkUserByCode(data);
+                if(result){
+                    return [200, {currentUser: result.user, sessionToken : result.sessionToken}, {}];
+                }else{
+                    return [400, {errorCode: 1, message: "User doesn't found"}];
+                }
+            });
             $httpBackend.whenPOST(prefix + '/login').respond(function (method, url, checkUser) {
                 var user = fakeDataSource.checkCurrentUser(checkUser);
                 if (user) {
@@ -20,7 +28,7 @@ define(
                 return [200, angular.fromJson(data), {}];
             });
 
-        //Event
+            //Event
             $httpBackend.whenGET(prefix + '/events').respond(function (method, url) {
                 var events = fakeDataSource.getEvents();
                 if (events) {
@@ -62,7 +70,7 @@ define(
                 }
             });
 
-        //Role
+            //Role
             $httpBackend.whenGET(prefix + '/roles').respond(function (method, url) {
                 var roles = fakeDataSource.getRoles();
                 if (roles) {
@@ -96,7 +104,7 @@ define(
                 }
             });
 
-        //Lesson
+            //Lesson
             $httpBackend.whenGET(/\/lesson\/(0-9)*/).respond(function (method, url, data) {
                 var lesson = fakeDataSource.getLesson(data);
                 if (lesson) {
@@ -126,7 +134,11 @@ define(
                 if (!lessons.isError) {
                     return [200, lessons.objects, {}];
                 } else {
-                    return [400, {errorCode: 4, errorEvents : lessons.objects, message: 'Some teacher actually are busy'}];
+                    return [400, {
+                        errorCode: 4,
+                        errorEvents: lessons.objects,
+                        message: 'Some teacher actually are busy'
+                    }];
                 }
             });
             $httpBackend.whenPUT(prefix + '/lesson').respond(function (method, url, tempLesson) {
@@ -162,7 +174,7 @@ define(
                 }
             });
 
-        //Subject
+            //Subject
             $httpBackend.whenGET(prefix + '/subjects').respond(function (method, url) {
                 var subjects = fakeDataSource.getSubjects();
                 if (subjects) {
@@ -196,7 +208,7 @@ define(
                 }
             });
 
-        //Teacher
+            //Teacher
             $httpBackend.whenGET(prefix + '/teacher').respond(function (method, url, data) {
                 var subjects = fakeDataSource.getSubjectsForTeacher(data);
                 if (subjects) {
@@ -238,7 +250,7 @@ define(
                 }
             });
 
-        //Users
+            //Users
             $httpBackend.whenPUT(/\/user\/(0-9)*/).respond(function (method, url, tempUser) {
                 var user = fakeDataSource.updateUser(tempUser);
                 if (user) {
@@ -281,7 +293,7 @@ define(
                 }
             });
 
-        //Stage
+            //Stage
             $httpBackend.whenGET(prefix + '/stages').respond(function (method, url) {
                 var stages = fakeDataSource.getStages();
                 if (stages) {

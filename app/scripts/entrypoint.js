@@ -5,12 +5,6 @@ require.config({
     paths: {
         'async': '../../bower_components/requirejs-plugins/src/async',
         'angular': '../../bower_components/angular/angular',
-        'jquery': '../../bower_components/jquery/dist/jquery',
-        'lodash': '../../bower_components/lodash/lodash',
-        'twitter-bootstrap': '../../bower_components/bootstrap/dist/js/bootstrap',
-        'logicify-gmap': '../../bower_components/logicify-gmap/dist/logicify-gmap',
-        'ui.bootstrap': '../../bower_components/angular-bootstrap/ui-bootstrap',
-        'ui.bootstrap.tpls': '../../bower_components/angular-bootstrap/ui-bootstrap-tpls',
         'angular-strap': '../../bower_components/angular-strap/dist/angular-strap.min',
         'angular-strap-tpl': '../../bower_components/angular-strap/dist/angular-strap.tpl.min',
         'angular-animate': '../../bower_components/angular-animate/angular-animate',
@@ -19,9 +13,17 @@ require.config({
         'angular-touch': '../../bower_components/angular-touch/angular-touch',
         'angular-ui-calendar': '../../bower_components/angular-ui-calendar/src/calendar',
         'angular-ui-router': '../../bower_components/angular-ui-router/release/angular-ui-router',
-        'schemaForm': '../../bower_components/angular-schema-form/dist/schema-form',
+        'angular-ui-select': '../../bower_components/ui-select/dist/select',
         'angular-sanitize': '../../bower_components/angular-sanitize/angular-sanitize',
         'bootstrap-decorator': '../../bower_components/angular-schema-form/dist/bootstrap-decorator',
+        'bootstrapDateTimePicker': '../../bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min',
+        'jquery': '../../bower_components/jquery/dist/jquery',
+        'lodash': '../../bower_components/lodash/lodash',
+        'twitter-bootstrap': '../../bower_components/bootstrap/dist/js/bootstrap',
+        'logicify-gmap': '../../bower_components/logicify-gmap/dist/logicify-gmap',
+        'ui.bootstrap': '../../bower_components/angular-bootstrap/ui-bootstrap',
+        'ui.bootstrap.tpls': '../../bower_components/angular-bootstrap/ui-bootstrap-tpls',
+        'schemaForm': '../../bower_components/angular-schema-form/dist/schema-form',
         'moment': '../../bower_components/moment/min/moment.min',
         'fullcalendar': '../../bower_components/fullcalendar/dist/fullcalendar',
         'ripples': '../../bower_components/bootstrap-material-design/dist/js/ripples',
@@ -29,18 +31,20 @@ require.config({
         'tv4': '../../bower_components/tv4/tv4',
         'objectpath': '../../bower_components/objectpath/lib/ObjectPath',
         'arrive': '../../bower_components/arrive/src/arrive',
+        'satellizer': '../../bower_components/satellizer/satellizer',
         'infiniteScroll': '../../bower_components/ngInfiniteScroll/build/ng-infinite-scroll',
-        'bootstrapDateTimePicker':'../../bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min',
-        'angular-ui-select': '../../bower_components/ui-select/dist/select',
         'google': 'https://maps.googleapis.com/maps/api/js?v=3.24&key=AIzaSyB2I-5q7CdsT5Kx1hQMuEgWiWCH_0U_7Ts',
-        'google-places' : 'https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyB2I-5q7CdsT5Kx1hQMuEgWiWCH_0U_7Ts'
+        'google-places': 'https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyB2I-5q7CdsT5Kx1hQMuEgWiWCH_0U_7Ts'
     },
     shim: {
+        'satellizer':{
+            deps: ['angular']
+        },
         'angular-ui-select': {
             deps: ['angular']
         },
         'bootstrapDateTimePicker': {
-            deps: ['jquery','moment','twitter-bootstrap']
+            deps: ['jquery', 'moment', 'twitter-bootstrap']
         },
         'infiniteScroll': {
             deps: ['angular', 'jquery']
@@ -119,7 +123,7 @@ require.config({
             exports: 'google'
         },
         'logicify-gmap': {
-            deps: ['angular', 'google','google-places'],
+            deps: ['angular', 'google', 'google-places'],
             exports: 'Autocomplite'
         }
     }

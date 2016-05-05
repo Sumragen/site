@@ -671,12 +671,12 @@ define(['lodash'], function (_) {
         dataSource.getLessonsByStageId = function (tempData) {
             load();
             var tempStage = angular.fromJson(tempData);
-            var result = {stage : null, lessons : []};
+            var result = {stage: null, lessons: []};
             _.every(data.stage.objects, function (stage) {
-                if(stage.id === tempStage){
+                if (stage.id === tempStage) {
                     result.stage = stage;
                     _.each(data.lesson.objects, function (lesson) {
-                        if(Number(lesson.stage) === stage.stage && lesson.suffix === stage.suffix) {
+                        if (Number(lesson.stage) === stage.stage && lesson.suffix === stage.suffix) {
                             result.lessons.push(lesson);
                         }
                     });
@@ -1101,6 +1101,15 @@ define(['lodash'], function (_) {
                 }
             });
 
+        };
+        dataSource.checkUserByCode = function (data) {
+            load();
+            var parameterMap = angular.fromJson(data);
+            if(parameterMap.access_token !== undefined && parameterMap.access_token !== null) {
+                return parameterMap;
+            } else {
+                return null;
+            }
         };
 
         //Role

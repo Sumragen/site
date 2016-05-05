@@ -19,6 +19,7 @@ define([
         'bootstrapDateTimePicker',
         'bootstrap-decorator',
         'moment',
+        'satellizer',
         'ui.bootstrap',
         'ui.bootstrap.tpls',
         'modules/Auth/index',

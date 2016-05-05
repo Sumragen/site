@@ -4,9 +4,10 @@
 define(['../module', 'lodash'], function (module, _) {
     module.service('Dashboard.Schedule.ScheduleDataService', [
         '$uibModal',
+        'ScheduleConstants',
         'Common.SchedulingUtil',
         'Dashboard.Schedule.ScheduleService',
-        function ($uibModal, schedulingUtil, scheduleService) {
+        function ($uibModal,scheduleConstants, schedulingUtil, scheduleService) {
             var service = {};
 
             service.getStages = function () {
@@ -131,7 +132,7 @@ define(['../module', 'lodash'], function (module, _) {
                             });
                         })
                         && exEvent.id !== id) {
-                        events[index] = service.highlight(exEvent, '#FF3F44', '#FF3F44');
+                        events[index] = service.highlight(exEvent, scheduleConstants.color.error.background, scheduleConstants.color.error.border);
                         return false;
                     }
                     return true;
@@ -181,7 +182,7 @@ define(['../module', 'lodash'], function (module, _) {
                     _.every(events, function (exEvent, index) {
                         if (exEvent.id === event.id) {
                             overlappedEvents = service.addToOverlappedEvents(overlappedEvents, exEvent.id);
-                            events[index] = service.highlight(exEvent, '#FF3F44', '#FF3F44', myDow);
+                            events[index] = service.highlight(exEvent, scheduleConstants.color.error.background, scheduleConstants.color.error.border, myDow);
                             return false;
                         }
                         return true;
@@ -190,7 +191,7 @@ define(['../module', 'lodash'], function (module, _) {
                     _.every(events, function (exEvent, index) {
                         if (event.id === exEvent.id) {
                             overlappedEvents = service.removeOverlappedEvent(overlappedEvents, event.lessonId);
-                            events[index] = service.highlight(event, '#55BBAA', '#3A87AD', myDow);
+                            events[index] = service.highlight(event, scheduleConstants.color.default.background, scheduleConstants.color.default.border, myDow);
                             return false;
                         }
                         return true;
@@ -200,7 +201,7 @@ define(['../module', 'lodash'], function (module, _) {
                 _.each(events, function (exEvent, index) {
                     if (!service.checkOnOverlap(events, exEvent.id, 0, exEvent.num, exEvent.dow)) {
                         overlappedEvents = service.removeOverlappedEvent(overlappedEvents, exEvent.id);
-                        events[index] = service.highlight(exEvent, '#55BBAA', '#3A87AD');
+                        events[index] = service.highlight(exEvent, scheduleConstants.color.default.background, scheduleConstants.color.default.border);
                     }
                 });
                 return {overlappedEvents: overlappedEvents, events: events};

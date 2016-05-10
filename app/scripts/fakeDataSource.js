@@ -1100,8 +1100,8 @@ define(['lodash'], function (_) {
                     return item;
                 }
             });
-
         };
+        //oauth
         dataSource.checkGoogleUserData = function (googleUserData) {
             load();
             var googleUser = angular.fromJson(googleUserData);
@@ -1110,13 +1110,16 @@ define(['lodash'], function (_) {
                 return _.every(googleUser.emails, function (email) {
                     if (user.email === email.value) {
                         _.merge(user, {
-                            accessToken: googleUser.accessToken,
-                            expiresAt: googleUser.expiresAt,
-                            expiresIn: googleUser.expiresIn
+                            google:{
+                                id: googleUser.id,
+                                accessToken: googleUser.accessToken,
+                                expiresAt: googleUser.expiresAt,
+                                expiresIn: googleUser.expiresIn
+                            }
                         });
                         result = {
                             user: user,
-                            accessToken: user.accessToken
+                            accessToken: googleUser.accessToken
                         };
                         return false;
                     }
@@ -1125,7 +1128,29 @@ define(['lodash'], function (_) {
             });
             return result;
         };
-
+        dataSource.checkFacebookUserData = function (facebookUserData) {
+            load();
+            var facebookUser = angular.fromJson(facebookUserData);
+            var result = null;
+            _.every(data.user.objects, function (user) {
+                if (user.email === facebookUser.email) {
+                    _.merge(user, {
+                        facebook:{
+                            id: facebookUser.id,
+                            accessToken: facebookUser.accessToken,
+                            expiresIn: facebookUser.expiresIn
+                        }
+                    });
+                    result = {
+                        user: user,
+                        accessToken: facebookUser.accessToken
+                    };
+                    return false;
+                }
+                return true;
+            });
+            return result;
+        };
         //Role
         dataSource.updateRole = function (dataRole) {
             load();

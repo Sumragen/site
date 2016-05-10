@@ -7,8 +7,17 @@ define(
         'use strict';
         module.run(['$http','$httpBackend', '$q', function ($http, $httpBackend) {
             var prefix = '/api';
-            $httpBackend.whenPOST(prefix + '/auth/google').respond(function (method, url, data) {
+            $httpBackend.whenPOST(prefix + '/oauth/google').respond(function (method, url, data) {
                 var result = fakeDataSource.checkGoogleUserData(data);
+                if(result){
+                    return [200, result, {}];
+                }else{
+                    var user = angular.fromJson(data);
+                    return [400, {errorCode: 1, user : user, message: "User doesn't found"}];
+                }
+            });
+            $httpBackend.whenPOST(prefix + '/oauth/facebook').respond(function (method, url, data) {
+                var result = fakeDataSource.checkFacebookUserData(data);
                 if(result){
                     return [200, result, {}];
                 }else{

@@ -12,9 +12,10 @@ define(['../module'], function (module) {
         '$timeout',
         'AuthService',
         'GoogleProviderService',
+        'FacebookProviderService',
         'Common.SecurityContext',
         'userData',
-        function ($scope, $http, $uibModalInstance, $q, $state, $uibModal, $timeout, authService, googleProviderService, securityContext, userData) {
+        function ($scope, $http, $uibModalInstance, $q, $state, $uibModal, $timeout, authService, googleProviderService, facebookProviderService, securityContext, userData) {
             var self = this;
 
             $scope.login = {
@@ -120,7 +121,7 @@ define(['../module'], function (module) {
                             templateUrl: "../views/Auth/signUp.html",
                             controller: "AuthController as controller",
                             resolve: {
-                                userData : err
+                                userData: err
                             }
 
                         });
@@ -128,6 +129,29 @@ define(['../module'], function (module) {
                     .finally(function () {
                         $scope.busy = false;
                     });
+            };
+            $scope.facebookAuthButtonClick = function () {
+                $scope.busy = true;
+                facebookProviderService.authenticate()
+                    .then(function () {
+                        $scope.error = null;
+                        $uibModalInstance.close();
+                    })
+                    .catch(function (err) {
+                        $uibModalInstance.close();
+                        $uibModal.open({
+                            animation: true,
+                            templateUrl: "../views/Auth/signUp.html",
+                            controller: "AuthController as controller",
+                            resolve: {
+                                userData: err
+                            }
+
+                        });
+                    })
+                    .finally(function () {
+                        $scope.busy = false;
+                    })
             };
             googleProviderService.initApiKey();
         }]);

@@ -20,14 +20,23 @@ define(['./module', 'lodash'], function (module, _) {
             }
 
             var routes = {
-                auth: {
+                oauth: {
                     google: function (data) {
                         return new API({
                             method: METHODS.POST,
-                            url: '/auth/google',
+                            url: '/oauth/google',
                             data : data
                         })
                     },
+                    facebook: function (data) {
+                        return new API({
+                            method: METHODS.POST,
+                            url: '/oauth/facebook',
+                            data : data
+                        })
+                    }
+                },
+                auth: {
                     register: function (data) {
                         return new API({
                             method: METHODS.POST,

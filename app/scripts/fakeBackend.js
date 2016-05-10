@@ -5,14 +5,15 @@ define(
     ['./App', './fakeDataSource'],
     function (module, fakeDataSource) {
         'use strict';
-        module.run(['$httpBackend', '$q', function ($httpBackend) {
+        module.run(['$http','$httpBackend', '$q', function ($http, $httpBackend) {
             var prefix = '/api';
-            $httpBackend.whenPOST('/auth/google').respond(function (method, url, data) {
-                var result = fakeDataSource.checkUserByCode(data);
+            $httpBackend.whenPOST(prefix + '/auth/google').respond(function (method, url, data) {
+                var result = fakeDataSource.checkGoogleUserData(data);
                 if(result){
-                    return [200, {currentUser: result.user, sessionToken : result.sessionToken}, {}];
+                    return [200, result, {}];
                 }else{
-                    return [400, {errorCode: 1, message: "User doesn't found"}];
+                    var user = angular.fromJson(data);
+                    return [400, {errorCode: 1, user : user, message: "User doesn't found"}];
                 }
             });
             $httpBackend.whenPOST(prefix + '/login').respond(function (method, url, checkUser) {

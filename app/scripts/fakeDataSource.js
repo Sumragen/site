@@ -1102,14 +1102,28 @@ define(['lodash'], function (_) {
             });
 
         };
-        dataSource.checkUserByCode = function (data) {
+        dataSource.checkGoogleUserData = function (googleUserData) {
             load();
-            var parameterMap = angular.fromJson(data);
-            if(parameterMap.access_token !== undefined && parameterMap.access_token !== null) {
-                return parameterMap;
-            } else {
-                return null;
-            }
+            var googleUser = angular.fromJson(googleUserData);
+            var result = null;
+            _.every(data.user.objects, function (user) {
+                return _.every(googleUser.emails, function (email) {
+                    if (user.email === email.value) {
+                        _.merge(user, {
+                            accessToken: googleUser.accessToken,
+                            expiresAt: googleUser.expiresAt,
+                            expiresIn: googleUser.expiresIn
+                        });
+                        result = {
+                            user: user,
+                            accessToken: user.accessToken
+                        };
+                        return false;
+                    }
+                    return true;
+                })
+            });
+            return result;
         };
 
         //Role

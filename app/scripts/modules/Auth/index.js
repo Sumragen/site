@@ -4,7 +4,8 @@
 define(
     [
         './controller/authController',
-        './service/authService'
+        './service/authService',
+        './service/googleProviderService'
     ],
     function () {
         'use strict';

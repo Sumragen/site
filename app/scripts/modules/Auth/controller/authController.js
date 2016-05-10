@@ -4,14 +4,15 @@
 define(['../module'], function (module) {
     module.controller('AuthController', [
         '$scope',
-        '$auth',
         '$http',
         '$uibModalInstance',
         '$q',
         '$state',
         '$timeout',
         'AuthService',
-        function ($scope,$auth, $http, $uibModalInstance, $q, $state, $timeout, authService) {
+        'GoogleProviderService',
+        'Common.SecurityContext',
+        function ($scope, $http, $uibModalInstance, $q, $state, $timeout, authService, googleProviderService, securityContext) {
             var self = this;
 
             $scope.login = {
@@ -75,7 +76,6 @@ define(['../module'], function (module) {
             $scope.cancel = function () {
                 $uibModalInstance.dismiss('cancel');
             };
-
             self.signUp = function (form) {
                 $scope.busy = true;
                 $scope.$broadcast('schemaFormValidate');
@@ -87,13 +87,12 @@ define(['../module'], function (module) {
                         });
                 }
             };
-
             self.signIn = function (form) {
                 $scope.busy = true;
                 $scope.$broadcast('schemaFormValidate');
                 if (form.$valid) {
                     authService.signIn($scope.login.model)
-                        .then(function (user) {
+                        .then(function () {
                             $scope.error = null;
                             $uibModalInstance.close();
                         })
@@ -105,14 +104,20 @@ define(['../module'], function (module) {
                         });
                 }
             };
-            $scope.authenticate = function(provider) {
-                $auth.authenticate(provider)
-                    .then(function(data){
-                        data;
+            $scope.googleAuthButtonClick = function () {
+                $scope.busy = true;
+                googleProviderService.authenticate()
+                    .then(function () {
+                        $scope.error = null;
+                        $uibModalInstance.close();
                     })
                     .catch(function (err) {
-                        err;
+
+                    })
+                    .finally(function () {
+                        $scope.busy = false;
                     });
             };
+            googleProviderService.initApiKey();
         }]);
 });

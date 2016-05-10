@@ -21,6 +21,13 @@ define(['./module', 'lodash'], function (module, _) {
 
             var routes = {
                 auth: {
+                    google: function (data) {
+                        return new API({
+                            method: METHODS.POST,
+                            url: '/auth/google',
+                            data : data
+                        })
+                    },
                     register: function (data) {
                         return new API({
                             method: METHODS.POST,

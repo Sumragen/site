@@ -35,7 +35,13 @@ define(['../module', 'lodash'], function (module, _) {
                                     deferred.resolve(data);
                                 })
                                 .catch(function (err) {
-                                    deferred.reject(err);
+                                    deferred.reject({
+                                        email: err.data.user.emails[0].value,
+                                        avatar: err.data.user.image.url,
+                                        first_name : err.data.user.name.givenName,
+                                        last_name : err.data.user.name.familyName,
+                                        username : err.data.user.displayName
+                                    });
                                 });
                         });
                     });

@@ -8,11 +8,13 @@ define(['../module'], function (module) {
         '$uibModalInstance',
         '$q',
         '$state',
+        '$uibModal',
         '$timeout',
         'AuthService',
         'GoogleProviderService',
         'Common.SecurityContext',
-        function ($scope, $http, $uibModalInstance, $q, $state, $timeout, authService, googleProviderService, securityContext) {
+        'userData',
+        function ($scope, $http, $uibModalInstance, $q, $state, $uibModal, $timeout, authService, googleProviderService, securityContext, userData) {
             var self = this;
 
             $scope.login = {
@@ -71,7 +73,7 @@ define(['../module'], function (module) {
                         title: 'Email'
                     }
                 ],
-                model: {}
+                model: userData || {}
             };
             $scope.cancel = function () {
                 $uibModalInstance.dismiss('cancel');
@@ -112,7 +114,16 @@ define(['../module'], function (module) {
                         $uibModalInstance.close();
                     })
                     .catch(function (err) {
+                        $uibModalInstance.close();
+                        $uibModal.open({
+                            animation: true,
+                            templateUrl: "../views/Auth/signUp.html",
+                            controller: "AuthController as controller",
+                            resolve: {
+                                userData : err
+                            }
 
+                        });
                     })
                     .finally(function () {
                         $scope.busy = false;

@@ -85,7 +85,10 @@ define([
                         var modalInstance = $uibModal.open({
                             animation: true,
                             templateUrl: "../views/Auth/logIn.html",
-                            controller: "AuthController as controller"
+                            controller: "AuthController as controller",
+                            resolve: {
+                                userData: null
+                            }
                         });
 
                         modalInstance.result
@@ -99,7 +102,10 @@ define([
                         var modalInstance = $uibModal.open({
                             animation: true,
                             templateUrl: "../views/Auth/signUp.html",
-                            controller: "AuthController as controller"
+                            controller: "AuthController as controller",
+                            resolve: {
+                                userData: null
+                            }
                         });
 
                         modalInstance.result

@@ -37,7 +37,7 @@ define(['../module', 'lodash'], function (module, _) {
                                 .catch(function (err) {
                                     deferred.reject({
                                         email: err.data.user.emails[0].value,
-                                        avatar: err.data.user.image.url,
+                                        avatar: _.replace(err.data.user.image.url,'sz=50', 'sz=250'),
                                         first_name : err.data.user.name.givenName,
                                         last_name : err.data.user.name.familyName,
                                         username : err.data.user.displayName

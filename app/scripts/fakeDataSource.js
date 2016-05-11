@@ -1091,6 +1091,7 @@ define(['lodash'], function (_) {
             user.roles = [student];
             data.user.objects.push(user);
             commit();
+            return user;
         };
         dataSource.checkCurrentUser = function (dataUser) {
             load();

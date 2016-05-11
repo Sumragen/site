@@ -15,9 +15,8 @@ define(['../module'], function (module) {
         'FacebookProviderService',
         'MicrosoftProviderService',
         'PinterestProviderService',
-        'Common.SecurityContext',
         'userData',
-        function ($scope, $http, $uibModalInstance, $q, $state, $uibModal, $timeout, authService, googleProviderService, facebookProviderService, microsoftProviderService, pinterestProviderService, securityContext, userData) {
+        function ($scope, $http, $uibModalInstance, $q, $state, $uibModal, $timeout, authService, googleProviderService, facebookProviderService, microsoftProviderService, pinterestProviderService, userData) {
             var self = this;
 
             $scope.login = {
@@ -87,8 +86,13 @@ define(['../module'], function (module) {
                 if (form.$valid) {
                     authService.signUp($scope.signUp.model)
                         .then(function () {
-                            $scope.busy = false;
                             $uibModalInstance.close();
+                        })
+                        .catch(function (err) {
+
+                        })
+                        .finally(function () {
+                            $scope.busy = false;
                         });
                 }
             };
@@ -152,7 +156,7 @@ define(['../module'], function (module) {
                     })
             };
             $scope.microsoftAuthButtonClick = function () {
-                $scope.bust = true;
+                $scope.busy = true;
                 microsoftProviderService.authenticate()
                     .then(function () {
                         $scope.error = null;

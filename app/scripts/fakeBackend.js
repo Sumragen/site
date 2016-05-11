@@ -43,8 +43,8 @@ define(
                 }
             });
             $httpBackend.whenPOST(prefix + '/register').respond(function (method, url, data) {
-                fakeDataSource.addUser(data);
-                return [200, angular.fromJson(data), {}];
+                var user = fakeDataSource.addUser(data);
+                return [200, {currentUser: user, sessionToken: 'simple sessionToken'}, {}];
             });
 
             //Event

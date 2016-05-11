@@ -6,7 +6,8 @@ define(
         './controller/authController',
         './service/authService',
         './service/googleProviderService',
-        './service/facebookProviderService'
+        './service/facebookProviderService',
+        './service/pinterestProviderService'
     ],
     function () {
         'use strict';

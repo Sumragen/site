@@ -13,9 +13,10 @@ define(['../module'], function (module) {
         'AuthService',
         'GoogleProviderService',
         'FacebookProviderService',
+        'PinterestProviderService',
         'Common.SecurityContext',
         'userData',
-        function ($scope, $http, $uibModalInstance, $q, $state, $uibModal, $timeout, authService, googleProviderService, facebookProviderService, securityContext, userData) {
+        function ($scope, $http, $uibModalInstance, $q, $state, $uibModal, $timeout, authService, googleProviderService, facebookProviderService, pinterestProviderService, securityContext, userData) {
             var self = this;
 
             $scope.login = {
@@ -152,6 +153,9 @@ define(['../module'], function (module) {
                     .finally(function () {
                         $scope.busy = false;
                     })
+            };
+            $scope.pinterestAuthButtonClick = function () {
+                pinterestProviderService.authenticate();
             };
             googleProviderService.initApiKey();
         }]);

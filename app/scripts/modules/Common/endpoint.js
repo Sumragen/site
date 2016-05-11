@@ -25,14 +25,21 @@ define(['./module', 'lodash'], function (module, _) {
                         return new API({
                             method: METHODS.POST,
                             url: '/oauth/google',
-                            data : data
+                            data: data
                         })
                     },
                     facebook: function (data) {
                         return new API({
                             method: METHODS.POST,
                             url: '/oauth/facebook',
-                            data : data
+                            data: data
+                        })
+                    },
+                    microsoft: function (data) {
+                        return new API({
+                            method: METHODS.POST,
+                            url: '/oauth/microsoft',
+                            data: data
                         })
                     }
                 },

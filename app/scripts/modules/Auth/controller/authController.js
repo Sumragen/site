@@ -13,10 +13,11 @@ define(['../module'], function (module) {
         'AuthService',
         'GoogleProviderService',
         'FacebookProviderService',
+        'MicrosoftProviderService',
         'PinterestProviderService',
         'Common.SecurityContext',
         'userData',
-        function ($scope, $http, $uibModalInstance, $q, $state, $uibModal, $timeout, authService, googleProviderService, facebookProviderService, pinterestProviderService, securityContext, userData) {
+        function ($scope, $http, $uibModalInstance, $q, $state, $uibModal, $timeout, authService, googleProviderService, facebookProviderService, microsoftProviderService, pinterestProviderService, securityContext, userData) {
             var self = this;
 
             $scope.login = {
@@ -113,10 +114,8 @@ define(['../module'], function (module) {
                 googleProviderService.authenticate()
                     .then(function () {
                         $scope.error = null;
-                        $uibModalInstance.close();
                     })
                     .catch(function (err) {
-                        $uibModalInstance.close();
                         $uibModal.open({
                             animation: true,
                             templateUrl: "../views/Auth/signUp.html",
@@ -124,10 +123,10 @@ define(['../module'], function (module) {
                             resolve: {
                                 userData: err
                             }
-
                         });
                     })
                     .finally(function () {
+                        $uibModalInstance.close();
                         $scope.busy = false;
                     });
             };
@@ -136,10 +135,8 @@ define(['../module'], function (module) {
                 facebookProviderService.authenticate()
                     .then(function () {
                         $scope.error = null;
-                        $uibModalInstance.close();
                     })
                     .catch(function (err) {
-                        $uibModalInstance.close();
                         $uibModal.open({
                             animation: true,
                             templateUrl: "../views/Auth/signUp.html",
@@ -147,10 +144,31 @@ define(['../module'], function (module) {
                             resolve: {
                                 userData: err
                             }
-
                         });
                     })
                     .finally(function () {
+                        $uibModalInstance.close();
+                        $scope.busy = false;
+                    })
+            };
+            $scope.microsoftAuthButtonClick = function () {
+                $scope.bust = true;
+                microsoftProviderService.authenticate()
+                    .then(function () {
+                        $scope.error = null;
+                    })
+                    .catch(function (err) {
+                        $uibModal.open({
+                            animation: true,
+                            templateUrl: "../views/Auth/signUp.html",
+                            controller: "AuthController as controller",
+                            resolve: {
+                                userData: err
+                            }
+                        });
+                    })
+                    .finally(function () {
+                        $uibModalInstance.close();
                         $scope.busy = false;
                     })
             };

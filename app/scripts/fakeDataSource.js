@@ -1110,7 +1110,7 @@ define(['lodash'], function (_) {
                 return _.every(googleUser.emails, function (email) {
                     if (user.email === email.value) {
                         _.merge(user, {
-                            google:{
+                            google: {
                                 id: googleUser.id,
                                 accessToken: googleUser.accessToken,
                                 expiresAt: googleUser.expiresAt,
@@ -1135,7 +1135,7 @@ define(['lodash'], function (_) {
             _.every(data.user.objects, function (user) {
                 if (user.email === facebookUser.email) {
                     _.merge(user, {
-                        facebook:{
+                        facebook: {
                             id: facebookUser.id,
                             accessToken: facebookUser.accessToken,
                             expiresIn: facebookUser.expiresIn
@@ -1144,6 +1144,30 @@ define(['lodash'], function (_) {
                     result = {
                         user: user,
                         accessToken: facebookUser.accessToken
+                    };
+                    return false;
+                }
+                return true;
+            });
+            return result;
+        };
+        dataSource.checkMicrosoftUserData = function (microsoftUserData) {
+            load();
+            var microsoftUser = angular.fromJson(microsoftUserData);
+            var result = null;
+            _.every(data.user.objects, function (user) {
+                if (user.email === microsoftUser.emails.account) {
+                    _.merge(user, {
+                        microsoft: {
+                            id: microsoftUser.id,
+                            accessToken: microsoftUser.accessToken,
+                            expiresAt: microsoftUser.expiresAt,
+                            expiresIn: microsoftUser.expiresIn
+                        }
+                    });
+                    result = {
+                        user: user,
+                        accessToken: microsoftUser.accessToken
                     };
                     return false;
                 }

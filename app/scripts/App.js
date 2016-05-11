@@ -20,6 +20,7 @@ define([
         'bootstrap-decorator',
         'moment',
         'googleApi',
+        'microsoftApi',
         'ui.bootstrap',
         'ui.bootstrap.tpls',
         'modules/Auth/index',

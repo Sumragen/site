@@ -7,7 +7,8 @@ define(
         './service/authService',
         './service/googleProviderService',
         './service/facebookProviderService',
-        './service/pinterestProviderService'
+        './service/pinterestProviderService',
+        './service/microsoftProviderService'
     ],
     function () {
         'use strict';

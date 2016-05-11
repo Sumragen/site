@@ -25,6 +25,15 @@ define(
                     return [400, {errorCode: 1, user : user, message: "User doesn't found"}];
                 }
             });
+            $httpBackend.whenPOST(prefix + '/oauth/microsoft').respond(function (method, url, data) {
+                var result = fakeDataSource.checkMicrosoftUserData(data);
+                if(result){
+                    return [200, result, {}];
+                }else{
+                    var user = angular.fromJson(data);
+                    return [400, {errorCode: 1, user : user, message: "User doesn't found"}];
+                }
+            });
             $httpBackend.whenPOST(prefix + '/login').respond(function (method, url, checkUser) {
                 var user = fakeDataSource.checkCurrentUser(checkUser);
                 if (user) {

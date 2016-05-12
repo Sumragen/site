@@ -31,6 +31,7 @@ require.config({
         'tv4': '../../bower_components/tv4/tv4',
         'objectpath': '../../bower_components/objectpath/lib/ObjectPath',
         'arrive': '../../bower_components/arrive/src/arrive',
+        'angular-growl-v2' : '../../bower_components/angular-growl-v2/build/angular-growl',
         'infiniteScroll': '../../bower_components/ngInfiniteScroll/build/ng-infinite-scroll',
         'microsoftApi' : 'http://js.live.net/v5.0/wl',
         'googleApi' : 'https://apis.google.com/js/client.js?onload=handleClientLoad',
@@ -38,6 +39,9 @@ require.config({
         'google-places': 'https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyB2I-5q7CdsT5Kx1hQMuEgWiWCH_0U_7Ts'
     },
     shim: {
+        'angular-growl-v2':{
+            deps: ['angular']
+        },
         'googleApi':{
             deps: [],
             exports: 'gapi'

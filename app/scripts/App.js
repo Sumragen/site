@@ -15,6 +15,7 @@ define([
         'angular-moment',
         'angular-touch',
         'angular-ui-select',
+        'angular-growl-v2',
         'infiniteScroll',
         'bootstrapDateTimePicker',
         'bootstrap-decorator',
@@ -38,6 +39,7 @@ define([
             'ngSanitize',
             'ui.bootstrap',
             'angularMoment',
+            'angular-growl',
             'AuthModule',
             'infinite-scroll',
             'Common',
@@ -152,9 +154,12 @@ define([
                 '$stateProvider',
                 '$urlRouterProvider',
                 '$provide',
+                'growlProvider',
                 'schemaFormProvider',
                 'schemaFormDecoratorsProvider',
-                function ($stateProvider, $urlRouterProvider, $provide, schemaFormProvider, schemaFormDecoratorsProvider) {
+                function ($stateProvider, $urlRouterProvider, $provide, growlProvider, schemaFormProvider, schemaFormDecoratorsProvider) {
+
+                    growlProvider.globalTimeToLive(3000);
 
                     $provide.decorator('$httpBackend', function ($delegate) {
                         var proxy = function (method, url, data, callback, headers) {

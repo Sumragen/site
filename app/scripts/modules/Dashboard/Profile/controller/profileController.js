@@ -30,7 +30,6 @@ define(['../module'], function (module) {
             $scope.showSchemaForm = false;
             $scope.toggleShowSchemaForm = function () {
                 $timeout(function () {
-                    //$scope.user.model = securityContext.getPrincipal();
                     $scope.showSchemaForm = !$scope.showSchemaForm;
                 });
             };
@@ -50,7 +49,6 @@ define(['../module'], function (module) {
                         });
                 }
             };
-
 
             $scope.user.schema = {
                 "type": "object",

@@ -1084,6 +1084,18 @@ define(['lodash'], function (_) {
             var amount = angular.fromJson(tempAmount);
             return data.user.objects.splice(amount.offset, amount.limit);
         };
+        dataSource.getUser = function (userId) {
+            load();
+            var result = null;
+            _.every(data.user.objects, function (user) {
+                if(user.id === Number(userId)){
+                    result = user;
+                    return false;
+                }
+                return true;
+            });
+            return result;
+        };
         dataSource.addUser = function (tempUser) {
             load();
             var user = angular.fromJson(tempUser);
@@ -1099,10 +1111,14 @@ define(['lodash'], function (_) {
             var result = null;
             if (_.every(data.user.objects, function (user) {
                     if (tempUser.username.toLowerCase() === user.username.toLowerCase() || tempUser.username.toLowerCase() === user.email.toLowerCase()) {
-                        if (user.password && tempUser.password === user.password) {
+                        if (tempUser.password === user.password) {
                             result = user;
                         } else {
-                            result = {error: 'User without password. Please, sign in with social network and set your password in profile settings page.'}
+                            if(!user.password){
+                                result = {error: 'User without password. Please, sign in with social network and set your password in profile settings page.'}
+                            }else{
+                                return true;
+                            }
                         }
                         return false;
                     }

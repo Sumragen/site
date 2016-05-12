@@ -17,9 +17,20 @@ define(['../module'], function (module) {
                     });
             };
 
+            service.getFullUserData = function(id){
+              return $http(Endpoint.user.get(id))
+                  .then(function (data) {
+                      return data.data;
+                  })
+                  .catch(function (err) {
+                      return $q.reject(err);
+                  });
+            };
+
             service.updateUser = function (user) {
                 return $http(Endpoint.user.update(user))
                     .then(function (data) {
+                        delete data.data.password;
                         if (securityContext.getPrincipal().id === data.data.id) securityContext.setPrincipal(data.data);
                         return data.data;
                     }, function (err) {

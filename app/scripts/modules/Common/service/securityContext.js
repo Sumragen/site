@@ -10,6 +10,7 @@ define(['../module'], function (module) {
                 return JSON.parse(localStorage.getItem('currentUserLS'));
             };
             service.setPrincipal = function (user) {
+                delete user.password;
                 $rootScope.$broadcast('securityContext:updated', user);
                 user ? localStorage.setItem('currentUserLS', JSON.stringify(user))
                      : localStorage.removeItem('currentUserLS');

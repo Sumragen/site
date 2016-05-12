@@ -78,7 +78,7 @@ define([
                     });
 
                     $rootScope.getSchoolName = function () {
-                        return 'School ' + '24';//+ user.school;
+                        return 'School 24';
                     };
 
 

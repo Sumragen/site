@@ -7,31 +7,42 @@ define(['../module'], function (module) {
         '$timeout',
         'Common.SecurityContext',
         'Dashboard.Profile.ProfileService',
-        function ($scope, $timeout, SecurityContext, profileService) {
+        function ($scope, $timeout, securityContext, profileService) {
+            $scope.user = {};
 
+            function updateUserModel (user){
+                profileService.getFullUserData(user ? user.id : securityContext.getPrincipal().id)
+                    .then(function (user) {
+                        $scope.user.model = user;
+                        if (!user.password) {
+                            $scope.errorMsg = true;
+                        }
+                    });
+            }
             $timeout(function () {
-                $scope.currentUser  = SecurityContext.getPrincipal();
+                updateUserModel();
             });
 
             $scope.$on('securityContext:updated', function (e, user) {
-                $scope.currentUser = user;
+                updateUserModel(user);
             });
 
             $scope.showSchemaForm = false;
             $scope.toggleShowSchemaForm = function () {
                 $timeout(function () {
-                    $scope.currentUser = SecurityContext.getPrincipal();
+                    //$scope.user.model = securityContext.getPrincipal();
                     $scope.showSchemaForm = !$scope.showSchemaForm;
                 });
             };
 
             $scope.editProfile = function (form) {
-                $scope.busy = true;
                 $scope.$broadcast('schemaFormValidate');
                 if (form.$valid) {
-                    profileService.updateUser($scope.currentUser)
+                    $scope.busy = true;
+                    profileService.updateUser($scope.user.model)
                         .then(function () {
-                            SecurityContext.setPrincipal($scope.currentUser);
+                            securityContext.setPrincipal($scope.user.model);
+                            $scope.errorMsg = false;
                             $scope.toggleShowSchemaForm();
                         })
                         .finally(function () {
@@ -41,7 +52,7 @@ define(['../module'], function (module) {
             };
 
 
-            $scope.schema = {
+            $scope.user.schema = {
                 "type": "object",
                 "properties": {
                     first_name: {
@@ -66,17 +77,23 @@ define(['../module'], function (module) {
                     },
                     'avatar': {
                         type: 'file'
+                    },
+                    'password': {
+                        title: 'Password',
+                        minLength: 4,
+                        'type': 'string'
                     }
                 },
                 "required": [
                     "first_name",
                     "last_name",
                     "username",
-                    "email"
+                    "email",
+                    'password'
                 ]
             };
 
-            $scope.form = [
+            $scope.user.form = [
                 {
                     key: 'avatar',
                     title: 'Upload avatar',
@@ -102,6 +119,11 @@ define(['../module'], function (module) {
                 {
                     "key": "email",
                     "placeholder": "email"
+                },
+                {
+                    'key': 'password',
+                    type: 'password',
+                    'placeholder': 'Password'
                 }
             ];
         }

@@ -1,6 +1,14 @@
 <div s-loading-indicator="" ng-show="busy"></div>
 <div class="profile-module-wrapper" ng-if="!busy">
     <div ng-show="!showSchemaForm" class="profile-view">
+        <div class="alert alert-dismissible alert-danger alert-profile-password" ng-show="errorMsg">
+            <button type="button" class="close" data-dismiss="alert">×</button>
+            <strong>Please, set password!</strong>
+            <div>
+                You can click
+                <a class="alert-link alert-profile-password-link" ng-click="toggleShowSchemaForm()">here</a> and set your password.
+            </div>
+        </div>
         <div class="profile-title">
             <h3 class="profile-caption">Profile</h3>
             <i class="material-icons" ng-click="toggleShowSchemaForm()">mode_edit</i>
@@ -8,21 +16,21 @@
         <div class="row">
             <div class="col-sm-6 col-md-4">
                 <div class="thumbnail">
-                    <div s-set-image="{{currentUser.avatar}}" class="material-icons avatar" s-class-on-error="person"></div>
+                    <div s-set-image="{{user.model.avatar}}" class="material-icons avatar" s-class-on-error="person"></div>
                 </div>
             </div>
         </div>
-        <h4>First name : {{currentUser.first_name}}</h4>
-        <h4>Last name : {{currentUser.last_name}}</h4>
-        <h4>Login : {{currentUser.username}}</h4>
-        <h4>Email : {{currentUser.email}}</h4>
+        <h4>First name : {{user.model.first_name}}</h4>
+        <h4>Last name : {{user.model.last_name}}</h4>
+        <h4>Login : {{user.model.username}}</h4>
+        <h4>Email : {{user.model.email}}</h4>
     </div>
 
     <div ng-show="showSchemaForm">
         <form name="editForm"
-              sf-schema="schema"
-              sf-form="form"
-              sf-model="currentUser">
+              sf-schema="user.schema"
+              sf-form="user.form"
+              sf-model="user.model">
         </form>
         <a class="btn btn-default" ng-click="toggleShowSchemaForm()">Cancel</a>
         <a class="btn btn-info" ng-click="editProfile(editForm)">Submit</a>

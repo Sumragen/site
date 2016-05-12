@@ -286,7 +286,14 @@ define(
                     return [400, {errorCode: 4, message: 'Users not found'}];
                 }
             });
-
+            $httpBackend.whenGET(/\/user\/id[0-9]*/).respond(function (method, url) {
+                var user = fakeDataSource.getUser(url.split('id')[1]);
+                if(user){
+                    return [200, user, {}];
+                }else{
+                    return [400, {errorCode: 4, message: 'User not found'}]
+                }
+            });
             $httpBackend.whenPUT(prefix + '/lesson').respond(function (method, url, tempLesson) {
                 var lesson = fakeDataSource.updateLesson(tempLesson);
                 if (lesson) {

@@ -79,7 +79,11 @@ define(['./module', 'lodash'], function (module, _) {
                             }
                         })
                     },
-                    get: function () {
+                    get: function (id) {
+                        return new API({
+                            method: METHODS.GET,
+                            url: '/user/id' + id
+                        })
                     },
                     update: function (user) {
                         return new API({

@@ -1096,11 +1096,21 @@ define(['lodash'], function (_) {
         dataSource.checkCurrentUser = function (dataUser) {
             load();
             var tempUser = angular.fromJson(dataUser);
-            return _.find(data.user.objects, function (item) {
-                if (tempUser.username === item.username && tempUser.password === item.password) {
-                    return item;
-                }
-            });
+            var result = null;
+            if (_.every(data.user.objects, function (user) {
+                    if (tempUser.username.toLowerCase() === user.username.toLowerCase() || tempUser.username.toLowerCase() === user.email.toLowerCase()) {
+                        if (user.password && tempUser.password === user.password) {
+                            result = user;
+                        } else {
+                            result = {error: 'User without password. Please, sign in with social network and set your password in profile settings page.'}
+                        }
+                        return false;
+                    }
+                    return true;
+                })) {
+                result = {error: 'Username or password is incorrect'};
+            }
+            return result;
         };
         //oauth
         dataSource.checkGoogleUserData = function (googleUserData) {

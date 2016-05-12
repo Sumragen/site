@@ -113,6 +113,22 @@ define(['../module'], function (module) {
                         });
                 }
             };
+            function openSignUpModalWithUser(user){
+                var modalInstance = $uibModal.open({
+                    animation: true,
+                    templateUrl: "../views/Auth/signUp.html",
+                    controller: "AuthController as controller",
+                    resolve: {
+                        userData: user
+                    }
+                });
+                modalInstance.result
+                    .then(function () {
+                        $state.go('dashboard.profile');
+                    }, function () {
+                        //catch error
+                    });
+            }
             $scope.googleAuthButtonClick = function () {
                 $scope.busy = true;
                 googleProviderService.authenticate()
@@ -120,14 +136,7 @@ define(['../module'], function (module) {
                         $scope.error = null;
                     })
                     .catch(function (err) {
-                        $uibModal.open({
-                            animation: true,
-                            templateUrl: "../views/Auth/signUp.html",
-                            controller: "AuthController as controller",
-                            resolve: {
-                                userData: err
-                            }
-                        });
+                        openSignUpModalWithUser(err);
                     })
                     .finally(function () {
                         $uibModalInstance.close();
@@ -141,14 +150,7 @@ define(['../module'], function (module) {
                         $scope.error = null;
                     })
                     .catch(function (err) {
-                        $uibModal.open({
-                            animation: true,
-                            templateUrl: "../views/Auth/signUp.html",
-                            controller: "AuthController as controller",
-                            resolve: {
-                                userData: err
-                            }
-                        });
+                        openSignUpModalWithUser(err);
                     })
                     .finally(function () {
                         $uibModalInstance.close();
@@ -162,14 +164,7 @@ define(['../module'], function (module) {
                         $scope.error = null;
                     })
                     .catch(function (err) {
-                        $uibModal.open({
-                            animation: true,
-                            templateUrl: "../views/Auth/signUp.html",
-                            controller: "AuthController as controller",
-                            resolve: {
-                                userData: err
-                            }
-                        });
+                        openSignUpModalWithUser(err);
                     })
                     .finally(function () {
                         $uibModalInstance.close();

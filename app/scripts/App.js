@@ -113,7 +113,7 @@ define([
                             .then(function () {
                                 $state.go('dashboard.profile');
                             }, function () {
-                                console.log('Modal dismissed');
+                                //catch some errors
                             });
                     };
 

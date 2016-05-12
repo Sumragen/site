@@ -36,10 +36,10 @@ define(
             });
             $httpBackend.whenPOST(prefix + '/login').respond(function (method, url, checkUser) {
                 var user = fakeDataSource.checkCurrentUser(checkUser);
-                if (user) {
+                if (!user.error) {
                     return [200, {currentUser: user, sessionToken: 'simple sessionToken'}, {}];
                 } else {
-                    return [400, {errorCode: 1, message: 'Username or password is incorrect'}];
+                    return [400, {errorCode: 1, message: user.error}];
                 }
             });
             $httpBackend.whenPOST(prefix + '/register').respond(function (method, url, data) {

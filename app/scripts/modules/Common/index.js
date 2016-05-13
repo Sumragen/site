@@ -16,6 +16,7 @@ define(
         './filters/deepFilter',
         './directive/loadingIndicator',
         './directive/httpLoadingIndicator',
+        './directive/checkPermissions',
         './endpoint'
     ],
     function () {

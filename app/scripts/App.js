@@ -83,7 +83,9 @@ define([
                         return 'School 24';
                     };
 
-
+                    $rootScope.redirectToSettings = function () {
+                        $state.go('dashboard.settings.users');
+                    };
                     $rootScope.showSignInModal = function () {
                         var modalInstance = $uibModal.open({
                             animation: true,

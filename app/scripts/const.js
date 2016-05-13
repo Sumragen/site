@@ -3,6 +3,22 @@
  */
 define(['./modules/Dashboard/Schedule/module'], function (module) {
     module.constant('ScheduleConstants', {
+        'PERMISSION':{
+            'isTeacher': 0x001,
+            'hasAdminRights': 0x002,
+            'canViewUsers': 0x003,
+            'canEditUser': 0x004,
+            'canAddUsers': 0x005,
+            'canDeleteUsers': 0x006,
+            'canViewSchedule': 0x007,
+            'canEditSchedule': 0x008,
+            'canAddSchedule': 0x009,
+            'canDeleteSchedule': 0x00a,
+            'canViewEvents': 0x00b,
+            'canEditEvents': 0x00c,
+            'canAddEvents': 0x00d,
+            'canDeleteEvents': 0x00e
+        },
         'color': {
             'error': {
                 'background': '#FF3F44',

@@ -160,6 +160,10 @@ define([
                 function ($stateProvider, $urlRouterProvider, $provide, growlProvider, schemaFormProvider, schemaFormDecoratorsProvider) {
 
                     growlProvider.globalTimeToLive(3000);
+                    growlProvider.globalReversedOrder(true);
+                    growlProvider.onlyUniqueMessages(false);
+                    growlProvider.globalPosition('top-right');
+
 
                     $provide.decorator('$httpBackend', function ($delegate) {
                         var proxy = function (method, url, data, callback, headers) {

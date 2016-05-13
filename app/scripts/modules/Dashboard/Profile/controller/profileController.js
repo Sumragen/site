@@ -40,7 +40,6 @@ define(['../module'], function (module) {
                     $scope.busy = true;
                     profileService.updateUser($scope.user.model)
                         .then(function () {
-                            securityContext.setPrincipal($scope.user.model);
                             $scope.errorMsg = false;
                             $scope.toggleShowSchemaForm();
                         })

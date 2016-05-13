@@ -35,7 +35,7 @@
                 <td>{{event.name}}</td>
                 <td>{{event.description}}</td>
                 <td>{{event.date}}</td>
-                <td class="icon-table-right" ng-click="removeEvent(event)"><i class="material-icons icon-cell">delete_forever</i></td>
+                <td class="icon-table-right" ng-if="isSettingPage" ng-click="removeEvent(event)"><i class="material-icons icon-cell">delete_forever</i></td>
             </tr>
             </tbody>
         </table>
@@ -55,7 +55,8 @@
     <!--map-->
     <div ng-show="showSetMarkerForm || showMap">
         <a class="btn btn-raised btn-success" ng-click="saveMarkers()" ng-if="isSettingPage">Save</a>
-        <a class="btn btn-raised btn-warning" ng-click="deleteMarker()" ng-if="isSettingPage && showSetMarkerForm">Delete</a>
+        <a class="btn btn-raised btn-success" ng-click="showSetMarkerForm ? removeEvent() : resetMarkers()" ng-if="isSettingPage">{{showSetMarkerForm ? 'Cancel' : 'Reset'}}</a>
+        <a class="btn btn-raised btn-warning" ng-click="deleteMarker()" ng-if="isSettingPage && showSetMarkerForm">Delete marker</a>
         <div class="map-container">
             <div class="map">
                 <logicify-gmap center="gmOpts.center"

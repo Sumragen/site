@@ -49,7 +49,7 @@
               sf-model="event.model">
         </form>
         <a class="btn btn-default" ng-click="toggleShowEditForm()">Cancel</a>
-        <a class="btn btn-info" ng-click="(event.model.id)?editEvent(editForm): createEvent(editForm)">{{(event.model.id)?'Update':'Create'}}</a>
+        <a class="btn btn-info" ng-click="(event.model.id)?editEvent(editForm): toggleShowSecondStepOfEventCreate(editForm)">{{(event.model.id)?'Update':'Next'}}</a>
     </div>
 
     <!--map-->

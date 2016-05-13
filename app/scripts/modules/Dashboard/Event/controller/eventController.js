@@ -46,7 +46,7 @@ define(['../module', 'lodash', 'jquery'], function (module, _) {
                     if (!marker) {
                         $scope.markers[0].setMap(null);
                         $scope.markers[0].position = null;
-                        $scope.event.copyModel.location = null;
+                        $scope.event.model.location = null;
                         notificationService.showMessage('Marker was deleted', 'warning');
                     } else {
                         marker.setMap(null);
@@ -62,7 +62,7 @@ define(['../module', 'lodash', 'jquery'], function (module, _) {
                         }
                         $scope.markers[0].setMap($scope.map);
                         $scope.markers[0].position = event.latLng;
-                        $scope.event.copyModel.location = event ? {
+                        $scope.event.model.location = event ? {
                             latitude: event.latLng.lat(),
                             longitude: event.latLng.lng()
                         } : null;
@@ -98,27 +98,20 @@ define(['../module', 'lodash', 'jquery'], function (module, _) {
                         });
                 }
             };
-            $scope.createEvent = function (form) {
-                $scope.busy = false;
+
+            $scope.toggleShowSecondStepOfEventCreate = function (form) {
                 $scope.$broadcast('schemaFormValidate');
-                if (form.$valid) {
-                    eventService.createEvent($scope.event.model)
-                        .then(function (event) {
-                            $scope.event.copyModel = event;
-                            $scope.eventList.push(event);
-                            var marker = new google.maps.Marker({
-                                id: event.id,
-                                name: event.name,
-                                position: null,
-                                map: null,
-                                title: event.description
-                            });
-                            $scope.toggleShowEditForm();
-                            $scope.toggleShowSetMarkerForm(marker);
-                        })
-                        .finally(function () {
-                            $scope.busy = false;
-                        });
+                if(form.$valid){
+                    var event = $scope.event.model;
+                    var marker = new google.maps.Marker({
+                        name: event.name,
+                        position: null,
+                        map : null,
+                        title : event.description
+                    });
+                    $scope.eventList.push(event);
+                    $scope.toggleShowEditForm(event);
+                    $scope.toggleShowSetMarkerForm(marker);
                 }
             };
             $scope.resetMarkers = function () {
@@ -193,9 +186,9 @@ define(['../module', 'lodash', 'jquery'], function (module, _) {
                         });
                 } else {
                     $scope.busy = true;
-                    eventService.updateEvent($scope.event.copyModel)
-                        .then(function (data) {
-                            $scope.eventList = data;
+                    eventService.createEvent($scope.event.model)
+                        .then(function (event) {
+                            $scope.eventList[$scope.eventList.length - 1] = event;
                             google.maps.event.clearListeners($scope.map, 'click');
                             $scope.markers[0].setMap(null);
                             createMarkerList();

@@ -648,7 +648,6 @@ define(['lodash'], function (_) {
             load();
             var event = angular.fromJson(tempEvent);
             event.id = ++data.event.lastIndex;
-            event.location = null;
             data.event.objects.push(event);
             commit();
             return event;

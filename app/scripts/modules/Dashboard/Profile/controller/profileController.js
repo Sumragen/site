@@ -6,19 +6,21 @@ define(['../module'], function (module) {
         '$scope',
         '$timeout',
         'Common.SecurityContext',
+        'Common.NotificationService',
         'Dashboard.Profile.ProfileService',
-        function ($scope, $timeout, securityContext, profileService) {
+        function ($scope, $timeout, securityContext, notificationService, profileService) {
             $scope.user = {};
 
-            function updateUserModel (user){
+            function updateUserModel(user) {
                 profileService.getFullUserData(user ? user.id : securityContext.getPrincipal().id)
                     .then(function (user) {
                         $scope.user.model = user;
                         if (!user.password) {
-                            $scope.errorMsg = true;
+                            $scope.errorReadPassword = true;
                         }
                     });
             }
+
             $timeout(function () {
                 updateUserModel();
             });
@@ -40,8 +42,12 @@ define(['../module'], function (module) {
                     $scope.busy = true;
                     profileService.updateUser($scope.user.model)
                         .then(function () {
-                            $scope.errorMsg = false;
+                            notificationService.showMessage('Changes were saved', 'success');
+                            $scope.errorReadPassword = false;
                             $scope.toggleShowSchemaForm();
+                        })
+                        .catch(function (err) {
+                            notificationService.showMessage(err.message, 'error');
                         })
                         .finally(function () {
                             $scope.busy = false;

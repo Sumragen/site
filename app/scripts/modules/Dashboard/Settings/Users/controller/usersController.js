@@ -6,10 +6,11 @@ define(['../module', 'lodash'], function (module, _) {
         '$scope',
         '$timeout',
         '$q',
+        'Common.NotificationService',
         'Dashboard.Profile.ProfileService',
         'Dashboard.Settings.Schedule.LessonService',
         'usersData',
-        function ($scope, $timeout, $q, profileService, lessonService, usersData) {
+        function ($scope, $timeout, $q, notificationService, profileService, lessonService, usersData) {
             $scope.users = usersData;
             $scope.user = {};
 
@@ -98,7 +99,11 @@ define(['../module', 'lodash'], function (module, _) {
                                 }
                                 return true;
                             });
+                            notificationService.showMessage('Changes were saved', 'success');
                             $scope.toggleShowEditForm();
+                        })
+                        .catch(function (err) {
+                            notificationService.showMessage(err.message, error)
                         })
                         .finally(function () {
                             $scope.busy = false;

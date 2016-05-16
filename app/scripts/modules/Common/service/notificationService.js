@@ -10,27 +10,27 @@ define(['../module'], function (module) {
                 switch (type ? type.toLowerCase() : null) {
                     case 'success' :
                     {
-                        growl.success(message || 'default success message', title ? {title: 'default success title'} : {});
+                        growl.success(message || 'default success message', title || '');
                         break;
                     }
                     case 'warning' :
                     {
-                        growl.warning(message || 'default warning message', title ? {title: 'default warning title'} : {});
+                        growl.warning(message || 'default warning message', title || '');
                         break;
                     }
                     case 'error' :
                     {
-                        growl.error(message || 'default error message', title ? {title: 'default error title'} : {});
+                        growl.error(message || 'default error message', title || '');
                         break;
                     }
                     case 'info' :
                     {
-                        growl.info(message || 'default info message', title ? {title: 'default info title'} : {});
+                        growl.info(message || 'default info message', title || '');
                         break;
                     }
                     default:
                     {
-                        growl.info(message || "default block when type doesn't set", title ? {title: 'default title'} : {});
+                        growl.info(message || "default block when type doesn't set", title || '');
                     }
                 }
             };

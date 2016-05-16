@@ -6,10 +6,11 @@ define(['../module', 'lodash'], function (module, _) {
         '$scope',
         '$state',
         '$stateParams',
+        'Common.NotificationService',
         'Dashboard.Schedule.ScheduleService',
         'Dashboard.Schedule.ScheduleDataService',
         'scheduleData',
-        function ($scope, $state, $stateParams, scheduleService, scheduleDataService, scheduleData) {
+        function ($scope, $state, $stateParams, notificationService, scheduleService, scheduleDataService, scheduleData) {
             $scope.busy = false;
 
             var isSettingsPage = $state.current.name.indexOf('settings') > -1;
@@ -69,10 +70,12 @@ define(['../module', 'lodash'], function (module, _) {
                             })
                         })
                         .then(function (data) {
+                            notificationService.showMessage('Changes were saved.','success','Done!');
                             $scope.notification = null;
                         })
                         .catch(function (error) {
                             _.each(error.errorEvents, function (id) {
+                                notificationService.showMessage(error.message, 'error');
                                 $scope.notification = error.message;
                                 overlappedEvents = scheduleDataService.addToOverlappedEvents(overlappedEvents, id);
                                 _.every($scope.events, function (event, index) {

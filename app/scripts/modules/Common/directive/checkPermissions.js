@@ -23,12 +23,10 @@ define(['../module', 'lodash'], function (module, _) {
                     var confArg = scope.sConfirmActionArg || null;
                     var checkUser = angular.fromJson(scope.sCheckUser) || null;
 
-                    function setEventOnClick(expressionHandler, item) {
-                        if (expressionHandler) {
-                            $(element).click(function () {
-                                expressionHandler(item)
-                            });
-                        }
+                    function setEventOnClick(item) {
+                        $(element).click(function () {
+                            confAction(item || null)
+                        });
                     }
 
                     function setElementDisabled() {
@@ -53,12 +51,12 @@ define(['../module', 'lodash'], function (module, _) {
                          */
                         if (confAction) {
                             if (confArg) {
-                                setEventOnClick(confAction, confArg);
+                                setEventOnClick(confArg);
                             } else {
                                 if (checkUser && (checkUser.id == currentUser.id || (checkUser.id != currentUser.id && currentUser.roles[0].id < checkUser.roles[0].id))) {
-                                    setEventOnClick(confAction, checkUser);
+                                    setEventOnClick(checkUser);
                                 } else {
-                                    setEventOnClick(confAction);
+                                    setEventOnClick();
                                 }
                             }
                         }

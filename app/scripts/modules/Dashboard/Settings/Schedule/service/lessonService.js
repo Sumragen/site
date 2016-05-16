@@ -5,8 +5,9 @@ define(['../module', 'lodash'], function (module, _) {
     module.service('Dashboard.Settings.Schedule.LessonService', [
         '$http',
         '$q',
+        'Common.SecurityContext',
         'Endpoint',
-        function ($http, $q, Endpoint) {
+        function ($http, $q, securityContext, Endpoint) {
             var service = {};
             service.getSubjectsForTeacher = function (id) {
                 return $http(Endpoint.teacher.getSubjects(id))
@@ -17,10 +18,14 @@ define(['../module', 'lodash'], function (module, _) {
                         $q.reject(err);
                     });
             };
-            service.getRoleNames = function () {
+            service.getRoleNames = function (userId) {
                 return $http(Endpoint.role.list())
                     .then(function (data) {
-                        return _.map(data.data.roles, function (role) {
+                        var user = securityContext.getPrincipal();
+                        var rolesMoreLessThanUserRole = _.filter(data.data.roles, function (role) {
+                            return role.id > user.roles[0].id || (userId == user.id && role.id == user.roles[0].id);
+                        });
+                        return _.map(rolesMoreLessThanUserRole, function (role) {
                             return {value: role.id, name: role.name}
                         });
                     })

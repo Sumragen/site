@@ -43,7 +43,7 @@ define(['../module', 'lodash'], function (module, _) {
                                 .catch(function (err) {
                                     $q.reject(err);
                                 }),
-                            lessonService.getRoleNames()
+                            lessonService.getRoleNames(user.id)
                                 .then(function (data) {
                                     return data;
                                 })

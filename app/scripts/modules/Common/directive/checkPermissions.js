@@ -24,6 +24,12 @@ define(['../module', 'lodash'], function (module, _) {
                             });
                         }
                     }
+                    function setElementDisabled(element){
+                        element.addClass('disabled');
+                        element.css({
+                            opacity: '0.3'
+                        });
+                    }
                     /**
                      * Check permissions of current user and specified permissions in directive
                      */
@@ -36,19 +42,16 @@ define(['../module', 'lodash'], function (module, _) {
                         var expressionHandler = scope.sConfirmAction() || null;
                         if (scope.sCheckUser) {
                             var user = angular.fromJson(scope.sCheckUser);
-                            if (user.id === currentUser.id || (user.id !== currentUser.id && currentUser.roles[0].id < user.roles[0].id)) {
+                            if (user.id == currentUser.id || (user.id != currentUser.id && currentUser.roles[0].id < user.roles[0].id)) {
                                 setEventOnClick(expressionHandler,user);
                             } else {
-                                element.addClass('disabled');
-                                element.css({
-                                    opacity: '0.3'
-                                });
+                                setElementDisabled(element);
                             }
                         } else {
                             setEventOnClick(expressionHandler)
                         }
                     } else {
-                        element.addClass('disabled');
+                        setElementDisabled(element);
                     }
                 }
             }

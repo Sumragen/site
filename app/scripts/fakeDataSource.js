@@ -675,7 +675,7 @@ define(['lodash'], function (_) {
                 if (stage.id === tempStage) {
                     result.stage = stage;
                     _.each(data.lesson.objects, function (lesson) {
-                        if (Number(lesson.stage) === stage.stage && lesson.suffix === stage.suffix) {
+                        if (lesson.stage == stage.stage && lesson.suffix === stage.suffix) {
                             result.lessons.push(lesson);
                         }
                     });
@@ -717,7 +717,7 @@ define(['lodash'], function (_) {
             var stage = angular.fromJson(dataStage);
             var lessons = [];
             _.each(data.lesson.objects, function (lesson) {
-                    if (stage && Number(lesson.stage) === stage.stage && lesson.suffix === stage.suffix) {
+                    if (stage && lesson.stage == stage.stage && lesson.suffix === stage.suffix) {
                         lessons.push(lesson);
                     }
                 }
@@ -770,7 +770,7 @@ define(['lodash'], function (_) {
             _.each(tempLessons.objects, function (tempLesson) {
                 _.every(data.lesson.objects, function (toCheckLesson) {
                     if (toCheckLesson.id === tempLesson.id
-                        && Number(toCheckLesson.stage) === tempLessons.stage.stage
+                        && toCheckLesson.stage == tempLessons.stage.stage
                         && toCheckLesson.suffix === tempLessons.stage.suffix) {
                         _.every(data.lesson.objects, function (checkLesson) {
                             if (tempLesson.id !== checkLesson.id
@@ -797,7 +797,7 @@ define(['lodash'], function (_) {
                     dataSource.updateLessonById(lesson);
                 });
                 result.objects = _.filter(data.lesson.objects, function (lesson) {
-                    return Number(lesson.stage) === tempLessons.stage.stage && lesson.suffix === tempLessons.stage.suffix;
+                    return lesson.stage == tempLessons.stage.stage && lesson.suffix === tempLessons.stage.suffix;
                 });
             }
             commit();
@@ -1087,7 +1087,7 @@ define(['lodash'], function (_) {
             load();
             var result = null;
             _.every(data.user.objects, function (user) {
-                if(user.id === Number(userId)){
+                if(user.id == userId){
                     result = user;
                     return false;
                 }
@@ -1349,7 +1349,7 @@ define(['lodash'], function (_) {
                 });
                 if (selectedSubject.lesson) {
                     _.every(data.lesson.objects, function (lesson) {
-                        if (Number(lesson.stage) === Number(selectedSubject.lesson.stage)
+                        if (lesson.stage == selectedSubject.lesson.stage
                             && lesson.suffix === selectedSubject.lesson.suffix
                             && lesson.day === selectedSubject.day
                             && !_.every(lesson.order, function (order) {

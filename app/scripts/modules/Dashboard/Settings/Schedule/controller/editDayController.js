@@ -53,7 +53,7 @@ define(['../module', 'lodash'], function (module, _) {
                 $scope.lesson.suffix = suffix;
                 $scope.lesson.order = index;
                 if ($scope.lessons.every(function (lesson) {
-                        if (Number(lesson.stage) === stage && lesson.suffix === suffix) {
+                        if (lesson.stage == stage && lesson.suffix === suffix) {
                             return lesson.order.every(function (order) {
                                 if (order === index) {
                                     $scope.lesson.model = angular.copy(lesson);
@@ -83,7 +83,7 @@ define(['../module', 'lodash'], function (module, _) {
             $scope.getLessonNameByOrder = function (stage, suffix, index) {
                 var result = null;
                 $scope.lessons.every(function (lesson) {
-                    if (Number(lesson.stage) === stage && lesson.suffix === suffix) {
+                    if (lesson.stage == stage && lesson.suffix === suffix) {
                         return lesson.order.every(function (order) {
                             if (order === index) {
                                 result = lesson.subject.name;

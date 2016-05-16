@@ -16,7 +16,8 @@
             </tr>
             </tbody>
         </table>
-        <a class="btn btn-raised btn-success" ng-click="toggleShowRoleEditor()">Create new role</a>
+        <a class="btn btn-raised btn-success" s-check-permissions="hasAdminRights"
+           s-confirm-action="toggleShowRoleEditor">Create new role</a>
     </div>
     <div ng-show="showRoleEditor">
         <div class="form-group label-floating">
@@ -31,17 +32,21 @@
                 <label>
                     <input type="checkbox"
                            ng-checked="permissions.indexOf(permission.value) > -1"
-                           ng-click="togglePermissions(permission.value)"
-                    > {{permission.title}}
+                           ng-click="togglePermissions(permission.value)"> {{permission.title}}
                 </label>
             </div>
         </div>
 
         <a class="btn btn-raised btn-default" ng-click="toggleShowRoleEditor()">Cancel</a>
 
-        <a class="btn btn-raised btn-success"
-           ng-click="(isExist)? updateRole(currentRole.name) : createRole(currentRole.name)">{{(isExist)?'Update':'Create'}}</a>
+        <a class="btn btn-raised btn-success ng-cloak" s-check-permissions="hasAdminRights"
+           s-confirm-action="isExist ? updateRole : createRole"
+           s-confirm-action-arg="{{currentRole.name}}">{{isExist ? 'Update' : 'Create'}}</a>
 
-        <a class="btn btn-raised btn-warning" ng-click="deleteRole()" ng-if="isExist" ng-cloak>Delete</a>
+        <!--<a class="btn btn-raised btn-success"-->
+        <!--ng-click="(isExist)? updateRole(currentRole.name) : createRole(currentRole.name)">{{(isExist)?'Update':'Create'}}</a>-->
+
+        <a class="btn btn-raised btn-warning" s-check-permissions="hasAdminRights" s-confirm-action="deleteRole"
+           ng-if="isExist" ng-cloak>Delete</a>
     </div>
 </div>

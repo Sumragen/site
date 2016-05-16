@@ -10,13 +10,13 @@ define(['../module', 'lodash'], function (module, _) {
         'Common.PermissionsService',
         'Dashboard.Settings.ManageRolesService',
         'rolesData',
-        function ($scope, $http, $timeout, Endpoint, permissionService, manageRolesService,rolesData) {
+        function ($scope, $http, $timeout, Endpoint, permissionService, manageRolesService, rolesData) {
 
             $scope.permissionSet = permissionService.getPermissionSet();
 
             $scope.permissions = [];
 
-            $scope.togglePermissions = function(code) {
+            $scope.togglePermissions = function (code) {
                 var idx = $scope.permissions.indexOf(code);
 
                 if (idx > -1) {

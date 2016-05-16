@@ -12,24 +12,33 @@ define(['../module', 'lodash'], function (module, _) {
                 scope: {
                     sCheckPermissions: '@',
                     sCheckUser: '@',
-                    sConfirmAction: '&'
+                    sConfirmAction: '&',
+                    sConfirmActionArg: '@',
+                    sDisabledOpacity: '@'
                 },
                 link: function (scope, element, attrs) {
                     var currentUser = securityContext.getPrincipal();
                     var listOfPermissions = scope.sCheckPermissions.replace(/\s/g, '').split(',');
-                    function setEventOnClick(expressionHandler, user) {
+                    var confAction = scope.sConfirmAction() || null;
+                    var confArg = scope.sConfirmActionArg || null;
+                    var checkUser = angular.fromJson(scope.sCheckUser) || null;
+
+                    function setEventOnClick(expressionHandler, item) {
                         if (expressionHandler) {
-                            $(element).click(function (e) {
-                                expressionHandler(user || null)
+                            $(element).click(function () {
+                                expressionHandler(item)
                             });
                         }
                     }
-                    function setElementDisabled(element){
+
+                    function setElementDisabled() {
                         element.addClass('disabled');
                         element.css({
-                            opacity: '0.3'
+                            opacity: scope.sDisabledOpacity || '0.3',
+                            cursor: 'default'
                         });
                     }
+
                     /**
                      * Check permissions of current user and specified permissions in directive
                      */
@@ -39,19 +48,22 @@ define(['../module', 'lodash'], function (module, _) {
                                 }))
                                 return true;
                         })) {
-                        var expressionHandler = scope.sConfirmAction() || null;
-                        if (scope.sCheckUser) {
-                            var user = angular.fromJson(scope.sCheckUser);
-                            if (user.id == currentUser.id || (user.id != currentUser.id && currentUser.roles[0].id < user.roles[0].id)) {
-                                setEventOnClick(expressionHandler,user);
+                        /**
+                         * Current user has confirmed check permission
+                         */
+                        if (confAction) {
+                            if (confArg) {
+                                setEventOnClick(confAction, confArg);
                             } else {
-                                setElementDisabled(element);
+                                if (checkUser && (checkUser.id == currentUser.id || (checkUser.id != currentUser.id && currentUser.roles[0].id < checkUser.roles[0].id))) {
+                                    setEventOnClick(confAction, checkUser);
+                                } else {
+                                    setEventOnClick(confAction);
+                                }
                             }
-                        } else {
-                            setEventOnClick(expressionHandler)
                         }
                     } else {
-                        setElementDisabled(element);
+                        setElementDisabled();
                     }
                 }
             }

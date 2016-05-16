@@ -32,6 +32,7 @@ define(['../module'], function (module) {
             $scope.showSchemaForm = false;
             $scope.toggleShowSchemaForm = function () {
                 $timeout(function () {
+                    updateUserModel();
                     $scope.showSchemaForm = !$scope.showSchemaForm;
                 });
             };

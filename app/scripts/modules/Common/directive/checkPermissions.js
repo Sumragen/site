@@ -53,9 +53,13 @@ define(['../module', 'lodash'], function (module, _) {
                             if (confArg) {
                                 setEventOnClick(confArg);
                             } else {
-                                if (checkUser && (checkUser.id == currentUser.id || (checkUser.id != currentUser.id && currentUser.roles[0].id < checkUser.roles[0].id))) {
-                                    setEventOnClick(checkUser);
-                                } else {
+                                if(checkUser){
+                                    if(checkUser.id == currentUser.id || (checkUser.id != currentUser.id && currentUser.roles[0].id < checkUser.roles[0].id)){
+                                        setEventOnClick(checkUser);
+                                    }else{
+                                        setElementDisabled();
+                                    }
+                                }else{
                                     setEventOnClick();
                                 }
                             }

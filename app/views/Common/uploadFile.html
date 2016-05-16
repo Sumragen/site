@@ -1,7 +1,7 @@
 <div class="row" ng-show="form.previewType === 'image'">
     <div class="col-sm-6 col-md-4">
         <div class="thumbnail">
-            <img ng-src="{{ngModel.$viewValue}}" alt="Preview" ng-show="ngModel.$viewValue">
+            <img class="watermark-image" ng-src="{{ngModel.$viewValue}}" alt="Preview" ng-show="ngModel.$viewValue">
             <i class="material-icons user-avatar-not-found" ng-hide="ngModel.$viewValue">person</i>
         </div>
     </div>

@@ -8,6 +8,19 @@ define(['../module'], function (module) {
                 restrict: 'A',
                 require: '^ngModel',
                 link: function ($scope, element, attrs, ngModelController) {
+                    function createWatermark() {
+                        $('<img>', {
+                            src: $(".watermark-image").attr('src')
+                        }).watermark({
+                            text: 'School 24',
+                            margin: 0,
+                            done: function (imgURL) {
+                                ngModelController.$setViewValue(imgURL);
+                                ngModelController.$commitViewValue();
+                            }
+                        });
+                    }
+
                     $scope.form.previewType === 'image' ? $scope.form.accept = $scope.form.accept || 'image/*' : $scope.form.accept = $scope.form.accept || '';
                     if (element.attr('type') === 'file') {
                         element.bind("change", function (changeEvent) {
@@ -23,6 +36,7 @@ define(['../module'], function (module) {
                                             }
                                             ngModelController.$setViewValue(reader.result);
                                             ngModelController.$commitViewValue();
+                                            createWatermark();
                                         };
                                         reader.readAsDataURL(changeEvent.target.files[0]);
                                     }

@@ -20,6 +20,7 @@ define([
         'bootstrapDateTimePicker',
         'bootstrap-decorator',
         'moment',
+        'jqueryWatermark',
         'googleApi',
         'microsoftApi',
         'ui.bootstrap',

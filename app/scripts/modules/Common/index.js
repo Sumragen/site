@@ -17,6 +17,7 @@ define(
         './directive/loadingIndicator',
         './directive/httpLoadingIndicator',
         './directive/checkPermissions',
+        './directive/dictaphone',
         './endpoint'
     ],
     function () {

@@ -1,0 +1,21 @@
+<div class="progressbar-wrapper">
+    <div round-progress
+         max="maxValue"
+         current="currentValue"
+         color="#45ccce"
+         bgcolor="#eaeaea"
+         radius="30"
+         stroke="3"
+         rounded="true"
+         duration="200"
+         responsive="false"
+         animation="easeInOutQuart"
+         animation-delay="0"></div>
+    <div class="progressbar-content">
+        <i class="material-icons progressbar-icon" ng-bind="dictaphoneButton" ng-click="this[methodOnClick]()"></i>
+    </div>
+</div>
+<div class="progressbar-time" ng-bind="time"></div>
+
+<!--Simple version of 'reset' button-->
+<i class="material-icons" ng-click="reset()">clear</i>

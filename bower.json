@@ -40,7 +40,8 @@
     "ngInfiniteScroll": "^1.2.2",
     "eonasdan-bootstrap-datetimepicker": "^4.17.37",
     "ui-select": "angular-ui-select#^0.16.1",
-    "watermark": "^1.0.1"
+    "watermark": "^1.0.1",
+    "angular-svg-round-progressbar": "^0.4.4"
   },
   "devDependencies": {
     "angular-bootstrap": "^1.2.4",

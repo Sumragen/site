@@ -1069,8 +1069,12 @@ define(['lodash'], function (_) {
                     });
                     delete tempUser.subjects;
                     delete tempUser.role;
+                    tempUser.password ? tempUser.passwordUndefined = false : tempUser.passwordUndefined = true;
                     data.user.objects[index] = tempUser;
                     commit();
+                    if(!tempUser.passwordUndefined){
+                        delete tempUser.password;
+                    }
                     result = tempUser;
                     return false;
                 }
@@ -1088,7 +1092,11 @@ define(['lodash'], function (_) {
             var result = null;
             _.every(data.user.objects, function (user) {
                 if(user.id == userId){
-                    result = user;
+                    result = angular.copy(user);
+                    if(result.password){
+                        result.passwordUndefined = true;
+                        delete result.password;
+                    }
                     return false;
                 }
                 return true;

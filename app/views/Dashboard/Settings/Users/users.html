@@ -5,7 +5,7 @@
          ng-repeat="user in users | deepFilter: {username: searchText, first_name : searchText, last_name: searchText, email : searchText}"
          ng-show="!showEditForm">
 
-        <div class="list-group-item" s-check-permissions="hasAdminRights,isTeacher" s-confirm-action="toggleShowEditForm" s-check-user="{{user}}">
+        <div class="list-group-item" s-check-permissions="hasAdminRights,isTeacher" s-confirm-action="toggleShowEditForm(param)" s-check-user="{{user}}">
 
             <div class="row-action-primary">
                 <i class="material-icons user-list-avatar" ng-if="!user.avatar">person</i>

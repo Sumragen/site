@@ -9,12 +9,11 @@ define(['../module', 'lodash', 'jquery'], function (module, _) {
         '$timeout',
         '$window',
         'InfoWindow',
-        'Common.NotificationService',
         'Common.StatePreference',
         'Dashboard.Event.EventService',
         'ScheduleConstants',
         'eventsData',
-        function ($q, $scope, $state, $timeout, $window, InfoWindow, notificationService, statePreference, eventService, scheduleConstants, eventsData) {
+        function ($q, $scope, $state, $timeout, $window, InfoWindow, statePreference, eventService, scheduleConstants, eventsData) {
             var center = {lat: 46.6718272, lng: 32.6118258};
 
             function initMap(map) {
@@ -47,7 +46,6 @@ define(['../module', 'lodash', 'jquery'], function (module, _) {
                         $scope.markers[0].setMap(null);
                         $scope.markers[0].position = null;
                         $scope.event.model.location = null;
-                        notificationService.showMessage('Marker was deleted', 'warning');
                     } else {
                         marker.setMap(null);
                         marker.position = null;
@@ -55,11 +53,6 @@ define(['../module', 'lodash', 'jquery'], function (module, _) {
                 };
                 $scope.toggleShowSetMarkerForm = function (marker) {
                     clickMapListener = $scope.map.addListener('click', function (event) {
-                        if ($scope.markers[0].position) {
-                            notificationService.showMessage('Marker position was updated', 'success');
-                        } else {
-                            notificationService.showMessage('Marker was created', 'success');
-                        }
                         $scope.markers[0].setMap($scope.map);
                         $scope.markers[0].position = event.latLng;
                         $scope.event.model.location = event ? {
@@ -88,10 +81,6 @@ define(['../module', 'lodash', 'jquery'], function (module, _) {
                         .then(function (data) {
                             $scope.eventList = data;
                             $scope.toggleShowEditForm();
-                            notificationService.showMessage('Event was updated', 'success');
-                        })
-                        .catch(function (err) {
-                            notificationService.showMessage(err.message, 'error');
                         })
                         .finally(function () {
                             $scope.busy = false;
@@ -127,7 +116,6 @@ define(['../module', 'lodash', 'jquery'], function (module, _) {
                                 if ((data[index]) ? data[index].id !== oldEvent.id : true) {
                                     $scope.markers[index].setMap(null);
                                     $scope.markers.splice(index, 1);
-                                    notificationService.showMessage('Event was deleted', 'success');
                                     return false;
                                 }
                                 return true;
@@ -144,7 +132,6 @@ define(['../module', 'lodash', 'jquery'], function (module, _) {
                             google.maps.event.clearListeners($scope.map, 'click');
                             $scope.markers[0].setMap(null);
                             $scope.toggleShowSetMarkerForm();
-                            notificationService.showMessage("Marker create method was canceled", 'warning');
                         } else {
                             $scope.toggleShowEditForm();
                         }
@@ -177,13 +164,7 @@ define(['../module', 'lodash', 'jquery'], function (module, _) {
                             longitude: marker.position.lng()
                         } : null;
                     });
-                    eventService.updateEventList($scope.eventList)
-                        .then(function () {
-                            notificationService.showMessage('Markers location was saved', 'info');
-                        })
-                        .catch(function (err) {
-                            notificationService.showMessage(err, 'error')
-                        });
+                    eventService.updateEventList($scope.eventList);
                 } else {
                     $scope.busy = true;
                     eventService.createEvent($scope.event.model)
@@ -192,7 +173,6 @@ define(['../module', 'lodash', 'jquery'], function (module, _) {
                             google.maps.event.clearListeners($scope.map, 'click');
                             $scope.markers[0].setMap(null);
                             createMarkerList();
-                            notificationService.showMessage('Event was created', 'success');
                         })
                         .finally(function () {
                             $scope.busy = false;

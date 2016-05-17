@@ -7,13 +7,13 @@ define(['../module'], function (module) {
         '$uibModalInstance',
         '$state',
         'AuthService',
-        'GoogleProviderService',
-        'FacebookProviderService',
-        'MicrosoftProviderService',
+        'GoogleOAuthProviderService',
+        'FacebookOAuthProviderService',
+        'MicrosoftOAuthProviderService',
         'userData'
     ];
     AuthController.$name = 'AuthController';
-    function AuthController($scope, $uibModalInstance, $state, authService, googleProviderService, facebookProviderService, microsoftProviderService, userData) {
+    function AuthController($scope, $uibModalInstance, $state, authService, googleOAuthProviderService, facebookOAuthProviderService, microsoftOAuthProviderService, userData) {
         var self = this;
 
         $scope.login = {
@@ -126,7 +126,7 @@ define(['../module'], function (module) {
 
         $scope.googleAuthButtonClick = function () {
             $scope.busy = true;
-            googleProviderService.authenticate()
+            googleOAuthProviderService.authenticate()
                 .then(function () {
                     $scope.error = null;
                 })
@@ -140,7 +140,7 @@ define(['../module'], function (module) {
         };
         $scope.facebookAuthButtonClick = function () {
             $scope.busy = true;
-            facebookProviderService.authenticate()
+            facebookOAuthProviderService.authenticate()
                 .then(function () {
                     $scope.error = null;
                 })
@@ -154,7 +154,7 @@ define(['../module'], function (module) {
         };
         $scope.microsoftAuthButtonClick = function () {
             $scope.busy = true;
-            microsoftProviderService.authenticate()
+            microsoftOAuthProviderService.authenticate()
                 .then(function () {
                     $scope.error = null;
                     $uibModalInstance.close();
@@ -168,7 +168,7 @@ define(['../module'], function (module) {
                     $scope.busy = false;
                 })
         };
-        googleProviderService.initApiKey();
+        googleOAuthProviderService.initApiKey();
     }
 
     module.controller(AuthController.$name, AuthController);

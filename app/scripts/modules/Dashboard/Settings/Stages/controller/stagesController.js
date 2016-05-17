@@ -5,10 +5,9 @@ define(['../module', 'lodash'], function (module, _) {
     module.controller('Dashboard.Settings.Stages.StagesController', [
         '$scope',
         '$timeout',
-        'Common.NotificationService',
         'Dashboard.Settings.Stages.StageService',
         'stagesData',
-        function ($scope, $timeout, notificationService, stageService, stagesData) {
+        function ($scope, $timeout, stageService, stagesData) {
             $scope.stages = stagesData;
 
             $scope.stage = {};
@@ -46,7 +45,6 @@ define(['../module', 'lodash'], function (module, _) {
             }
 
             $scope.toggleShowEditForm = function (stage) {
-                stage = angular.fromJson(stage);
                 stageService.getTeachersName(_.merge(stage, {isFormMasterData: true}))
                     .then(function (names) {
                         updateStageModelAndForm(stage, names);
@@ -65,11 +63,7 @@ define(['../module', 'lodash'], function (module, _) {
                     stageService.updateStage($scope.stage.model)
                         .then(function (stages) {
                             $scope.stages = stages.data;
-                            notificationService.showMessage('Stage was updated', 'success');
                             $scope.toggleShowEditForm();
-                        })
-                        .catch(function (err) {
-                            notificationService.showMessage(err.message, 'error');
                         })
                         .finally(function () {
                             $scope.busy = false;
@@ -83,11 +77,7 @@ define(['../module', 'lodash'], function (module, _) {
                     stageService.createStage($scope.stage.model)
                         .then(function (stages) {
                             $scope.stages = stages.data;
-                            notificationService.showMessage('Stage was created', 'success');
                             $scope.toggleShowEditForm();
-                        })
-                        .catch(function (err) {
-                            notificationService.showMessage(err.message, 'error');
                         })
                         .finally(function () {
                             $scope.busy = false;

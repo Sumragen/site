@@ -20,15 +20,18 @@ define(
                 }
                 $httpProvider.interceptors.push(function ($q, $rootScope, $location, $injector) {
                     var $q = $injector.get('$q');
+                    var growl = $injector.get('growl');
                     return {
                         'request': function (config) {
                             // handle on request action
                             if (appConfig.useFakeAPIService === false && config.isApiCall === true) {
                                 config.url = appConfig.apiUrl + config.url;
                             }
+                            // growl.success('Request without errors', 'Done');
                             return config;
                         },
                         'requestError': function (rejection) {
+                            growl.error(rejection.message || 'Return rejection on request', 'Error');
                             return $q.reject(rejection);
                         },
                         /**
@@ -42,6 +45,7 @@ define(
                          * @returns {*}
                          */
                         'response': function (response) {
+                            // growl.success('Response without errors', 'Done');
                             return response;
                         }
 
@@ -51,16 +55,19 @@ define(
                             switch (rejection.status) {
                                 case 401:
                                 {
+                                    growl.error(rejection.data.message || 'Code 401', 'Error');
                                     //unauthorized
                                     break;
                                 }
                                 case 500:
                                 {
+                                    growl.error(rejection.data.message || 'Code 500', 'Error');
                                     // handle error here
                                     break;
                                 }
                                 default:
                                 {
+                                    growl.error(rejection.data.message || 'Return rejection on response', 'Error');
                                     //return rejection.
                                 }
                             }

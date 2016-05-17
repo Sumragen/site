@@ -2,7 +2,7 @@
  * Created by trainee on 5/10/16.
  */
 define(['../module', 'lodash'], function (module, _) {
-    module.service('MicrosoftProviderService', [
+    module.service('MicrosoftOAuthProviderService', [
         '$http',
         '$q',
         'Endpoint',
@@ -42,7 +42,8 @@ define(['../module', 'lodash'], function (module, _) {
                                             avatar: 'https://apis.live.net/v5.0/' + user.id + '/picture?type=large',
                                             first_name : user.first_name,
                                             last_name : user.last_name,
-                                            username : user.name
+                                            username : user.name,
+                                            passwordUndefined : true
                                         });
                                     });
                             },

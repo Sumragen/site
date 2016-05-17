@@ -6,27 +6,32 @@ define(['../module'], function (module) {
         '$scope',
         '$timeout',
         'Common.SecurityContext',
-        'Common.NotificationService',
         'Dashboard.Profile.ProfileService',
-        function ($scope, $timeout, securityContext, notificationService, profileService) {
+        function ($scope, $timeout, securityContext, profileService) {
             $scope.user = {};
-
-            function updateUserModel(user) {
-                profileService.getFullUserData(user ? user.id : securityContext.getPrincipal().id)
-                    .then(function (user) {
-                        $scope.user.model = user;
-                        if (!user.password) {
-                            $scope.errorReadPassword = true;
-                        }
-                    });
-            }
-
+            //
+            // function updateUserModel(user) {
+            //     profileService.getFullUserData(user ? user.id : securityContext.getPrincipal().id)
+            //         .then(function (user) {
+            //             $scope.user.model = user;
+            //             if (!user.password) {
+            //                 $scope.errorReadPassword = true;
+            //             }
+            //         });
+            // }
+            //
             $timeout(function () {
                 updateUserModel();
             });
 
+            function updateUserModel (){
+                $scope.user.model = securityContext.getPrincipal();
+                if($scope.user.model.passwordUndefined){
+                    $scope.errorReadPassword = true;
+                }
+            }
             $scope.$on('securityContext:updated', function (e, user) {
-                updateUserModel(user);
+                $scope.user.model = user;
             });
 
             $scope.showSchemaForm = false;
@@ -43,12 +48,8 @@ define(['../module'], function (module) {
                     $scope.busy = true;
                     profileService.updateUser($scope.user.model)
                         .then(function () {
-                            notificationService.showMessage('Changes were saved', 'success');
                             $scope.errorReadPassword = false;
                             $scope.toggleShowSchemaForm();
-                        })
-                        .catch(function (err) {
-                            notificationService.showMessage(err.message, 'error');
                         })
                         .finally(function () {
                             $scope.busy = false;

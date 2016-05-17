@@ -8,11 +8,10 @@ define(['../module', 'lodash'], function (module, _) {
         '$uibModal',
         '$uibModalStack',
         '$state',
-        'Common.NotificationService',
         'Dashboard.Settings.Schedule.LessonService',
         'Dashboard.Schedule.ScheduleService',
         'Dashboard.Schedule.ScheduleDataService',
-        function ($scope, $stateParams, $uibModal, $uibModalStack, $state, notificationService, lessonService, scheduleService, scheduleDataService) {
+        function ($scope, $stateParams, $uibModal, $uibModalStack, $state, lessonService, scheduleService, scheduleDataService) {
 
             $scope.showEditForm = false;
             $scope.lesson = {};
@@ -128,11 +127,7 @@ define(['../module', 'lodash'], function (module, _) {
                         .then(function (data) {
                             goToScheduleEditStagePage();
                             $scope.lessons = data;
-                            notificationService.showMessage('Lesson was updated', 'success');
                             $scope.toggleShowEditForm();
-                        })
-                        .catch(function (err) {
-                            notificationService.showMessage(err.message, 'error');
                         })
                         .finally(function () {
                             $scope.busy = false;
@@ -146,16 +141,12 @@ define(['../module', 'lodash'], function (module, _) {
                     $scope.busy = true;
                     lessonService.createLesson($scope.lesson.model)
                         .then(function (data) {
-                            notificationService.showMessage('Lesson was created', 'success');
                             if ($stateParams.day.stage) {
                                 goToScheduleEditStagePage();
                             } else {
                                 $scope.lessons = data;
                                 $scope.toggleShowEditForm();
                             }
-                        })
-                        .catch(function (err) {
-                            notificationService.showMessage(err.message, 'error');
                         })
                         .finally(function () {
                             $scope.busy = false;

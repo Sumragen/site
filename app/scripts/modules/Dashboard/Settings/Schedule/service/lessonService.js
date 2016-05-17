@@ -18,12 +18,12 @@ define(['../module', 'lodash'], function (module, _) {
                         $q.reject(err);
                     });
             };
-            service.getRoleNames = function (userId) {
+            service.getRoleNames = function (selectedUserId) {
                 return $http(Endpoint.role.list())
                     .then(function (data) {
-                        var user = securityContext.getPrincipal();
+                        var currentUser = securityContext.getPrincipal();
                         var rolesMoreLessThanUserRole = _.filter(data.data.roles, function (role) {
-                            return role.id > user.roles[0].id || (userId == user.id && role.id == user.roles[0].id);
+                            return role.id > currentUser.roles[0].id || (selectedUserId == currentUser.id && role.id == currentUser.roles[0].id);
                         });
                         return _.map(rolesMoreLessThanUserRole, function (role) {
                             return {value: role.id, name: role.name}

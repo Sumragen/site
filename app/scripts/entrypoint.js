@@ -144,7 +144,7 @@ require.config({
 });
 
 
-require(['angular', 'jquery', 'material', './fakeBackend', './App', './setup'], function (angular, jquery, material) {
+require(['angular', 'jquery', 'material', './fakeBackend', 'angular-growl-v2', './App', './setup'], function (angular, jquery, material) {
     $.material.init();
     angular.bootstrap(document, ['MyApp']);
 });

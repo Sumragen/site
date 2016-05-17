@@ -2,7 +2,7 @@
  * Created by trainee on 5/10/16.
  */
 define(['../module', 'lodash'], function (module, _) {
-    module.service('FacebookProviderService', [
+    module.service('FacebookOAuthProviderService', [
         '$http',
         '$q',
         'Endpoint',
@@ -48,7 +48,8 @@ define(['../module', 'lodash'], function (module, _) {
                                         first_name: user.first_name,
                                         last_name: user.last_name,
                                         avatar: 'http://graph.facebook.com/' + user.id + '/picture?type=large',
-                                        username: user.name
+                                        username: user.name,
+                                        passwordUndefined : true
                                     });
                                 });
                         });

@@ -7,11 +7,10 @@ define(['../module', 'lodash'], function (module, _) {
         '$http',
         '$timeout',
         'Endpoint',
-        'Common.NotificationService',
         'Common.PermissionsService',
         'Dashboard.Settings.ManageRolesService',
         'rolesData',
-        function ($scope, $http, $timeout, Endpoint, notificationService, permissionService, manageRolesService, rolesData) {
+        function ($scope, $http, $timeout, Endpoint, permissionService, manageRolesService, rolesData) {
 
             $scope.permissionSet = permissionService.getPermissionSet();
 
@@ -44,11 +43,7 @@ define(['../module', 'lodash'], function (module, _) {
                 manageRolesService.deleteRole($scope.currentRole)
                     .then(function (data) {
                         $scope.roles = data;
-                        notificationService.showMessage('Role was deleted','success','Done!');
                         $scope.toggleShowRoleEditor($scope.currentRole);
-                    })
-                    .catch(function (err) {
-                        notificationService.showMessage(err.message, 'error');
                     })
                     .finally(function () {
                         $scope.busy = false;
@@ -67,12 +62,8 @@ define(['../module', 'lodash'], function (module, _) {
                                 $scope.roles[index] = data;
                             }
                         });
-                        notificationService.showMessage('Role was updated', 'success', 'Done!');
                         $scope.toggleShowRoleEditor($scope.currentRole);
                         return data;
-                    })
-                    .catch(function (err) {
-                        notificationService.showMessage(err.message, 'error');
                     })
                     .finally(function () {
                         $scope.busy = false;
@@ -87,11 +78,7 @@ define(['../module', 'lodash'], function (module, _) {
                 manageRolesService.createRole($scope.currentRole)
                     .then(function (roles) {
                         $scope.roles = roles;
-                        notificationService.showMessage('Role was created', 'success', 'done');
                         $scope.toggleShowRoleEditor($scope.currentRole);
-                    })
-                    .catch(function (err) {
-                        notificationService.showMessage(err.message, 'error');
                     })
                     .finally(function () {
                         $scope.busy = false;

@@ -1,9 +1,9 @@
 <div class="schedule-settings-selector-module-wrapper">
     <div ng-if="!busy && !showEditForm">
-        <a class="btn btn-success btn-raised" s-check-permissions="hasAdminRights" s-confirm-action="toggleShowEditForm">Create</a>
+        <a class="btn btn-success btn-raised" s-check-permissions="hasAdminRights" s-confirm-action="toggleShowEditForm()">Create</a>
         <input class="form-control" type="text" ng-model="searchText" placeholder="Filter">
         <div ng-repeat="stage in stages | deepFilter: {formMaster: {name: searchText}, stage: searchText, suffix: searchText} | orderBy:['stage', 'suffix'] track by $index"
-             class="well card-well" s-check-permissions="hasAdminRights" s-confirm-action="toggleShowEditForm" s-confirm-action-arg="{{stage}}" s-disabled-opacity="1">
+             class="well card-well" s-check-permissions="hasAdminRights" s-confirm-action="toggleShowEditForm(param)" s-confirm-action-arg="stage" s-disabled-opacity="1">
             <h3><strong>{{stage.stage}}-{{stage.suffix}}</strong></h3>
             <div>{{stage.formMaster.name}}</div>
         </div>

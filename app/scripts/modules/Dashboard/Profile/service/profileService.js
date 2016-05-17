@@ -30,7 +30,6 @@ define(['../module'], function (module) {
             service.updateUser = function (user) {
                 return $http(Endpoint.user.update(user))
                     .then(function (data) {
-                        delete data.data.password;
                         if (securityContext.getPrincipal().id === data.data.id) securityContext.setPrincipal(data.data);
                         return data.data;
                     }, function (err) {

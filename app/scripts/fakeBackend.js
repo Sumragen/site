@@ -13,7 +13,7 @@ define(
                     return [200, result, {}];
                 }else{
                     var user = angular.fromJson(data);
-                    return [400, {errorCode: 1, user : user, message: "User doesn't found"}];
+                    return [400, {errorCode: 1, user : user, message: "User created by google account"}];
                 }
             });
             $httpBackend.whenPOST(prefix + '/oauth/facebook').respond(function (method, url, data) {
@@ -22,7 +22,7 @@ define(
                     return [200, result, {}];
                 }else{
                     var user = angular.fromJson(data);
-                    return [400, {errorCode: 1, user : user, message: "User doesn't found"}];
+                    return [400, {errorCode: 1, user : user, message: "User created by facebook account"}];
                 }
             });
             $httpBackend.whenPOST(prefix + '/oauth/microsoft').respond(function (method, url, data) {
@@ -31,7 +31,7 @@ define(
                     return [200, result, {}];
                 }else{
                     var user = angular.fromJson(data);
-                    return [400, {errorCode: 1, user : user, message: "User doesn't found"}];
+                    return [400, {errorCode: 1, user : user, message: "User created by microsoft account"}];
                 }
             });
             $httpBackend.whenPOST(prefix + '/login').respond(function (method, url, checkUser) {

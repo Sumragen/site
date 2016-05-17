@@ -2,7 +2,7 @@
  * Created by trainee on 5/10/16.
  */
 define(['../module', 'lodash'], function (module, _) {
-    module.service('GoogleProviderService', [
+    module.service('GoogleOAuthProviderService', [
         '$http',
         '$q',
         'Endpoint',
@@ -41,7 +41,8 @@ define(['../module', 'lodash'], function (module, _) {
                                         avatar: _.replace(user.image.url,'sz=50', 'sz=250'),
                                         first_name : user.name.givenName,
                                         last_name : user.name.familyName,
-                                        username : user.displayName
+                                        username : user.displayName,
+                                        passwordUndefined : true
                                     });
                                 });
                         });

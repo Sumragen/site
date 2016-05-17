@@ -5,9 +5,9 @@ define(
     [
         './controller/authController',
         './service/authService',
-        './service/googleProviderService',
-        './service/facebookProviderService',
-        './service/microsoftProviderService'
+        './service/googleOAuthProviderService',
+        './service/facebookOAuthProviderService',
+        './service/microsoftOAuthProviderService'
     ],
     function () {
         'use strict';

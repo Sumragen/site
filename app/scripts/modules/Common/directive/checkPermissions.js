@@ -4,35 +4,29 @@
 define(['../module', 'lodash'], function (module, _) {
     'use strict';
     module.directive('sCheckPermissions', [
+        '$parse',
         'Common.SecurityContext',
         'ScheduleConstants',
-        function (securityContext, scheduleConstants) {
+        function ($parse, securityContext, scheduleConstants) {
             return {
                 restrict: 'A',
-                scope: {
-                    sCheckPermissions: '@',
-                    sCheckUser: '@',
-                    sConfirmAction: '&',
-                    sConfirmActionArg: '@',
-                    sDisabledOpacity: '@'
-                },
                 link: function (scope, element, attrs) {
                     var currentUser = securityContext.getPrincipal();
-                    var listOfPermissions = scope.sCheckPermissions.replace(/\s/g, '').split(',');
-                    var confAction = scope.sConfirmAction() || null;
-                    var confArg = scope.sConfirmActionArg || null;
-                    var checkUser = angular.fromJson(scope.sCheckUser) || null;
+                    var listOfPermissions = attrs.sCheckPermissions.replace(/\s/g, '').split(',');
+                    var confAction = $parse(attrs.sConfirmAction) || null;
+                    var confArg = scope.$eval(attrs.sConfirmActionArg) || null;
+                    var checkUser = scope.$eval(attrs.sCheckUser) || null;
 
                     function setEventOnClick(item) {
                         $(element).click(function () {
-                            confAction(item || null)
+                            confAction(scope, {param : item || null});
                         });
                     }
 
                     function setElementDisabled() {
                         element.addClass('disabled');
                         element.css({
-                            opacity: scope.sDisabledOpacity || '0.3',
+                            opacity: attrs.sDisabledOpacity || '0.3',
                             cursor: 'default'
                         });
                     }

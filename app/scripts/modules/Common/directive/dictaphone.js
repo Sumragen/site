@@ -23,8 +23,8 @@ define(['../module'], function (module) {
                     }
                     function displayTime() {
                         if (scope.currentValue < scope.maxValue) {
-                            scope.time = moment().hour(0).minute(0).second(scope.counter++).format('HH : mm : ss');
-                            scope.currentValue = moment.duration(scope.time.replace(/\s/g, ''));
+                            scope.time = moment().hour(0).minute(0).second(scope.counter++).format('HH:mm:ss');
+                            scope.currentValue = moment.duration(scope.time);
                         } else {
                             scope.stop();
                         }
@@ -48,7 +48,8 @@ define(['../module'], function (module) {
                         if (scope.runClock == null) {
                             scope.counter = 0;
                             scope.currentValue = moment.duration('00:00:00');
-                            scope.maxValue = moment.duration(scope.time.replace(/\s/g, ''));
+                            scope.maxValue = moment.duration(scope.time);
+                            displayTime();
                         }
                         scope.runClock = $interval(displayTime, 1000);
                         scope.methodOnClick = scope.dictaphoneButton = 'pause';
@@ -61,6 +62,7 @@ define(['../module'], function (module) {
                     };
 
                     scope.reset = function () {
+                        $interval.cancel(scope.runClock);
                         setDefaultData();
                     };
                     setDefaultData();

@@ -9,6 +9,8 @@ define(
         './service/schedulingUtil',
         './service/validationMessageBuilder',
         './service/permissionsService',
+        './service/recorderService',
+        './service/timerService',
         './directive/uploadFile',
         './directive/datetimepicker',
         './directive/setImage',

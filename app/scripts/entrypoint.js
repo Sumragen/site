@@ -35,6 +35,7 @@ require.config({
         'infiniteScroll': '../../bower_components/ngInfiniteScroll/build/ng-infinite-scroll',
         'jqueryWatermark': '../../bower_components/watermark/dist/jquery.watermark',
         'angular-progressbar': '../../bower_components/angular-svg-round-progressbar/build/roundProgress',
+        'recorder' : '../../bower_components/recorderjs/recorder',
         'microsoftApi': 'http://js.live.net/v5.0/wl',
         'googleApi': 'https://apis.google.com/js/client.js?onload=handleClientLoad',
         'google': 'https://maps.googleapis.com/maps/api/js?v=3.24&key=AIzaSyB2I-5q7CdsT5Kx1hQMuEgWiWCH_0U_7Ts',
@@ -114,10 +115,6 @@ require.config({
         'angular-strap-tpl': {
             deps: ['angular-strap', 'angular-strap']
         },
-        googlemaps: {
-            deps: [],
-            exports: 'google'
-        },
         'ui.bootstrap': {
             deps: ['angular']
         },
@@ -134,6 +131,10 @@ require.config({
             deps: []
         },
         google: {
+            exports: 'google'
+        },
+        googlemaps: {
+            deps: [],
             exports: 'google'
         },
         'logicify-gmap': {

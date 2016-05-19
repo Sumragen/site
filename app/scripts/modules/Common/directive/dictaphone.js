@@ -6,14 +6,20 @@ define(['../module'], function (module) {
         '$timeout',
         'moment',
         '$interval',
+        'Common.RecorderService',
         'dateFilter',
-        function ($timeout, moment, $interval, dateFilter) {
+        function ($timeout, moment, $interval, recorderService, dateFilter) {
             return {
                 restrict: 'A',
                 templateUrl: 'views/Common/dictaphone.html',
                 link: function (scope, element, attrs) {
-                    function setDefaultData(){
-                        scope.maxValue = moment.duration(attrs.sDictaphone || '00:00:10');
+                    navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia;
+                    navigator.getUserMedia({audio: true}, recorderService.startUserMedia, function(e) {
+                        __log('No live audio input: ' + e);
+                    });
+                    scope.downloadLink = null;
+                    function setDefaultData() {
+                        scope.maxValue = moment.duration(attrs.sDictaphone || '00:01:00');
                         scope.currentValue = moment.duration('00:00:00');
                         scope.dictaphoneButton = 'fiber_manual_record';
                         scope.counter = 0;
@@ -21,6 +27,7 @@ define(['../module'], function (module) {
                         scope.methodOnClick = 'start';
                         displayTime();
                     }
+
                     function displayTime() {
                         if (scope.currentValue < scope.maxValue) {
                             scope.time = moment().hour(0).minute(0).second(scope.counter++).format('HH:mm:ss');
@@ -29,15 +36,17 @@ define(['../module'], function (module) {
                             scope.stop();
                         }
                     }
-
                     scope.start = function () {
                         if (scope.runClock == null) {
+                            recorderService.startRecording();
                             scope.methodOnClick = scope.dictaphoneButton = 'stop';
                             scope.runClock = $interval(displayTime, 1000);
                         }
                     };
 
-                    scope.stop = function () {
+                    scope.stop = function() {
+                        recorderService.stopRecording(scope.downloadLink);
+                        scope.downloadName = new Date().toISOString() + '.wav';
                         scope.dictaphoneButton = 'play_arrow';
                         scope.methodOnClick = 'play';
                         $interval.cancel(scope.runClock);

@@ -14,7 +14,7 @@ define(['../module'], function (module) {
                 templateUrl: 'views/Common/dictaphone.html',
                 link: function (scope, element, attrs) {
                     navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia;
-                    navigator.getUserMedia({audio: true}, recorderService.startUserMedia, function(e) {
+                    navigator.getUserMedia({audio: true}, recorderService.startUserMedia, function (e) {
                         __log('No live audio input: ' + e);
                     });
                     scope.downloadLink = null;
@@ -36,6 +36,7 @@ define(['../module'], function (module) {
                             scope.stop();
                         }
                     }
+
                     scope.start = function () {
                         if (scope.runClock == null) {
                             recorderService.startRecording();
@@ -44,9 +45,8 @@ define(['../module'], function (module) {
                         }
                     };
 
-                    scope.stop = function() {
-                        recorderService.stopRecording(scope.downloadLink);
-                        scope.downloadName = new Date().toISOString() + '.wav';
+                    scope.stop = function () {
+                        recorderService.stopRecording();
                         scope.dictaphoneButton = 'play_arrow';
                         scope.methodOnClick = 'play';
                         $interval.cancel(scope.runClock);
@@ -70,6 +70,9 @@ define(['../module'], function (module) {
                         $interval.cancel(scope.runClock);
                     };
 
+                    scope.download = function () {
+                        recorderService.download();
+                    };
                     scope.reset = function () {
                         $interval.cancel(scope.runClock);
                         setDefaultData();

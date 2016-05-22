@@ -15,7 +15,7 @@ define(['../module'], function (module) {
                 link: function (scope, element, attrs) {
                     navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia;
                     navigator.getUserMedia({audio: true}, recorderService.startUserMedia, function (e) {
-                        __log('No live audio input: ' + e);
+                        console.log('No live audio input: ' + e);
                     });
                     scope.downloadLink = null;
                     function setDefaultData() {

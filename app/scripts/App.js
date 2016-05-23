@@ -49,7 +49,6 @@ define([
             'Common',
             'Dashboard'
         ];
-        //test
         var validationInjector = null;
         var app = angular.module('MyApp', deps)
             .run([

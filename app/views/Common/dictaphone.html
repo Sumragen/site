@@ -1,4 +1,4 @@
-<table>
+<table class="dictaphone-module-wrapper">
     <tr>
         <td rowspan="2">
             <div class="progressbar-wrapper">
@@ -23,12 +23,12 @@
             </div>
             <div class="progressbar-time" ng-bind="time"></div>
         </td>
-        <td>
-            <i class="material-icons cursor-pointer" ng-click="reset()">clear</i>
+        <td class="dictaphone-button">
+            <i class="material-icons cursor-pointer reset-dictaphone-button" ng-click="reset()">clear</i>
         </td>
     </tr>
     <tr>
-        <td>
+        <td class="dictaphone-button">
             <i class="material-icons" ng-style="musicSourceUrl ? {opacity : '1'} : {opacity : '0.3'}" ng-class="musicSourceUrl ? 'cursor-pointer' : 'cursor-default'" ng-click="musicSourceUrl ? download() : none">get_app</i>
         </td>
     </tr>

@@ -6,9 +6,10 @@ define(['../module'], function (module) {
         '$timeout',
         'moment',
         '$interval',
+        '$sce',
         'Common.RecorderService',
         'dateFilter',
-        function ($timeout, moment, $interval, recorderService, dateFilter) {
+        function ($timeout, moment, $interval, $sce, recorderService, dateFilter) {
             return {
                 restrict: 'A',
                 templateUrl: 'views/Common/dictaphone.html',
@@ -17,13 +18,14 @@ define(['../module'], function (module) {
                     navigator.getUserMedia({audio: true}, recorderService.startUserMedia, function (e) {
                         console.log('No live audio input: ' + e);
                     });
-                    scope.downloadLink = null;
+                    var music = $('audio.music-player')[0];
                     function setDefaultData() {
                         scope.maxValue = moment.duration(attrs.sDictaphone || '00:01:00');
                         scope.currentValue = moment.duration('00:00:00');
                         scope.dictaphoneButton = 'fiber_manual_record';
                         scope.counter = 0;
                         scope.runClock = null;
+                        scope.musicSourceUrl = '';
                         scope.methodOnClick = 'start';
                         displayTime();
                     }
@@ -46,7 +48,14 @@ define(['../module'], function (module) {
                     };
 
                     scope.stop = function () {
-                        recorderService.stopRecording();
+                        recorderService.stopRecording()
+                            .then(function (data) {
+                                scope.musicSourceUrl = $sce.trustAsResourceUrl(scope.musicSourceUrl = data);
+                            })
+                            .catch(function (error) {
+                                //catch error
+                            });
+                        music.load();
                         scope.dictaphoneButton = 'play_arrow';
                         scope.methodOnClick = 'play';
                         $interval.cancel(scope.runClock);
@@ -60,11 +69,13 @@ define(['../module'], function (module) {
                             scope.maxValue = moment.duration(scope.time);
                             displayTime();
                         }
+                        music.play();
                         scope.runClock = $interval(displayTime, 1000);
                         scope.methodOnClick = scope.dictaphoneButton = 'pause';
                     };
 
                     scope.pause = function () {
+                        music.pause();
                         scope.dictaphoneButton = 'play_arrow';
                         scope.methodOnClick = 'play';
                         $interval.cancel(scope.runClock);

@@ -9,12 +9,15 @@
                      bgcolor="#eaeaea"
                      radius="30"
                      stroke="3"
+                     duration="1200"
                      rounded="true"
-                     duration="200"
                      responsive="false"
-                     animation="easeInOutQuart"
+                     animation="easeInOutQuad"
                      animation-delay="0"></div>
                 <div class="progressbar-content">
+                    <audio id="music" class="music-player" preload="true">
+                        <source ng-src="{{musicSourceUrl}}">
+                    </audio>
                     <i class="material-icons progressbar-icon" ng-bind="dictaphoneButton" ng-click="this[methodOnClick]()"></i>
                 </div>
             </div>
@@ -26,7 +29,7 @@
     </tr>
     <tr>
         <td>
-            <i class="material-icons cursor-pointer" ng-click="download()">get_app</i>
+            <i class="material-icons" ng-class="musicSourceUrl ? 'cursor-pointer' : 'cursor-default'" ng-click="musicSourceUrl ? download() : none">get_app</i>
         </td>
     </tr>
 </table>

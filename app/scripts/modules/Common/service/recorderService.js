@@ -3,7 +3,8 @@
  */
 define(['../module'], function (module) {
     module.service('Common.RecorderService', [
-        function () {
+        '$q',
+        function ($q) {
             var service = {};
             var audioContext = new AudioContext;
             var recorder;
@@ -18,11 +19,14 @@ define(['../module'], function (module) {
                 recorder && recorder.record();
             };
             service.stopRecording = function () {
+                var deferred = $q.defer();
                 recorder && recorder.stop();
                 recorder.exportWAV(function (file) {
                     blob = file;
+                    deferred.resolve(URL.createObjectURL(blob));
                 });
                 recorder.clear();
+                return deferred.promise;
             };
             service.download = function () {
                 Recorder.forceDownload(blob, new Date().toISOString() + '.wav');

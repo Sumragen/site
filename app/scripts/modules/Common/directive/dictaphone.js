@@ -21,22 +21,22 @@ define(['../module'], function (module) {
                     });
                     var music = $('audio.music-player')[0];
                     function setDefaultData() {
-                        scope.maxValue = moment.duration(attrs.sDictaphone || '00:01:00');
-                        scope.currentValue = moment.duration('00:00:00');
+                        scope.maxValue = new Date(moment.duration(attrs.sDictaphone || '00:01:00')).getTime() / 1000;
+                        scope.currentValue = 0;
                         scope.dictaphoneButton = 'fiber_manual_record';
                         scope.counter = 0;
                         scope.runClock = null;
                         scope.musicSourceUrl = '';
                         scope.methodOnClick = 'start';
-                        timerService.Timer(new Date().getTime() + new Date(scope.maxValue).getTime());
+                        timerService.Timer(new Date().getTime() + scope.maxValue * 1000);
                         timerService.Timer.prototype.stop();
                         displayTime();
                     }
 
                     function displayTime() {
                         if (scope.currentValue < scope.maxValue) {
-                            scope.time = moment().hour(0).minute(0).second(timerService.Timer.prototype.getSeconds()).format('HH:mm:ss');
-                            scope.currentValue = moment.duration(scope.time);
+                            scope.currentValue = timerService.Timer.prototype.getSeconds();
+                            scope.time = moment().hour(0).minute(0).second(scope.currentValue).format('HH:mm:ss');
                         } else {
                             scope.stop();
                         }
@@ -70,8 +70,8 @@ define(['../module'], function (module) {
                     scope.play = function () {
                         if (scope.runClock == null) {
                             scope.counter = 0;
-                            scope.currentValue = moment.duration('00:00:00');
-                            scope.maxValue = moment.duration(scope.time);
+                            scope.maxValue = scope.currentValue;
+                            scope.currentValue = 0;
                             displayTime();
                         }
                         if(timerService.Timer.prototype.getSeconds() > 0){

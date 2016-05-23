@@ -28,6 +28,8 @@ define(['../module'], function (module) {
                         scope.runClock = null;
                         scope.musicSourceUrl = '';
                         scope.methodOnClick = 'start';
+                        timerService.Timer(new Date().getTime() + new Date(scope.maxValue).getTime());
+                        timerService.Timer.prototype.stop();
                         displayTime();
                     }
 
@@ -42,7 +44,6 @@ define(['../module'], function (module) {
 
                     scope.start = function () {
                         if (scope.runClock == null) {
-                            timerService.Timer(new Date().getTime() + new Date(scope.maxValue).getTime());
                             timerService.Timer.prototype.start();
                             recorderService.startRecording();
                             scope.methodOnClick = scope.dictaphoneButton = 'stop';
@@ -59,7 +60,6 @@ define(['../module'], function (module) {
                                 //catch error
                             });
                         timerService.Timer.prototype.stop();
-                        timerService.Timer(new Date().getTime() + new Date(scope.maxValue).getTime());
                         music.load();
                         scope.dictaphoneButton = 'play_arrow';
                         scope.methodOnClick = 'play';

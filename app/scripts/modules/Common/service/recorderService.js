@@ -31,9 +31,6 @@ define(['../module'], function (module) {
             service.download = function () {
                 Recorder.forceDownload(blob, new Date().toISOString() + '.wav');
             };
-            service.reset = function () {
-                blob = null;
-            };
             return service;
         }]);
 });

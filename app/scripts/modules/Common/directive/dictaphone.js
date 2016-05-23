@@ -28,8 +28,8 @@ define(['../module'], function (module) {
                         scope.runClock = null;
                         scope.musicSourceUrl = '';
                         scope.methodOnClick = 'start';
-                        timerService.Timer(new Date().getTime() + scope.maxValue);
                         timerService.Timer.prototype.stop();
+                        timerService.Timer(new Date().getTime() + scope.maxValue);
                         displayTime();
                     }
 
@@ -97,6 +97,7 @@ define(['../module'], function (module) {
                     };
                     scope.reset = function () {
                         $interval.cancel(scope.runClock);
+                        recorderService.stopRecording();
                         setDefaultData();
                     };
                     setDefaultData();

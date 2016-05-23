@@ -108,6 +108,7 @@ define(['../module'], function (module) {
                     return this.pauseTime - this.startTime - this.difference;
                 }
             };
+            return service;
         }
     ])
 });

@@ -8,8 +8,9 @@ define(['../module'], function (module) {
         '$interval',
         '$sce',
         'Common.RecorderService',
+        'Common.TimerService',
         'dateFilter',
-        function ($timeout, moment, $interval, $sce, recorderService, dateFilter) {
+        function ($timeout, moment, $interval, $sce, recorderService, timerService, dateFilter) {
             return {
                 restrict: 'A',
                 templateUrl: 'views/Common/dictaphone.html',
@@ -32,7 +33,7 @@ define(['../module'], function (module) {
 
                     function displayTime() {
                         if (scope.currentValue < scope.maxValue) {
-                            scope.time = moment().hour(0).minute(0).second(scope.counter++).format('HH:mm:ss');
+                            scope.time = moment().hour(0).minute(0).second(timerService.Timer.prototype.getSeconds()).format('HH:mm:ss');
                             scope.currentValue = moment.duration(scope.time);
                         } else {
                             scope.stop();
@@ -41,6 +42,8 @@ define(['../module'], function (module) {
 
                     scope.start = function () {
                         if (scope.runClock == null) {
+                            timerService.Timer(new Date().getTime() + new Date(scope.maxValue).getTime());
+                            timerService.Timer.prototype.start();
                             recorderService.startRecording();
                             scope.methodOnClick = scope.dictaphoneButton = 'stop';
                             scope.runClock = $interval(displayTime, 1000);
@@ -55,6 +58,8 @@ define(['../module'], function (module) {
                             .catch(function (error) {
                                 //catch error
                             });
+                        timerService.Timer.prototype.stop();
+                        timerService.Timer(new Date().getTime() + new Date(scope.maxValue).getTime());
                         music.load();
                         scope.dictaphoneButton = 'play_arrow';
                         scope.methodOnClick = 'play';
@@ -69,6 +74,11 @@ define(['../module'], function (module) {
                             scope.maxValue = moment.duration(scope.time);
                             displayTime();
                         }
+                        if(timerService.Timer.prototype.getSeconds() > 0){
+                            timerService.Timer.prototype.resume();
+                        }else{
+                            timerService.Timer.prototype.start();
+                        }
                         music.play();
                         scope.runClock = $interval(displayTime, 1000);
                         scope.methodOnClick = scope.dictaphoneButton = 'pause';
@@ -76,6 +86,7 @@ define(['../module'], function (module) {
 
                     scope.pause = function () {
                         music.pause();
+                        timerService.Timer.prototype.pause();
                         scope.dictaphoneButton = 'play_arrow';
                         scope.methodOnClick = 'play';
                         $interval.cancel(scope.runClock);

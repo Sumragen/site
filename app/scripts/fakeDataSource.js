@@ -1119,7 +1119,8 @@ define(['lodash'], function (_) {
             if (_.every(data.user.objects, function (user) {
                     if (tempUser.username.toLowerCase() === user.username.toLowerCase() || tempUser.username.toLowerCase() === user.email.toLowerCase()) {
                         if (tempUser.password === user.password) {
-                            result = user;
+                            result = angular.copy(user);
+                            delete result.password;
                         } else {
                             if(!user.password){
                                 result = {error: 'User without password. Please, sign in with social network and set your password in profile settings page.'}
@@ -1152,7 +1153,7 @@ define(['lodash'], function (_) {
                             }
                         });
                         result = {
-                            user: user,
+                            user: angular.copy(user),
                             accessToken: googleUser.accessToken
                         };
                         return false;
@@ -1160,6 +1161,7 @@ define(['lodash'], function (_) {
                     return true;
                 })
             });
+            delete result.user.password;
             return result;
         };
         dataSource.checkFacebookUserData = function (facebookUserData) {
@@ -1176,13 +1178,14 @@ define(['lodash'], function (_) {
                         }
                     });
                     result = {
-                        user: user,
+                        user: angular.copy(user),
                         accessToken: facebookUser.accessToken
                     };
                     return false;
                 }
                 return true;
             });
+            delete result.user.password;
             return result;
         };
         dataSource.checkMicrosoftUserData = function (microsoftUserData) {
@@ -1200,13 +1203,14 @@ define(['lodash'], function (_) {
                         }
                     });
                     result = {
-                        user: user,
+                        user: angular.copy(user),
                         accessToken: microsoftUser.accessToken
                     };
                     return false;
                 }
                 return true;
             });
+            delete result.user.password;
             return result;
         };
         //Role

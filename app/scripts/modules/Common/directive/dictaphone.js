@@ -54,7 +54,7 @@ define(['../module'], function (module) {
                     scope.stop = function () {
                         recorderService.stopRecording()
                             .then(function (data) {
-                                scope.musicSourceUrl = $sce.trustAsResourceUrl(scope.musicSourceUrl = data);
+                                scope.musicSourceUrl = $sce.trustAsResourceUrl(data);
                             })
                             .catch(function (error) {
                                 //catch error

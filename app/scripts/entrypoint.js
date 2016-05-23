@@ -35,11 +35,10 @@ require.config({
         'infiniteScroll': '../../bower_components/ngInfiniteScroll/build/ng-infinite-scroll',
         'jqueryWatermark': '../../bower_components/watermark/dist/jquery.watermark',
         'angular-progressbar': '../../bower_components/angular-svg-round-progressbar/build/roundProgress',
-        'recorder' : '../../bower_components/recorderjs/recorder',
+        'recorder': '../../bower_components/recorderjs/recorder',
         'microsoftApi': 'http://js.live.net/v5.0/wl',
         'googleApi': 'https://apis.google.com/js/client.js?onload=handleClientLoad',
-        'google': 'https://maps.googleapis.com/maps/api/js?v=3.24&key=AIzaSyB2I-5q7CdsT5Kx1hQMuEgWiWCH_0U_7Ts',
-        'google-places': 'https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyB2I-5q7CdsT5Kx1hQMuEgWiWCH_0U_7Ts'
+        'google': 'https://maps.googleapis.com/maps/api/js?v=3.24&libraries=places&key=AIzaSyB2I-5q7CdsT5Kx1hQMuEgWiWCH_0U_7Ts'
     },
     shim: {
         'angular-progressbar': {
@@ -133,12 +132,8 @@ require.config({
         google: {
             exports: 'google'
         },
-        googlemaps: {
-            deps: [],
-            exports: 'google'
-        },
         'logicify-gmap': {
-            deps: ['angular', 'google', 'google-places'],
+            deps: ['angular', 'google'],
             exports: 'Autocomplite'
         }
     }

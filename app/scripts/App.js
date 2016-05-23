@@ -18,7 +18,7 @@ define([
         'angular-growl-v2',
         'angular-progressbar',
         'infiniteScroll',
-    'recorder',
+        'recorder',
         'bootstrapDateTimePicker',
         'bootstrap-decorator',
         'moment',

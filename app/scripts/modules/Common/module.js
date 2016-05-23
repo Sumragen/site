@@ -2,7 +2,7 @@
  * Created by trainee on 3/2/16.
  */
 define(['angular', 'angular-animate'], function (module) {
-    return module.module('Common', ['mgcrea.ngStrap', 'ngAnimate','LogicifyGMap', 'Common', 'ui.router'])
+    return module.module('Common', ['mgcrea.ngStrap', 'ngAnimate','LogicifyGMap', 'ui.router'])
         .config(function ($stateProvider, $urlRouterProvider) {
             $stateProvider
                 .state('common', {

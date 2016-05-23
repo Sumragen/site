@@ -21,22 +21,22 @@ define(['../module'], function (module) {
                     });
                     var music = $('audio.music-player')[0];
                     function setDefaultData() {
-                        scope.maxValue = new Date(moment.duration(attrs.sDictaphone || '00:01:00')).getTime() / 1000;
+                        scope.maxValue = new Date(moment.duration(attrs.sDictaphone || '00:01:00')).getTime();
                         scope.currentValue = 0;
                         scope.dictaphoneButton = 'fiber_manual_record';
                         scope.counter = 0;
                         scope.runClock = null;
                         scope.musicSourceUrl = '';
                         scope.methodOnClick = 'start';
-                        timerService.Timer(new Date().getTime() + scope.maxValue * 1000);
+                        timerService.Timer(new Date().getTime() + scope.maxValue);
                         timerService.Timer.prototype.stop();
                         displayTime();
                     }
 
                     function displayTime() {
                         if (scope.currentValue < scope.maxValue) {
-                            scope.currentValue = timerService.Timer.prototype.getSeconds();
-                            scope.time = moment().hour(0).minute(0).second(scope.currentValue).format('HH:mm:ss');
+                            scope.currentValue = timerService.Timer.prototype.getElapsedTime();
+                            scope.time = moment().hour(0).minute(0).second(Math.floor(scope.currentValue / 1000)).format('HH:mm:ss');
                         } else {
                             scope.stop();
                         }
@@ -47,7 +47,7 @@ define(['../module'], function (module) {
                             timerService.Timer.prototype.start();
                             recorderService.startRecording();
                             scope.methodOnClick = scope.dictaphoneButton = 'stop';
-                            scope.runClock = $interval(displayTime, 1000);
+                            scope.runClock = $interval(displayTime, 50);
                         }
                     };
 
@@ -74,13 +74,13 @@ define(['../module'], function (module) {
                             scope.currentValue = 0;
                             displayTime();
                         }
-                        if(timerService.Timer.prototype.getSeconds() > 0){
+                        if(timerService.Timer.prototype.getElapsedTime() > 0){
                             timerService.Timer.prototype.resume();
                         }else{
                             timerService.Timer.prototype.start();
                         }
                         music.play();
-                        scope.runClock = $interval(displayTime, 1000);
+                        scope.runClock = $interval(displayTime, 50);
                         scope.methodOnClick = scope.dictaphoneButton = 'pause';
                     };
 
@@ -101,7 +101,6 @@ define(['../module'], function (module) {
                     };
                     setDefaultData();
                 }
-
             }
         }]);
 });

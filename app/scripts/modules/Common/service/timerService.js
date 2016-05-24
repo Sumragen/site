@@ -2,10 +2,9 @@
  * Created by trainee on 5/18/16.
  */
 define(['../module'], function (module) {
-    module.service('Common.TimerService', [
+    module.factory('Common.TimerService', [
         function () {
-            var service = {};
-            service.Timer = function (timeout, autostop) {
+            var Timer = function (timeout, autostop) {
                 this.timeout = timeout;
                 this.endTime = null;
                 this.inProgress = false;
@@ -15,9 +14,10 @@ define(['../module'], function (module) {
                 //in milliseconds
                 this.autoStop = autostop || false;
                 this.onUpdate = null;
+                this.onAutoStop = null;
             };
 
-            service.Timer.prototype.start = function (autostop) {
+            Timer.prototype.start = function (autostop) {
                 if (this.inProgress) {
                     throw new Error('Timer already in progress. You can\'t start it twice.');
                 }
@@ -31,7 +31,7 @@ define(['../module'], function (module) {
                 self.startTime = new Date().getTime();
                 if (self.autoStop) {
                     self.$timeOutAutostop = setTimeout(function () {
-                        self.stop(new Date().getTime());
+                        Timer.prototype.stop(new Date().getTime());
                         if (typeof self.onAutoStop === 'function') {
                             self.onAutoStop();
                         }
@@ -43,7 +43,7 @@ define(['../module'], function (module) {
                     }
                 }, self.timeout);
             };
-            service.Timer.prototype.stop = function (time) {
+            Timer.prototype.stop = function (time) {
                 if (!this.inProgress) {
                     return false;
                 }
@@ -59,14 +59,23 @@ define(['../module'], function (module) {
                     delete this.$timeOutAutostop;
                 }
             };
-            service.Timer.prototype.pause = function () {
+            Timer.prototype.pause = function () {
                 this.pauseTime = new Date().getTime();
+                if (this.$timeOutAutostop) {
+                    clearTimeout(this.$timeOutAutostop);
+                    delete this.$timeOutAutostop;
+                }
             };
-            service.Timer.prototype.resume = function () {
+            Timer.prototype.resume = function () {
                 this.difference += new Date().getTime() - this.pauseTime;
                 delete this.pauseTime;
+                if (this.autoStop) {
+                    this.$timeOutAutostop = setTimeout(function () {
+                        Timer.prototype.stop(new Date().getTime());
+                    }, this.autoStop - this.difference);
+                }
             };
-            service.Timer.prototype.getSeconds = function () {
+            Timer.prototype.getSeconds = function () {
                 if (!this.inProgress) {
                     return '00';
                 }
@@ -82,7 +91,7 @@ define(['../module'], function (module) {
                     return '0' + seconds;
                 }
             };
-            service.Timer.prototype.getMilliseconds = function () {
+            Timer.prototype.getMilliseconds = function () {
                 if (!this.inProgress) {
                     return '00';
                 }
@@ -98,7 +107,7 @@ define(['../module'], function (module) {
                     return '0' + ms;
                 }
             };
-            service.Timer.prototype.getElapsedTime = function () {
+            Timer.prototype.getElapsedTime = function () {
                 if (!this.inProgress) {
                     return 0;
                 }
@@ -108,7 +117,7 @@ define(['../module'], function (module) {
                     return this.pauseTime - this.startTime - this.difference;
                 }
             };
-            return service;
+            return Timer;
         }
     ])
 });

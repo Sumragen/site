@@ -1,0 +1,12 @@
+Drop File:
+<div ngf-drop ngf-select ng-model="files" class="drop-box"
+     ngf-drag-over-class="'dragover'" ngf-multiple="true" ngf-allow-dir="true"
+     accept="image/*,application/pdf"
+     ngf-pattern="'image/*,application/pdf'">Drag and drop
+</div>
+<div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div>
+
+<div align="right">
+    <a class="btn btn-primary btn-lg" ng-click="upload()">upload</a>
+    <a class="btn btn-primary btn-success" ngf-select ng-model="files" ngf-multiple="true">Browse</a>
+</div>

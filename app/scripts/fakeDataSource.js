@@ -1161,7 +1161,9 @@ define(['lodash'], function (_) {
                     return true;
                 })
             });
-            delete result.user.password;
+            if(result){
+                delete result.user.password;
+            }
             return result;
         };
         dataSource.checkFacebookUserData = function (facebookUserData) {
@@ -1185,7 +1187,9 @@ define(['lodash'], function (_) {
                 }
                 return true;
             });
-            delete result.user.password;
+            if(result){
+                delete result.user.password;
+            }
             return result;
         };
         dataSource.checkMicrosoftUserData = function (microsoftUserData) {
@@ -1210,7 +1214,9 @@ define(['lodash'], function (_) {
                 }
                 return true;
             });
-            delete result.user.password;
+            if(result){
+                delete result.user.password;
+            }
             return result;
         };
         //Role

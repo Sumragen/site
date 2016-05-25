@@ -4,6 +4,7 @@
 define(
     [
         './controller/masterController',
+        './controller/fileUploadingController',
         './service/securityContext',
         './service/statePreference',
         './service/schedulingUtil',
@@ -11,9 +12,11 @@ define(
         './service/permissionsService',
         './service/recorderService',
         './service/timerService',
+        './service/fileUploadingService',
         './directive/uploadFile',
         './directive/datetimepicker',
         './directive/setImage',
+        './directive/fileUploading',
         './filters/deepFilter',
         './directive/loadingIndicator',
         './directive/httpLoadingIndicator',

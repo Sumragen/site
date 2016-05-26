@@ -16,12 +16,11 @@ define(
         './directive/uploadFile',
         './directive/datetimepicker',
         './directive/setImage',
-        './directive/fileUploading',
-        './filters/deepFilter',
         './directive/loadingIndicator',
         './directive/httpLoadingIndicator',
         './directive/checkPermissions',
         './directive/dictaphone',
+        './filters/deepFilter',
         './endpoint'
     ],
     function () {

@@ -5,12 +5,10 @@ define(['../module'], function (module) {
     module.controller('Common.FileUploadingController', [
         '$scope',
         '$uibModalInstance',
-        'Common.FileUploadingService',
-        function ($scope, $uibModalInstance, fileUploadingService) {
+        function ($scope, $uibModalInstance) {
             $scope.upload = function (files) {
                 files = files || $scope.files || null;
-                fileUploadingService.setFiles(files);
-                $uibModalInstance.close();
+                $uibModalInstance.close(files);
             };
             $scope.clear = function(){
                 $scope.files = null;

@@ -16,18 +16,22 @@ define(['../module'], function (module) {
             });
 
             var files;
-            $scope.$watch(function(){
-                return fileUploadingService.getFiles();
-            }, function(){
-                files = fileUploadingService.getFiles();
-            });
-
-            function updateUserModel (){
+            $scope.openModal = function () {
+                fileUploadingService.openModal()
+                    .then(function (data) {
+                        files = data;
+                    })
+                    .catch(function (err) {
+                        err; //for example, display error
+                    });
+            };
+            function updateUserModel() {
                 $scope.user.model = securityContext.getPrincipal();
-                if($scope.user.model.passwordUndefined){
+                if ($scope.user.model.passwordUndefined) {
                     $scope.errorReadPassword = true;
                 }
             }
+
             $scope.$on('securityContext:updated', function (e, user) {
                 $scope.user.model = user;
             });

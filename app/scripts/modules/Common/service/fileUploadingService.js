@@ -3,14 +3,23 @@
  */
 define(['../module'], function (module) {
     module.service('Common.FileUploadingService', [
-        function () {
+        '$uibModal',
+        function ($uibModal) {
             var service = {};
             var files = [];
-            service.getFiles = function(){
-                return files || null;
-            };
-            service.setFiles = function (data) {
-                files = data;
+            service.openModal = function () {
+                var fileUploadModal = $uibModal.open({
+                    animation: true,
+                    templateUrl: "views/Common/fileUploadingModal.html",
+                    controller: "Common.FileUploadingController as controller"
+                });
+                return fileUploadModal.result
+                    .then(function (data) {
+                        return data;
+                    })
+                    .catch(function (err) {
+                        return err;
+                    });
             };
             return service;
         }])

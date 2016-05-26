@@ -17,12 +17,6 @@ define(['../module', 'lodash'], function (module, _) {
             var overlappedEvents = [];
             $scope.eventSources = [];
 
-            var files;
-            $scope.$watch(function(){
-                return fileUploadingService.getFiles();
-            }, function(){
-                files = fileUploadingService.getFiles();
-            });
             function addToEventChangedList(event, delta) {
                 var result = scheduleDataService.addToEventChangedList(event, delta, overlappedEvents, $scope.events);
                 $scope.events = result.events;

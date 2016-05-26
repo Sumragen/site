@@ -4,11 +4,14 @@
 define(['../module'], function (module) {
     module.controller('Common.FileUploadingController', [
         '$scope',
+        '$uibModalInstance',
         'Common.FileUploadingService',
-        function ($scope, fileUploadingService) {
+        function ($scope, $uibModalInstance, fileUploadingService) {
             $scope.upload = function (files) {
                 files = files || $scope.files || [];
                 fileUploadingService.setFiles(files);
+                $uibModalInstance.close();
             };
-        }]);
+        }
+    ]);
 });

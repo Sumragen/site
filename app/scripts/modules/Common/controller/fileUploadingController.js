@@ -6,6 +6,7 @@ define(['../module'], function (module) {
         '$scope',
         '$uibModalInstance',
         function ($scope, $uibModalInstance) {
+            $uibModalInstance.result = null;
             $scope.upload = function (files) {
                 files = files || $scope.files || null;
                 $uibModalInstance.close(files);

@@ -1,8 +1,8 @@
 Drop File:
 <div ngf-drop ngf-select ng-model="files" class="drop-box"
-     ngf-drag-over-class="'dragover'" ngf-multiple="true" ngf-allow-dir="true"
-     accept="image/*,application/pdf"
-     ngf-pattern="'image/*,application/pdf'">Drag and drop
+     ngf-drag-over-class="'dragover'" ngf-multiple="true" ngf-allow-dir="true">
+    <div ng-show="files" ng-repeat="file in files" ng-bind="file.name"></div>
+    <div ng-hide="files">Drag and drop</div>
 </div>
 <div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div>
 

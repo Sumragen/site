@@ -6,22 +6,20 @@ define(['../module'], function (module) {
         '$scope',
         '$timeout',
         'Common.SecurityContext',
+        'Common.FileUploadingService',
         'Dashboard.Profile.ProfileService',
-        function ($scope, $timeout, securityContext, profileService) {
+        function ($scope, $timeout, securityContext, fileUploadingService, profileService) {
             $scope.user = {};
-            //
-            // function updateUserModel(user) {
-            //     profileService.getFullUserData(user ? user.id : securityContext.getPrincipal().id)
-            //         .then(function (user) {
-            //             $scope.user.model = user;
-            //             if (!user.password) {
-            //                 $scope.errorReadPassword = true;
-            //             }
-            //         });
-            // }
-            //
+
             $timeout(function () {
                 updateUserModel();
+            });
+
+            var files;
+            $scope.$watch(function(){
+                return fileUploadingService.getFiles();
+            }, function(){
+                files = fileUploadingService.getFiles();
             });
 
             function updateUserModel (){

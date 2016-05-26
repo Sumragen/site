@@ -6,16 +6,23 @@ define(['../module', 'lodash'], function (module, _) {
         '$scope',
         '$state',
         '$stateParams',
+        'Common.FileUploadingService',
         'Dashboard.Schedule.ScheduleService',
         'Dashboard.Schedule.ScheduleDataService',
         'scheduleData',
-        function ($scope, $state, $stateParams, scheduleService, scheduleDataService, scheduleData) {
+        function ($scope, $state, $stateParams, fileUploadingService, scheduleService, scheduleDataService, scheduleData) {
             $scope.busy = false;
 
             var isSettingsPage = $state.current.name.indexOf('settings') > -1;
             var overlappedEvents = [];
             $scope.eventSources = [];
 
+            var files;
+            $scope.$watch(function(){
+                return fileUploadingService.getFiles();
+            }, function(){
+                files = fileUploadingService.getFiles();
+            });
             function addToEventChangedList(event, delta) {
                 var result = scheduleDataService.addToEventChangedList(event, delta, overlappedEvents, $scope.events);
                 $scope.events = result.events;

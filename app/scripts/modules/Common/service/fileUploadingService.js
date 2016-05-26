@@ -3,10 +3,10 @@
  */
 define(['../module'], function (module) {
     module.service('Common.FileUploadingService', [
+        '$q',
         '$uibModal',
-        function ($uibModal) {
+        function ($q, $uibModal) {
             var service = {};
-            var files = [];
             service.openModal = function () {
                 var fileUploadModal = $uibModal.open({
                     animation: true,
@@ -18,7 +18,7 @@ define(['../module'], function (module) {
                         return data;
                     })
                     .catch(function (err) {
-                        return err;
+                        return $q.reject(err);
                     });
             };
             return service;

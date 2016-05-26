@@ -8,10 +8,13 @@ define(['../module'], function (module) {
         'Common.FileUploadingService',
         function ($scope, $uibModalInstance, fileUploadingService) {
             $scope.upload = function (files) {
-                files = files || $scope.files || [];
+                files = files || $scope.files || null;
                 fileUploadingService.setFiles(files);
                 $uibModalInstance.close();
             };
+            $scope.clear = function(){
+                $scope.files = null;
+            }
         }
     ]);
 });

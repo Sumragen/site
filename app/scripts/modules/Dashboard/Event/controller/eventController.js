@@ -26,6 +26,28 @@ define(['../module', 'lodash', 'jquery'], function (module, _) {
             $scope.eventList = eventsData;
 
             $scope.event = {};
+            $scope.eventFilter = {key: 'name', value: 'Rest'};
+            $scope.eventStructure = [
+                {
+                    key: "name",
+                    sortable: true,
+                    filtered: true
+                },{
+                    key: "description",
+                    filtered: true
+                }, {
+                    key: "date",
+                    sortable: true
+                },{
+                    key: "address",
+                    value: ['address.country','address.city'],
+                    sortable: true,
+                    sortBy: 'address.city',
+                    filtered: true
+                }
+
+            ];
+
             $scope.isSettingPage = $state.current.name.indexOf('settings') > -1;
             $scope.showEditForm = false;
             $scope.showSetMarkerForm = false;
@@ -90,13 +112,13 @@ define(['../module', 'lodash', 'jquery'], function (module, _) {
 
             $scope.toggleShowSecondStepOfEventCreate = function (form) {
                 $scope.$broadcast('schemaFormValidate');
-                if(form.$valid){
+                if (form.$valid) {
                     var event = $scope.event.model;
                     var marker = new google.maps.Marker({
                         name: event.name,
                         position: null,
-                        map : null,
-                        title : event.description
+                        map: null,
+                        title: event.description
                     });
                     $scope.eventList.push(event);
                     $scope.toggleShowEditForm(event);

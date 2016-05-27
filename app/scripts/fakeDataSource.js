@@ -77,6 +77,10 @@ define(['lodash'], function (_) {
                 date: mounts[Math.floor(Math.random() * 12)] + ' ' + Math.floor(Math.random() * 30) + ', ' +
                 Math.floor(Math.random() * 2000 + 20) + ' ' + Math.floor(Math.random() * 12) + ':' + Math.floor(Math.random() * 59) + +' ' + dayTime[Math.floor(Math.random() * 2)],
                 description: randomWord(20),
+                address: {
+                    country:randomWord(8),
+                    city: randomWord(6)
+                },
                 location: {
                     latitude: Math.random() * 5 + 44,
                     longitude: Math.random() * 5 + 29
@@ -120,6 +124,10 @@ define(['lodash'], function (_) {
                 name: 'Rest',
                 date: 'February 19, 2016 11:50 AM',
                 description: 'first event (test version)',
+                address:{
+                    city: 'Kherson',
+                    country: 'Ukraine'
+                },
                 location: {
                     latitude: 46.6699334,
                     longitude: 32.6169105
@@ -130,6 +138,10 @@ define(['lodash'], function (_) {
                 name: "Children's hospital",
                 date: 'September 23, 2016 2:30 PM',
                 description: 'Medical inspection',
+                address:{
+                    city: 'Kherson',
+                    country: 'Ukraine'
+                },
                 location: {
                     latitude: 46.6676171,
                     longitude: 32.6100075
@@ -140,6 +152,10 @@ define(['lodash'], function (_) {
                 name: 'spring ball',
                 date: 'April 15, 2016 4:00 PM',
                 description: 'spring ball',
+                address:{
+                    city: 'Kherson',
+                    country: 'Ukraine'
+                },
                 location: {
                     latitude: 46.6716115,
                     longitude: 32.6100684

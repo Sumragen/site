@@ -18,7 +18,11 @@
     <div ng-show="!showMap && !showEditForm && !showSetMarkerForm">
         <a class="btn btn-raised btn-success" ng-if="isSettingPage" ng-click="toggleShowEditForm()">Create</a>
         <!--table with events-->
-        <table class="table table-striped table-hover" ng-show="eventList.length > 0">
+       <div s-render-list="eventList"
+             s-render-filter="eventFilter"
+             s-render-structure='eventStructure'>
+        </div>
+        <!--<table class="table table-striped table-hover" ng-show="eventList.length > 0">
             <thead>
             <tr>
                 <td>#</td>
@@ -28,17 +32,19 @@
             </tr>
             </thead>
             <tbody>
-            <tr ng-repeat="event in eventList track by $index" class="success events-item"
+            <tr ng-hide="true"
+                ng-repeat="event in eventList track by $index" class="success events-item"
                 ng-style="isSettingPage ? {'cursor': 'pointer'} : {'cursor': 'default'}"
                 ng-click="toggleShowEditForm(event)">
                 <td>{{$index+1}}</td>
                 <td>{{event.name}}</td>
                 <td>{{event.description}}</td>
                 <td>{{event.date}}</td>
-                <td class="icon-table-right" ng-if="isSettingPage" ng-click="removeEvent(event)"><i class="material-icons icon-cell">delete_forever</i></td>
+                <td class="icon-table-right" ng-if="isSettingPage" ng-click="removeEvent(event)"><i
+                        class="material-icons icon-cell">delete_forever</i></td>
             </tr>
             </tbody>
-        </table>
+        </table>-->
     </div>
 
     <!--edit form-->
@@ -49,14 +55,17 @@
               sf-model="event.model">
         </form>
         <a class="btn btn-default" ng-click="toggleShowEditForm()">Cancel</a>
-        <a class="btn btn-info" ng-click="(event.model.id)?editEvent(editForm): toggleShowSecondStepOfEventCreate(editForm)">{{(event.model.id)?'Update':'Next'}}</a>
+        <a class="btn btn-info"
+           ng-click="(event.model.id)?editEvent(editForm): toggleShowSecondStepOfEventCreate(editForm)">{{(event.model.id)?'Update':'Next'}}</a>
     </div>
 
     <!--map-->
     <div ng-show="showSetMarkerForm || showMap">
         <a class="btn btn-raised btn-success" ng-click="saveMarkers()" ng-if="isSettingPage">Save</a>
-        <a class="btn btn-raised btn-success" ng-click="showSetMarkerForm ? removeEvent() : resetMarkers()" ng-if="isSettingPage">{{showSetMarkerForm ? 'Cancel' : 'Reset'}}</a>
-        <a class="btn btn-raised btn-warning" ng-click="deleteMarker()" ng-if="isSettingPage && showSetMarkerForm">Delete marker</a>
+        <a class="btn btn-raised btn-success" ng-click="showSetMarkerForm ? removeEvent() : resetMarkers()"
+           ng-if="isSettingPage">{{showSetMarkerForm ? 'Cancel' : 'Reset'}}</a>
+        <a class="btn btn-raised btn-warning" ng-click="deleteMarker()" ng-if="isSettingPage && showSetMarkerForm">Delete
+            marker</a>
         <div class="map-container">
             <div class="map">
                 <logicify-gmap center="gmOpts.center"

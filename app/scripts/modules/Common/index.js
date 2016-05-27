@@ -5,6 +5,7 @@ define(
     [
         './controller/masterController',
         './controller/fileUploadingController',
+        './controller/renderListController',
         './service/securityContext',
         './service/statePreference',
         './service/schedulingUtil',
@@ -20,6 +21,7 @@ define(
         './directive/httpLoadingIndicator',
         './directive/checkPermissions',
         './directive/dictaphone',
+        './directive/renderList',
         './filters/deepFilter',
         './endpoint'
     ],

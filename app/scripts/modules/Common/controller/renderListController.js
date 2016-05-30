@@ -115,7 +115,11 @@ define(['../module', 'lodash'], function (module, _) {
                     }
                     return true;
                 });
-                return result;
+                if($scope.predicate == 'date'){
+                    return new Date(result);
+                }else{
+                    return result;
+                }
             };
 
             /**

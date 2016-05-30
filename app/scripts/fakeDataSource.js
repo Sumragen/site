@@ -75,7 +75,7 @@ define(['lodash'], function (_) {
                 id: ++data.event.lastIndex,
                 name: randomWord(6),
                 date: mounts[Math.floor(Math.random() * 12)] + ' ' + Math.floor(Math.random() * 30) + ', ' +
-                Math.floor(Math.random() * 2000 + 20) + ' ' + Math.floor(Math.random() * 12) + ':' + Math.floor(Math.random() * 59) + +' ' + dayTime[Math.floor(Math.random() * 2)],
+                Math.floor(Math.random() * 5 + 2000) + ' ' + Math.floor(Math.random() * 12) + ':' + Math.floor(Math.random() * 59) + ' ' + dayTime[Math.floor(Math.random() * 2)],
                 description: randomWord(20),
                 address: {
                     country:randomWord(8),

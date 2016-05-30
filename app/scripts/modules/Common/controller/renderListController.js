@@ -53,8 +53,8 @@ define(['../module', 'lodash'], function (module, _) {
             /**
              * Sortable
              */
-            $scope.predicate = 'name';
-            $scope.reverse = true;
+            $scope.predicate = 'date';
+            $scope.reverse = false;
             $scope.order = function (predicate) {
                 if (!_.every($scope.structure, function (param) {
                         return !(param.key == predicate && param.sortable)
@@ -100,6 +100,23 @@ define(['../module', 'lodash'], function (module, _) {
                     return $scope.filter;
                 }
             };
+            $scope.getPredicateValue = function (item) {
+                var result = null;
+                _.every($scope.structure, function (param) {
+                    if (param.key == $scope.predicate) {
+                        if (param.sortBy) {
+                            var path = param.sortBy[0].split('.');
+                            path = path.splice(0,path.length - 1).join('.') + '.sortBy';
+                            result = parsePath(path, item);
+                        }else{
+                            result = item[$scope.predicate];
+                        }
+                        return false;
+                    }
+                    return true;
+                });
+                return result;
+            };
 
             /**
              * htmlClass
@@ -108,9 +125,9 @@ define(['../module', 'lodash'], function (module, _) {
                 var value = $scope.getValue(item, key),
                     result = '';
                 _.every($scope.controller.htmlClasses, function (htmlClassParam) {
-                    if(htmlClassParam.key == key){
+                    if (htmlClassParam.key == key) {
                         _.each(htmlClassParam.values, function (cell) {
-                            if(cell.value == value){
+                            if (cell.value == value) {
                                 result = cell.htmlClass || '';
                             }
                         });

@@ -4,7 +4,9 @@
 define(['../module', 'lodash'], function (module, _) {
     module.controller('Common.RenderListController', [
         '$scope',
-        function ($scope) {
+        '$element',
+        '$attrs',
+        function ($scope, $element, $attrs) {
             $scope.structure = $scope.controller.structure;
             /**
              * Generate array of items by structure.
@@ -57,7 +59,6 @@ define(['../module', 'lodash'], function (module, _) {
                 if (!_.every($scope.structure, function (param) {
                         return !(param.key == predicate && param.sortable)
                     })) {
-                    key;
                     $scope.reverse = ($scope.predicate === predicate) ? !$scope.reverse : false;
                     $scope.predicate = predicate
                 }
@@ -84,15 +85,15 @@ define(['../module', 'lodash'], function (module, _) {
                     if (_.every($scope.structure, function (param) {
                             if (param.key == key) {
                                 if (param.sortBy) {
-                                    result[key] = {sortBy: $scope.filter || null};
+                                    result[key] = {sortBy: $scope.filter || ''};
                                 } else {
-                                    result[key] = $scope.filter || null;
+                                    result[key] = $scope.filter || '';
                                 }
                                 return false;
                             }
                             return true;
                         })) {
-                        result[key] = $scope.filter || null;
+                        result[key] = $scope.filter || '';
                     }
                     return result;
                 } else {
@@ -100,6 +101,25 @@ define(['../module', 'lodash'], function (module, _) {
                 }
             };
 
+            /**
+             * htmlClass
+             */
+            $scope.checkHtmlClass = function (item, key) {
+                var value = $scope.getValue(item, key),
+                    result = '';
+                _.every($scope.controller.htmlClasses, function (htmlClassParam) {
+                    if(htmlClassParam.key == key){
+                        _.each(htmlClassParam.values, function (cell) {
+                            if(cell.value == value){
+                                result = cell.htmlClass || '';
+                            }
+                        });
+                        return false;
+                    }
+                    return true;
+                });
+                return result;
+            };
             /**
              * Common
              */

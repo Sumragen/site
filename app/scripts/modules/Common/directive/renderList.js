@@ -11,7 +11,8 @@ define(['../module'], function (module) {
                 scope: {
                     items: '=sRenderList',
                     structure: '=sRenderStructure',
-                    filter: '=sRenderFilter'
+                    filter: '=sRenderFilter',
+                    htmlClasses : '=sRenderHtmlClasses'
                 },
                 bindToController: true,
                 compile: function (tElement, tAttrs) {

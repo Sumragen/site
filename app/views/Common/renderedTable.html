@@ -20,7 +20,7 @@
         ng-style="isSettingPage ? {'cursor': 'pointer'} : {'cursor': 'default'}"
         ng-click="toggleShowEditForm(event)">
         <td>{{$index+1}}</td>
-        <td ng-repeat="param in structure" ng-bind="getValue(event, param.key)"></td>
+        <td ng-class="checkHtmlClass(event, param.key)" ng-repeat="param in structure" ng-bind="getValue(event, param.key)"></td>
         <td class="icon-table-right" ng-if="isSettingPage" ng-click="removeEvent(event)"><i
                 class="material-icons icon-cell">delete_forever</i></td>
     </tr>

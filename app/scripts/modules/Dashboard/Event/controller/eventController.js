@@ -32,20 +32,39 @@ define(['../module', 'lodash', 'jquery'], function (module, _) {
                     key: "name",
                     sortable: true,
                     filtered: true
-                },{
+                }, {
                     key: "description",
                     filtered: true
                 }, {
                     key: "date",
                     sortable: true
-                },{
+                }, {
                     key: "address",
-                    value: ['address.country','address.city'],
+                    value: ['address.country', 'address.city'],
                     sortable: true,
                     sortBy: ['address.city'],
                     filtered: true
                 }
 
+            ];
+            $scope.eventHtmlClasses = [
+                {
+                    key: 'name',
+                    values: [{
+                        value: 'Rest',
+                        htmlClass: 'red-colorize'
+                    }, {
+                        value: 'spring ball',
+                        htmlClass: 'green-colorize'
+                    }]
+                },
+                {
+                    key: 'description',
+                    values: [{
+                        value:'aIXEZLro050IJvpvxxmy',
+                        htmlClass: 'yellow-colorize'
+                    }]
+                }
             ];
 
             $scope.isSettingPage = $state.current.name.indexOf('settings') > -1;

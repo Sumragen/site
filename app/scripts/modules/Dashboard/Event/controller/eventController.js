@@ -42,6 +42,12 @@ define(['../module', 'lodash', 'jquery'], function (module, _) {
                     key: "address",
                     value: ['address.country', 'address.city'],
                     sortable: true,
+                    htmlClass:'',
+                    htmlClassFn: function (that) {
+                        if (that.value > 0) {
+                            return 'may-class';
+                        }
+                    },
                     sortBy: ['address.city'],
                     filtered: true
                 }
@@ -61,7 +67,7 @@ define(['../module', 'lodash', 'jquery'], function (module, _) {
                 {
                     key: 'description',
                     values: [{
-                        value:'aIXEZLro050IJvpvxxmy',
+                        value: 'aIXEZLro050IJvpvxxmy',
                         htmlClass: 'yellow-colorize'
                     }]
                 }

@@ -7,6 +7,7 @@ define(['../module', 'lodash'], function (module, _) {
         '$element',
         '$attrs',
         function ($scope, $element, $attrs) {
+            var me = this;
             $scope.structure = $scope.controller.structure;
             /**
              * Generate array of items by structure.

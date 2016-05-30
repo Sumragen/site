@@ -32,6 +32,16 @@ define(['../module', 'lodash'], function (module, _) {
                     } else {
                         result = item[param.key]
                     }
+                    if (param.sortable && param.sortBy) {
+                        result = {value: result};
+                        _.each(param.sortBy, function (val) {
+                            if (!result['sortBy']) {
+                                result = _.merge(result, {sortBy: parsePath(val, item) + ' '});
+                            } else {
+                                result['sortBy'] += parsePath(val, item) + ' ';
+                            }
+                        });
+                    }
                     newItem[param.key] = result;
                 });
                 $scope.renderedItems.push(newItem)
@@ -47,33 +57,59 @@ define(['../module', 'lodash'], function (module, _) {
                 if (!_.every($scope.structure, function (param) {
                         return !(param.key == predicate && param.sortable)
                     })) {
+                    key;
                     $scope.reverse = ($scope.predicate === predicate) ? !$scope.reverse : false;
                     $scope.predicate = predicate
                 }
             };
 
+
             /**
              * Filter
              * @type {*|string}
              */
-            var key = $scope.controller.filter.key || null;
+            var key;
+            $scope.setFilterKey = function (value) {
+                key = value || null;
+            };
+            $scope.setFilterKey($scope.controller.filter.key);
             $scope.filter = $scope.controller.filter.value || '';
 
             $scope.sort = function (value) {
                 $scope.filter = value;
             };
-            $scope.setFilterKey = function (value) {
-                key = value || null;
-            };
             $scope.getFilterValue = function () {
                 if (key) {
                     var result = {};
-                    result[key] = $scope.filter;
+                    if (_.every($scope.structure, function (param) {
+                            if (param.key == key) {
+                                if (param.sortBy) {
+                                    result[key] = {sortBy: $scope.filter || null};
+                                } else {
+                                    result[key] = $scope.filter || null;
+                                }
+                                return false;
+                            }
+                            return true;
+                        })) {
+                        result[key] = $scope.filter || null;
+                    }
                     return result;
                 } else {
                     return $scope.filter;
                 }
             };
+
+            /**
+             * Common
+             */
+            $scope.getValue = function (item, key) {
+                if (typeof item[key] == 'object') {
+                    return item[key].value;
+                } else {
+                    return item[key];
+                }
+            }
         }
     ])
 });

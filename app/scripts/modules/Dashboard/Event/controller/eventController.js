@@ -42,7 +42,7 @@ define(['../module', 'lodash', 'jquery'], function (module, _) {
                     key: "address",
                     value: ['address.country','address.city'],
                     sortable: true,
-                    sortBy: 'address.city',
+                    sortBy: ['address.city'],
                     filtered: true
                 }
 

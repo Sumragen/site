@@ -26,7 +26,7 @@ define(['../module', 'lodash', 'jquery'], function (module, _) {
             $scope.eventList = eventsData;
 
             $scope.event = {};
-            $scope.eventFilter = {key: 'name', value: 'Rest'};
+            $scope.eventFilter = {key: 'date', value: 'R'};
             $scope.eventStructure = [
                 {
                     key: "name",

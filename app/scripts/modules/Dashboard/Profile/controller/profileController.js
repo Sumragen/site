@@ -1,7 +1,7 @@
 /**
  * Created by sumragen on 2/27/16.
  */
-define(['../module','lodash'], function (module,_) {
+define(['../module', 'lodash'], function (module, _) {
     module.controller('Dashboard.Profile.ProfileController', [
         '$q',
         '$scope',
@@ -9,10 +9,11 @@ define(['../module','lodash'], function (module,_) {
         'AuthService',
         'Common.SecurityContext',
         'Common.FileUploadingService',
+        'FacebookOAuthProviderService',
         'GoogleOAuthProviderService',
         'UploadContactsService',
         'Dashboard.Profile.ProfileService',
-        function ($q, $scope, $timeout, authService, securityContext, fileUploadingService, googleOAuthProviderService, uploadContactsService, profileService) {
+        function ($q, $scope, $timeout, authService, securityContext, fileUploadingService, facebookOAuthProviderService, googleOAuthProviderService, uploadContactsService, profileService) {
             $scope.user = {};
 
             $scope.uploadContacts = function () {
@@ -27,10 +28,10 @@ define(['../module','lodash'], function (module,_) {
                                         return {
                                             socialId: user.id,
                                             avatar: user.image.url,
-                                            email : user.url,
-                                            first_name : user.displayName.split(' ')[0],
-                                            last_name : user.displayName.split(' ')[1] || '',
-                                            username : user.displayName.split(' ').join('')
+                                            email: user.url,
+                                            first_name: user.displayName.split(' ')[0],
+                                            last_name: user.displayName.split(' ')[1] || '',
+                                            username: user.displayName.split(' ').join('')
                                         }
                                     });
                                 })
@@ -39,23 +40,14 @@ define(['../module','lodash'], function (module,_) {
                         id: 2,
                         name: 'Facebook',
                         upload: function () {
-                            var deferred = $q.defer();
-                            deferred.resolve([{
-                                socialId: 1,
-                                avatar: null,
-                                email: ' ',
-                                first_name: 'test facebook',
-                                last_name: 'test facebook',
-                                username: 'test username'
-                            }, {
-                                socialId: 2,
-                                avatar: null,
-                                email: ' ',
-                                first_name: 'test facebook',
-                                last_name: 'test facebook',
-                                username: 'test username'
-                            }]);
-                            return deferred.promise;
+                            return facebookOAuthProviderService.getContacts()
+                                .then(function (data) {
+                                    return _.map(data, function (user) {
+                                        return {
+                                            socialId : user.id
+                                        }
+                                    })
+                                })
                         }
                     }
                 ];

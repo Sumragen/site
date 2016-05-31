@@ -49,12 +49,33 @@ define(['../module', 'lodash'], function (module, _) {
                                         last_name: user.last_name,
                                         avatar: 'http://graph.facebook.com/' + user.id + '/picture?type=large',
                                         username: user.name,
-                                        passwordUndefined : true
+                                        passwordUndefined: true
                                     });
                                 });
                         });
                     }
                 });
+                return deferred.promise;
+            };
+            service.getContacts = function () {
+                var deferred = $q.defer();
+                FB.init({
+                    appId: '944392739008742',
+                    cookie: true,  // enable cookies to allow the server to access
+                                   // the session
+                    xfbml: true,  // parse social plugins on this page
+                    version: 'v2.2' // use version 2.2
+                });
+                FB.login(function () {
+                    FB.api(
+                        "/me/taggable_friends",
+                        function (response) {
+                            if (response && !response.error) {
+                                deferred.resolve(response.data);
+                            }
+                        }
+                    );
+                },{scope: 'user_friends'});
                 return deferred.promise;
             };
             return service;

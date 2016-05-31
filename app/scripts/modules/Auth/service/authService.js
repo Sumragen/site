@@ -23,6 +23,18 @@ define(['../module'], function (module) {
                     });
             };
 
+            service.signUpByDataFromSocialNetwork = function (user) {
+                var deferred = $q.defer();
+                service.signUp(user)
+                    .then(function () {
+                        deferred.resolve(null);
+                    })
+                    .catch(function (err) {
+                        deferred.reject(err);
+                    });
+                return deferred.promise;
+            };
+
             service.signIn = function (user) {
                 return $http(Endpoint.auth.login(user))
                     .then(function (data) {

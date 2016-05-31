@@ -110,19 +110,18 @@ define(['../module'], function (module) {
                     });
             }
         };
-        function signUpByDataFromSocialNetwork(user) {
-            authService.signUp(user)
+        $scope.signUpByDataFromSocialNetwork = function(user){
+            authService.signUpByDataFromSocialNetwork(user)
                 .then(function () {
                     $uibModalInstance.close();
                     $state.go('dashboard.profile');
                 })
-                .catch(function (err) {
-
-                })
                 .finally(function () {
                     $scope.busy = false;
                 });
-        }
+        };
+
+
 
         $scope.googleAuthButtonClick = function () {
             $scope.busy = true;
@@ -131,7 +130,7 @@ define(['../module'], function (module) {
                     $scope.error = null;
                 })
                 .catch(function (err) {
-                    signUpByDataFromSocialNetwork(err);
+                    $scope.signUpByDataFromSocialNetwork(err);
                 })
                 .finally(function () {
                     $uibModalInstance.close();
@@ -145,7 +144,7 @@ define(['../module'], function (module) {
                     $scope.error = null;
                 })
                 .catch(function (err) {
-                    signUpByDataFromSocialNetwork(err);
+                    $scope.signUpByDataFromSocialNetwork(err);
                 })
                 .finally(function () {
                     $uibModalInstance.close();
@@ -161,7 +160,7 @@ define(['../module'], function (module) {
                 })
                 .catch(function (err) {
                     if (!err.error) {
-                        signUpByDataFromSocialNetwork(err);
+                        $scope.signUpByDataFromSocialNetwork(err);
                     }
                 })
                 .finally(function () {

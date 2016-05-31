@@ -3,13 +3,54 @@
  */
 define(['../module'], function (module) {
     module.controller('Dashboard.Profile.ProfileController', [
+        '$q',
         '$scope',
         '$timeout',
         'Common.SecurityContext',
         'Common.FileUploadingService',
+        'GoogleOAuthProviderService',
+        'UploadContactsService',
         'Dashboard.Profile.ProfileService',
-        function ($scope, $timeout, securityContext, fileUploadingService, profileService) {
+        function ($q, $scope, $timeout, securityContext, fileUploadingService, googleOAuthProviderService, uploadContactsService, profileService) {
             $scope.user = {};
+
+            $scope.uploadContacts = function () {
+                var providers = [
+                    {
+                        id: 1,
+                        name: 'Google',
+                        upload: function () {
+                            return googleOAuthProviderService.getContacts()
+                                .then(function (data) {
+                                    return data;
+                                })
+                        }
+                    }, {
+                        id: 2,
+                        name: 'Facebook',
+                        //getFacebookContacts
+                        upload: function () {
+                            var deferred = $q.defer();
+                            deferred.resolve([{
+                                id: 1,
+                                displayName: 'first user'
+                            }, {
+                                id: 2,
+                                displayName: 'second user'
+                            }]);
+                            return deferred.promise;
+                        }
+                    }
+                ];
+                uploadContactsService.openModal(providers)
+                    .then(function (data) {
+                        //do some with users
+                        data;
+                    })
+                    .catch(function (err) {
+                        //display error
+                    });
+            };
 
             $timeout(function () {
                 updateUserModel();

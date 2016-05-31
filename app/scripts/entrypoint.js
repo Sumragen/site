@@ -39,7 +39,7 @@ require.config({
         'angular-file-upload' : '../../bower_components/ng-file-upload/ng-file-upload',
         'angular-file-upload-shim' : '../../bower_components/ng-file-upload/ng-file-upload-shim',
         'microsoftApi': 'http://js.live.net/v5.0/wl',
-        'googleApi': 'https://apis.google.com/js/client.js?onload=handleClientLoad',
+        'googleApi': 'https://apis.google.com/js/client:platform.js?onload=handleClientLoad',
         'google': 'https://maps.googleapis.com/maps/api/js?v=3.24&libraries=places&key=AIzaSyB2I-5q7CdsT5Kx1hQMuEgWiWCH_0U_7Ts'
     },
     shim: {

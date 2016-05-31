@@ -1,0 +1,52 @@
+<div class="contact-upload-module-wrapper">
+    <div class="btn-group btn-group-justified btn-group-raised">
+        <a class="btn" ng-repeat="provider in providers"
+           ng-class="{active:isSelectedProvider(provider.id)}"
+           ng-click="setCurrentProvider(provider.id)"
+           ng-bind="provider.name"></a>
+    </div>
+    <a class="btn btn-success btn-primary" ng-click="addAllUsers()">Select all</a>
+    <div class="list-group contact-list-item"
+         ng-if="contacts"
+         ng-repeat="contact in contacts track by $index"
+         ng-click="addUser(contact.id)">
+
+        <div class="list-group-item">
+
+            <div class="row-action-primary contact-list-avatar">
+                <i class="material-icons" ng-if="!contact.image.url">person</i>
+                <div class="row-picture">
+                    <img class="circle" ng-src="{{contact.image.url}}" ng-if="contact.image.url" alt="icon">
+                </div>
+            </div>
+            <div class="row-content">
+                <h4 class="list-group-item-heading">{{contact.displayName}}</h4>
+
+                <p class="list-group-item-text wrap">
+                    <a href="{{contact.url}}" ng-bind="contact.url"></a>
+                </p>
+            </div>
+            <div class="row-right form-group">
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox"
+                               ng-checked="selected.indexOf(contact.id) > -1"
+                               ng-click="addUser(contact.id)">
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="list-group-separator"></div>
+    </div>
+    <div ng-if="!contacts">
+        Not found
+    </div>
+    <a class="btn btn-raised btn-warning" ng-click="cancel()">cancel</a>
+    <a class="btn btn-raised btn-success" ng-click="upload()">upload</a>
+</div>
+<!--<div infinite-scroll="loadMoreUsers()"-->
+<!--infinite-scroll-container="'div.scrolling-module-wrapper'"-->
+<!--infinite-scroll-distance="'0.5'"-->
+<!--infinite-scroll-immediate-check="true"-->
+<!--infinite-scroll-disabled="scrollDisabled"></div>-->
+<div s-loading-indicator="" ng-show="busy"></div>

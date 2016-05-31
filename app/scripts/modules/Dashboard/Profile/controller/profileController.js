@@ -1,17 +1,18 @@
 /**
  * Created by sumragen on 2/27/16.
  */
-define(['../module'], function (module) {
+define(['../module','lodash'], function (module,_) {
     module.controller('Dashboard.Profile.ProfileController', [
         '$q',
         '$scope',
         '$timeout',
+        'AuthService',
         'Common.SecurityContext',
         'Common.FileUploadingService',
         'GoogleOAuthProviderService',
         'UploadContactsService',
         'Dashboard.Profile.ProfileService',
-        function ($q, $scope, $timeout, securityContext, fileUploadingService, googleOAuthProviderService, uploadContactsService, profileService) {
+        function ($q, $scope, $timeout, authService, securityContext, fileUploadingService, googleOAuthProviderService, uploadContactsService, profileService) {
             $scope.user = {};
 
             $scope.uploadContacts = function () {
@@ -22,21 +23,37 @@ define(['../module'], function (module) {
                         upload: function () {
                             return googleOAuthProviderService.getContacts()
                                 .then(function (data) {
-                                    return data;
+                                    return _.map(data, function (user) {
+                                        return {
+                                            socialId: user.id,
+                                            avatar: user.image.url,
+                                            email : user.url,
+                                            first_name : user.displayName.split(' ')[0],
+                                            last_name : user.displayName.split(' ')[1] || '',
+                                            username : user.displayName.split(' ').join('')
+                                        }
+                                    });
                                 })
                         }
                     }, {
                         id: 2,
                         name: 'Facebook',
-                        //getFacebookContacts
                         upload: function () {
                             var deferred = $q.defer();
                             deferred.resolve([{
-                                id: 1,
-                                displayName: 'first user'
+                                socialId: 1,
+                                avatar: null,
+                                email: ' ',
+                                first_name: 'test facebook',
+                                last_name: 'test facebook',
+                                username: 'test username'
                             }, {
-                                id: 2,
-                                displayName: 'second user'
+                                socialId: 2,
+                                avatar: null,
+                                email: ' ',
+                                first_name: 'test facebook',
+                                last_name: 'test facebook',
+                                username: 'test username'
                             }]);
                             return deferred.promise;
                         }
@@ -45,7 +62,9 @@ define(['../module'], function (module) {
                 uploadContactsService.openModal(providers)
                     .then(function (data) {
                         //do some with users
-                        data;
+                        _.each(data, function (user) {
+                            authService.signUp(user);
+                        })
                     })
                     .catch(function (err) {
                         //display error

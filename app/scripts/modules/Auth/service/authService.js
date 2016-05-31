@@ -16,7 +16,7 @@ define(['../module'], function (module) {
             service.signUp = function (user) {
                 return $http(Endpoint.auth.register(user))
                     .then(function (data) {
-                        return securityContext.setPrincipal(data.data.currentUser);
+                        return !securityContext.getPrincipal() ? securityContext.setPrincipal(data.data.currentUser) : data.data.currentUser;
                     })
                     .catch(function (err) {
                         return $q.reject(err);

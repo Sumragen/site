@@ -9,29 +9,29 @@
     <div class="list-group contact-list-item"
          ng-if="contacts"
          ng-repeat="contact in contacts track by $index"
-         ng-click="addUser(contact.id)">
+         ng-click="addUser(contact.socialId)">
 
         <div class="list-group-item">
 
             <div class="row-action-primary contact-list-avatar">
-                <i class="material-icons" ng-if="!contact.image.url">person</i>
+                <i class="material-icons" ng-if="!contact.avatar">person</i>
                 <div class="row-picture">
-                    <img class="circle" ng-src="{{contact.image.url}}" ng-if="contact.image.url" alt="icon">
+                    <img class="circle" ng-src="{{contact.avatar}}" ng-if="contact.avatar" alt="icon">
                 </div>
             </div>
             <div class="row-content">
-                <h4 class="list-group-item-heading">{{contact.displayName}}</h4>
+                <h4 class="list-group-item-heading">{{contact.username}}</h4>
 
                 <p class="list-group-item-text wrap">
-                    <a href="{{contact.url}}" ng-bind="contact.url"></a>
+                    <a href="{{contact.email}}" ng-bind="contact.email"></a>
                 </p>
             </div>
             <div class="row-right form-group">
                 <div class="checkbox">
                     <label>
                         <input type="checkbox"
-                               ng-checked="selected.indexOf(contact.id) > -1"
-                               ng-click="addUser(contact.id)">
+                               ng-checked="selected.indexOf(contact.socialId) > -1"
+                               ng-click="addUser(contact.socialId)">
                     </label>
                 </div>
             </div>

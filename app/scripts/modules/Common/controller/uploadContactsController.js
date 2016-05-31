@@ -48,18 +48,19 @@ define(['../module', 'lodash'], function (module, _) {
                 }
             };
             $scope.addAllUsers = function () {
-                if($scope.selected.length == $scope.contacts.length){
+                if($scope.selected.length != $scope.contacts.length){
                     $scope.selected = [];
-                }else{
                     _.each($scope.contacts, function (user) {
-                        $scope.addUser(user.id);
+                        $scope.selected.push(user.socialId);
                     })
+                }else{
+                    $scope.selected = [];
                 }
             };
             $scope.upload = function () {
                 var result = [];
                 _.each($scope.contacts, function (user) {
-                    if($scope.selected.indexOf(user.id) > -1){
+                    if($scope.selected.indexOf(user.socialId) > -1){
                         result.push(user);
                     }
                 });

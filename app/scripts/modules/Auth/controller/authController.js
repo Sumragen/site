@@ -103,14 +103,14 @@ define(['../module'], function (module) {
                         $uibModalInstance.close();
                     })
                     .catch(function (err) {
-                        $scope.error = err.data.message;
+                        $scope.error = err.data ? err.data.message : 'Error';
                     })
                     .finally(function () {
                         $scope.busy = false;
                     });
             }
         };
-        $scope.signUpByDataFromSocialNetwork = function(user){
+        $scope.signUpByDataFromSocialNetwork = function (user) {
             authService.signUpByDataFromSocialNetwork(user)
                 .then(function () {
                     $uibModalInstance.close();
@@ -120,7 +120,6 @@ define(['../module'], function (module) {
                     $scope.busy = false;
                 });
         };
-
 
 
         $scope.googleAuthButtonClick = function () {

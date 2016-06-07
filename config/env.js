@@ -16,7 +16,7 @@ var environments = {
     devci: {
         showVersionInfo: true,
         siteUrl: 'http://0.0.0.0:9000',
-        apiUrl: 'http://localhost:5001',
+        apiUrl: 'http://localhost:3000',
         useHeaderAuth: false,
         useCookiesAuth: false,
         useFakeAPIService: false,

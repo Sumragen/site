@@ -65,9 +65,13 @@ define(
                                     // handle error here
                                     break;
                                 }
+                                case 404: {
+                                    growl.error(rejection.data.message || 'Not found', 'Error');
+                                    break;
+                                }
                                 default:
                                 {
-                                    growl.error(rejection.data.message || 'Return rejection on response', 'Error');
+                                    growl.error((rejection.data) ? rejection.data.message || 'Return rejection on response' : rejection.error || 'Message does not found!', 'Error');
                                     //return rejection.
                                 }
                             }

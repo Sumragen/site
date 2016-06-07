@@ -53,8 +53,13 @@ define(['./module', 'lodash'], function (module, _) {
                     },
                     login: function (user) {
                         return new API({
-                            method: METHODS.POST,
                             url: '/login',
+                            dataType: 'json',
+                            method: METHODS.POST,
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Access-Control-Allow-Origin' : 'http://localhost:9002'
+                            },
                             data: {
                                 username: user.username,
                                 password: user.password

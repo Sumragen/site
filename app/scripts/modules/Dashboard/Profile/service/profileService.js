@@ -13,7 +13,7 @@ define(['../module'], function (module) {
             service.loadUsers = function (offset, limit) {
                 return $http(Endpoint.user.list(offset, limit))
                     .then(function (users) {
-                        return users.data.users;
+                        return users.data;
                     });
             };
 

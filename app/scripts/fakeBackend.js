@@ -278,14 +278,14 @@ define(
                     return [400, {errorCode: 4, message: 'wrong update'}];
                 }
             });
-            $httpBackend.whenGET(/\/users\/\?offset=[0-9]*&limit=[0-9]*/).respond(function (method, url, amount) {
-                var users = fakeDataSource.getUsers(amount);
-                if (users) {
-                    return [200, {users: users}, {}];
-                } else {
-                    return [400, {errorCode: 4, message: 'Users not found'}];
-                }
-            });
+            //$httpBackend.whenGET(/\/users\/\?offset=[0-9]*&limit=[0-9]*/).respond(function (method, url, amount) {
+            //    var users = fakeDataSource.getUsers(amount);
+            //    if (users) {
+            //        return [200, {users: users}, {}];
+            //    } else {
+            //        return [400, {errorCode: 4, message: 'Users not found'}];
+            //    }
+            //});
             $httpBackend.whenGET(/\/user\/id[0-9]*/).respond(function (method, url) {
                 var user = fakeDataSource.getUser(url.split('id')[1]);
                 if(user){

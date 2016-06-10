@@ -2,7 +2,7 @@
     <input class="form-control" type="text" ng-model="searchText" placeholder="Filter" ng-show="!showEditForm">
 
     <div class="list-group user-list-item"
-         ng-repeat="user in users | deepFilter: {username: searchText, first_name : searchText, last_name: searchText, email : searchText}"
+         ng-repeat="user in users | deepFilter: {username: searchText, first_name : searchText, last_name: searchText, email : searchText} track by $index "
          ng-show="!showEditForm">
 
         <div class="list-group-item" s-check-permissions="hasAdminRights,isTeacher" s-confirm-action="toggleShowEditForm(param)" s-check-user="{{user}}">

@@ -27,6 +27,7 @@ define(['lodash'], function (_) {
             id: 1,
             name: 'admin',
             description: 'admin rights',
+            weight: 90,
             permissions: [p.isTeacher, p.hasAdminRights, p.canViewUsers, p.canEditUser, p.canAddUsers,
                 p.canDeleteUsers, p.canViewSchedule, p.canEditSchedule, p.canAddSchedule, p.canDeleteSchedule,
                 p.canViewEvents, p.canEditEvents, p.canAddEvents, p.canDeleteEvents]
@@ -35,6 +36,7 @@ define(['lodash'], function (_) {
             id: 2,
             name: 'teacher',
             description: 'teacher rights',
+            weight: 50,
             permissions: [p.isTeacher,
                 p.canViewUsers, p.canEditUser, p.canViewSchedule, p.canViewEvents, p.canEditEvents, p.canAddEvents, p.canDeleteEvents]
         };
@@ -42,14 +44,15 @@ define(['lodash'], function (_) {
             id: 3,
             name: 'student',
             description: 'student rights',
+            weight: 10,
             permissions: [p.canViewUsers,
                 p.canEditUser, p.canViewSchedule, p.canViewEvents]
         };
 
-        function randomWord(strLengt) {
+        function randomWord(strLength) {
             var text = "";
             var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-            for (var i = 0; i < strLengt; i++) {
+            for (var i = 0; i < strLength; i++) {
                 text += possible.charAt(Math.floor(Math.random() * possible.length));
             }
             return text;

@@ -47,7 +47,7 @@ define(['./module', 'lodash'], function (module, _) {
                     register: function (data) {
                         return new API({
                             method: METHODS.POST,
-                            url: '/register',
+                            url: '/user/add',
                             data: data
                         })
                     },
@@ -56,32 +56,24 @@ define(['./module', 'lodash'], function (module, _) {
                             url: '/login',
                             dataType: 'json',
                             method: METHODS.POST,
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'Access-Control-Allow-Origin' : 'http://localhost:9002'
-                            },
                             data: {
                                 username: user.username,
                                 password: user.password
                             }
                         })
                     },
-                    logOut: function (user) {
-                        return {
-                            method: METHODS.POST,
-                            url: '/logOut'
-                        }
+                    logout: function () {
+                        return new API({
+                            url: '/logout',
+                            method: METHODS.POST
+                        })
                     }
                 },
                 user: {
                     list: function (offset, limit) {
                         return new API({
                             method: METHODS.GET,
-                            url: '/users/?offset=' + offset + '&limit=' + limit,
-                            data: {
-                                offset: offset,
-                                limit: limit
-                            }
+                            url: '/users?offset=' + offset + '&limit=' + limit
                         })
                     },
                     get: function (id) {

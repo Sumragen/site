@@ -13,7 +13,7 @@ define(['angular'],function(module){
                         stagesData: function (Endpoint, $http, $q) {
                             return $http(Endpoint.stage.list())
                                 .then(function (data) {
-                                    return data.data.stages;
+                                    return data.data;
                                 }, function (err) {
                                     return $q.reject(err);
                                 });

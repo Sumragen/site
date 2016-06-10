@@ -13,7 +13,7 @@ define(['angular'],function(module){
                         usersData: function (Endpoint, $http, $q) {
                             return $http(Endpoint.user.list(0, 6))
                                 .then(function (data) {
-                                    return data.data.users;
+                                    return data.data;
                                 }, function (err) {
                                     return $q.reject(err);
                                 });

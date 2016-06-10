@@ -57,12 +57,14 @@ define([
                 '$rootScope',
                 '$state',
                 '$stateParams',
+                '$http',
                 'Common.SecurityContext',
                 '$uibModal',
                 '$uibModalStack',
+                'Endpoint',
                 'Common.ValidationMessagesBuilder',
                 'Common.PermissionsService',
-                function ($rootScope, $state, $stateParams, SecurityContext, $uibModal, $uibModalStack, validationMessagesBuilder, permissionsService) {
+                function ($rootScope, $state, $stateParams, $http, SecurityContext, $uibModal, $uibModalStack, Endpoint, validationMessagesBuilder, permissionsService) {
 
                     /**
                      * This method is to-way binding function. It gets a form, set a validation message and give it back
@@ -128,8 +130,11 @@ define([
                     };
 
                     $rootScope.logOut = function () {
-                        SecurityContext.setPrincipal(null);
-                        $state.go('common.home');
+                        $http(Endpoint.auth.logout(null))
+                            .then(function () {
+                                SecurityContext.setPrincipal(null);
+                                $state.go('common.home');
+                            });
                     };
 
                     $rootScope.$on('$stateChangeStart', function (event, nextState, nextStateParams, curState, curStateParams) {

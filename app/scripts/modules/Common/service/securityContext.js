@@ -15,6 +15,13 @@ define(['../module'], function (module) {
                      : localStorage.removeItem('currentUserLS');
                 return user;
             };
+            service.getSessionID = function () {
+                return localStorage.getItem('sessionID');
+            };
+            service.setSessionID = function (id) {
+                localStorage.setItem('sessionID', id);
+                return id;
+            };
             return service;
         }
     ]);

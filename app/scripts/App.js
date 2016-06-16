@@ -132,6 +132,7 @@ define([
                     $rootScope.logOut = function () {
                         $http(Endpoint.auth.logout(null))
                             .then(function () {
+                                SecurityContext.setSessionID(null);
                                 SecurityContext.setPrincipal(null);
                                 $state.go('common.home');
                             });

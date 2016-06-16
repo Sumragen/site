@@ -19,7 +19,7 @@ define(['../module'], function (module) {
             service.getEventList = function () {
                 return $http(Endpoint.events.list())
                     .then(function (data) {
-                        return data.data.events;
+                        return data.data;
                     }, function (err) {
                         return $q.reject(err);
                     });

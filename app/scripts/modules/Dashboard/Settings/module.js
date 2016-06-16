@@ -38,14 +38,11 @@ define(['angular', 'angular-animate'], function (module) {
                     templateUrl: 'views/Dashboard/Events/events.html',
                     controller: 'Dashboard.Event.EventController as controller',
                     resolve: {
-                        eventsData: function (Endpoint, $http, $q) {
-                            return $http(Endpoint.events.list())
-                                .then(function (data) {
-                                    return data.data.events;
-                                }, function (err) {
-                                    return $q.reject(err);
-                                });
-                        }
+                        eventsData: [
+                            'Dashboard.Event.EventService',
+                            function (eventService) {
+                                return eventService.getEventList();
+                            }]
                     }
                 });
         });

@@ -38,6 +38,7 @@ define(['../module'], function (module) {
             service.signIn = function (user) {
                 return $http(Endpoint.auth.login(user))
                     .then(function (data) {
+                        securityContext.setSessionID(data.data.sessionID);
                         return securityContext.setPrincipal(data.data.currentUser);
                     }, function (err) {
                         return $q.reject(err);

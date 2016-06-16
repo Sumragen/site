@@ -1,8 +1,8 @@
 /**
  * Created by sumragen on 2/27/16.
  */
-define(['angular'],function(module){
-    return module.module('Dashboard.Settings.Stages',[])
+define(['angular'], function (module) {
+    return module.module('Dashboard.Settings.Stages', [])
         .config(function ($stateProvider) {
             $stateProvider
                 .state('dashboard.settings.stages', {

@@ -21,13 +21,15 @@ define(
                 $httpProvider.interceptors.push(function ($q, $rootScope, $location, $injector) {
                     var $q = $injector.get('$q');
                     var growl = $injector.get('growl');
+                    var securityContext = $injector.get('Common.SecurityContext');
                     return {
                         'request': function (config) {
+                            // growl.success('Request without errors', 'Done');
                             // handle on request action
                             if (appConfig.useFakeAPIService === false && config.isApiCall === true) {
                                 config.url = appConfig.apiUrl + config.url;
                             }
-                            // growl.success('Request without errors', 'Done');
+                            config.headers['x-sessionID'] = securityContext.getSessionID() || '';
                             return config;
                         },
                         'requestError': function (rejection) {

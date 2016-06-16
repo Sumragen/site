@@ -16,6 +16,9 @@ define(['./module', 'lodash'], function (module, _) {
                 var prefix = '/api';
                 options.url = prefix + options.url;
                 this['isApiCall'] = true;
+                this['headers'] = {
+                    'Content-Type': 'application/json'
+                };
                 return _.merge(options, this);
             }
 

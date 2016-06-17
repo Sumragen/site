@@ -174,6 +174,12 @@ define(['./module', 'lodash'], function (module, _) {
                     }
                 },
                 role: {
+                    get: function (id) {
+                        return new API({
+                            method: METHODS.GET,
+                            url: '/role/' + id
+                        })
+                    },
                     delete: function (role) {
                         return new API({
                             method: METHODS.DELETE,
@@ -233,8 +239,7 @@ define(['./module', 'lodash'], function (module, _) {
                     getSubjects: function (id) {
                         return new API({
                             method: METHODS.GET,
-                            url: '/teacher',
-                            data: id
+                            url: '/subject/teacher/' + id
                         })
                     }
                 },

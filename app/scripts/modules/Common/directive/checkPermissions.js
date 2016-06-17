@@ -5,9 +5,11 @@ define(['../module', 'lodash'], function (module, _) {
     'use strict';
     module.directive('sCheckPermissions', [
         '$parse',
+        '$http',
+        'Endpoint',
         'Common.SecurityContext',
         'ScheduleConstants',
-        function ($parse, securityContext, scheduleConstants) {
+        function ($parse, $http, Endpoint, securityContext, scheduleConstants) {
             return {
                 restrict: 'A',
                 link: function (scope, element, attrs) {
@@ -19,7 +21,7 @@ define(['../module', 'lodash'], function (module, _) {
 
                     function setEventOnClick(item) {
                         $(element).click(function () {
-                            confAction(scope, {param : item || null});
+                            confAction(scope, {param: item || null});
                         });
                     }
 
@@ -47,14 +49,18 @@ define(['../module', 'lodash'], function (module, _) {
                             if (confArg) {
                                 setEventOnClick(confArg);
                             } else {
-                                if(checkUser){
-                                    if(checkUser.id == currentUser.id
-                                        || (checkUser.id != currentUser.id && currentUser.roles[0].weight > checkUser.roles[0].weight)){
-                                        setEventOnClick(checkUser);
-                                    }else{
-                                        setElementDisabled();
-                                    }
-                                }else{
+                                if (checkUser) {
+                                    $http(Endpoint.role.get(checkUser.roles[0]))
+                                        .then(function (res) {
+                                            checkUser.roles[0] = res.data;
+                                            if (checkUser._id == currentUser._id
+                                                || (checkUser._id != currentUser._id && currentUser.roles[0].weight > checkUser.roles[0].weight)) {
+                                                setEventOnClick(checkUser);
+                                            } else {
+                                                setElementDisabled();
+                                            }
+                                        });
+                                } else {
                                     setEventOnClick();
                                 }
                             }

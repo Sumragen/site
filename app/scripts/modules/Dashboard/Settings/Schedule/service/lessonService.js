@@ -18,15 +18,14 @@ define(['../module', 'lodash'], function (module, _) {
                         $q.reject(err);
                     });
             };
-            service.getRoleNames = function (selectedUserId) {
+            service.getRoleNames = function () {
                 return $http(Endpoint.role.list())
-                    .then(function (data) {
+                    .then(function (res) {
                         var currentUser = securityContext.getPrincipal();
-                        var rolesMoreLessThanUserRole = _.filter(data.data.roles, function (role) {
-                            return role.id > currentUser.roles[0].id || (selectedUserId == currentUser.id && role.id == currentUser.roles[0].id);
-                        });
-                        return _.map(rolesMoreLessThanUserRole, function (role) {
-                            return {value: role.id, name: role.name}
+                        return _.map(_.filter(res.data, function (role) {
+                            return role.weight < currentUser.roles[0].weight;
+                        }), function (role) {
+                            return {value: role._id, name: role.name}
                         });
                     })
                     .catch(function (err) {
@@ -35,10 +34,11 @@ define(['../module', 'lodash'], function (module, _) {
             };
             service.getSubjectsNames = function () {
                 return $http(Endpoint.subject.list())
-                    .then(function (data) {
-                        return _.map(data.data.subjects, function (subject) {
-                            return {id: subject.id, name: subject.name}
+                    .then(function (res) {
+                        var resBody = _.map(res.data, function (subject) {
+                            return {id: subject._id, name: subject.name}
                         });
+                        return resBody;
                     })
                     .catch(function (err) {
                         return $q.reject(err);

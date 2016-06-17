@@ -3,8 +3,10 @@
  */
 define(['../module', 'lodash'], function (module, _) {
     module.service('Common.PermissionsService', [
+        '$http',
+        'Endpoint',
         'Common.SecurityContext',
-        function (securityContext) {
+        function ($http, Endpoint, securityContext) {
             var service = {};
             var permissionSet = {
                 'isTeacher': {value: 0x001, title: 'Teacher rights'},
@@ -23,32 +25,15 @@ define(['../module', 'lodash'], function (module, _) {
                 'canDeleteEvents': {value: 0x00e, title: 'Can delete events'}
             };
 
-            var p = permissionSet;
-            var admin = [
-                p.isTeacher, p.hasAdminRights, p.canViewUsers, p.canEditUser, p.canAddUsers,
-                p.canDeleteUsers, p.canViewSchedule, p.canEditSchedule, p.canAddSchedule, p.canDeleteSchedule,
-                p.canViewEvents, p.canEditEvents, p.canAddEvents, p.canDeleteEvents];
-            var teacher = [p.isTeacher, p.canViewUsers, p.canEditUser, p.canViewSchedule, p.canViewEvents, p.canEditEvents, p.canAddEvents, p.canDeleteEvents];
-            var student = [p.canViewUsers, p.canEditUser, p.canViewSchedule, p.canViewEvents];
-
             service.getPermissionSet = function () {
                 return angular.copy(permissionSet);
             };
 
             service.hasPermissions = function (checkPermissions, user) {
                 !user ? user = securityContext.getPrincipal() : user;
-
-                /*_.each(user.permissions, function (permission, $index) {
-                 if (permission !== checkPermissions[$index]) {
-                 return false
-                 }
-                 });*/
-                for (var i = 0; i < checkPermissions.length; i++) {
-                    if (user.roles[0].permissions[i] !== checkPermissions[i]) {
-                        return false;
-                    }
-                }
-                return true;
+                return _.every(checkPermissions, function (permission, index) {
+                    return user.roles[0].permissions[index] == permission;
+                });
             };
 
             return service;

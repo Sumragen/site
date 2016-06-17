@@ -1,37 +1,40 @@
 /**
  * Created by trainee on 3/7/16.
  */
-define(['lodash'], function (_) {
+define(['lodash', './globalConfig'], function (_, config) {
         var dataSource = {};
 
-        var permissionSet = {
-            'isTeacher': 0x001,
-            'hasAdminRights': 0x002,
-            'canViewUsers': 0x003,
-            'canEditUser': 0x004,
-            'canAddUsers': 0x005,
-            'canDeleteUsers': 0x006,
-            'canViewSchedule': 0x007,
-            'canEditSchedule': 0x008,
-            'canAddSchedule': 0x009,
-            'canDeleteSchedule': 0x00a,
-            'canViewEvents': 0x00b,
-            'canEditEvents': 0x00c,
-            'canAddEvents': 0x00d,
-            'canDeleteEvents': 0x00e
-        };
+    var permissionSet = {
+        'isTeacher': 1,
+        'hasAdminRights': 2,
+        'canViewUsers': 3,
+        'canEditUser': 4,
+        'canAddUsers': 5,
+        'canDeleteUsers': 6,
+        'canViewSchedule': 7,
+        'canEditSchedule': 8,
+        'canAddSchedule': 9,
+        'canDeleteSchedule': 10,
+        'canViewEvents': 11,
+        'canEditEvents': 12,
+        'canAddEvents': 13,
+        'canDeleteEvents': 14,
+        'canViewStages': 15,
+        'canEditStages': 16,
+        'canAddStages': 17,
+        'canDeleteStages': 18
+    };
 
         var data = {};
         var p = permissionSet;
-        var admin = {
-            id: 1,
-            name: 'admin',
-            description: 'admin rights',
-            weight: 90,
-            permissions: [p.isTeacher, p.hasAdminRights, p.canViewUsers, p.canEditUser, p.canAddUsers,
-                p.canDeleteUsers, p.canViewSchedule, p.canEditSchedule, p.canAddSchedule, p.canDeleteSchedule,
-                p.canViewEvents, p.canEditEvents, p.canAddEvents, p.canDeleteEvents]
-        };
+    var admin = {
+        name: 'admin',
+        description: 'admin rights',
+        weight : 90,
+        permissions: [p.isTeacher, p.hasAdminRights, p.canViewUsers, p.canEditUser, p.canAddUsers,
+            p.canDeleteUsers, p.canViewSchedule, p.canEditSchedule, p.canAddSchedule, p.canDeleteSchedule,
+            p.canViewEvents, p.canEditEvents, p.canAddEvents, p.canDeleteEvents, p.canViewStages, p.canEditStages, p.canAddStages, p.canDeleteStages]
+    };
         var teacher = {
             id: 2,
             name: 'teacher',
@@ -81,7 +84,7 @@ define(['lodash'], function (_) {
                 Math.floor(Math.random() * 3 + 2015) + ' ' + Math.floor(Math.random() * 12) + ':' + Math.floor(Math.random() * 59) + ' ' + dayTime[Math.floor(Math.random() * 2)],
                 description: randomWord(20),
                 address: {
-                    country:randomWord(8),
+                    country: randomWord(8),
                     city: randomWord(6)
                 },
                 location: {
@@ -127,7 +130,7 @@ define(['lodash'], function (_) {
                 name: 'Rest',
                 date: 'February 19, 2016 11:50 AM',
                 description: 'first event (test version)',
-                address:{
+                address: {
                     city: 'Kherson',
                     country: 'Ukraine'
                 },
@@ -141,7 +144,7 @@ define(['lodash'], function (_) {
                 name: "Children's hospital",
                 date: 'September 23, 2016 2:30 PM',
                 description: 'Medical inspection',
-                address:{
+                address: {
                     city: 'Kherson',
                     country: 'Ukraine'
                 },
@@ -155,7 +158,7 @@ define(['lodash'], function (_) {
                 name: 'spring ball',
                 date: 'April 15, 2016 4:00 PM',
                 description: 'spring ball',
-                address:{
+                address: {
                     city: 'Kherson',
                     country: 'Ukraine'
                 },
@@ -583,47 +586,51 @@ define(['lodash'], function (_) {
                 }
             });
         };
-        if (localStorage.getItem("datasource")) {
-            load();
-        } else {
-            localStorage.setItem("datasource", JSON.stringify({
-                user: {
-                    objects: defaultUsers,
-                    lastIndex: 3
-                },
-                event: {
-                    objects: defaultEvents,
-                    lastIndex: 3
-                },
-                stage: {
-                    objects: defaultStages,
-                    lastIndex: 13
-                },
-                role: {
-                    objects: [admin, teacher, student],
-                    lastIndex: 3
-                },
-                subject: {
-                    objects: subjects,
-                    lastIndex: 5
-                },
-                teacher: {
-                    objects: teachers,
-                    lastIndex: 6
-                },
-                lesson: {
-                    objects: lessons,
-                    lastIndex: 7
-                }
-            }));
-            //init random data
-            load();
-            _.each(_.range(25), function () {
-                data.user.objects.push(generateRandomUser(student));
-                data.event.objects.push(generateRandomEvent())
-            });
-            commit();
+
+        if (config.useFakeAPIService) {
+            if (localStorage.getItem("datasource")) {
+                load();
+            } else {
+                localStorage.setItem("datasource", JSON.stringify({
+                    user: {
+                        objects: defaultUsers,
+                        lastIndex: 3
+                    },
+                    event: {
+                        objects: defaultEvents,
+                        lastIndex: 3
+                    },
+                    stage: {
+                        objects: defaultStages,
+                        lastIndex: 13
+                    },
+                    role: {
+                        objects: [admin, teacher, student],
+                        lastIndex: 3
+                    },
+                    subject: {
+                        objects: subjects,
+                        lastIndex: 5
+                    },
+                    teacher: {
+                        objects: teachers,
+                        lastIndex: 6
+                    },
+                    lesson: {
+                        objects: lessons,
+                        lastIndex: 7
+                    }
+                }));
+                //init random data
+                load();
+                _.each(_.range(25), function () {
+                    data.user.objects.push(generateRandomUser(student));
+                    data.event.objects.push(generateRandomEvent())
+                });
+                commit();
+            }
         }
+
 
         function commit() {
             localStorage.setItem('datasource', JSON.stringify(data));
@@ -1091,7 +1098,7 @@ define(['lodash'], function (_) {
                     tempUser.password ? tempUser.passwordUndefined = false : tempUser.passwordUndefined = true;
                     data.user.objects[index] = tempUser;
                     commit();
-                    if(!tempUser.passwordUndefined){
+                    if (!tempUser.passwordUndefined) {
                         delete tempUser.password;
                     }
                     result = tempUser;
@@ -1110,9 +1117,9 @@ define(['lodash'], function (_) {
             load();
             var result = null;
             _.every(data.user.objects, function (user) {
-                if(user.id == userId){
+                if (user.id == userId) {
                     result = angular.copy(user);
-                    if(result.password){
+                    if (result.password) {
                         result.passwordUndefined = true;
                         delete result.password;
                     }
@@ -1141,9 +1148,9 @@ define(['lodash'], function (_) {
                             result = angular.copy(user);
                             delete result.password;
                         } else {
-                            if(!user.password){
+                            if (!user.password) {
                                 result = {error: 'User without password. Please, sign in with social network and set your password in profile settings page.'}
-                            }else{
+                            } else {
                                 return true;
                             }
                         }
@@ -1180,7 +1187,7 @@ define(['lodash'], function (_) {
                     return true;
                 })
             });
-            if(result){
+            if (result) {
                 delete result.user.password;
             }
             return result;
@@ -1206,7 +1213,7 @@ define(['lodash'], function (_) {
                 }
                 return true;
             });
-            if(result){
+            if (result) {
                 delete result.user.password;
             }
             return result;
@@ -1233,7 +1240,7 @@ define(['lodash'], function (_) {
                 }
                 return true;
             });
-            if(result){
+            if (result) {
                 delete result.user.password;
             }
             return result;

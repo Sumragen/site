@@ -42,14 +42,14 @@ define(['../module', 'lodash'], function (module, _) {
                                 .catch(function (err) {
                                     $q.reject(err);
                                 }),
-                            lessonService.getRoleNames(user.id) //selected user from users list
+                            lessonService.getRoleNames()
                                 .then(function (data) {
                                     return data;
                                 })
                                 .catch(function (err) {
                                     $q.reject(err);
                                 }),
-                            lessonService.getSubjectsForTeacher(user.id)
+                            lessonService.getSubjectsForTeacher(user._id)
                                 .then(function (data) {
                                     return data;
                                 })
@@ -182,7 +182,7 @@ define(['../module', 'lodash'], function (module, _) {
                 {
                     "key": "subjects",
                     "type": "multiselect",
-                    condition: "user.model.role === 1 || user.model.role === 2",
+                    condition: "user.model.role == 1 || user.model.role == 2",
                     items: null
                 }
             ];

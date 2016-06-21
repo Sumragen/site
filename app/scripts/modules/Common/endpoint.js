@@ -72,6 +72,258 @@ define(['./module', 'lodash'], function (module, _) {
                         })
                     }
                 },
+                event: {
+                    list: function () {
+                        return new API({
+                            method: METHODS.GET,
+                            url: '/events'
+                        })
+                    },
+                    get: function (id) {
+                        return new API({
+                            method: METHODS.GET,
+                            url: '/event/' + id
+                        })
+                    },
+                    put: function (event) {
+                        return new API({
+                            method: METHODS.POST,
+                            url: '/event/' + event.id,
+                            data: event
+                        })
+                    },
+                    post: function (event) {
+                        return new API({
+                            method: METHODS.POST,
+                            url: '/event/add',
+                            data: event
+                        })
+                    },
+                    delete: function (id) {
+                        return new API({
+                            method: METHODS.DELETE,
+                            url: '/event/' + id
+                        })
+                    }
+                },
+                lesson: {
+                    list: function () {
+                        return new API({
+                            method: METHODS.GET,
+                            url: '/lessons'
+                        })
+                    },
+                    get: function (id) {
+                        return new API({
+                            method: METHODS.GET,
+                            url: '/lesson/' + id
+                        })
+                    },
+                    put: function (lesson) {
+                        return new API({
+                            method: METHODS.POST,
+                            url: '/lesson/' + lesson.id,
+                            data: lesson
+                        })
+                    },
+                    post: function (lesson) {
+                        return new API({
+                            method: METHODS.POST,
+                            url: '/lesson/add',
+                            data: lesson
+                        })
+                    },
+                    delete: function (id) {
+                        return new API({
+                            method: METHODS.DELETE,
+                            url: '/lesson/' + id
+                        })
+                    },
+                    listByDay: function (day) {
+                        return new API({
+                            method: METHODS.GET,
+                            url: '/lessonsByDay',
+                            data: day
+                        })
+                    },
+                    listByStage: function (stage) {
+                        return new API({
+                            method: METHODS.GET,
+                            url: '/lessonsByStage',
+                            data: stage
+                        })
+                    },
+                    updateDow: function (data) {
+                        return new API({
+                            method: METHODS.PUT,
+                            url: '/lesson',
+                            data: data
+                        })
+                    },
+                    updateList: function (lessons) {
+                        return new API({
+                            method: METHODS.PUT,
+                            url: '/lessons',
+                            data: lessons
+                        })
+                    },
+                    update: function (lesson) {
+                        return new API({
+                            method: METHODS.PUT,
+                            url: '/lesson/' + lesson.id,
+                            data: lesson
+                        })
+                    }
+                },
+                role: {
+                    list: function () {
+                        return new API({
+                            method: METHODS.GET,
+                            url: '/roles'
+                        })
+                    },
+                    get: function (id) {
+                        return new API({
+                            method: METHODS.GET,
+                            url: '/role/' + id
+                        })
+                    },
+                    put: function (role) {
+                        return new API({
+                            method: METHODS.POST,
+                            url: '/role/' + role.id,
+                            data: role
+                        })
+                    },
+                    post: function (role) {
+                        return new API({
+                            method: METHODS.POST,
+                            url: '/role/add',
+                            data: role
+                        })
+                    },
+                    delete: function (id) {
+                        return new API({
+                            method: METHODS.DELETE,
+                            url: '/role/' + id
+                        })
+                    }
+                },
+                stage: {
+                    updateList: function (stages) {
+                        return new API({
+                            method: METHODS.PUT,
+                            url: '/stages',
+                            data: stages
+                        })
+                    },
+                    list: function () {
+                        return new API({
+                            method: METHODS.GET,
+                            url: '/stages'
+                        })
+                    },
+                    get: function (id) {
+                        return new API({
+                            method: METHODS.GET,
+                            url: '/stage/' + id
+                        })
+                    },
+                    put: function (stage) {
+                        return new API({
+                            method: METHODS.POST,
+                            url: '/stage/' + stage.id,
+                            data: stage
+                        })
+                    },
+                    post: function (stage) {
+                        return new API({
+                            method: METHODS.POST,
+                            url: '/stage/add',
+                            data: stage
+                        })
+                    },
+                    delete: function (id) {
+                        return new API({
+                            method: METHODS.DELETE,
+                            url: '/stage/' + id
+                        })
+                    }
+                },
+                subject: {
+                    list: function () {
+                        return new API({
+                            method: METHODS.GET,
+                            url: '/subjects'
+                        })
+                    },
+                    get: function (id) {
+                        return new API({
+                            method: METHODS.GET,
+                            url: '/subject/' + id
+                        })
+                    },
+                    put: function (subject) {
+                        return new API({
+                            method: METHODS.POST,
+                            url: '/subject/' + subject.id,
+                            data: subject
+                        })
+                    },
+                    post: function (subject) {
+                        return new API({
+                            method: METHODS.POST,
+                            url: '/subject/add',
+                            data: subject
+                        })
+                    },
+                    delete: function (id) {
+                        return new API({
+                            method: METHODS.DELETE,
+                            url: '/subject/' + id
+                        })
+                    }
+                },
+                teacher: {
+                    list: function () {
+                        return new API({
+                            method: METHODS.GET,
+                            url: '/teachers'
+                        })
+                    },
+                    get: function (id) {
+                        return new API({
+                            method: METHODS.GET,
+                            url: '/teacher/' + id
+                        })
+                    },
+                    put: function (teacher) {
+                        return new API({
+                            method: METHODS.POST,
+                            url: '/teacher/' + teacher.id,
+                            data: teacher
+                        })
+                    },
+                    post: function (teacher) {
+                        return new API({
+                            method: METHODS.POST,
+                            url: '/teacher/add',
+                            data: teacher
+                        })
+                    },
+                    delete: function (id) {
+                        return new API({
+                            method: METHODS.DELETE,
+                            url: '/teacher/' + id
+                        })
+                    },
+                    getSubjects: function (id) {
+                        return new API({
+                            method: METHODS.GET,
+                            url: '/subject/teacher/' + id
+                        })
+                    }
+                },
                 user: {
                     list: function (offset, limit) {
                         return new API({
@@ -82,7 +334,7 @@ define(['./module', 'lodash'], function (module, _) {
                     get: function (id) {
                         return new API({
                             method: METHODS.GET,
-                            url: '/user/id' + id
+                            url: '/user/' + id
                         })
                     },
                     put: function (user) {
@@ -92,11 +344,17 @@ define(['./module', 'lodash'], function (module, _) {
                             data: user
                         })
                     },
-                    update: function (user) {
+                    post: function (user) {
                         return new API({
-                            method: METHODS.PUT,
-                            url: '/user/' + user.id,
+                            method: METHODS.POST,
+                            url: '/user/add',
                             data: user
+                        })
+                    },
+                    delete: function (id) {
+                        return new API({
+                            method: METHODS.DELETE,
+                            url: '/user/' + id
                         })
                     }
                 },
@@ -141,199 +399,6 @@ define(['./module', 'lodash'], function (module, _) {
                         return new API({
                             method: METHODS.GET,
                             url: '/schedule'
-                        })
-                    }
-                },
-                stage: {
-                    updateList: function (stages) {
-                        return new API({
-                            method: METHODS.PUT,
-                            url: '/stages',
-                            data: stages
-                        })
-                    },
-                    post: function (data) {
-                        return new API({
-                            method: METHODS.POST,
-                            url: '/stage',
-                            data: data
-                        })
-                    },
-                    update: function (stage) {
-                        return new API({
-                            method: METHODS.PUT,
-                            url: '/stage/' + stage.id,
-                            data: stage
-                        })
-                    },
-                    get: function (id) {
-                        return new API({
-                            method: METHODS.GET,
-                            url: '/stage/' + id,
-                            data: id
-                        })
-                    },
-                    list: function () {
-                        return new API({
-                            method: METHODS.GET,
-                            url: '/stages'
-                        })
-                    }
-                },
-                role: {
-                    get: function (id) {
-                        return new API({
-                            method: METHODS.GET,
-                            url: '/role/' + id
-                        })
-                    },
-                    delete: function (role) {
-                        return new API({
-                            method: METHODS.DELETE,
-                            url: '/role/' + role.id,
-                            data: role
-                        })
-                    },
-                    list: function () {
-                        return new API({
-                            method: METHODS.GET,
-                            url: '/roles'
-                        })
-                    },
-                    post: function (data) {
-                        return new API({
-                            method: METHODS.POST,
-                            url: '/role',
-                            data: data
-                        })
-                    },
-                    update: function (role) {
-                        return new API({
-                            method: METHODS.PUT,
-                            url: '/role/' + role.id,
-                            data: role
-                        })
-                    }
-                },
-                teacher: {
-                    delete: function (teacher) {
-                        return new API({
-                            method: METHODS.DELETE,
-                            url: '/teacher/' + teacher.id,
-                            data: teacher
-                        })
-                    },
-                    list: function () {
-                        return new API({
-                            method: METHODS.GET,
-                            url: '/teachers'
-                        })
-                    },
-                    post: function (data) {
-                        return new API({
-                            method: METHODS.POST,
-                            url: '/teacher',
-                            data: data
-                        })
-                    },
-                    update: function (teacher) {
-                        return new API({
-                            method: METHODS.PUT,
-                            url: '/teacher/' + teacher.id,
-                            data: teacher
-                        })
-                    },
-                    getSubjects: function (id) {
-                        return new API({
-                            method: METHODS.GET,
-                            url: '/subject/teacher/' + id
-                        })
-                    }
-                },
-                subject: {
-                    delete: function (subject) {
-                        return new API({
-                            method: METHODS.DELETE,
-                            url: '/subject/' + subject.id,
-                            data: subject
-                        })
-                    },
-                    list: function () {
-                        return new API({
-                            method: METHODS.GET,
-                            url: '/subjects'
-                        })
-                    },
-                    post: function (data) {
-                        return new API({
-                            method: METHODS.POST,
-                            url: '/subject',
-                            data: data
-                        })
-                    },
-                    update: function (subject) {
-                        return new API({
-                            method: METHODS.PUT,
-                            url: '/subject/' + subject.id,
-                            data: subject
-                        })
-                    }
-                },
-                lesson: {
-                    get: function (lesson) {
-                        return new API({
-                            method: METHODS.GET,
-                            url: '/lesson/' + lesson.id,
-                            data: lesson
-                        })
-                    },
-                    delete: function (lesson) {
-                        return new API({
-                            method: METHODS.DELETE,
-                            url: '/lesson/' + lesson.id,
-                            data: lesson
-                        })
-                    },
-                    listByDay: function (day) {
-                        return new API({
-                            method: METHODS.GET,
-                            url: '/lessonsByDay',
-                            data: day
-                        })
-                    },
-                    listByStage: function (stage) {
-                        return new API({
-                            method: METHODS.GET,
-                            url: '/lessonsByStage',
-                            data: stage
-                        })
-                    },
-                    post: function (data) {
-                        return new API({
-                            method: METHODS.POST,
-                            url: '/lesson',
-                            data: data
-                        })
-                    },
-                    updateDow: function (data) {
-                        return new API({
-                            method: METHODS.PUT,
-                            url: '/lesson',
-                            data: data
-                        })
-                    },
-                    updateList: function (lessons) {
-                        return new API({
-                            method: METHODS.PUT,
-                            url: '/lessons',
-                            data: lessons
-                        })
-                    },
-                    update: function (lesson) {
-                        return new API({
-                            method: METHODS.PUT,
-                            url: '/lesson/' + lesson.id,
-                            data: lesson
                         })
                     }
                 },

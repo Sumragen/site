@@ -16,7 +16,7 @@
               sf-model="stage.model">
         </form>
         <a class="btn btn-default btn-raised" ng-click="toggleShowEditForm()">Cancel</a>
-        <a class="btn btn-success btn-raised" ng-click="(stage.model.id)?updateStage(editForm): createStage(editForm)">{{(stage.model.id)?'Update':'Create'}}</a>
+        <a class="btn btn-success btn-raised" ng-click="(stage.model._id)?updateStage(editForm): createStage(editForm)">{{(stage.model._id)?'Update':'Create'}}</a>
 
     </div>
 </div>

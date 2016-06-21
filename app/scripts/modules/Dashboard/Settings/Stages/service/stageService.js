@@ -9,6 +9,15 @@ define(['../module', 'lodash'], function (module, _) {
         function ($http, $q, Endpoint) {
             var service = {};
 
+            service.getTeachers = function () {
+                return $http(Endpoint.teacher.list())
+                    .then(function (res) {
+                        return res.data;
+                    })
+                    .catch(function (err) {
+                        return $q.reject(err);
+                    })
+            };
             service.getTeachersName = function (stage) {
                 return $http(Endpoint.name.teacher(stage))
                     .then(function (data) {

@@ -52,9 +52,8 @@ define(['../module', 'lodash'], function (module, _) {
                                 if (checkUser) {
                                     $http(Endpoint.role.get(checkUser.roles[0]))
                                         .then(function (res) {
-                                            checkUser.roles[0] = res.data;
                                             if (checkUser.id == currentUser.id
-                                                || (checkUser.id != currentUser.id && currentUser.roles[0].weight > checkUser.roles[0].weight)) {
+                                                || (checkUser.id != currentUser.id && currentUser.roles[0].weight > res.data.weight)) {
                                                 setEventOnClick(checkUser);
                                             } else {
                                                 setElementDisabled();

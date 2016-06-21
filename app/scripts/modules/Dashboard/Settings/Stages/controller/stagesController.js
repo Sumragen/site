@@ -45,9 +45,17 @@ define(['../module', 'lodash'], function (module, _) {
             }
 
             $scope.toggleShowEditForm = function (stage) {
-                stageService.getTeachersName(_.merge(stage, {isFormMasterData: true}))
-                    .then(function (names) {
-                        updateStageModelAndForm(stage, names);
+                stageService.getTeachers()
+                    .then(function (teachers) {
+                        var teachersNames = [];
+                        _.each(teachers, function (teacher) {
+                            if (_.every($scope.stages, function (stage) {
+                                    return stage.formMaster.id != teacher.user;
+                                })) {
+                                teachersNames.push({id: teacher._id, name: teacher.user.name});
+                            }
+                        });
+                        updateStageModelAndForm(stage, teachersNames);
                         $scope.showEditForm = !$scope.showEditForm;
                     });
             };
@@ -101,7 +109,7 @@ define(['../module', 'lodash'], function (module, _) {
                         title: "Suffix"
                     },
                     formMaster: {
-                        type: "number",
+                        type: "string",
                         title: "Form master"
                     }
                 },

@@ -6,10 +6,11 @@ define(['../module', 'lodash'], function (module, _) {
         '$scope',
         '$timeout',
         '$q',
-        'Dashboard.Profile.ProfileService',
+        'Common.Model.UserService',
+        'Common.Model.RoleService',
         'Dashboard.Settings.Schedule.LessonService',
         'usersData',
-        function ($scope, $timeout, $q, profileService, lessonService, usersData) {
+        function ($scope, $timeout, $q, userService, roleService, lessonService, usersData) {
             $scope.users = usersData;
             $scope.user = {};
 
@@ -19,7 +20,7 @@ define(['../module', 'lodash'], function (module, _) {
             $scope.loadMoreUsers = function () {
                 if ($scope.busy) return;
                 $scope.busy = true;
-                profileService.loadUsers($scope.users.length, limit)
+                userService.getUsers($scope.users.length, limit)
                     .then(function (users) {
                         if ($scope.users.concat(users).length - $scope.users.length < limit) $scope.scrollDisabled = true;
                         $scope.users = $scope.users.concat(users);
@@ -55,13 +56,20 @@ define(['../module', 'lodash'], function (module, _) {
                                 })
                                 .catch(function (err) {
                                     $q.reject(err);
+                                }),
+                            roleService.getRoleById(user.role || user.roles[0])
+                                .then(function (data) {
+                                    return data;
+                                })
+                                .catch(function (err) {
+                                    $q.reject(err);
                                 })
                         ])
                         .then(function (responses) {
                             var subjects = responses[0];
                             var roles = responses[1];
                             var subjectsOfTeacher = responses[2];
-                            var currentRole = user.roles[0];
+                            var currentRole = responses[3];
                             $scope.user.model = user;
                             $scope.user.model.subjects = [];
                             $scope.showSubjects = currentRole.weight >= 50;
@@ -95,11 +103,12 @@ define(['../module', 'lodash'], function (module, _) {
                 $scope.busy = true;
                 $scope.$broadcast('schemaFormValidate');
                 if (form.$valid) {
-                    profileService.updateUser($scope.user.model)
-                        .then(function (tempUser) {
+                    userService.updateUser($scope.user.model)
+                        .then(function (respUser) {
                             _.every($scope.users, function (user, index) {
-                                if (user.id === tempUser.id) {
-                                    $scope.users[index] = tempUser;
+                                if (user.id === respUser.id) {
+                                    $scope.users[index] = respUser;
+                                    return false;
                                 }
                                 return true;
                             });
@@ -201,5 +210,6 @@ define(['../module', 'lodash'], function (module, _) {
                 }
             ];
         }
-    ]);
+    ])
+    ;
 });

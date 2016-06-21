@@ -4,6 +4,7 @@
 define([
         'angular',
         'lodash',
+    './globalConfig',
         'angular-ui-router',
         'logicify-gmap',
         'twitter-bootstrap',
@@ -32,7 +33,7 @@ define([
         'modules/Common/index',
         'modules/Dashboard/index'
     ],
-    function (angular, _) {
+    function (angular, _, config) {
         var deps = [
             'ui.router',
             'ngMockE2E',
@@ -178,22 +179,24 @@ define([
                     growlProvider.onlyUniqueMessages(false);
                     growlProvider.globalPosition('top-right');
 
-                    $provide.decorator('$httpBackend', function ($delegate) {
-                        var proxy = function (method, url, data, callback, headers) {
-                            var interceptor = function () {
-                                var _this = this,
-                                    _argumenrs = arguments;
-                                setTimeout(function () {
-                                    callback.apply(_this, _argumenrs);
-                                }, 100);
+                    if(config.useFakeAPIService){
+                        $provide.decorator('$httpBackend', function ($delegate) {
+                            var proxy = function (method, url, data, callback, headers) {
+                                var interceptor = function () {
+                                    var _this = this,
+                                        _argumenrs = arguments;
+                                    setTimeout(function () {
+                                        callback.apply(_this, _argumenrs);
+                                    }, 100);
+                                };
+                                return $delegate.call(this, method, url, data, interceptor, headers);
                             };
-                            return $delegate.call(this, method, url, data, interceptor, headers);
-                        };
-                        for (var key in $delegate) {
-                            proxy[key] = $delegate[key];
-                        }
-                        return proxy;
-                    });
+                            for (var key in $delegate) {
+                                proxy[key] = $delegate[key];
+                            }
+                            return proxy;
+                        });
+                    }
 
                     schemaFormDecoratorsProvider.addMapping(
                         'bootstrapDecorator',

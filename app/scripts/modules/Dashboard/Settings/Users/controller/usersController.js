@@ -42,14 +42,14 @@ define(['../module', 'lodash'], function (module, _) {
                                 .catch(function (err) {
                                     $q.reject(err);
                                 }),
-                            lessonService.getRoleNames()
+                            lessonService.getRoleNames(user.id)
                                 .then(function (data) {
                                     return data;
                                 })
                                 .catch(function (err) {
                                     $q.reject(err);
                                 }),
-                            lessonService.getSubjectsForTeacher(user._id)
+                            lessonService.getSubjectsForTeacher(user.id)
                                 .then(function (data) {
                                     return data;
                                 })
@@ -61,14 +61,19 @@ define(['../module', 'lodash'], function (module, _) {
                             var subjects = responses[0];
                             var roles = responses[1];
                             var subjectsOfTeacher = responses[2];
+                            var currentRole = user.roles[0];
                             $scope.user.model = user;
-                            $scope.user.model.subjects = subjectsOfTeacher;
-                            $scope.user.model.role = $scope.user.model.roles[0].id;
-                            _.each($scope.user.model.subjects, function (subject, index) {
-                                _.find(subjects, function (subjectName) {
-                                    if (subject.id === subjectName.id) {
-                                        $scope.user.model.subjects[index] = subjectName;
+                            $scope.user.model.subjects = [];
+                            $scope.showSubjects = currentRole.weight >= 50;
+                            $scope.user.model.role = currentRole._id;
+
+                            _.each(subjectsOfTeacher, function (subject, index) {
+                                _.every(subjects, function (sub, subIndex) {
+                                    if (subject.id == sub.id) {
+                                        $scope.user.model.subjects[index] = subjects[subIndex];
+                                        return false;
                                     }
+                                    return true;
                                 });
                             });
                             $scope.user.form[5].titleMap = roles;
@@ -133,7 +138,7 @@ define(['../module', 'lodash'], function (module, _) {
                         type: 'file'
                     },
                     role: {
-                        type: 'number',
+                        type: 'string',
                         title: 'Role'
                     },
                     subjects: {
@@ -177,12 +182,21 @@ define(['../module', 'lodash'], function (module, _) {
                 {
                     "key": "role",
                     type: "select",
+                    onChange: function (modelValue, form) {
+                        _.every(form.titleMap, function (role) {
+                            if (role.value == modelValue) {
+                                $scope.showSubjects = role.weight >= 50;
+                                return false;
+                            }
+                            return true;
+                        })
+                    },
                     titleMap: null
                 },
                 {
                     "key": "subjects",
                     "type": "multiselect",
-                    condition: "user.model.role == 1 || user.model.role == 2",
+                    condition: "showSubjects",
                     items: null
                 }
             ];

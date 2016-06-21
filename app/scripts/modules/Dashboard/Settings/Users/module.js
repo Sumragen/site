@@ -12,8 +12,8 @@ define(['angular'],function(module){
                     resolve: {
                         usersData: function (Endpoint, $http, $q) {
                             return $http(Endpoint.user.list(0, 6))
-                                .then(function (data) {
-                                    return data.data;
+                                .then(function (res) {
+                                    return res.data;
                                 }, function (err) {
                                     return $q.reject(err);
                                 });

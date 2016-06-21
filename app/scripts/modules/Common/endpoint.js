@@ -85,6 +85,13 @@ define(['./module', 'lodash'], function (module, _) {
                             url: '/user/id' + id
                         })
                     },
+                    put: function (user) {
+                        return new API({
+                            method: METHODS.POST,
+                            url: '/user/' + user.id,
+                            data: user
+                        })
+                    },
                     update: function (user) {
                         return new API({
                             method: METHODS.PUT,

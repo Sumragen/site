@@ -13,7 +13,7 @@ define(
             '$httpProvider',
             function ($httpProvider) {
                 if (appConfig.useHeaderAuth) {
-                    $httpProvider.defaults.headers.common['X-Requested-By'] = 'DockerWebUI';
+                    $httpProvider.defaults.headers.common['X-Requested-By'] = 'SchoolWebUI';
                     if (appConfig.useCookiesAuth) {
                         $httpProvider.defaults.withCredentials = true;
                     }

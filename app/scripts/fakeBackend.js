@@ -2,8 +2,8 @@
  * Created by trainee on 3/3/16.
  */
 define(
-    ['./App', './fakeDataSource'],
-    function (module, fakeDataSource) {
+    ['./App', './fakeDataSource', 'lodash'],
+    function (module, fakeDataSource, _) {
         'use strict';
         module.run(['$http','$httpBackend', '$q', function ($http, $httpBackend) {
             var prefix = '/api';
@@ -51,7 +51,7 @@ define(
             $httpBackend.whenGET(prefix + '/events').respond(function (method, url) {
                 var events = fakeDataSource.getEvents();
                 if (events) {
-                    return [200, {events: events}, {}];
+                    return [200, events, {}];
                 } else {
                     return [400, {errorCode: 2, message: 'Events not found'}];
                 }
@@ -93,7 +93,7 @@ define(
             $httpBackend.whenGET(prefix + '/roles').respond(function (method, url) {
                 var roles = fakeDataSource.getRoles();
                 if (roles) {
-                    return [200, {roles: roles}, {}];
+                    return [200, roles, {}];
                 } else {
                     return [400, {errorCode: 5, message: 'Roles not found'}];
                 }
@@ -135,7 +135,7 @@ define(
             $httpBackend.whenGET(prefix + '/lessonsByDay').respond(function (method, url, day) {
                 var lessons = fakeDataSource.getLessonsByDay(day);
                 if (lessons) {
-                    return [200, {lessons: lessons}, {}];
+                    return [200, lessons, {}];
                 } else {
                     return [400, {errorCode: 5, message: 'Lessons not found'}];
                 }
@@ -143,7 +143,7 @@ define(
             $httpBackend.whenGET(prefix + '/lessonsByStage').respond(function (method, url, stage) {
                 var lessons = fakeDataSource.getLessonsByStage(stage);
                 if (lessons) {
-                    return [200, {lessons: lessons}, {}];
+                    return [200, lessons, {}];
                 } else {
                     return [400, {errorCode: 5, message: 'Lessons not found'}];
                 }
@@ -197,7 +197,7 @@ define(
             $httpBackend.whenGET(prefix + '/subjects').respond(function (method, url) {
                 var subjects = fakeDataSource.getSubjects();
                 if (subjects) {
-                    return [200, {subjects: subjects}, {}];
+                    return [200, subjects, {}];
                 } else {
                     return [400, {errorCode: 5, message: 'Subject not found'}];
                 }
@@ -239,7 +239,7 @@ define(
             $httpBackend.whenGET(prefix + '/teachers').respond(function (method, url) {
                 var teachers = fakeDataSource.getTeacher();
                 if (teachers) {
-                    return [200, {teachers: teachers}, {}];
+                    return [200, teachers, {}];
                 } else {
                     return [400, {errorCode: 5, message: 'Teachers not found'}];
                 }
@@ -270,18 +270,23 @@ define(
             });
 
             //Users
-            $httpBackend.whenPUT(/\/user\/(0-9)*/).respond(function (method, url, tempUser) {
-                var user = fakeDataSource.updateUser(tempUser);
-                if (user) {
-                    return [200, user, {}];
-                } else {
-                    return [400, {errorCode: 4, message: 'wrong update'}];
-                }
-            });
-            //$httpBackend.whenGET(/\/users\/\?offset=[0-9]*&limit=[0-9]*/).respond(function (method, url, amount) {
+            //$httpBackend.whenPUT(/\/user\/(0-9)*/).respond(function (method, url, tempUser) {
+            //    var user = fakeDataSource.updateUser(tempUser);
+            //    if (user) {
+            //        return [200, user, {}];
+            //    } else {
+            //        return [400, {errorCode: 4, message: 'wrong update'}];
+            //    }
+            //});
+            //$httpBackend.whenGET(/\/api\/users\/\?offset=[0-9]*&limit=[0-9]*/).respond(function (method, url) {
+            //    var params = url.split('?')[1].split('&');
+            //    var amount = {};
+            //    _.each(params, function (param) {
+            //        amount[param.split('=')[0]] = param.split('=')[1];
+            //    });
             //    var users = fakeDataSource.getUsers(amount);
             //    if (users) {
-            //        return [200, {users: users}, {}];
+            //        return [200, users, {}];
             //    } else {
             //        return [400, {errorCode: 4, message: 'Users not found'}];
             //    }
@@ -305,7 +310,7 @@ define(
             $httpBackend.whenGET(prefix + '/schedule').respond(function (method, url) {
                 var schedule = fakeDataSource.getSchedule();
                 if (schedule) {
-                    return [200, {schedule: schedule}, {}];
+                    return [200, schedule, {}];
                 } else {
                     return [400, {errorCode: 3, message: 'Schedule not found'}];
                 }
@@ -313,7 +318,7 @@ define(
             $httpBackend.whenGET(prefix + '/teacherName').respond(function (method, url, data) {
                 var names = fakeDataSource.getTeacherNames(data);
                 if (names) {
-                    return [200, {names: names}, {}];
+                    return [200, names, {}];
                 } else {
                     return [400, {errorCode: 3, message: 'Teachers not found'}];
                 }
@@ -323,7 +328,7 @@ define(
             $httpBackend.whenGET(prefix + '/stages').respond(function (method, url) {
                 var stages = fakeDataSource.getStages();
                 if (stages) {
-                    return [200, {stages: stages}, {}];
+                    return [200, stages, {}];
                 } else {
                     return [400, {errorCode: 2, message: 'Stages not found'}];
                 }

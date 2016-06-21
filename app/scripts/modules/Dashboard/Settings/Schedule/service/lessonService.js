@@ -11,21 +11,23 @@ define(['../module', 'lodash'], function (module, _) {
             var service = {};
             service.getSubjectsForTeacher = function (id) {
                 return $http(Endpoint.teacher.getSubjects(id))
-                    .then(function (data) {
-                        return data.data;
+                    .then(function (res) {
+                        return _.map(res.data, function (subject) {
+                            return {id: subject._id, name: subject.name};
+                        });
                     })
                     .catch(function (err) {
                         $q.reject(err);
                     });
             };
-            service.getRoleNames = function () {
+            service.getRoleNames = function (userID) {
                 return $http(Endpoint.role.list())
                     .then(function (res) {
                         var currentUser = securityContext.getPrincipal();
                         return _.map(_.filter(res.data, function (role) {
-                            return role.weight < currentUser.roles[0].weight;
+                            return role.weight < currentUser.roles[0].weight || (userID == currentUser.id && role.weight <= currentUser.roles[0].weight);
                         }), function (role) {
-                            return {value: role._id, name: role.name}
+                            return {value: role._id, name: role.name, weight: role.weight}
                         });
                     })
                     .catch(function (err) {
@@ -35,10 +37,9 @@ define(['../module', 'lodash'], function (module, _) {
             service.getSubjectsNames = function () {
                 return $http(Endpoint.subject.list())
                     .then(function (res) {
-                        var resBody = _.map(res.data, function (subject) {
+                        return _.map(res.data, function (subject) {
                             return {id: subject._id, name: subject.name}
                         });
-                        return resBody;
                     })
                     .catch(function (err) {
                         return $q.reject(err);

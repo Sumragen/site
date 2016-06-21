@@ -28,7 +28,7 @@ define(['../module'], function (module) {
             };
 
             service.updateUser = function (user) {
-                return $http(Endpoint.user.update(user))
+                return $http(Endpoint.user.put(user))
                     .then(function (data) {
                         if (securityContext.getPrincipal().id === data.data.id) securityContext.setPrincipal(data.data);
                         return data.data;

@@ -232,7 +232,7 @@ define(['./module', 'lodash'], function (module, _) {
                     put: function (stage) {
                         return new API({
                             method: METHODS.POST,
-                            url: '/stage/' + stage.id,
+                            url: '/stage/' + stage._id,
                             data: stage
                         })
                     },

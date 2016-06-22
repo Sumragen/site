@@ -12,8 +12,8 @@ define(['angular'], function (module) {
                     resolve: {
                         stagesData: function (Endpoint, $http, $q) {
                             return $http(Endpoint.stage.list())
-                                .then(function (data) {
-                                    return data.data;
+                                .then(function (res) {
+                                    return res.data;
                                 }, function (err) {
                                     return $q.reject(err);
                                 });

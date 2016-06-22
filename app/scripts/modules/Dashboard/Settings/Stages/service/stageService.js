@@ -28,7 +28,7 @@ define(['../module', 'lodash'], function (module, _) {
                     });
             };
             service.updateStage = function (stage) {
-                return $http(Endpoint.stage.update(stage))
+                return $http(Endpoint.stage.put(stage))
                     .then(function (data) {
                         return data;
                     })

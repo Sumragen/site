@@ -5,9 +5,10 @@ define(['../module', 'lodash'], function (module, _) {
     module.controller('Dashboard.Settings.Stages.StagesController', [
         '$scope',
         '$timeout',
+        'Common.Model.TeacherService',
         'Dashboard.Settings.Stages.StageService',
         'stagesData',
-        function ($scope, $timeout, stageService, stagesData) {
+        function ($scope, $timeout, teacherService, stageService, stagesData) {
             $scope.stages = stagesData;
 
             $scope.stage = {};
@@ -45,17 +46,19 @@ define(['../module', 'lodash'], function (module, _) {
             }
 
             $scope.toggleShowEditForm = function (stage) {
-                stageService.getTeachers()
+                teacherService.getTeachers()
                     .then(function (teachers) {
-                        var teachersNames = [];
-                        _.each(teachers, function (teacher) {
-                            if (_.every($scope.stages, function (stage) {
-                                    return stage.formMaster.id != teacher.user;
-                                })) {
-                                teachersNames.push({id: teacher._id, name: teacher.user.name});
-                            }
-                        });
-                        updateStageModelAndForm(stage, teachersNames);
+                        if (stage) {
+                            var teachersNames = [];
+                            _.each(teachers, function (teacher) {
+                                if (_.every($scope.stages, function (st) {
+                                        return stage._id == st._id || (st.formMaster.id != teacher._id && stage._id != st._id);
+                                    })) {
+                                    teachersNames.push({id: teacher._id, name: teacher.user.name});
+                                }
+                            });
+                            updateStageModelAndForm(stage, teachersNames);
+                        }
                         $scope.showEditForm = !$scope.showEditForm;
                     });
             };
@@ -69,8 +72,14 @@ define(['../module', 'lodash'], function (module, _) {
                 if (form.$valid) {
                     $scope.busy = true;
                     stageService.updateStage($scope.stage.model)
-                        .then(function (stages) {
-                            $scope.stages = stages.data;
+                        .then(function (res) {
+                            _.every($scope.stages, function (stage, index) {
+                                if (stage._id == res.data._id) {
+                                    $scope.stages[index] = res.data;
+                                    return false;
+                                }
+                                return true;
+                            });
                             $scope.toggleShowEditForm();
                         })
                         .finally(function () {

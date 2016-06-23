@@ -119,10 +119,22 @@ define(['./module', 'lodash'], function (module, _) {
                             url: '/lesson/' + id
                         })
                     },
+                    getByStageId : function (id) {
+                        return new API({
+                            method: METHODS.GET,
+                            url: '/lesson/stage/' + id
+                        })
+                    },
+                    getByDay : function (day) {
+                        return new API({
+                            method: METHODS.GET,
+                            url: '/lesson/day/' + day
+                        })
+                    },
                     put: function (lesson) {
                         return new API({
                             method: METHODS.POST,
-                            url: '/lesson/' + lesson.id,
+                            url: '/lesson/' + lesson._id,
                             data: lesson
                         })
                     },

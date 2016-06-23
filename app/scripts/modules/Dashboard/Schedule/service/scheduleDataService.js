@@ -55,7 +55,7 @@ define(['../module', 'lodash'], function (module, _) {
                 });
                 return events;
             };
-            service.parseNewLessons = function (schedule) {
+            service.parseNewLessons = function (lessons) {
                 var days = {
                     'Monday': 1,
                     'Tuesday': 2,
@@ -65,18 +65,16 @@ define(['../module', 'lodash'], function (module, _) {
                     'Sunday': 6,
                     'Saturday': 7
                 };
-                var parsedSchedule = [];
-                var events = [];
+                var parsedLessons = [];
+                var result = [];
                 var _id = 0;
-                _.each(schedule, function (lesson) {
-                    _.each(lesson.order, function (order) {
-                        lesson.num = order;
-                        parsedSchedule.push(angular.copy(lesson));
-                    })
+                _.each(lessons, function (lesson) {
+                        lesson.num = lesson.order;
+                        parsedLessons.push(angular.copy(lesson));
                 });
-                parsedSchedule.forEach(function (lesson) {
+                parsedLessons.forEach(function (lesson) {
                     var lessonTime = schedulingUtil.getLesson(lesson.num);
-                    events.push({
+                    result.push({
                         id: _id++,
                         allDay: false,
                         dow: [days[lesson.day]],
@@ -87,20 +85,19 @@ define(['../module', 'lodash'], function (module, _) {
                         lessonId: lesson.id
                     })
                 });
-                return events;
+                return result;
             };
             service.parse = function (day) {
                 var schedule = [];
                 _.each(_.range(9), function (index) {
                     if (_.every(day, function (lesson) {
-                            return _.every(lesson.order, function (order) {
-                                if (order === index) {
+
+                                if (lesson.order == index) {
                                     schedule.push(angular.copy(lesson));
-                                    schedule[index].order = order;
+                                    schedule[index].order = lesson.order;
                                     return false;
                                 }
                                 return true;
-                            })
                         })) {
                         schedule.push(null);
                     }

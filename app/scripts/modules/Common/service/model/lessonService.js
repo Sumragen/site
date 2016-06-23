@@ -9,8 +9,8 @@ define(['../../module'], function (module) {
         function ($http, $q, Endpoint) {
             var service = {};
             //CRUD
-            service.createLesson = function () {
-                return $http(Endpoint.lesson.post())
+            service.createLesson = function (lesson) {
+                return $http(Endpoint.lesson.post(lesson))
                     .then(function (res) {
                         return res.data;
                     }, function (err) {
@@ -32,6 +32,24 @@ define(['../../module'], function (module) {
                     }, function (err) {
                         return $q.reject(err);
                     });
+            };
+            service.getLessonsByStageId = function (id) {
+                return $http(Endpoint.lesson.getByStageId(id))
+                    .then(function (res) {
+                        return res.data;
+                    })
+                    .catch(function (err) {
+                        return $q.reject(err);
+                    })
+            };
+            service.getLessonsByDay = function (day) {
+                return $http(Endpoint.lesson.getByDay(day))
+                    .then(function (res) {
+                        return res.data;
+                    })
+                    .catch(function (err) {
+                        return $q.reject(err);
+                    })
             };
             service.updateLesson = function (lesson) {
                 return $http(Endpoint.lesson.put(lesson))

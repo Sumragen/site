@@ -829,6 +829,11 @@ define(['lodash', './globalConfig'], function (_, config) {
             commit();
             return result;
         };
+    /**
+     *
+     * @param dataLesson
+     * @returns {Array}
+     */
         dataSource.updateLesson = function (dataLesson) {
             load();
             var tempLesson = angular.fromJson(dataLesson);

@@ -11,9 +11,9 @@ define(['angular'], function (module) {
                     controller: 'Dashboard.Event.EventController as controller',
                     resolve: {
                         eventsData: [
-                            'Dashboard.Event.EventService',
+                            'Common.Model.EventService',
                             function (eventService) {
-                                return eventService.getEventList();
+                                return eventService.getEvents();
                             }]
                     }
                 });

@@ -26,7 +26,7 @@ define(['../module', 'lodash', 'jquery'], function (module, _) {
             $scope.eventList = eventsData;
 
             $scope.event = {};
-            $scope.eventFilter = {key: 'date', value: 'R'};
+            $scope.eventFilter = {key: 'date', value: ''};
             $scope.eventStructure = [
                 {
                     key: "name",
@@ -42,7 +42,7 @@ define(['../module', 'lodash', 'jquery'], function (module, _) {
                     key: "address",
                     value: ['address.country', 'address.city'],
                     sortable: true,
-                    htmlClass:'',
+                    htmlClass: '',
                     htmlClassFn: function (that) {
                         if (that.value > 0) {
                             return 'may-class';
@@ -78,46 +78,44 @@ define(['../module', 'lodash', 'jquery'], function (module, _) {
             $scope.showSetMarkerForm = false;
             var clickMapListener = null;
 
-            if ($scope.isSettingPage) {
-                $scope.toggleShowEditForm = function (event) {
-                    initMap($scope.map);
-                    if (event) {
-                        $scope.event.model = angular.copy(event);
-                    } else {
-                        $scope.event.model = {};
-                    }
-                    $scope.showEditForm = !$scope.showEditForm;
-                };
-                $scope.deleteMarker = function (marker) {
-                    if (!marker) {
-                        $scope.markers[0].setMap(null);
-                        $scope.markers[0].position = null;
-                        $scope.event.model.location = null;
-                    } else {
-                        marker.setMap(null);
-                        marker.position = null;
-                    }
-                };
-                $scope.toggleShowSetMarkerForm = function (marker) {
-                    clickMapListener = $scope.map.addListener('click', function (event) {
-                        $scope.markers[0].setMap($scope.map);
-                        $scope.markers[0].position = event.latLng;
-                        $scope.event.model.location = event ? {
-                            latitude: event.latLng.lat(),
-                            longitude: event.latLng.lng()
-                        } : null;
-                    });
-
-                    if (marker) {
-                        _.each($scope.markers, function (item, index) {
-                            $scope.markers[index].setMap(null);
-                        });
-                        marker.setDraggable($scope.isSettingPage);
-                        $scope.markers = [marker];
-                        attach(marker);
-                    }
-                    $scope.showSetMarkerForm = !$scope.showSetMarkerForm;
+            $scope.toggleShowEditForm = function (event) {
+                initMap($scope.map);
+                if (event) {
+                    $scope.event.model = angular.copy(event);
+                } else {
+                    $scope.event.model = {};
                 }
+                $scope.showEditForm = !$scope.showEditForm;
+            };
+            $scope.deleteMarker = function (marker) {
+                if (!marker) {
+                    $scope.markers[0].setMap(null);
+                    $scope.markers[0].position = null;
+                    $scope.event.model.location = null;
+                } else {
+                    marker.setMap(null);
+                    marker.position = null;
+                }
+            };
+            $scope.toggleShowSetMarkerForm = function (marker) {
+                clickMapListener = $scope.map.addListener('click', function (event) {
+                    $scope.markers[0].setMap($scope.map);
+                    $scope.markers[0].position = event.latLng;
+                    $scope.event.model.location = event ? {
+                        latitude: event.latLng.lat(),
+                        longitude: event.latLng.lng()
+                    } : null;
+                });
+
+                if (marker) {
+                    _.each($scope.markers, function (item, index) {
+                        $scope.markers[index].setMap(null);
+                    });
+                    marker.setDraggable($scope.isSettingPage);
+                    $scope.markers = [marker];
+                    attach(marker);
+                }
+                $scope.showSetMarkerForm = !$scope.showSetMarkerForm;
             }
 
             $scope.editEvent = function (form) {

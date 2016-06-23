@@ -12,7 +12,8 @@ define(['../module'], function (module) {
                     items: '=sRenderList',
                     structure: '=sRenderStructure',
                     filter: '=sRenderFilter',
-                    htmlClasses : '=sRenderHtmlClasses'
+                    htmlClasses : '=sRenderHtmlClasses',
+                    isSettingPage : '=sIsSettingPage'
                 },
                 bindToController: true,
                 compile: function (tElement, tAttrs) {

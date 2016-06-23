@@ -124,14 +124,14 @@ define(
             });
 
             //Lesson
-            $httpBackend.whenGET(/\/lesson\/(0-9)*/).respond(function (method, url, data) {
-                var lesson = fakeDataSource.getLesson(data);
-                if (lesson) {
-                    return [200, lesson, {}];
-                } else {
-                    return [400, {errorCode: 5, message: 'Lesson not found'}];
-                }
-            });
+            //$httpBackend.whenGET(/\/lesson\/(0-9)*/).respond(function (method, url, data) {
+            //    var lesson = fakeDataSource.getLesson(data);
+            //    if (lesson) {
+            //        return [200, lesson, {}];
+            //    } else {
+            //        return [400, {errorCode: 5, message: 'Lesson not found'}];
+            //    }
+            //});
             $httpBackend.whenGET(prefix + '/lessonsByDay').respond(function (method, url, day) {
                 var lessons = fakeDataSource.getLessonsByDay(day);
                 if (lessons) {
@@ -307,14 +307,14 @@ define(
                     return [400, {errorCode: 4, message: 'wrong update'}];
                 }
             });
-            $httpBackend.whenGET(prefix + '/schedule').respond(function (method, url) {
-                var schedule = fakeDataSource.getSchedule();
-                if (schedule) {
-                    return [200, schedule, {}];
-                } else {
-                    return [400, {errorCode: 3, message: 'Schedule not found'}];
-                }
-            });
+            //$httpBackend.whenGET(prefix + '/schedule').respond(function (method, url) {
+            //    var schedule = fakeDataSource.getSchedule();
+            //    if (schedule) {
+            //        return [200, schedule, {}];
+            //    } else {
+            //        return [400, {errorCode: 3, message: 'Schedule not found'}];
+            //    }
+            //});
             $httpBackend.whenGET(prefix + '/teacherName').respond(function (method, url, data) {
                 var names = fakeDataSource.getTeacherNames(data);
                 if (names) {
@@ -359,14 +359,14 @@ define(
             });
 
 
-            $httpBackend.whenGET(/\/stage\/[0-9]*/).respond(function (method, url, stageId) {
-                var lessons = fakeDataSource.getLessonsByStageId(stageId);
-                if (lessons) {
-                    return [200, lessons, {}];
-                } else {
-                    return [400, {errorCode: 3, message: 'Stage not found'}];
-                }
-            });
+            //$httpBackend.whenGET(/\/stage\/[0-9]*/).respond(function (method, url, stageId) {
+            //    var lessons = fakeDataSource.getLessonsByStageId(stageId);
+            //    if (lessons) {
+            //        return [200, lessons, {}];
+            //    } else {
+            //        return [400, {errorCode: 3, message: 'Stage not found'}];
+            //    }
+            //});
 
             $httpBackend.whenGET(/.*/).passThrough();
             $httpBackend.whenPOST(/.*/).passThrough();

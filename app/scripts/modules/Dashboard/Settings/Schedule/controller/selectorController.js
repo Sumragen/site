@@ -8,7 +8,9 @@ define(['../module', 'lodash'], function (module, _) {
         'Common.StatePreference',
         'Dashboard.Schedule.ScheduleService',
         'Dashboard.Schedule.ScheduleDataService',
-        function ($scope, $state, statePreference, scheduleService, scheduleDataService) {
+        'Common.Model.StageService',
+        'Common.Model.LessonService',
+        function ($scope, $state, statePreference, scheduleService, scheduleDataService, stageService, lessonService) {
             $scope.busy = false;
 
             $scope.days = [
@@ -43,19 +45,19 @@ define(['../module', 'lodash'], function (module, _) {
                 }
             ];
 
-            scheduleDataService.getStages()
+            stageService.getStages()
                 .then(function (data) {
                     $scope.stages = data;
                 });
 
             $scope.selectStage = function (id) {
-                scheduleService.getLessonsByStageId(id)
-                    .then(function (data) {
+                lessonService.getLessonsByStageId(id)
+                    .then(function (res) {
                         $state.go('dashboard.settings.schedule.edit.stage',
                             {
                                 stage: {
-                                    stage: data.data.stage,
-                                    events: scheduleDataService.parseNewLessons(data.data.lessons)
+                                    stage: res[0].stage,
+                                    events: scheduleDataService.parseNewLessons(res)
                                 }
                             });
                     });

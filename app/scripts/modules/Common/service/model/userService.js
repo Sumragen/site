@@ -6,7 +6,8 @@ define(['../../module'], function (module) {
         '$http',
         '$q',
         'Endpoint',
-        function ($http, $q, Endpoint) {
+        'Common.SecurityContext',
+        function ($http, $q, Endpoint, securityContext) {
             var service = {};
             //CRUD
             service.createUser = function () {
@@ -36,6 +37,7 @@ define(['../../module'], function (module) {
             service.updateUser = function (user) {
                 return $http(Endpoint.user.put(user))
                     .then(function (res) {
+                        if (securityContext.getPrincipal().id == res.data.id) securityContext.setPrincipal(res.data);
                         return res.data;
                     }, function (err) {
                         return $q.reject(err);

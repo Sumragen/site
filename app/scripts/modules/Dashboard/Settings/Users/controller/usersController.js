@@ -26,9 +26,7 @@ define(['../module', 'lodash'], function (module, _) {
                         $scope.users = $scope.users.concat(users);
                     })
                     .finally(function () {
-                        $timeout(function () {
-                            $scope.busy = false;
-                        });
+                        $scope.busy = false;
                     });
             };
 

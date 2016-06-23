@@ -37,9 +37,9 @@ define(['../module'], function (module) {
 
             service.signIn = function (user) {
                 return $http(Endpoint.auth.login(user))
-                    .then(function (data) {
-                        securityContext.setSessionID(data.data.sessionID);
-                        return securityContext.setPrincipal(data.data.currentUser);
+                    .then(function (res) {
+                        securityContext.setSessionID(res.data.sessionID);
+                        return securityContext.setPrincipal(res.data.currentUser);
                     }, function (err) {
                         return $q.reject(err);
                     });

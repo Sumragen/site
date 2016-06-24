@@ -52,7 +52,6 @@ define(['../module', 'lodash'], function (module, _) {
                         $scope.lesson.form[1].titleMap = _.map(filteredListOfTeachers, function (teacher) {
                             return {value: teacher._id, name: teacher.user.name};
                         });
-                        //?
                         if (_.every(filteredListOfTeachers, function (teacher) {
                                 return !(teacher._id == $scope.lesson.model.teacher);
                             })) {
@@ -108,17 +107,18 @@ define(['../module', 'lodash'], function (module, _) {
                 });
                 return result;
             };
-            if ($stateParams.day) {
-                $scope.selectedDay = $stateParams.day;
-                if ($stateParams.day.stage) {
-                    $scope.lesson.stage = $stateParams.day.stage.stage;
-                    $scope.lesson.suffix = $stateParams.day.stage.suffix;
-                    $scope.toggleShowEditForm($stateParams.day.stage.stage, $stateParams.day.stage.suffix, $stateParams.day.stage.order)
+            $timeout(function () {
+                if ($stateParams.day) {
+                    $scope.selectedDay = $stateParams.day;
+                    if ($stateParams.day.stage) {
+                        $scope.lesson.stage = $stateParams.day.stage.stage;
+                        $scope.lesson.suffix = $stateParams.day.stage.suffix;
+                        $scope.toggleShowEditForm($stateParams.day.stage.stage, $stateParams.day.stage.suffix, $stateParams.day.stage.order)
+                    }
+                } else {
+                    $state.go('dashboard.settings.schedule.selector');
                 }
-
-            } else {
-                $state.go('dashboard.settings.schedule.selector');
-            }
+            });
 
 
             stageService.getStages()
@@ -174,13 +174,13 @@ define(['../module', 'lodash'], function (module, _) {
             };
             function goToScheduleEditStagePage() {
                 if ($stateParams.day.stage) {
-                    scheduleService.getLessonsByStageId($stateParams.day.stage.id)
-                        .then(function (data) {
+                    lessonService.getLessonsByStageId($stateParams.day.stage.id)
+                        .then(function (res) {
                             $state.go('dashboard.settings.schedule.edit.stage',
                                 {
                                     stage: {
-                                        stage: data.data.stage,
-                                        events: scheduleDataService.parseNewLessons(data.data.lessons)
+                                        stage: res[0].stage,
+                                        events: scheduleDataService.parseNewLessons(res)
                                     }
                                 });
                         });

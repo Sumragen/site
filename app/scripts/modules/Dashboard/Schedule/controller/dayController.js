@@ -12,34 +12,48 @@ define(['../module', 'lodash'], function (module, _) {
         '$filter',
         'currentSchedule',
         'currentStage',
-        'Dashboard.Schedule.ScheduleService',
+        'Common.Model.LessonService',
         'Dashboard.Schedule.ScheduleDataService',
-        function ($scope, $rootScope, $state, $uibModalInstance, moment, date, $filter, currentSchedule, currentStage, scheduleService, scheduleDataService) {
+        function ($scope, $rootScope, $state, $uibModalInstance, moment, date, $filter, currentSchedule, currentStage, lessonService, scheduleDataService) {
             var self = this;
             self.close = function () {
                 $uibModalInstance.close();
             };
             $scope.isSettingsPage = $state.current.name.indexOf('settings') > -1;
             $scope.openLessonEditForm = function (lesson, order) {
-                $state.go('dashboard.settings.schedule.edit.day', {
-                    day: {
+                lessonService.getLessonsByDay(date.format('dddd'))
+                    .then(function (data) {
+                        $state.go('dashboard.settings.schedule.edit.day', {
+                            day: {title: date.format('dddd'),
+                                stage: {
+                                    id: currentStage._id,
+                                    order: order,
+                                    stage: currentStage.stage,
+                                    suffix: currentStage.suffix
+                                }
+                            },
+                            lessons: data
+                        })
+                    });
+                /*$state.go('dashboard.settings.schedule.edit.day', {
+                     day: {
                         title: date.format('dddd'),
                         stage: {
-                            id: currentStage.id,
+                            id: currentStage._id,
                             order: order,
                             stage: currentStage.stage,
                             suffix: currentStage.suffix
                         }
                     }
-                })
+                 })*/
             };
 
             $scope.currentDay = {dayOff: 'day off'};
 
-            scheduleService.getLessonsByStage(currentStage)
-                .then(function (schedule) {
-                    $scope.currentDay = scheduleDataService.parse(_.filter(schedule, function (lesson) {
-                        return (lesson.day === date.format('dddd'));
+            lessonService.getLessonsByStageId(currentStage._id)
+                .then(function (lessons) {
+                    $scope.currentDay = scheduleDataService.parse(_.filter(lessons, function (lesson) {
+                        return (lesson.day == date.format('dddd'));
                     }));
                 });
         }

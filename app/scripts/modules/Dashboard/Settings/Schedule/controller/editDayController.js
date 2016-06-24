@@ -134,7 +134,9 @@ define(['../module', 'lodash'], function (module, _) {
                 $scope.$broadcast('schemaFormValidate');
                 if (form.$valid) {
                     $scope.busy = true;
-                    $scope.lesson.model.stage = $scope.lesson.model.stage._id;
+                    if (typeof $scope.lesson.model.stage == 'object') {
+                        $scope.lesson.model.stage = $scope.lesson.model.stage._id;
+                    }
                     lessonService.updateLesson($scope.lesson.model)
                         .then(function (data) {
                             goToScheduleEditStagePage();

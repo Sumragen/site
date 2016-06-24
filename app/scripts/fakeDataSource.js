@@ -836,29 +836,29 @@ define(['lodash', './globalConfig'], function (_, config) {
      */
         dataSource.updateLesson = function (dataLesson) {
             load();
-            var tempLesson = angular.fromJson(dataLesson);
+            var newLesson = angular.fromJson(dataLesson);
             var createNew = false;
             data.lesson.objects.every(function (lesson, index) {
-                if (tempLesson.id === lesson.id) {
+                if (newLesson.id === lesson.id) {
                     data.lesson.objects[index].order.every(function (order, iter) {
-                        if (order === tempLesson.order) {
+                        if (order === newLesson.order) {
                             createNew = true;
                             data.lesson.objects[index].order.splice(iter, 1);
                             return false;
                         }
                         return true;
                     });
-                    tempLesson.order = [tempLesson.order];
+                    newLesson.order = [newLesson.order];
 
                     data.subject.objects.every(function (subject) {
-                        if (subject.id === tempLesson.subject) {
-                            tempLesson.subject = {id: subject.id, name: subject.name};
+                        if (subject.id === newLesson.subject) {
+                            newLesson.subject = {id: subject.id, name: subject.name};
                             return false;
                         }
                         return true;
                     });
                     data.teacher.objects.every(function (teacher) {
-                        if (teacher.user === tempLesson.teacher) {
+                        if (teacher.user === newLesson.teacher) {
                             var tempUser = {};
                             data.user.objects.every(function (user) {
                                 if (teacher.user === user.id) {
@@ -867,16 +867,16 @@ define(['lodash', './globalConfig'], function (_, config) {
                                 }
                                 return true;
                             });
-                            tempLesson.teacher = {id: tempUser.id, name: tempUser.first_name + ' ' + tempUser.last_name};
+                            newLesson.teacher = {id: tempUser.id, name: tempUser.first_name + ' ' + tempUser.last_name};
                             return false;
                         }
                         return true;
                     });
                     if (createNew) {
-                        tempLesson.id = ++data.lesson.lastIndex;
-                        data.lesson.objects.push(tempLesson);
+                        newLesson.id = ++data.lesson.lastIndex;
+                        data.lesson.objects.push(newLesson);
                     } else {
-                        data.lesson.objects[index] = tempLesson;
+                        data.lesson.objects[index] = newLesson;
                     }
                     commit();
                     return false;
@@ -885,7 +885,7 @@ define(['lodash', './globalConfig'], function (_, config) {
             });
             var arrOfLessons = [];
             _.each(data.lesson.objects, function (lesson) {
-                if (lesson.day === tempLesson.day) {
+                if (lesson.day === newLesson.day) {
                     arrOfLessons.push(lesson);
                 }
             });

@@ -64,7 +64,10 @@ define(['../module', 'lodash'], function (module, _) {
             };
 
             $scope.selectDay = function (day) {
-                $state.go('dashboard.settings.schedule.edit.day', {day: day})
+                lessonService.getLessonsByDay(day.title)
+                    .then(function (data) {
+                        $state.go('dashboard.settings.schedule.edit.day', {day: day, lessons :data})
+                    });
             };
 
 

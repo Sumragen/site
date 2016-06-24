@@ -20,6 +20,7 @@ define(['../module', 'lodash'], function (module, _) {
 
             $scope.showEditForm = false;
             $scope.lesson = {};
+            $scope.lessons = $stateParams.lessons || null;
 
             $scope.getSubjectsNames = function () {
                 subjectService.getSubjects()
@@ -109,15 +110,11 @@ define(['../module', 'lodash'], function (module, _) {
             };
             if ($stateParams.day) {
                 $scope.selectedDay = $stateParams.day;
-                lessonService.getLessonsByDay($scope.selectedDay.title)
-                    .then(function (data) {
-                        $scope.lessons = data;
-                        if ($stateParams.day.stage) {
-                            $scope.lesson.stage = $stateParams.day.stage.stage;
-                            $scope.lesson.suffix = $stateParams.day.stage.suffix;
-                            $scope.toggleShowEditForm($stateParams.day.stage.stage, $stateParams.day.stage.suffix, $stateParams.day.stage.order)
-                        }
-                    });
+                if ($stateParams.day.stage) {
+                    $scope.lesson.stage = $stateParams.day.stage.stage;
+                    $scope.lesson.suffix = $stateParams.day.stage.suffix;
+                    $scope.toggleShowEditForm($stateParams.day.stage.stage, $stateParams.day.stage.suffix, $stateParams.day.stage.order)
+                }
 
             } else {
                 $state.go('dashboard.settings.schedule.selector');

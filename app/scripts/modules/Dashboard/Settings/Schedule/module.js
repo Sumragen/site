@@ -26,10 +26,10 @@ define(['angular'], function (module) {
                     templateUrl: 'views/Dashboard/Settings/Schedule/stage.html',
                     controller: 'Dashboard.Schedule.ScheduleController as controller',
                     params: {
-                        stage : null
+                        stage: null
                     },
                     resolve: {
-                        scheduleData: ['Dashboard.Schedule.ScheduleService',function (scheduleService) {
+                        scheduleData: ['Dashboard.Schedule.ScheduleService', function (scheduleService) {
                             return scheduleService.getSchedule();
                         }]
                     }
@@ -39,7 +39,8 @@ define(['angular'], function (module) {
                     templateUrl: 'views/Dashboard/Settings/Schedule/day.html',
                     controller: 'Dashboard.Settings.Schedule.DayController as controller',
                     params: {
-                        day : null
+                        day: null,
+                        lessons: null
                     }
                 });
         });

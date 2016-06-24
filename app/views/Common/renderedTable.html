@@ -24,11 +24,11 @@
         <tr ng-repeat="event in renderedItems | filter: getFilterValue() | orderBy:getPredicateValue:reverse"
             class="success events-item text-center"
             ng-style="controller.isSettingPage ? {'cursor': 'pointer'} : {'cursor': 'default'}"
-            ng-click="toggleShowEditForm(event)">
+            ng-click="controller.toggleShowEditForm(event)">
             <td>{{$index+1}}</td>
             <td class="{{param.htmlClass || param.htmlClassFn(event)}}" ng-repeat="param in structure"
                 ng-bind="getValue(event, param.key)"></td>
-            <td class="icon-table-right" ng-if="controller.isSettingPage" ng-click="removeEvent(event)"><i
+            <td class="icon-table-right" ng-if="controller.isSettingPage" ng-click="controller.removeEvent(event)"><i
                     class="material-icons icon-cell">delete_forever</i></td>
         </tr>
         </tbody>

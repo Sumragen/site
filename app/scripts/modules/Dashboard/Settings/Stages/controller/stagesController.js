@@ -48,17 +48,20 @@ define(['../module', 'lodash'], function (module, _) {
             $scope.toggleShowEditForm = function (stage) {
                 teacherService.getTeachers()
                     .then(function (teachers) {
-                        if (stage) {
-                            var teachersNames = [];
-                            _.each(teachers, function (teacher) {
-                                if (_.every($scope.stages, function (st) {
-                                        return stage._id == st._id || (st.formMaster.id != teacher._id && stage._id != st._id);
-                                    })) {
-                                    teachersNames.push({id: teacher._id, name: teacher.user.name});
-                                }
-                            });
-                            updateStageModelAndForm(stage, teachersNames);
-                        }
+                        var teachersNames = [];
+                        _.each(teachers, function (teacher) {
+                            if (_.every($scope.stages, function (st) {
+                                    if (stage) {
+                                        return stage._id == st._id || (st.formMaster.id != teacher._id && stage._id != st._id );
+                                    } else {
+                                        return st.formMaster.id != teacher._id;
+                                    }
+                                })) {
+                                teachersNames.push({id: teacher._id, name: teacher.user.name});
+                            }
+                        });
+                        updateStageModelAndForm(stage, teachersNames);
+
                         $scope.showEditForm = !$scope.showEditForm;
                     });
             };
@@ -92,8 +95,8 @@ define(['../module', 'lodash'], function (module, _) {
                 if (form.$valid) {
                     $scope.busy = true;
                     stageService.createStage($scope.stage.model)
-                        .then(function (stages) {
-                            $scope.stages = stages.data;
+                        .then(function (res) {
+                            $scope.stages.push(res.data);
                             $scope.toggleShowEditForm();
                         })
                         .finally(function () {

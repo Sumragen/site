@@ -88,7 +88,7 @@ define(['./module', 'lodash'], function (module, _) {
                     put: function (event) {
                         return new API({
                             method: METHODS.POST,
-                            url: '/event/' + event.id,
+                            url: '/event/' + event._id,
                             data: event
                         })
                     },
@@ -119,13 +119,13 @@ define(['./module', 'lodash'], function (module, _) {
                             url: '/lesson/' + id
                         })
                     },
-                    getByStageId : function (id) {
+                    getByStageId: function (id) {
                         return new API({
                             method: METHODS.GET,
                             url: '/lesson/stage/' + id
                         })
                     },
-                    getByDay : function (day) {
+                    getByDay: function (day) {
                         return new API({
                             method: METHODS.GET,
                             url: '/lesson/day/' + day
@@ -386,22 +386,22 @@ define(['./module', 'lodash'], function (module, _) {
                     },
                     update: function (event) {
                         return new API({
-                            method: METHODS.PUT,
-                            url: '/event/' + event.id,
+                            method: METHODS.POST,
+                            url: '/event/' + event._id,
                             data: event
                         })
                     },
                     remove: function (event) {
                         return new API({
                             method: METHODS.DELETE,
-                            url: '/event/' + event.id,
+                            url: '/event/' + event._id,
                             data: event
                         })
                     },
                     post: function (data) {
                         return new API({
                             method: METHODS.POST,
-                            url: '/event',
+                            url: '/event/add',
                             data: data
                         })
                     }

@@ -10,7 +10,7 @@ define(['../module', 'lodash', 'jquery'], function (module, _) {
         '$window',
         'InfoWindow',
         'Common.StatePreference',
-        'Dashboard.Event.EventService',
+        'Common.Model.EventService',
         'ScheduleConstants',
         'eventsData',
         function ($q, $scope, $state, $timeout, $window, InfoWindow, statePreference, eventService, scheduleConstants, eventsData) {
@@ -116,7 +116,7 @@ define(['../module', 'lodash', 'jquery'], function (module, _) {
                     attach(marker);
                 }
                 $scope.showSetMarkerForm = !$scope.showSetMarkerForm;
-            }
+            };
 
             $scope.editEvent = function (form) {
                 $scope.busy = false;
@@ -124,7 +124,13 @@ define(['../module', 'lodash', 'jquery'], function (module, _) {
                 if (form.$valid) {
                     eventService.updateEvent($scope.event.model)
                         .then(function (data) {
-                            $scope.eventList = data;
+                            _.every($scope.eventList, function (event, index) {
+                                if (event._id == data._id) {
+                                    $scope.eventList[index] = data;
+                                    return false;
+                                }
+                                return true;
+                            });
                             $scope.toggleShowEditForm();
                         })
                         .finally(function () {
@@ -214,15 +220,15 @@ define(['../module', 'lodash', 'jquery'], function (module, _) {
                     $scope.busy = true;
                     eventService.createEvent($scope.event.model)
                         .then(function (event) {
-                            $scope.eventList[$scope.eventList.length - 1] = event;
+                            $scope.eventList.push(event);
                             google.maps.event.clearListeners($scope.map, 'click');
                             $scope.markers[0].setMap(null);
                             createMarkerList();
                         })
                         .finally(function () {
                             $scope.busy = false;
+                            $scope.toggleShowSetMarkerForm();
                         });
-                    $scope.toggleShowSetMarkerForm();
                 }
             };
 

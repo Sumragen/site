@@ -12,8 +12,10 @@ define(['../module'], function (module) {
                     items: '=sRenderList',
                     structure: '=sRenderStructure',
                     filter: '=sRenderFilter',
-                    htmlClasses : '=sRenderHtmlClasses',
-                    isSettingPage : '=sIsSettingPage'
+                    htmlClasses: '=sRenderHtmlClasses',
+                    isSettingPage: '=sIsSettingPage',
+                    toggleShowEditForm: '=sToggleShowEditForm',
+                    removeEvent: '=sRemoveEvent'
                 },
                 bindToController: true,
                 compile: function (tElement, tAttrs) {

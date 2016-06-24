@@ -57,6 +57,9 @@ define(
                             switch (rejection.status) {
                                 case 401:
                                 {
+                                    if (securityContext.getPrincipal()) {
+                                        securityContext.setPrincipal(null);
+                                    }
                                     growl.error(rejection.data.message || 'Code 401', 'Error');
                                     //unauthorized
                                     break;
@@ -67,7 +70,8 @@ define(
                                     // handle error here
                                     break;
                                 }
-                                case 404: {
+                                case 404:
+                                {
                                     growl.error(rejection.data.message || 'Not found', 'Error');
                                     break;
                                 }

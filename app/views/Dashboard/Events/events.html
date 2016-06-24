@@ -20,6 +20,8 @@
         <!--table with events-->
         <div s-render-list="eventList"
              s-is-setting-page="isSettingPage"
+             s-toggle-show-edit-form="toggleShowEditForm"
+             s-remove-event="removeEvent"
              s-render-filter="eventFilter"
              s-render-html-classes="eventHtmlClasses"
              s-render-structure="eventStructure">
@@ -35,7 +37,7 @@
         </form>
         <a class="btn btn-default" ng-click="toggleShowEditForm()">Cancel</a>
         <a class="btn btn-info"
-           ng-click="(event.model.id)?editEvent(editForm): toggleShowSecondStepOfEventCreate(editForm)">{{(event.model.id)?'Update':'Next'}}</a>
+           ng-click="(event.model.name)?editEvent(editForm): toggleShowSecondStepOfEventCreate(editForm)">{{(event.model.id)?'Update':'Next'}}</a>
     </div>
 
     <!--map-->

@@ -47,6 +47,7 @@ define(['../module', 'lodash'], function (module, _) {
                     }
                     newItem[param.key] = result;
                 });
+                newItem._id = item._id;
                 $scope.renderedItems.push(newItem)
             });
 
@@ -107,18 +108,18 @@ define(['../module', 'lodash'], function (module, _) {
                     if (param.key == $scope.predicate) {
                         if (param.sortBy) {
                             var path = param.sortBy[0].split('.');
-                            path = path.splice(0,path.length - 1).join('.') + '.sortBy';
+                            path = path.splice(0, path.length - 1).join('.') + '.sortBy';
                             result = parsePath(path, item);
-                        }else{
+                        } else {
                             result = item[$scope.predicate];
                         }
                         return false;
                     }
                     return true;
                 });
-                if($scope.predicate == 'date'){
+                if ($scope.predicate == 'date') {
                     return new Date(result);
-                }else{
+                } else {
                     return result;
                 }
             };

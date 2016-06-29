@@ -94,6 +94,7 @@ define(['../module', 'lodash'], function (module, _) {
                 $scope.$broadcast('schemaFormValidate');
                 if (form.$valid) {
                     $scope.busy = true;
+                    $scope.stage.model.suffix = $scope.stage.model.suffix.toUpperCase();
                     stageService.createStage($scope.stage.model)
                         .then(function (res) {
                             $scope.stages.push(res.data);

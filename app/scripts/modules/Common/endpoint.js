@@ -87,14 +87,14 @@ define(['./module', 'lodash'], function (module, _) {
                     },
                     put: function (event) {
                         return new API({
-                            method: METHODS.POST,
+                            method: METHODS.PUT,
                             url: '/event/' + event._id,
                             data: event
                         })
                     },
                     updateList: function (events) {
                         return new API({
-                            method: METHODS.POST,
+                            method: METHODS.PUT,
                             url: '/events',
                             data: events
                         })
@@ -106,10 +106,10 @@ define(['./module', 'lodash'], function (module, _) {
                             data: event
                         })
                     },
-                    delete: function (id) {
+                    delete: function (event) {
                         return new API({
                             method: METHODS.DELETE,
-                            url: '/event/' + id
+                            url: '/event/' + event._id
                         })
                     }
                 },
@@ -140,7 +140,7 @@ define(['./module', 'lodash'], function (module, _) {
                     },
                     put: function (lesson) {
                         return new API({
-                            method: METHODS.POST,
+                            method: METHODS.PUT,
                             url: '/lesson/' + lesson._id,
                             data: lesson
                         })
@@ -209,7 +209,7 @@ define(['./module', 'lodash'], function (module, _) {
                     },
                     put: function (role) {
                         return new API({
-                            method: METHODS.POST,
+                            method: METHODS.PUT,
                             url: '/role/' + role._id,
                             data: role
                         })
@@ -250,7 +250,7 @@ define(['./module', 'lodash'], function (module, _) {
                     },
                     put: function (stage) {
                         return new API({
-                            method: METHODS.POST,
+                            method: METHODS.PUT,
                             url: '/stage/' + stage._id,
                             data: stage
                         })
@@ -284,7 +284,7 @@ define(['./module', 'lodash'], function (module, _) {
                     },
                     put: function (subject) {
                         return new API({
-                            method: METHODS.POST,
+                            method: METHODS.PUT,
                             url: '/subject/' + subject.id,
                             data: subject
                         })
@@ -318,7 +318,7 @@ define(['./module', 'lodash'], function (module, _) {
                     },
                     put: function (teacher) {
                         return new API({
-                            method: METHODS.POST,
+                            method: METHODS.PUT,
                             url: '/teacher/' + teacher.id,
                             data: teacher
                         })
@@ -358,7 +358,7 @@ define(['./module', 'lodash'], function (module, _) {
                     },
                     put: function (user) {
                         return new API({
-                            method: METHODS.POST,
+                            method: METHODS.PUT,
                             url: '/user/' + user.id,
                             data: user
                         })

@@ -48,46 +48,46 @@ define(
             });
 
             //Event
-            $httpBackend.whenGET(prefix + '/events').respond(function (method, url) {
-                var events = fakeDataSource.getEvents();
-                if (events) {
-                    return [200, events, {}];
-                } else {
-                    return [400, {errorCode: 2, message: 'Events not found'}];
-                }
-            });
-            $httpBackend.whenPUT(prefix + '/events').respond(function (method, url, tempEvents) {
-                var events = fakeDataSource.updateEventList(tempEvents);
-                if (events) {
-                    return [200, events, {}];
-                } else {
-                    return [400, {errorCode: 4, message: 'wrong update'}];
-                }
-            });
-            $httpBackend.whenPUT(/\/event\/(0-9)*/).respond(function (method, url, tempEvent) {
-                var events = fakeDataSource.updateEvent(tempEvent);
-                if (events) {
-                    return [200, events, {}];
-                } else {
-                    return [400, {errorCode: 4, message: 'wrong update'}];
-                }
-            });
-            $httpBackend.whenPOST(prefix + '/event').respond(function (method, url, data) {
-                var event = fakeDataSource.addEvent(data);
-                if (event) {
-                    return [200, event, {}];
-                } else {
-                    return [400, {errorCode: 7, message: 'wrong add event'}];
-                }
-            });
-            $httpBackend.whenDELETE(/\/event\/(0-9)*/).respond(function (method, url, tempEvent) {
-                var events = fakeDataSource.deleteEvent(tempEvent);
-                if (events) {
-                    return [200, events, {}];
-                } else {
-                    return [400, {errorCode: 6, message: 'wrong delete'}];
-                }
-            });
+            //$httpBackend.whenGET(prefix + '/events').respond(function (method, url) {
+            //    var events = fakeDataSource.getEvents();
+            //    if (events) {
+            //        return [200, events, {}];
+            //    } else {
+            //        return [400, {errorCode: 2, message: 'Events not found'}];
+            //    }
+            //});
+            //$httpBackend.whenPUT(prefix + '/events').respond(function (method, url, tempEvents) {
+            //    var events = fakeDataSource.updateEventList(tempEvents);
+            //    if (events) {
+            //        return [200, events, {}];
+            //    } else {
+            //        return [400, {errorCode: 4, message: 'wrong update'}];
+            //    }
+            //});
+            //$httpBackend.whenPUT(/\/event\/(0-9)*/).respond(function (method, url, tempEvent) {
+            //    var events = fakeDataSource.updateEvent(tempEvent);
+            //    if (events) {
+            //        return [200, events, {}];
+            //    } else {
+            //        return [400, {errorCode: 4, message: 'wrong update'}];
+            //    }
+            //});
+            //$httpBackend.whenPOST(prefix + '/event').respond(function (method, url, data) {
+            //    var event = fakeDataSource.addEvent(data);
+            //    if (event) {
+            //        return [200, event, {}];
+            //    } else {
+            //        return [400, {errorCode: 7, message: 'wrong add event'}];
+            //    }
+            //});
+            //$httpBackend.whenDELETE(/\/event\/(0-9)*/).respond(function (method, url, tempEvent) {
+            //    var events = fakeDataSource.deleteEvent(tempEvent);
+            //    if (events) {
+            //        return [200, events, {}];
+            //    } else {
+            //        return [400, {errorCode: 6, message: 'wrong delete'}];
+            //    }
+            //});
 
             //Role
             $httpBackend.whenGET(prefix + '/roles').respond(function (method, url) {
@@ -370,5 +370,7 @@ define(
 
             $httpBackend.whenGET(/.*/).passThrough();
             $httpBackend.whenPOST(/.*/).passThrough();
+            $httpBackend.whenPUT(/.*/).passThrough();
+            $httpBackend.whenDELETE(/.*/).passThrough();
         }]);
     });

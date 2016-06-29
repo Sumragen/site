@@ -160,7 +160,7 @@ define(['../module', 'lodash', 'jquery'], function (module, _) {
             $scope.removeEvent = function (event) {
                 $scope.busy = true;
                 event = event || $scope.eventList[$scope.eventList.length - 1];
-                eventService.removeEvent(event)
+                eventService.deleteEvent(event)
                     .then(function (data) {
                         if ($scope.markers.length > 1) {
                             _.every($scope.eventList, function (oldEvent, index) {

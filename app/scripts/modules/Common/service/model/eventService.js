@@ -50,8 +50,8 @@ define(['../../module'], function (module) {
                         return $q.reject(err);
                     });
             };
-            service.deleteEvent = function (id) {
-                return $http(Endpoint.event.delete(id))
+            service.deleteEvent = function (event) {
+                return $http(Endpoint.event.delete(event))
                     .then(function (res) {
                         return res.data;
                     }, function (err) {

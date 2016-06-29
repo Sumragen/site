@@ -41,6 +41,15 @@ define(['../../module'], function (module) {
                         return $q.reject(err);
                     });
             };
+            service.updateEventList = function (events) {
+                return $http(Endpoint.event.updateList(events))
+                    .then(function (res) {
+                        return res.data;
+                    })
+                    .catch(function (err) {
+                        return $q.reject(err);
+                    });
+            };
             service.deleteEvent = function (id) {
                 return $http(Endpoint.event.delete(id))
                     .then(function (res) {

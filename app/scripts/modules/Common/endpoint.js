@@ -92,6 +92,13 @@ define(['./module', 'lodash'], function (module, _) {
                             data: event
                         })
                     },
+                    updateList: function (events) {
+                        return new API({
+                            method: METHODS.POST,
+                            url: '/events',
+                            data: events
+                        })
+                    },
                     post: function (event) {
                         return new API({
                             method: METHODS.POST,

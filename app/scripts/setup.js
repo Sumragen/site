@@ -82,7 +82,7 @@ define(
                                 }
                                 default:
                                 {
-                                    growl.error((rejection.data) ? rejection.data.message || 'Return rejection on response' : rejection.error || 'Message does not found!', 'Error');
+                                    growl.error((rejection.data) ? rejection.data.message.errmsg || 'Return rejection on response' : rejection.error || 'Message does not found!', 'Error');
                                     //return rejection.
                                 }
                             }

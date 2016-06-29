@@ -10,20 +10,20 @@ define(['../module', 'lodash'], function (module, _) {
             var service = {};
             service.createRole = function (currentRole) {
                 return $http(Endpoint.role.post(currentRole))
-                    .then(function (data) {
-                        return data.data;
+                    .then(function (res) {
+                        return res.data;
                     });
             };
-            service.updateRole = function (currentRole) {
-                return $http(Endpoint.role.update(currentRole))
-                    .then(function (data) {
-                        return data.data;
+            service.updateRole = function (role) {
+                return $http(Endpoint.role.put(role))
+                    .then(function (res) {
+                        return res.data;
                     });
             };
             service.deleteRole = function (currentRole) {
                 return $http(Endpoint.role.delete(currentRole))
-                    .then(function (data) {
-                        return data.data;
+                    .then(function (res) {
+                        return res.data;
                     });
             };
             return service;

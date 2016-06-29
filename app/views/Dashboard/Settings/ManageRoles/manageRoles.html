@@ -27,6 +27,10 @@
             <input class="form-control" id="roleDesc" ng-model="currentRole.description" placeholder="Description"
                    type="text">
         </div>
+        <div class="form-group label-floating">
+            <input class="form-control" id="roleWeight" ng-model="currentRole.weight" placeholder="Weight"
+                   type="number" min="0" max="100">
+        </div>
         <div class="form-group">
             <div class="checkbox" ng-repeat="permission in permissionSet">
                 <label>

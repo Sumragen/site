@@ -64,6 +64,11 @@ define(
                                     //unauthorized
                                     break;
                                 }
+                                case 403:
+                                {
+                                    growl.error(rejection.data.message || 'Code 403', 'Error');
+                                    break;
+                                }
                                 case 500:
                                 {
                                     growl.error(rejection.data.message || 'Code 500', 'Error');

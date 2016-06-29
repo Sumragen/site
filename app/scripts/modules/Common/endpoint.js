@@ -203,7 +203,7 @@ define(['./module', 'lodash'], function (module, _) {
                     put: function (role) {
                         return new API({
                             method: METHODS.POST,
-                            url: '/role/' + role.id,
+                            url: '/role/' + role._id,
                             data: role
                         })
                     },

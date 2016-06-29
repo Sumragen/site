@@ -56,14 +56,14 @@ define(['../module', 'lodash'], function (module, _) {
                     return a - b;
                 });
                 manageRolesService.updateRole($scope.currentRole)
-                    .then(function (data) {
+                    .then(function (res) {
                         _.find($scope.roles, function (role, index) {
-                            if (role.id === $scope.currentRole.id) {
-                                $scope.roles[index] = data;
+                            if (role._id == res._id) {
+                                $scope.roles[index] = res;
                             }
                         });
                         $scope.toggleShowRoleEditor($scope.currentRole);
-                        return data;
+                        return res;
                     })
                     .finally(function () {
                         $scope.busy = false;
@@ -76,8 +76,8 @@ define(['../module', 'lodash'], function (module, _) {
                     return a - b;
                 });
                 manageRolesService.createRole($scope.currentRole)
-                    .then(function (roles) {
-                        $scope.roles = roles;
+                    .then(function (role) {
+                        $scope.roles.push(role);
                         $scope.toggleShowRoleEditor($scope.currentRole);
                     })
                     .finally(function () {

@@ -1,8 +1,8 @@
 /**
  * Created by sumragen on 2/27/16.
  */
-define(['angular'],function(module){
-    return module.module('Dashboard.Settings.ManageRoles',[])
+define(['angular'], function (module) {
+    return module.module('Dashboard.Settings.ManageRoles', [])
         .config(function ($stateProvider) {
             $stateProvider
                 .state('dashboard.settings.manageRoles', {
@@ -12,8 +12,8 @@ define(['angular'],function(module){
                     resolve: {
                         rolesData: function (Endpoint, $http, $q) {
                             return $http(Endpoint.role.list())
-                                .then(function (data) {
-                                    return data.data.roles;
+                                .then(function (res) {
+                                    return res.data;
                                 }, function (err) {
                                     return $q.reject(err);
                                 });

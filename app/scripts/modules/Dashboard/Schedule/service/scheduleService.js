@@ -37,8 +37,8 @@ define(['../module', 'lodash'], function (module, _) {
             };
             service.getSchedule = function () {
                 return $http(Endpoint.schedule.list())
-                    .then(function (data) {
-                        return data.data.schedule;
+                    .then(function (res) {
+                        return res.data;
                     }, function (err) {
                         return $q.reject(err);
                     });

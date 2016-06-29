@@ -4,7 +4,7 @@
 define([
         'angular',
         'lodash',
-    './globalConfig',
+        './globalConfig',
         'angular-ui-router',
         'logicify-gmap',
         'twitter-bootstrap',
@@ -179,7 +179,7 @@ define([
                     growlProvider.onlyUniqueMessages(false);
                     growlProvider.globalPosition('top-right');
 
-                    if(config.useFakeAPIService){
+                    if (config.useFakeAPIService) {
                         $provide.decorator('$httpBackend', function ($delegate) {
                             var proxy = function (method, url, data, callback, headers) {
                                 var interceptor = function () {

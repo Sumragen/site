@@ -49,7 +49,7 @@ define(['../module', 'lodash'], function (module, _) {
                 if (isSettingsPage) {
                     $state.go('dashboard.settings.schedule.selector');
                 } else {
-                    $scope.events = scheduleDataService.parseLessons(($stateParams.stage) ? $stateParams.stage.schedule : null || scheduleData.schedule);
+                    $scope.events = scheduleData.lessons ? scheduleDataService.parseNewLessons(scheduleData.lessons) : [];
                     $scope.eventSources = [$scope.events, $scope.eventSource];
                 }
             }

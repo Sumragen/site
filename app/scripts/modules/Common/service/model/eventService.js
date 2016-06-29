@@ -9,8 +9,8 @@ define(['../../module'], function (module) {
         function ($http, $q, Endpoint) {
             var service = {};
             //CRUD
-            service.createEvent = function () {
-                return $http(Endpoint.event.post())
+            service.createEvent = function (event) {
+                return $http(Endpoint.event.post(event))
                     .then(function (res) {
                         return res.data;
                     }, function (err) {

@@ -56,8 +56,8 @@ define(['../module', 'lodash'], function (module, _) {
                         $state.go('dashboard.settings.schedule.edit.stage',
                             {
                                 stage: {
-                                    stage: res[0].stage,
-                                    events: scheduleDataService.parseNewLessons(res)
+                                    stage: res.stage,
+                                    events: res.lessons ? scheduleDataService.parseNewLessons(res.lessons) : []
                                 }
                             });
                     });
@@ -66,7 +66,7 @@ define(['../module', 'lodash'], function (module, _) {
             $scope.selectDay = function (day) {
                 lessonService.getLessonsByDay(day.title)
                     .then(function (data) {
-                        $state.go('dashboard.settings.schedule.edit.day', {day: day, lessons :data})
+                        $state.go('dashboard.settings.schedule.edit.day', {day: day, lessons: data})
                     });
             };
 

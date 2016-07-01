@@ -160,6 +160,11 @@ define([
                         }
                         return true;
                     });
+                    $rootScope.$on('$stateChangeError', function (event, nextState, nextStateParams, curState, curStateParams, error) {
+                        if (error.status == 401) {
+                            $state.go('root');
+                        }
+                    });
                     $rootScope.stateMatch = function (inState) {
                         return ($rootScope.currentState && $rootScope.currentState.name && $rootScope.currentState.name.indexOf(inState) >= 0)
                     };

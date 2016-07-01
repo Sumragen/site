@@ -127,6 +127,8 @@ define(['../module', 'lodash', 'jquery'], function (module, _) {
                             _.every($scope.eventList, function (event, index) {
                                 if (event._id == data._id) {
                                     $scope.eventList[index] = data;
+                                    $scope.markers[index].name = data.name;
+                                    $scope.markers[index].title = data.description;
                                     return false;
                                 }
                                 return true;

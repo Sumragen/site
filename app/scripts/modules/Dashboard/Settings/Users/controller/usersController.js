@@ -34,56 +34,59 @@ define(['../module', 'lodash'], function (module, _) {
             $scope.toggleShowEditForm = function (user) {
                 if (user) {
                     $q.all([
-                            lessonService.getSubjectsNames()
-                                .then(function (data) {
-                                    return data;
-                                })
-                                .catch(function (err) {
-                                    $q.reject(err);
-                                }),
-                            lessonService.getRoleNames(user.id)
-                                .then(function (data) {
-                                    return data;
-                                })
-                                .catch(function (err) {
-                                    $q.reject(err);
-                                }),
-                            lessonService.getSubjectsForTeacher(user.id)
-                                .then(function (data) {
-                                    return data;
-                                })
-                                .catch(function (err) {
-                                    $q.reject(err);
-                                }),
-                            roleService.getRoleById(user.role || user.roles[0])
-                                .then(function (data) {
-                                    return data;
-                                })
-                                .catch(function (err) {
-                                    $q.reject(err);
-                                })
-                        ])
+                        lessonService.getSubjectsNames()
+                            .then(function (data) {
+                                return data;
+                            })
+                            .catch(function (err) {
+                                $q.reject(err);
+                            }),
+                        lessonService.getRoleNames(user.id)
+                            .then(function (data) {
+                                return data;
+                            })
+                            .catch(function (err) {
+                                $q.reject(err);
+                            }),
+                        lessonService.getSubjectsForTeacher(user.id)
+                            .then(function (data) {
+                                return data;
+                            })
+                            .catch(function (err) {
+                                $q.reject(err);
+                            }),
+                        roleService.getRoleById(user.role || user.roles[0])
+                            .then(function (data) {
+                                return data;
+                            })
+                            .catch(function (err) {
+                                $q.reject(err);
+                            })
+                    ])
                         .then(function (responses) {
                             var subjects = responses[0];
                             var roles = responses[1];
                             var subjectsOfTeacher = responses[2];
                             var currentRole = responses[3];
                             $scope.user.model = user;
-                            $scope.user.model.subjects = [];
                             $scope.showSubjects = currentRole.weight >= 50;
                             $scope.user.model.role = currentRole._id;
-
+                            $scope.user.form[5].titleMap = roles;
+                            $scope.user.form[6].items = [];
+                            $scope.user.model.subjects = [];
+                            _.each(subjects, function (subject) {
+                                $scope.user.form[6].items = $scope.user.form[6].items.concat(subject);
+                            });
                             _.each(subjectsOfTeacher, function (subject, index) {
-                                _.every(subjects, function (sub, subIndex) {
+                                _.every($scope.user.form[6].items, function (sub, subIndex) {
                                     if (subject.id == sub.id) {
-                                        $scope.user.model.subjects[index] = subjects[subIndex];
+                                        $scope.user.model.subjects = $scope.user.model.subjects.concat($scope.user.form[6].items[subIndex].id);
+                                        // $scope.user.model.subjects[index] = subjects[subIndex];
                                         return false;
                                     }
                                     return true;
                                 });
                             });
-                            $scope.user.form[5].titleMap = roles;
-                            $scope.user.form[6].items = subjects;
                             $scope.$broadcast('schemaFormRedraw');
                         })
                         .catch(function (err) {

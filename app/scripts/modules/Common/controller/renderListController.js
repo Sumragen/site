@@ -147,11 +147,19 @@ define(['../module', 'lodash'], function (module, _) {
              * Common
              */
             $scope.getValue = function (item, key) {
-                if (typeof item[key] == 'object') {
-                    return item[key].value;
-                } else {
-                    return item[key];
+                var result = '';
+                if (_.every($scope.controller.structure, function (struc) {
+                        if (struc.key == key && struc.value) {
+                            _.each(struc.value, function (val) {
+                                result += parsePath(val, item) + ' ';
+                            });
+                            return false;
+                        }
+                        return true;
+                    })) {
+                    result = item[key];
                 }
+                return result;
             }
         }
     ])

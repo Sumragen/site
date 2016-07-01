@@ -149,7 +149,6 @@ define(['../module', 'lodash', 'jquery'], function (module, _) {
                         map: null,
                         title: event.description
                     });
-                    $scope.eventList.push(event);
                     $scope.toggleShowEditForm(event);
                     $scope.toggleShowSetMarkerForm(marker);
                 }
@@ -164,9 +163,10 @@ define(['../module', 'lodash', 'jquery'], function (module, _) {
                     .then(function (data) {
                         if ($scope.markers.length > 1) {
                             _.every($scope.eventList, function (oldEvent, index) {
-                                if ((data[index]) ? data[index].id !== oldEvent.id : true) {
+                                if (oldEvent._id == data._id) {
                                     $scope.markers[index].setMap(null);
                                     $scope.markers.splice(index, 1);
+                                    $scope.eventList.splice(index, 1);
                                     return false;
                                 }
                                 return true;
@@ -176,7 +176,6 @@ define(['../module', 'lodash', 'jquery'], function (module, _) {
                                 $scope.deleteMarker();
                             }
                         }
-                        $scope.eventList = data;
                     })
                     .finally(function () {
                         if ($scope.showSetMarkerForm) {

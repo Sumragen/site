@@ -21,7 +21,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr ng-repeat="event in renderedItems | filter: getFilterValue() | orderBy:getPredicateValue:reverse"
+        <tr ng-repeat="event in controller.items | filter: getFilterValue() | orderBy:getPredicateValue:reverse"
             class="success events-item text-center"
             ng-style="controller.isSettingPage ? {'cursor': 'pointer'} : {'cursor': 'default'}"
             ng-click="controller.isSettingPage ? controller.toggleShowEditForm(event) : null">

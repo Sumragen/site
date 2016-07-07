@@ -12,9 +12,7 @@ define(['../module', 'lodash'], function (module, _) {
             service.getSubjectsForTeacher = function (id) {
                 return $http(Endpoint.teacher.getSubjects(id))
                     .then(function (res) {
-                        return _.map(res.data, function (subject) {
-                            return {id: subject._id, name: subject.name};
-                        });
+                        return res.data;
                     })
                     .catch(function (err) {
                         $q.reject(err);
@@ -25,9 +23,9 @@ define(['../module', 'lodash'], function (module, _) {
                     .then(function (res) {
                         var currentUser = securityContext.getPrincipal();
                         return _.map(_.filter(res.data, function (role) {
-                            return role.weight < currentUser.roles[0].weight || (userID == currentUser.id && role.weight <= currentUser.roles[0].weight);
+                            return role.weight < currentUser.role.weight || (userID == currentUser.id && role.weight <= currentUser.role.weight);
                         }), function (role) {
-                            return {value: role._id, name: role.name, weight: role.weight}
+                            return {value: role.id.toString(), name: role.name, weight: role.weight}
                         });
                     })
                     .catch(function (err) {
@@ -37,9 +35,7 @@ define(['../module', 'lodash'], function (module, _) {
             service.getSubjectsNames = function () {
                 return $http(Endpoint.subject.list())
                     .then(function (res) {
-                        return _.map(res.data, function (subject) {
-                            return {id: subject._id, name: subject.name}
-                        });
+                        return res.data;
                     })
                     .catch(function (err) {
                         return $q.reject(err);

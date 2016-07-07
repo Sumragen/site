@@ -37,8 +37,12 @@ define(['../module', 'lodash'], function (module, _) {
                      * Check permissions of current user and specified permissions in directive
                      */
                     if (!_.every(listOfPermissions, function (checkPermission) {
-                            if (_.every(currentUser.roles[0].permissions, function (permission) {
-                                    return !(scheduleConstants.PERMISSION[checkPermission] === permission);
+                            if (_.every(currentUser.role.permissions, function (permission) {
+                                    if (typeof permission == 'object') {
+                                        return !(scheduleConstants.PERMISSION[checkPermission] === permission.id);
+                                    } else {
+                                        return !(scheduleConstants.PERMISSION[checkPermission] === permission);
+                                    }
                                 }))
                                 return true;
                         })) {
@@ -50,15 +54,24 @@ define(['../module', 'lodash'], function (module, _) {
                                 setEventOnClick(confArg);
                             } else {
                                 if (checkUser) {
-                                    $http(Endpoint.role.get(checkUser.roles[0]))
-                                        .then(function (res) {
-                                            if (checkUser.id == currentUser.id
-                                                || (checkUser.id != currentUser.id && currentUser.roles[0].weight > res.data.weight)) {
-                                                setEventOnClick(checkUser);
-                                            } else {
-                                                setElementDisabled();
-                                            }
-                                        });
+                                    if (checkUser.role_id) {
+                                        if (checkUser.id == currentUser.id
+                                            || (checkUser.id != currentUser.id && currentUser.role.weight > checkUser.role.weight)) {
+                                            setEventOnClick(checkUser);
+                                        } else {
+                                            setElementDisabled();
+                                        }
+                                    } else {
+                                        $http(Endpoint.role.get(checkUser.role))
+                                            .then(function (res) {
+                                                if (checkUser.id == currentUser.id
+                                                    || (checkUser.id != currentUser.id && currentUser.role.weight > res.data.weight)) {
+                                                    setEventOnClick(checkUser);
+                                                } else {
+                                                    setElementDisabled();
+                                                }
+                                            });
+                                    }
                                 } else {
                                     setEventOnClick();
                                 }

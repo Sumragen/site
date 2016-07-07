@@ -32,7 +32,11 @@ define(['../module', 'lodash'], function (module, _) {
             service.hasPermissions = function (checkPermissions, user) {
                 !user ? user = securityContext.getPrincipal() : user;
                 return _.every(checkPermissions, function (permission, index) {
-                    return user.roles[0].permissions[index] == permission;
+                    if (typeof user.role.permissions[index] == 'object') {
+                        return user.role.permissions[index].id == permission;
+                    } else {
+                        return user.role.permissions[index] == permission;
+                    }
                 });
             };
 

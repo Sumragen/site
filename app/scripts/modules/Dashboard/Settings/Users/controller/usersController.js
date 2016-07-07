@@ -55,7 +55,7 @@ define(['../module', 'lodash'], function (module, _) {
                             .catch(function (err) {
                                 $q.reject(err);
                             }),
-                        roleService.getRoleById(user.role || user.roles[0])
+                        roleService.getRoleById(user.role_id)
                             .then(function (data) {
                                 return data;
                             })
@@ -70,7 +70,7 @@ define(['../module', 'lodash'], function (module, _) {
                             var currentRole = responses[3];
                             $scope.user.model = user;
                             $scope.showSubjects = currentRole.weight >= 50;
-                            $scope.user.model.role = currentRole._id;
+                            $scope.user.model.role = $scope.user.model.role_id.toString();
                             $scope.user.form[5].titleMap = roles;
                             $scope.user.form[6].items = [];
                             $scope.user.model.subjects = [];

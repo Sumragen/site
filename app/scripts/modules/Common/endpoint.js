@@ -201,7 +201,8 @@ define(['./module', 'lodash'], function (module, _) {
                             url: '/roles'
                         })
                     },
-                    get: function (id) {
+                    get: function (role) {
+                        var id = typeof role == 'object' ? role.id : role;
                         return new API({
                             method: METHODS.GET,
                             url: '/role/' + id

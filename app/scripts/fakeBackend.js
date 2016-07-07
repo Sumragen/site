@@ -90,14 +90,14 @@ define(
             //});
 
             //Role
-            $httpBackend.whenGET(prefix + '/roles').respond(function (method, url) {
-                var roles = fakeDataSource.getRoles();
-                if (roles) {
-                    return [200, roles, {}];
-                } else {
-                    return [400, {errorCode: 5, message: 'Roles not found'}];
-                }
-            });
+            // $httpBackend.whenGET(prefix + '/roles').respond(function (method, url) {
+            //     var roles = fakeDataSource.getRoles();
+            //     if (roles) {
+            //         return [200, roles, {}];
+            //     } else {
+            //         return [400, {errorCode: 5, message: 'Roles not found'}];
+            //     }
+            // });
             $httpBackend.whenPUT(/\/role\/(0-9)*/).respond(function (method, url, tempRole) {
                 var role = fakeDataSource.updateRole(tempRole);
                 if (role) {

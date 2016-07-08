@@ -55,7 +55,7 @@ define(['../module', 'lodash'], function (module, _) {
                             .catch(function (err) {
                                 $q.reject(err);
                             }),
-                        roleService.getRoleById(user.role_id)
+                        roleService.getRoleById((typeof user.role == 'string') ? user.role : user.role_id)
                             .then(function (data) {
                                 return data;
                             })
@@ -70,7 +70,9 @@ define(['../module', 'lodash'], function (module, _) {
                             var currentRole = responses[3];
                             $scope.user.model = user;
                             $scope.showSubjects = currentRole.weight >= 50;
-                            $scope.user.model.role = $scope.user.model.role_id.toString();
+                            if (typeof user.role == 'object') {
+                                $scope.user.model.role = user.role_id.toString();
+                            }
                             $scope.user.form[5].titleMap = roles;
                             $scope.user.form[6].items = [];
                             $scope.user.model.subjects = [];
@@ -101,13 +103,13 @@ define(['../module', 'lodash'], function (module, _) {
             };
 
             $scope.editProfile = function (form) {
-                $scope.busy = true;
                 $scope.$broadcast('schemaFormValidate');
                 if (form.$valid) {
+                    $scope.busy = true;
                     userService.updateUser($scope.user.model)
                         .then(function (respUser) {
                             _.every($scope.users, function (user, index) {
-                                if (user.id === respUser.id) {
+                                if (user.id == respUser.id) {
                                     $scope.users[index] = respUser;
                                     return false;
                                 }

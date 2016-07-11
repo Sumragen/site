@@ -9,7 +9,7 @@ define(['../module'], function (module) {
         function ($http, $q, Endpoint) {
             var service = {};
             service.updateEvent = function (event) {
-                return $http(Endpoint.events.update(event))
+                return $http(Endpoint.event.put(event))
                     .then(function (data) {
                         return data.data;
                     }, function (err) {

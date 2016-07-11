@@ -125,7 +125,7 @@ define(['../module', 'lodash', 'jquery'], function (module, _) {
                     eventService.updateEvent($scope.event.model)
                         .then(function (data) {
                             _.every($scope.eventList, function (event, index) {
-                                if (event._id == data._id) {
+                                if (event.id == data.id) {
                                     $scope.eventList[index] = data;
                                     $scope.markers[index].name = data.name;
                                     $scope.markers[index].title = data.description;
@@ -163,9 +163,9 @@ define(['../module', 'lodash', 'jquery'], function (module, _) {
                 event = event || $scope.eventList[$scope.eventList.length - 1];
                 eventService.deleteEvent(event)
                     .then(function (data) {
-                        if ($scope.markers.length > 1) {
+                        if (!$scope.showSetMarkerForm) {
                             _.every($scope.eventList, function (oldEvent, index) {
-                                if (oldEvent._id == data._id) {
+                                if (oldEvent.id == data.id) {
                                     $scope.markers[index].setMap(null);
                                     $scope.markers.splice(index, 1);
                                     $scope.eventList.splice(index, 1);

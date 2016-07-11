@@ -88,7 +88,7 @@ define(['./module', 'lodash'], function (module, _) {
                     put: function (event) {
                         return new API({
                             method: METHODS.PUT,
-                            url: '/event/' + event._id,
+                            url: '/event/' + event.id,
                             data: event
                         })
                     },
@@ -109,7 +109,7 @@ define(['./module', 'lodash'], function (module, _) {
                     delete: function (event) {
                         return new API({
                             method: METHODS.DELETE,
-                            url: '/event/' + event._id
+                            url: '/event/' + event.id
                         })
                     }
                 },

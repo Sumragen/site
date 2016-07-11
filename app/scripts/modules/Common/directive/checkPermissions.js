@@ -36,6 +36,9 @@ define(['../module', 'lodash'], function (module, _) {
                     /**
                      * Check permissions of current user and specified permissions in directive
                      */
+                    currentUser.role.permissions = currentUser.role.permissions.sort(function (a, b) {
+                        return a - b;
+                    });
                     if (!_.every(listOfPermissions, function (checkPermission) {
                             if (_.every(currentUser.role.permissions, function (permission) {
                                     if (typeof permission == 'object') {

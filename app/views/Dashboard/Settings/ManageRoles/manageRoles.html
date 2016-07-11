@@ -7,12 +7,14 @@
             <tr>
                 <td>Name</td>
                 <td>Description</td>
+                <td>Wright</td>
             </tr>
             </thead>
             <tbody>
             <tr ng-repeat="role in roles" class="success cursor-pointer" ng-click="toggleShowRoleEditor(role)">
                 <td>{{role.name}}</td>
                 <td>{{role.description}}</td>
+                <td>{{role.weight}}</td>
             </tr>
             </tbody>
         </table>

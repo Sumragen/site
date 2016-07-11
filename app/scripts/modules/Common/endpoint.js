@@ -211,7 +211,7 @@ define(['./module', 'lodash'], function (module, _) {
                     put: function (role) {
                         return new API({
                             method: METHODS.PUT,
-                            url: '/role/' + role._id,
+                            url: '/role/' + role.id,
                             data: role
                         })
                     },

@@ -98,22 +98,22 @@ define(
             //         return [400, {errorCode: 5, message: 'Roles not found'}];
             //     }
             // });
-            $httpBackend.whenPUT(/\/role\/(0-9)*/).respond(function (method, url, tempRole) {
-                var role = fakeDataSource.updateRole(tempRole);
-                if (role) {
-                    return [200, role, {}];
-                } else {
-                    return [400, {errorCode: 4, message: 'wrong update'}];
-                }
-            });
-            $httpBackend.whenDELETE(/\/role\/(0-9)*/).respond(function (method, url, tempRole) {
-                var roles = fakeDataSource.deleteRole(tempRole);
-                if (roles) {
-                    return [200, roles, {}];
-                } else {
-                    return [400, {errorCode: 6, message: 'wrong delete'}];
-                }
-            });
+            // $httpBackend.whenPUT(/\/role\/(0-9)*/).respond(function (method, url, tempRole) {
+            //     var role = fakeDataSource.updateRole(tempRole);
+            //     if (role) {
+            //         return [200, role, {}];
+            //     } else {
+            //         return [400, {errorCode: 4, message: 'wrong update'}];
+            //     }
+            // });
+            // $httpBackend.whenDELETE(/\/role\/(0-9)*/).respond(function (method, url, tempRole) {
+            //     var roles = fakeDataSource.deleteRole(tempRole);
+            //     if (roles) {
+            //         return [200, roles, {}];
+            //     } else {
+            //         return [400, {errorCode: 6, message: 'wrong delete'}];
+            //     }
+            // });
             $httpBackend.whenPOST(prefix + '/role').respond(function (method, url, data) {
                 var roles = fakeDataSource.addRole(data);
                 if (roles) {

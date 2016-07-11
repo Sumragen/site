@@ -30,7 +30,9 @@ define(['../module', 'lodash'], function (module, _) {
             $scope.toggleShowRoleEditor = function (role) {
                 $timeout(function () {
                     $scope.currentRole = role;
-                    $scope.permissions = (role) ? $scope.currentRole.permissions : [];
+                    $scope.permissions = (role) ? _.map($scope.currentRole.permissions, function (perm) {
+                        return perm.id;
+                    }) : [];
                     $scope.isExist = (role) ? true : false;
                     $scope.showRoleEditor = !$scope.showRoleEditor;
                 });
@@ -40,9 +42,15 @@ define(['../module', 'lodash'], function (module, _) {
 
             $scope.deleteRole = function () {
                 $scope.busy = true;
-                manageRolesService.deleteRole($scope.currentRole)
+                manageRolesService.deleteRole($scope.currentRole.id)
                     .then(function (data) {
-                        $scope.roles = data;
+                        _.every($scope.roles, function (role, index) {
+                            if(role.id == data.id){
+                                $scope.roles.splice(index,1);
+                                return false;
+                            }
+                            return true;
+                        });
                         $scope.toggleShowRoleEditor($scope.currentRole);
                     })
                     .finally(function () {
@@ -58,7 +66,7 @@ define(['../module', 'lodash'], function (module, _) {
                 manageRolesService.updateRole($scope.currentRole)
                     .then(function (res) {
                         _.find($scope.roles, function (role, index) {
-                            if (role._id == res._id) {
+                            if (role.id == res.id) {
                                 $scope.roles[index] = res;
                             }
                         });

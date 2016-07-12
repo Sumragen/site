@@ -98,7 +98,7 @@ define(
             //         return [400, {errorCode: 5, message: 'Roles not found'}];
             //     }
             // });
-            // $httpBackend.whenPUT(/\/role\/(0-9)*/).respond(function (method, url, tempRole) {
+            // $htt pBackend.whenPUT(/\/role\/(0-9)*/).respond(function (method, url, tempRole) {
             //     var role = fakeDataSource.updateRole(tempRole);
             //     if (role) {
             //         return [200, role, {}];
@@ -325,38 +325,38 @@ define(
             });
 
             //Stage
-            $httpBackend.whenGET(prefix + '/stages').respond(function (method, url) {
-                var stages = fakeDataSource.getStages();
-                if (stages) {
-                    return [200, stages, {}];
-                } else {
-                    return [400, {errorCode: 2, message: 'Stages not found'}];
-                }
-            });
-            $httpBackend.whenPUT(prefix + '/stages').respond(function (method, url, tempStages) {
-                var stages = fakeDataSource.updateStagesList(tempStages);
-                if (stages) {
-                    return [200, stages, {}];
-                } else {
-                    return [400, {errorCode: 4, message: 'wrong update'}];
-                }
-            });
-            $httpBackend.whenPUT(/\/stage\/(0-9)*/).respond(function (method, url, tempStage) {
-                var stages = fakeDataSource.updateStage(tempStage);
-                if (stages) {
-                    return [200, stages, {}];
-                } else {
-                    return [400, {errorCode: 4, message: 'wrong update'}];
-                }
-            });
-            $httpBackend.whenPOST(prefix + '/stage').respond(function (method, url, data) {
-                var stage = fakeDataSource.addStage(data);
-                if (stage) {
-                    return [200, stage, {}];
-                } else {
-                    return [400, {errorCode: 7, message: 'wrong add event'}];
-                }
-            });
+            // $httpBackend.whenGET(prefix + '/stages').respond(function (method, url) {
+            //     var stages = fakeDataSource.getStages();
+            //     if (stages) {
+            //         return [200, stages, {}];
+            //     } else {
+            //         return [400, {errorCode: 2, message: 'Stages not found'}];
+            //     }
+            // });
+            // $httpBackend.whenPUT(prefix + '/stages').respond(function (method, url, tempStages) {
+            //     var stages = fakeDataSource.updateStagesList(tempStages);
+            //     if (stages) {
+            //         return [200, stages, {}];
+            //     } else {
+            //         return [400, {errorCode: 4, message: 'wrong update'}];
+            //     }
+            // });
+            // $httpBackend.whenPUT(/\/stage\/(0-9)*/).respond(function (method, url, tempStage) {
+            //     var stages = fakeDataSource.updateStage(tempStage);
+            //     if (stages) {
+            //         return [200, stages, {}];
+            //     } else {
+            //         return [400, {errorCode: 4, message: 'wrong update'}];
+            //     }
+            // });
+            // $httpBackend.whenPOST(prefix + '/stage').respond(function (method, url, data) {
+            //     var stage = fakeDataSource.addStage(data);
+            //     if (stage) {
+            //         return [200, stage, {}];
+            //     } else {
+            //         return [400, {errorCode: 7, message: 'wrong add event'}];
+            //     }
+            // });
 
 
             //$httpBackend.whenGET(/\/stage\/[0-9]*/).respond(function (method, url, stageId) {

@@ -6,7 +6,7 @@ define(['../module', 'lodash'], function (module, _) {
         '$scope',
         '$timeout',
         'Common.Model.TeacherService',
-        'Dashboard.Settings.Stages.StageService',
+        'Common.Model.StageService',
         'stagesData',
         function ($scope, $timeout, teacherService, stageService, stagesData) {
             $scope.stages = stagesData;
@@ -52,12 +52,15 @@ define(['../module', 'lodash'], function (module, _) {
                         _.each(teachers, function (teacher) {
                             if (_.every($scope.stages, function (st) {
                                     if (stage) {
-                                        return stage._id == st._id || (st.formMaster.id != teacher._id && stage._id != st._id );
+                                        return stage.id == st.id || (st.formMaster.id != teacher.id && stage.id != st.id );
                                     } else {
-                                        return st.formMaster.id != teacher._id;
+                                        return st.formMaster.id != teacher.id;
                                     }
                                 })) {
-                                teachersNames.push({id: teacher._id, name: teacher.user.name});
+                                teachersNames.push({
+                                    id: teacher.id,
+                                    name: teacher.user.first_name + ' ' + teacher.user.last_name
+                                });
                             }
                         });
                         updateStageModelAndForm(stage, teachersNames);
@@ -75,10 +78,10 @@ define(['../module', 'lodash'], function (module, _) {
                 if (form.$valid) {
                     $scope.busy = true;
                     stageService.updateStage($scope.stage.model)
-                        .then(function (res) {
+                        .then(function (data) {
                             _.every($scope.stages, function (stage, index) {
-                                if (stage._id == res.data._id) {
-                                    $scope.stages[index] = res.data;
+                                if (stage.id == data.id) {
+                                    $scope.stages[index] = data;
                                     return false;
                                 }
                                 return true;
@@ -96,8 +99,8 @@ define(['../module', 'lodash'], function (module, _) {
                     $scope.busy = true;
                     $scope.stage.model.suffix = $scope.stage.model.suffix.toUpperCase();
                     stageService.createStage($scope.stage.model)
-                        .then(function (res) {
-                            $scope.stages.push(res.data);
+                        .then(function (data) {
+                            $scope.stages.push(data);
                             $scope.toggleShowEditForm();
                         })
                         .finally(function () {
@@ -122,7 +125,7 @@ define(['../module', 'lodash'], function (module, _) {
                         title: "Suffix"
                     },
                     formMaster: {
-                        type: "string",
+                        type: "number",
                         title: "Form master"
                     }
                 },

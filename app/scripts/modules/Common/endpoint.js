@@ -252,7 +252,7 @@ define(['./module', 'lodash'], function (module, _) {
                     put: function (stage) {
                         return new API({
                             method: METHODS.PUT,
-                            url: '/stage/' + stage._id,
+                            url: '/stage/' + stage.id,
                             data: stage
                         })
                     },

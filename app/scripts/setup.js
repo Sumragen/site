@@ -55,6 +55,11 @@ define(
                         'responseError': function (rejection) {
 
                             switch (rejection.status) {
+                                case 400:
+                                {
+                                    growl.error(rejection.data.message || 'Code 400', 'Error');
+                                    break;
+                                }
                                 case 401:
                                 {
                                     if (securityContext.getPrincipal()) {

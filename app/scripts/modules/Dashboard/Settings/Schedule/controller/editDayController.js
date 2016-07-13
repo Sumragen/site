@@ -45,17 +45,20 @@ define(['../module', 'lodash'], function (module, _) {
                     }
                          */
                         var filteredListOfTeachers = _.filter(data, function (teacher) {
-                            return !_.every(teacher.subjects, function (teachSubject) {
-                                return teachSubject != $scope.lesson.model.subject;
+                            return !_.every(teacher.subject, function (teachSubject) {
+                                return teachSubject.id != $scope.lesson.model.subject_id;
                             })
                         });
                         $scope.lesson.form[1].titleMap = _.map(filteredListOfTeachers, function (teacher) {
-                            return {value: teacher._id, name: teacher.user.name};
+                            return {
+                                value: teacher.id,
+                                name: teacher.user.name || teacher.user.first_name + ' ' + teacher.user.last_name
+                            };
                         });
                         if (_.every(filteredListOfTeachers, function (teacher) {
-                                return !(teacher._id == $scope.lesson.model.teacher);
+                                return !(teacher.id == $scope.lesson.model.teacher_id);
                             })) {
-                            delete $scope.lesson.model.teacher;
+                            delete $scope.lesson.model.teacher_id;
                         }
                         $scope.$broadcast('schemaFormRedraw');
                     });
@@ -64,7 +67,7 @@ define(['../module', 'lodash'], function (module, _) {
                 goToScheduleEditStagePage();
                 $scope.toggleShowEditForm();
             };
-            $scope.toggleShowEditForm = function (stage, suffix, index) {
+            $scope.toggleShowEditForm = function (stage, suffix, index, id) {
                 $scope.lesson.stage = stage;
                 $scope.lesson.suffix = suffix;
                 $scope.lesson.order = index;
@@ -72,8 +75,9 @@ define(['../module', 'lodash'], function (module, _) {
                         if (lesson.stage.stage == stage && lesson.stage.suffix == suffix) {
                             if (lesson.order == index) {
                                 $scope.lesson.model = angular.copy(lesson);
-                                $scope.lesson.model.teacher = $scope.lesson.model.teacher._id;
-                                $scope.lesson.model.subject = $scope.lesson.model.subject._id;
+                                $scope.lesson.model.stage_id = id;
+                                $scope.lesson.model.teacher_id = $scope.lesson.model.teacher.id;
+                                $scope.lesson.model.subject_id = $scope.lesson.model.subject.id;
                                 $scope.lesson.model.order = index;
                                 return false;
                             }
@@ -82,8 +86,7 @@ define(['../module', 'lodash'], function (module, _) {
                         return true;
                     })) {
                     $scope.lesson.model = {
-                        stage: stage,
-                        suffix: suffix,
+                        stage_id: id,
                         order: index,
                         day: $scope.selectedDay.title
                     };
@@ -113,7 +116,7 @@ define(['../module', 'lodash'], function (module, _) {
                     if ($stateParams.day.stage) {
                         $scope.lesson.stage = $stateParams.day.stage.stage;
                         $scope.lesson.suffix = $stateParams.day.stage.suffix;
-                        $scope.toggleShowEditForm($stateParams.day.stage.stage, $stateParams.day.stage.suffix, $stateParams.day.stage.order)
+                        $scope.toggleShowEditForm($stateParams.day.stage.stage, $stateParams.day.stage.suffix, $stateParams.day.stage.order, $stateParams.day.stage.id)
                     }
                 } else {
                     $state.go('dashboard.settings.schedule.selector');
@@ -132,13 +135,13 @@ define(['../module', 'lodash'], function (module, _) {
                 if (form.$valid) {
                     $scope.busy = true;
                     if (typeof $scope.lesson.model.stage == 'object') {
-                        $scope.lesson.model.stage = $scope.lesson.model.stage._id;
+                        $scope.lesson.model.stage = $scope.lesson.model.stage.id;
                     }
                     lessonService.updateLesson($scope.lesson.model)
                         .then(function (data) {
                             goToScheduleEditStagePage();
                             _.every($scope.lessons, function (lesson, index) {
-                                if (lesson._id == data._id) {
+                                if (lesson.id == data.id) {
                                     $scope.lessons[index] = data;
                                     return false;
                                 }
@@ -190,12 +193,12 @@ define(['../module', 'lodash'], function (module, _) {
             $scope.lesson.schema = {
                 "type": "object",
                 "properties": {
-                    'subject': {
-                        type: 'string',
+                    'subject_id': {
+                        type: 'number',
                         title: 'Subject'
                     },
-                    'teacher': {
-                        type: 'string',
+                    'teacher_id': {
+                        type: 'number',
                         title: 'Teacher'
                     },
                     classroom: {
@@ -205,19 +208,19 @@ define(['../module', 'lodash'], function (module, _) {
                     }
                 },
                 "required": [
-                    "subject",
-                    "teacher",
+                    "subject_id",
+                    "teacher_id",
                     "classroom"
                 ]
             };
             $scope.lesson.form = [
                 {
-                    "key": "subject",
+                    "key": "subject_id",
                     type: "select",
                     onChange: "getTeachersNames()"
                 },
                 {
-                    "key": "teacher",
+                    "key": "teacher_id",
                     type: "select",
                     //onChange: "getSubjectsNames()"
                 },
@@ -228,7 +231,7 @@ define(['../module', 'lodash'], function (module, _) {
             ];
 
             function reformatObject(item) {
-                return {value: item._id, name: item.name}
+                return {value: item.id, name: item.name}
             }
         }]);
 });

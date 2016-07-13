@@ -24,9 +24,10 @@ define(['../module', 'lodash'], function (module, _) {
                 lessonService.getLessonsByDay(date.format('dddd'))
                     .then(function (data) {
                         $state.go('dashboard.settings.schedule.edit.day', {
-                            day: {title: date.format('dddd'),
+                            day: {
+                                title: date.format('dddd'),
                                 stage: {
-                                    id: currentStage._id,
+                                    id: currentStage.id,
                                     order: order,
                                     stage: currentStage.stage,
                                     suffix: currentStage.suffix
@@ -39,7 +40,7 @@ define(['../module', 'lodash'], function (module, _) {
                      day: {
                         title: date.format('dddd'),
                         stage: {
-                            id: currentStage._id,
+                            id: currentStage.id,
                             order: order,
                             stage: currentStage.stage,
                             suffix: currentStage.suffix
@@ -50,9 +51,9 @@ define(['../module', 'lodash'], function (module, _) {
 
             $scope.currentDay = {dayOff: 'day off'};
 
-            lessonService.getLessonsByStageId(currentStage._id)
-                .then(function (lessons) {
-                    $scope.currentDay = scheduleDataService.parse(_.filter(lessons, function (lesson) {
+            lessonService.getLessonsByStageId(currentStage.id)
+                .then(function (res) {
+                    $scope.currentDay = scheduleDataService.parse(_.filter(res.lessons, function (lesson) {
                         return (lesson.day == date.format('dddd'));
                     }));
                 });

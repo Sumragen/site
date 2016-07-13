@@ -7,10 +7,10 @@ define(['../module', 'lodash'], function (module, _) {
         '$state',
         '$stateParams',
         'Common.FileUploadingService',
-        'Dashboard.Schedule.ScheduleService',
+        'Common.Model.LessonService',
         'Dashboard.Schedule.ScheduleDataService',
         'scheduleData',
-        function ($scope, $state, $stateParams, fileUploadingService, scheduleService, scheduleDataService, scheduleData) {
+        function ($scope, $state, $stateParams, fileUploadingService, lessonService, scheduleDataService, scheduleData) {
             $scope.busy = false;
 
             var isSettingsPage = $state.current.name.indexOf('settings') > -1;
@@ -59,7 +59,7 @@ define(['../module', 'lodash'], function (module, _) {
                     $scope.notification = 'Please set correct lessons.'
                 } else {
                     $scope.busy = true;
-                    scheduleService.updateLessonList({
+                    lessonService.updateLessonList({
                             stage: $scope.stage,
                             objects: _.map($scope.events, function (event) {
                                 return {
@@ -73,11 +73,11 @@ define(['../module', 'lodash'], function (module, _) {
                             $scope.notification = null;
                         })
                         .catch(function (error) {
-                            _.each(error.errorEvents, function (id) {
+                            _.each(error.objects, function (id) {
                                 $scope.notification = error.message;
                                 overlappedEvents = scheduleDataService.addToOverlappedEvents(overlappedEvents, id);
                                 _.every($scope.events, function (event, index) {
-                                    if (event.lessonId === id) {
+                                    if (event.lessonId == id) {
                                         $scope.events[index] = scheduleDataService.highlight(event, '#FF3F44', '#FF3F44');
                                         return false;
                                     }

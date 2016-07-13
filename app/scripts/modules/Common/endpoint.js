@@ -141,7 +141,7 @@ define(['./module', 'lodash'], function (module, _) {
                     put: function (lesson) {
                         return new API({
                             method: METHODS.PUT,
-                            url: '/lesson/' + lesson._id,
+                            url: '/lesson/' + lesson.id,
                             data: lesson
                         })
                     },

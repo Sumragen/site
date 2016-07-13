@@ -18,7 +18,7 @@
                     class="active">
                     <td>{{stage.stage}}-{{stage.suffix}}</td>
                     <td class="edit-schedule-subject" ng-repeat="num in [0,1,2,3,4,5,6,7,8] track by $index"
-                        ng-click="toggleShowEditForm(stage.stage,stage.suffix,num)">
+                        ng-click="toggleShowEditForm(stage.stage,stage.suffix,num,stage.id)">
                         {{getLessonNameByOrder(stage.stage,stage.suffix,$index)}}
                     </td>
                 </tr>
@@ -36,6 +36,6 @@
               sf-model="lesson.model">
         </form>
         <a class="btn btn-default" ng-click="cancel()">Cancel</a>
-        <a class="btn btn-success" ng-click="(lesson.model._id)?updateLesson(editForm): createLesson(editForm)">{{(lesson.model._id)?'Update':'Create'}}</a>
+        <a class="btn btn-success" ng-click="(lesson.model.id)?updateLesson(editForm): createLesson(editForm)">{{(lesson.model.id)?'Update':'Create'}}</a>
     </div>
 </div>

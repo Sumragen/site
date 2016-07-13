@@ -148,34 +148,34 @@ define(
                     return [400, {errorCode: 5, message: 'Lessons not found'}];
                 }
             });
-            $httpBackend.whenPUT(prefix + '/lessons').respond(function (method, url, tempLessons) {
-                var lessons = fakeDataSource.updateLessons(tempLessons);
-                if (!lessons.isError) {
-                    return [200, lessons.objects, {}];
-                } else {
-                    return [400, {
-                        errorCode: 4,
-                        errorEvents: lessons.objects,
-                        message: 'Some teacher actually are busy'
-                    }];
-                }
-            });
-            $httpBackend.whenPUT(prefix + '/lesson').respond(function (method, url, tempLesson) {
-                var lesson = fakeDataSource.updateLessonById(tempLesson);
-                if (lesson) {
-                    return [200, lesson, {}];
-                } else {
-                    return [400, {errorCode: 4, message: 'wrong update'}];
-                }
-            });
-            $httpBackend.whenPUT(/\/lesson\/(0-9)*/).respond(function (method, url, tempLesson) {
-                var lesson = fakeDataSource.updateLesson(tempLesson);
-                if (lesson) {
-                    return [200, lesson, {}];
-                } else {
-                    return [400, {errorCode: 4, message: 'wrong update'}];
-                }
-            });
+            // $httpBackend.whenPUT(prefix + '/lessons').respond(function (method, url, tempLessons) {
+            //     var lessons = fakeDataSource.updateLessons(tempLessons);
+            //     if (!lessons.isError) {
+            //         return [200, lessons.objects, {}];
+            //     } else {
+            //         return [400, {
+            //             errorCode: 4,
+            //             errorEvents: lessons.objects,
+            //             message: 'Some teacher actually are busy'
+            //         }];
+            //     }
+            // });
+            // $httpBackend.whenPUT(prefix + '/lesson').respond(function (method, url, tempLesson) {
+            //     var lesson = fakeDataSource.updateLessonById(tempLesson);
+            //     if (lesson) {
+            //         return [200, lesson, {}];
+            //     } else {
+            //         return [400, {errorCode: 4, message: 'wrong update'}];
+            //     }
+            // });
+            // $httpBackend.whenPUT(/\/lesson\/(0-9)*/).respond(function (method, url, tempLesson) {
+            //     var lesson = fakeDataSource.updateLesson(tempLesson);
+            //     if (lesson) {
+            //         return [200, lesson, {}];
+            //     } else {
+            //         return [400, {errorCode: 4, message: 'wrong update'}];
+            //     }
+            // });
             $httpBackend.whenDELETE(/\/lesson\/(0-9)*/).respond(function (method, url, tempLesson) {
                 var lessons = fakeDataSource.deleteLesson(tempLesson);
                 if (lessons) {
@@ -299,14 +299,14 @@ define(
                     return [400, {errorCode: 4, message: 'User not found'}]
                 }
             });
-            $httpBackend.whenPUT(prefix + '/lesson').respond(function (method, url, tempLesson) {
-                var lesson = fakeDataSource.updateLesson(tempLesson);
-                if (lesson) {
-                    return [200, lesson, {}];
-                } else {
-                    return [400, {errorCode: 4, message: 'wrong update'}];
-                }
-            });
+            // $httpBackend.whenPUT(prefix + '/lesson').respond(function (method, url, tempLesson) {
+            //     var lesson = fakeDataSource.updateLesson(tempLesson);
+            //     if (lesson) {
+            //         return [200, lesson, {}];
+            //     } else {
+            //         return [400, {errorCode: 4, message: 'wrong update'}];
+            //     }
+            // });
             //$httpBackend.whenGET(prefix + '/schedule').respond(function (method, url) {
             //    var schedule = fakeDataSource.getSchedule();
             //    if (schedule) {

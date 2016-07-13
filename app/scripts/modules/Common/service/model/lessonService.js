@@ -59,6 +59,19 @@ define(['../../module'], function (module) {
                         return $q.reject(err);
                     });
             };
+            service.updateLessonList = function (lessons) {
+                return $http(Endpoint.lesson.updateList(lessons))
+                    .then(function (res) {
+                        if (res.data.isError) {
+                            return $q.reject(res.data);
+                        } else {
+                            return res.data;
+                        }
+                    })
+                    .catch(function (err) {
+                        return $q.reject(err);
+                    });
+            };
             service.deleteLesson = function (id) {
                 return $http(Endpoint.lesson.delete(id))
                     .then(function (res) {

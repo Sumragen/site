@@ -34,18 +34,18 @@ define(
                     return [400, {errorCode: 1, user : user, message: "User created by microsoft account"}];
                 }
             });
-            $httpBackend.whenPOST(prefix + '/login').respond(function (method, url, checkUser) {
-                var user = fakeDataSource.checkCurrentUser(checkUser);
-                if (!user.error) {
-                    return [200, {currentUser: user, sessionToken: 'simple sessionToken'}, {}];
-                } else {
-                    return [400, {errorCode: 1, message: user.error}];
-                }
-            });
-            $httpBackend.whenPOST(prefix + '/register').respond(function (method, url, data) {
-                var user = fakeDataSource.addUser(data);
-                return [200, {currentUser: user, sessionToken: 'simple sessionToken'}, {}];
-            });
+            // $httpBackend.whenPOST(prefix + '/login').respond(function (method, url, checkUser) {
+            //     var user = fakeDataSource.checkCurrentUser(checkUser);
+            //     if (!user.error) {
+            //         return [200, {currentUser: user, sessionToken: 'simple sessionToken'}, {}];
+            //     } else {
+            //         return [400, {errorCode: 1, message: user.error}];
+            //     }
+            // });
+            // $httpBackend.whenPOST(prefix + '/register').respond(function (method, url, data) {
+            //     var user = fakeDataSource.addUser(data);
+            //     return [200, {currentUser: user, sessionToken: 'simple sessionToken'}, {}];
+            // });
 
             //Event
             //$httpBackend.whenGET(prefix + '/events').respond(function (method, url) {
@@ -114,14 +114,14 @@ define(
             //         return [400, {errorCode: 6, message: 'wrong delete'}];
             //     }
             // });
-            $httpBackend.whenPOST(prefix + '/role').respond(function (method, url, data) {
-                var roles = fakeDataSource.addRole(data);
-                if (roles) {
-                    return [200, roles, {}];
-                } else {
-                    return [400, {errorCode: 7, message: 'wrong add role'}];
-                }
-            });
+            // $httpBackend.whenPOST(prefix + '/role').respond(function (method, url, data) {
+            //     var roles = fakeDataSource.addRole(data);
+            //     if (roles) {
+            //         return [200, roles, {}];
+            //     } else {
+            //         return [400, {errorCode: 7, message: 'wrong add role'}];
+            //     }
+            // });
 
             //Lesson
             //$httpBackend.whenGET(/\/lesson\/(0-9)*/).respond(function (method, url, data) {

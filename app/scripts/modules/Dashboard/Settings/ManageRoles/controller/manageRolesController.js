@@ -12,7 +12,10 @@ define(['../module', 'lodash'], function (module, _) {
         'rolesData',
         function ($scope, $http, $timeout, Endpoint, permissionService, manageRolesService, rolesData) {
 
-            $scope.permissionSet = permissionService.getPermissionSet();
+            permissionService.getPermissionSet()
+                .then(function (data) {
+                    $scope.permissionSet = data;
+                });
 
             $scope.permissions = [];
 

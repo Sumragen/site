@@ -430,6 +430,14 @@ define(['./module', 'lodash'], function (module, _) {
                             data: subject
                         })
                     }
+                },
+                permission :{
+                    list : function () {
+                        return new API({
+                            method: METHODS.GET,
+                            url: '/permissions'
+                        })
+                    }
                 }
             };
             return routes;

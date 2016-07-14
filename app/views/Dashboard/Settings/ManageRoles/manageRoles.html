@@ -18,7 +18,7 @@
             </tr>
             </tbody>
         </table>
-        <a class="btn btn-raised btn-success" s-check-permissions="hasAdminRights"
+        <a class="btn btn-raised btn-success" s-check-permissions="IS_ADMIN"
            s-confirm-action="toggleShowRoleEditor()">Create new role</a>
     </div>
     <div ng-show="showRoleEditor">
@@ -45,11 +45,11 @@
 
         <a class="btn btn-raised btn-default" ng-click="toggleShowRoleEditor()">Cancel</a>
 
-        <a class="btn btn-raised btn-success ng-cloak" s-check-permissions="hasAdminRights"
+        <a class="btn btn-raised btn-success ng-cloak" s-check-permissions="IS_ADMIN"
            s-confirm-action="isExist ? updateRole(param) : createRole(param)"
            s-confirm-action-arg="{{currentRole.name}}">{{isExist ? 'Update' : 'Create'}}</a>
 
-        <a class="btn btn-raised btn-warning" s-check-permissions="hasAdminRights" s-confirm-action="deleteRole()"
+        <a class="btn btn-raised btn-warning" s-check-permissions="IS_ADMIN" s-confirm-action="deleteRole()"
            ng-if="isExist" ng-cloak>Delete</a>
     </div>
 </div>

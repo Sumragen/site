@@ -24,13 +24,13 @@ define(['angular', 'angular-animate'], function (module) {
                             {name: 'Manage roles', state: 'dashboard.settings.manageRoles'}
                         ],
                         //check user permissions
-                        redirect: function (user, permissionService) {
-                            var permissions = permissionService.getPermissionSet(),
-                                requiredPermissions = [permissions.isTeacher.value];
-                            if (!user || !permissionService.hasPermissions(requiredPermissions)) {
-                                return 'common.home'
-                            }
-                        }
+                        // redirect: function (user, permissionService) {
+                        //     var permissions = permissionService.getPermissionSet(),
+                        //         requiredPermissions = [permissions.isTeacher.value];
+                        //     if (!user || !permissionService.hasPermissions(requiredPermissions)) {
+                        //         return 'common.home'
+                        //     }
+                        // }
                     }
                 })
                 .state('dashboard.settings.events', {

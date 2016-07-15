@@ -12,6 +12,12 @@ define(['./module', 'lodash'], function (module, _) {
                 PATCH: 'PATCH'
             };
 
+            /**
+             * 
+             * @param options
+             * @returns {*}
+             * @constructor
+             */
             function API(options) {
                 var prefix = '/api';
                 options.url = prefix + options.url;

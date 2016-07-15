@@ -68,7 +68,7 @@ define(['../module', 'lodash'], function (module, _) {
                             var roles = responses[1];
                             var subjectsOfTeacher = responses[2];
                             var currentRole = responses[3];
-                            $scope.user.model = user;
+                            $scope.user.model = _.clone(user);
                             $scope.showSubjects = currentRole.weight >= 50;
                             if (typeof user.role == 'object') {
                                 $scope.user.model.role = user.role_id.toString();

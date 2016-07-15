@@ -7,13 +7,14 @@ define(['../module', 'lodash', 'jquery'], function (module, _) {
         '$scope',
         '$state',
         '$timeout',
+        'moment',
         '$window',
         'InfoWindow',
         'Common.StatePreference',
         'Common.Model.EventService',
         'ScheduleConstants',
         'eventsData',
-        function ($q, $scope, $state, $timeout, $window, InfoWindow, statePreference, eventService, scheduleConstants, eventsData) {
+        function ($q, $scope, $state, $timeout, moment, $window, InfoWindow, statePreference, eventService, scheduleConstants, eventsData) {
             var center = {lat: 46.6718272, lng: 32.6118258};
 
             function initMap(map) {
@@ -23,6 +24,9 @@ define(['../module', 'lodash', 'jquery'], function (module, _) {
                 });
             }
 
+            _.each(eventsData, function (event) {
+                event.date = moment(new Date(event.date)).format('LLL');
+            });
             $scope.eventList = eventsData;
 
             $scope.event = {};
